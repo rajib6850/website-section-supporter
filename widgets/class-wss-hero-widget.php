@@ -405,7 +405,19 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'      => __( 'Console Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-omni-search, {{WRAPPER}} .wss-hero-idx-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-omni-search, {{WRAPPER}} .wss-hero-idx-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
+			)
+		);
+		$this->add_responsive_control(
+			'search_grid_gap',
+			array(
+				'label'      => __( 'Columns Gap', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-omni-grid' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
 			)
 		);
 		$this->add_control(
@@ -414,7 +426,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Border Width', 'website-section-supporter' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array( 'px' => array( 'min' => 0, 'max' => 10 ) ),
-				'selectors' => array( '{{WRAPPER}} .wss-omni-search, {{WRAPPER}} .wss-hero-idx-wrapper' => 'border-width: {{SIZE}}px !important; border-style: solid !important;' ),
+				'selectors' => array( '{{WRAPPER}} .wss-omni-search, {{WRAPPER}} .wss-hero-idx-wrapper' => 'border-width: {{SIZE}}px; border-style: solid;' ),
 			)
 		);
 		$this->add_control(
@@ -423,7 +435,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Border Radius', 'website-section-supporter' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
-				'selectors' => array( '{{WRAPPER}} .wss-omni-search, {{WRAPPER}} .wss-hero-idx-wrapper' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
+				'selectors' => array( '{{WRAPPER}} .wss-omni-search, {{WRAPPER}} .wss-hero-idx-wrapper' => 'border-radius: {{SIZE}}{{UNIT}};' ),
 			)
 		);
 
@@ -516,7 +528,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'      => __( 'Tab Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-omni-tab' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-omni-tab' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
 			)
 		);
 		$this->start_controls_tabs( 'tabs_status_style' );
@@ -575,7 +587,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'      => __( 'Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-omni-submit-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-omni-submit-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
 			)
 		);
 		$this->add_control(
@@ -584,7 +596,20 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Border Radius', 'website-section-supporter' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
-				'selectors' => array( '{{WRAPPER}} .wss-omni-submit-btn' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
+				'selectors' => array( '{{WRAPPER}} .wss-omni-submit-btn' => 'border-radius: {{SIZE}}{{UNIT}};' ),
+			)
+		);
+		$this->add_responsive_control(
+			'btn_full_width',
+			array(
+				'label'        => __( 'Full Width Button', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => '',
+				'return_value' => 'yes',
+				'selectors'    => array(
+					'{{WRAPPER}} .wss-omni-col-btn' => 'flex: 1 1 100%; width: 100%;',
+					'{{WRAPPER}} .wss-omni-submit-btn' => 'width: 100%; justify-content: center;',
+				),
 			)
 		);
 

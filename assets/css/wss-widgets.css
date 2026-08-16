@@ -1644,109 +1644,222 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 }
 
 /* Responsive Omni Search */
-@media (max-width: 1040px) {
+@media (max-width: 1200px) {
+  .wss-omni-search {
+    padding: 14px 18px 16px;
+  }
   .wss-omni-grid {
-    flex-wrap: wrap;
-    gap: 14px;
+    gap: 12px !important;
+  }
+  .wss-omni-col-location {
+    flex: 1.2 !important;
+  }
+  .wss-omni-submit-btn.wss-btn-pill {
+    padding: 12px 20px;
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 991px) {
+  .wss-omni-grid {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
   }
 
   .wss-omni-divider {
-    display: none;
+    display: none !important;
   }
 
   .wss-omni-col-location {
-    flex: 1 1 100%;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(250, 248, 244, 0.1);
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(250, 248, 244, 0.08);
+    box-sizing: border-box !important;
   }
 
   .wss-omni-col-type,
   .wss-omni-col-price,
   .wss-omni-col-beds {
-    flex: 1 1 calc(33.333% - 10px);
+    flex: 1 1 calc(33.333% - 8px) !important;
+    min-width: 130px !important;
     background: rgba(255, 255, 255, 0.03);
-    padding: 10px 14px;
-    border-radius: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
     border: 1px solid rgba(250, 248, 244, 0.08);
+    box-sizing: border-box !important;
   }
 
   .wss-omni-col-btn {
-    flex: 1 1 100%;
-    margin-top: 6px;
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    margin-top: 4px;
   }
 
+  .wss-scope .wss-omni-submit-btn.wss-btn-pill,
+  .wss-scope button.wss-omni-submit-btn.wss-btn-pill,
   .wss-omni-submit-btn {
-    width: 100%;
-    justify-content: center;
-    padding: 14px 20px;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 14px 20px !important;
+    box-sizing: border-box !important;
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 767px) {
   .wss-hero-inner {
-    padding-bottom: 40px !important;
+    padding: 30px 5vw 50px !important;
   }
 
   .wss-hero-search-wrap {
-    margin-top: 22px !important;
+    margin-top: 24px !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   .wss-omni-search {
     padding: 14px 14px 16px;
-    border-radius: 14px;
+    border-radius: 16px;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
+  .wss-scope .wss-omni-tabs,
   .wss-omni-tabs {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 4px !important;
+    gap: 4px !important;
+    box-sizing: border-box !important;
+    margin-bottom: 12px !important;
   }
 
+  .wss-scope .wss-omni-tab,
+  .wss-scope button.wss-omni-tab,
   .wss-omni-tab {
-    flex: 1;
-    text-align: center;
-    padding: 7px 4px !important;
-    font-size: 8.5px !important;
-    letter-spacing: .14em !important;
+    flex: 1 1 0 !important;
+    width: 100% !important;
+    text-align: center !important;
+    padding: 8px 4px !important;
+    font-size: 9px !important;
+    letter-spacing: 0.12em !important;
+    min-width: 0 !important;
+    border-radius: 24px !important;
+    box-sizing: border-box !important;
   }
 
-  .wss-omni-col-location {
-    flex: 1 1 100%;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(250, 248, 244, 0.1);
+  .wss-omni-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
   }
 
+  .wss-omni-col {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+    min-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .wss-omni-col-location,
   .wss-omni-col-type,
   .wss-omni-col-price,
   .wss-omni-col-beds {
-    flex: 1 1 100%;
+    flex: 1 1 100% !important;
+    width: 100% !important;
     background: rgba(255, 255, 255, 0.04);
-    padding: 10px 12px;
-    border-radius: 10px;
+    padding: 10px 14px !important;
+    border-radius: 12px;
     border: 1px solid rgba(250, 248, 244, 0.08);
+    box-sizing: border-box !important;
   }
 
-  /* Prevent iOS Safari from auto-zooming input on focus */
+  .wss-omni-label {
+    font-size: 8.5px !important;
+    margin-bottom: 4px !important;
+  }
+
+  /* Ensure inputs are easily readable on mobile */
   .wss-omni-input,
   .wss-omni-select {
-    font-size: 16px !important;
+    font-size: 15px !important;
   }
 
   .wss-omni-col-btn {
-    flex: 1 1 100%;
-    margin-top: 6px;
+    width: 100% !important;
+    margin-top: 4px !important;
   }
 
+  .wss-scope .wss-omni-submit-btn.wss-btn-pill,
+  .wss-scope button.wss-omni-submit-btn.wss-btn-pill,
   .wss-omni-submit-btn.wss-btn-pill {
-    width: 100%;
-    justify-content: center;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
     padding: 14px 20px !important;
     font-size: 10px !important;
-    letter-spacing: .2em !important;
+    letter-spacing: 0.2em !important;
+    box-sizing: border-box !important;
   }
 
   .wss-scroll-cue {
     display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .wss-hero-inner {
+    padding: 24px 14px 40px !important;
+  }
+
+  .wss-omni-search {
+    padding: 12px 10px 14px;
+    border-radius: 14px;
+  }
+
+  .wss-scope .wss-omni-tabs,
+  .wss-omni-tabs {
+    padding: 3px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .wss-scope .wss-omni-tab,
+  .wss-scope button.wss-omni-tab,
+  .wss-omni-tab {
+    padding: 7px 2px !important;
+    font-size: 8px !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .wss-omni-col-location,
+  .wss-omni-col-type,
+  .wss-omni-col-price,
+  .wss-omni-col-beds {
+    padding: 8px 12px !important;
+  }
+
+  .wss-omni-label {
+    font-size: 8px !important;
+    gap: 4px !important;
+  }
+
+  .wss-omni-input,
+  .wss-omni-select {
+    font-size: 14px !important;
+  }
+
+  .wss-scope .wss-omni-submit-btn.wss-btn-pill,
+  .wss-scope button.wss-omni-submit-btn.wss-btn-pill,
+  .wss-omni-submit-btn.wss-btn-pill {
+    padding: 13px 16px !important;
+    font-size: 9.5px !important;
   }
 }
 
