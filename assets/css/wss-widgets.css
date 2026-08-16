@@ -4,7 +4,6 @@
    ========================================================= */
 
 :root,
-body,
 .wss-scope {
   --wss-ivory: #faf8f4;
   --wss-white: #ffffff;
@@ -28,7 +27,9 @@ body,
   --wss-weight-secondary: var(--e-global-typography-secondary-font-weight, 400);
   --wss-weight-text: var(--e-global-typography-text-font-weight, 300);
   --wss-weight-accent: var(--e-global-typography-accent-font-weight, 400);
+}
 
+.wss-scope {
   font-family: var(--wss-font-text);
   font-weight: var(--wss-weight-text);
   color: var(--wss-ink);
