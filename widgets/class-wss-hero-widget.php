@@ -546,7 +546,7 @@ class WSS_Hero_Widget extends Widget_Base {
 		/* ================= STYLE: SEARCH FIELDS & LABELS ================= */
 		$this->start_controls_section(
 			'style_search_fields',
-			array( 'label' => __( 'Search Fields & Labels', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo' ) )
+			array( 'label' => __( 'Search Fields, Labels & Borders', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo' ) )
 		);
 		$this->add_control( 'label_heading', array( 'label' => __( 'Field Labels', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING ) );
 		$this->add_control(
@@ -569,6 +569,122 @@ class WSS_Hero_Widget extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array( 'name' => 'input_typography', 'selector' => '{{WRAPPER}} .wss-omni-input, {{WRAPPER}} .wss-omni-select' )
+		);
+
+		/* ----- FIELD CARDS / COLUMNS BORDER & BACKGROUND CONTROLS ----- */
+		$this->add_control( 'fields_box_heading', array( 'label' => __( 'Field Box & Borders', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
+
+		$this->add_responsive_control(
+			'field_padding',
+			array(
+				'label'      => __( 'Field Inner Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-omni-col-location, {{WRAPPER}} .wss-omni-col-type, {{WRAPPER}} .wss-omni-col-price, {{WRAPPER}} .wss-omni-col-beds' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'field_border',
+				'label'    => __( 'Border', 'website-section-supporter' ),
+				'selector' => '{{WRAPPER}} .wss-omni-col-location, {{WRAPPER}} .wss-omni-col-type, {{WRAPPER}} .wss-omni-col-price, {{WRAPPER}} .wss-omni-col-beds',
+			)
+		);
+
+		$this->add_responsive_control(
+			'field_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-omni-col-location, {{WRAPPER}} .wss-omni-col-type, {{WRAPPER}} .wss-omni-col-price, {{WRAPPER}} .wss-omni-col-beds' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_field_box_style' );
+		$this->start_controls_tab(
+			'tab_field_box_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
+		$this->add_control(
+			'field_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-omni-col-location, {{WRAPPER}} .wss-omni-col-type, {{WRAPPER}} .wss-omni-col-price, {{WRAPPER}} .wss-omni-col-beds' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'field_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-omni-col-location, {{WRAPPER}} .wss-omni-col-type, {{WRAPPER}} .wss-omni-col-price, {{WRAPPER}} .wss-omni-col-beds' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_field_box_focus',
+			array( 'label' => __( 'Focus / Hover', 'website-section-supporter' ) )
+		);
+		$this->add_control(
+			'field_bg_color_focus',
+			array(
+				'label'     => __( 'Focus Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-omni-col:hover, {{WRAPPER}} .wss-omni-col:focus-within' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'field_border_color_focus',
+			array(
+				'label'     => __( 'Focus Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-omni-col:hover, {{WRAPPER}} .wss-omni-col:focus-within' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		/* Desktop Divider Lines */
+		$this->add_control( 'divider_heading', array( 'label' => __( 'Desktop Column Dividers', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
+		$this->add_control(
+			'divider_color',
+			array(
+				'label'     => __( 'Divider Line Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(250, 248, 244, 0.1)',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-omni-divider' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'divider_height',
+			array(
+				'label'     => __( 'Divider Height', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array( 'px' => array( 'min' => 10, 'max' => 80 ) ),
+				'default'   => array( 'size' => 36 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-omni-divider' => 'height: {{SIZE}}px !important;',
+				),
+			)
 		);
 		$this->end_controls_section();
 
