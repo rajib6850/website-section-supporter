@@ -1231,7 +1231,8 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-hero-mark {
   position: relative;
   z-index: 2;
-  margin-top: 90px;
+  display: block;
+  width: 100%;
   font-family: var(--wss-font-accent);
   letter-spacing: .5em;
   font-size: 13px;
@@ -1712,7 +1713,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 
 @media (max-width: 767px) {
   .wss-hero-inner {
-    padding: 30px 5vw 50px !important;
+    padding: 30px 5vw 50px;
   }
 
   .wss-hero-search-wrap {
@@ -1816,7 +1817,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 
 @media (max-width: 480px) {
   .wss-hero-inner {
-    padding: 24px 14px 40px !important;
+    padding: 24px 14px 40px;
   }
 
   .wss-omni-search {

@@ -365,6 +365,17 @@ class WSS_Hero_Widget extends Widget_Base {
 				'selectors' => array( '{{WRAPPER}} .wss-hero::after' => 'background: linear-gradient(180deg, rgba(19,18,16,.1) 0%, rgba(19,18,16,.15) 45%, {{VALUE}} 100%);' ),
 			)
 		);
+		$this->add_responsive_control(
+			'inner_padding',
+			array(
+				'label'      => __( 'Inner Content Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%', 'vh' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-hero-inner' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		/* ================= STYLE: SEARCH CONSOLE & BACKDROP ================= */
@@ -1037,9 +1048,9 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'      => __( 'Top Spacing', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', 'vh' ),
-				'range'      => array( 'px' => array( 'min' => 0, 'max' => 200 ) ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 500 ) ),
 				'default'    => array( 'size' => 90, 'unit' => 'px' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-hero-inner' => 'padding-top: {{SIZE}}{{UNIT}};' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-hero-mark' => 'margin-top: {{SIZE}}{{UNIT}} !important;' ),
 			)
 		);
 		$this->add_responsive_control(
@@ -1048,8 +1059,8 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'      => __( 'Bottom Spacing (Gap below Mark)', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', 'vh' ),
-				'range'      => array( 'px' => array( 'min' => 0, 'max' => 150 ) ),
-				'selectors'  => array( '{{WRAPPER}} .wss-hero-mark' => 'margin-bottom: {{SIZE}}{{UNIT}};' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 200 ) ),
+				'selectors'  => array( '{{WRAPPER}} .wss-hero-mark' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;' ),
 			)
 		);
 		$this->add_control( 'eyebrow_heading', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
@@ -1241,10 +1252,10 @@ class WSS_Hero_Widget extends Widget_Base {
 						?>
 					<?php endif; ?>
 				</div>
-				<?php if ( ! empty( $s['mark_text'] ) ) : ?>
-					<div class="wss-hero-mark wss-reveal"><?php echo esc_html( $s['mark_text'] ); ?></div>
-				<?php endif; ?>
 				<div class="wss-hero-inner">
+					<?php if ( ! empty( $s['mark_text'] ) ) : ?>
+						<div class="wss-hero-mark wss-reveal"><?php echo esc_html( $s['mark_text'] ); ?></div>
+					<?php endif; ?>
 					<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
 						<div class="wss-hero-eyebrow wss-reveal"><?php echo esc_html( $s['eyebrow'] ); ?></div>
 					<?php endif; ?>
