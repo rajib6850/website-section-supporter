@@ -88,45 +88,137 @@ class WSS_Testimonial_Widget extends Widget_Base {
 			'style_nav',
 			array( 'label' => __( 'Nav Arrows & Dots', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
-		$this->add_control( 'nav_color', array(
-			'label'     => __( 'Arrow Icon Color', 'website-section-supporter' ),
-			'type'      => Controls_Manager::COLOR,
-			'selectors' => array( '{{WRAPPER}} .wss-testi-nav-btns button' => 'color: {{VALUE}};' ),
-		) );
-		$this->add_control( 'nav_border_color', array(
-			'label'     => __( 'Arrow Border Color', 'website-section-supporter' ),
-			'type'      => Controls_Manager::COLOR,
-			'selectors' => array( '{{WRAPPER}} .wss-testi-nav-btns button' => 'border-color: {{VALUE}};' ),
-		) );
-		$this->add_control( 'nav_hover_bg', array(
-			'label'     => __( 'Hover Background', 'website-section-supporter' ),
-			'type'      => Controls_Manager::COLOR,
-			'selectors' => array( '{{WRAPPER}} .wss-testi-nav-btns button:hover' => 'background: {{VALUE}};' ),
-		) );
-		$this->add_control( 'nav_hover_color', array(
-			'label'     => __( 'Hover Icon Color', 'website-section-supporter' ),
-			'type'      => Controls_Manager::COLOR,
-			'selectors' => array( '{{WRAPPER}} .wss-testi-nav-btns button:hover' => 'color: {{VALUE}};' ),
-		) );
+
+		$this->add_control(
+			'nav_arrows_heading',
+			array(
+				'label' => __( 'Navigation Arrows', 'website-section-supporter' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
 		$this->add_responsive_control(
 			'nav_size',
 			array(
 				'label'     => __( 'Button Size', 'website-section-supporter' ),
 				'type'      => Controls_Manager::SLIDER,
-				'range'     => array( 'px' => array( 'min' => 30, 'max' => 80 ) ),
-				'selectors' => array( '{{WRAPPER}} .wss-testi-nav-btns button' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};' ),
+				'range'     => array( 'px' => array( 'min' => 30, 'max' => 90 ) ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-testi-nav-btns button, {{WRAPPER}} .wss-testi-prev, {{WRAPPER}} .wss-testi-next' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'nav_icon_size',
+			array(
+				'label'     => __( 'Icon Size', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array( 'px' => array( 'min' => 10, 'max' => 40 ) ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-testi-nav-btns button svg, {{WRAPPER}} .wss-testi-prev svg, {{WRAPPER}} .wss-testi-next svg' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_testi_nav_style' );
+
+		/* ----- NORMAL TAB ----- */
+		$this->start_controls_tab(
+			'tab_testi_nav_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
+		$this->add_control(
+			'nav_color',
+			array(
+				'label'     => __( 'Arrow Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-testi-nav-btns button, {{WRAPPER}} .wss-testi-prev, {{WRAPPER}} .wss-testi-next' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-testi-nav-btns button svg, {{WRAPPER}} .wss-testi-prev svg, {{WRAPPER}} .wss-testi-next svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_bg',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-testi-nav-btns button, {{WRAPPER}} .wss-testi-prev, {{WRAPPER}} .wss-testi-next' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-testi-nav-btns button, {{WRAPPER}} .wss-testi-prev, {{WRAPPER}} .wss-testi-next' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_tab();
+
+		/* ----- HOVER TAB ----- */
+		$this->start_controls_tab(
+			'tab_testi_nav_hover',
+			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
+		);
+		$this->add_control(
+			'nav_hover_color',
+			array(
+				'label'     => __( 'Hover Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-testi-nav-btns button:hover, {{WRAPPER}} .wss-testi-prev:hover, {{WRAPPER}} .wss-testi-next:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-testi-nav-btns button:hover svg, {{WRAPPER}} .wss-testi-prev:hover svg, {{WRAPPER}} .wss-testi-next:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_hover_bg',
+			array(
+				'label'     => __( 'Hover Background', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-testi-nav-btns button:hover, {{WRAPPER}} .wss-testi-prev:hover, {{WRAPPER}} .wss-testi-next:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-testi-nav-btns button:hover, {{WRAPPER}} .wss-testi-prev:hover, {{WRAPPER}} .wss-testi-next:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		/* ----- DOTS ----- */
+		$this->add_control(
+			'dots_heading',
+			array(
+				'label'     => __( 'Pagination Dots', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			)
 		);
 		$this->add_control( 'dot_color', array(
 			'label'     => __( 'Dot Inactive Color', 'website-section-supporter' ),
 			'type'      => Controls_Manager::COLOR,
-			'separator' => 'before',
-			'selectors' => array( '{{WRAPPER}} .wss-testi-dot' => 'background: {{VALUE}};' ),
+			'selectors' => array( '{{WRAPPER}} .wss-testi-dot' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
 		) );
 		$this->add_control( 'dot_active_color', array(
 			'label'     => __( 'Dot Active Color', 'website-section-supporter' ),
 			'type'      => Controls_Manager::COLOR,
-			'selectors' => array( '{{WRAPPER}} .wss-testi-dot.wss-testi-dot-active' => 'background: {{VALUE}};' ),
+			'selectors' => array( '{{WRAPPER}} .wss-testi-dot.wss-testi-dot-active' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
 		) );
 		$this->end_controls_section();
 	}

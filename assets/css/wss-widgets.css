@@ -2781,15 +2781,15 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  border: 1px solid var(--wss-line) !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  color: var(--wss-ink) !important;
+  border: 1px solid var(--wss-line);
+  background: transparent;
+  background-color: transparent;
+  color: var(--wss-ink);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background .4s ease, border-color .4s ease, transform .4s cubic-bezier(.16, .84, .44, 1), color .4s ease !important;
+  transition: background .4s ease, border-color .4s ease, transform .4s cubic-bezier(.16, .84, .44, 1), color .4s ease;
   outline: none !important;
   box-shadow: none !important;
 }
@@ -2804,23 +2804,25 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-testi-nav-btns button[type="button"]:hover,
 .wss-testi-prev:hover,
 .wss-testi-next:hover {
-  background: var(--wss-ink) !important;
-  background-color: var(--wss-ink) !important;
-  border-color: var(--wss-ink) !important;
-  color: var(--wss-white) !important;
-  transform: scale(1.08) !important;
+  background: var(--wss-ink);
+  background-color: var(--wss-ink);
+  border-color: var(--wss-ink);
+  color: var(--wss-white);
+  transform: scale(1.08);
   outline: none !important;
   box-shadow: none !important;
 }
 
 .wss-testi-nav-btns button svg,
-.wss-testi-nav-btns button[type="button"] svg {
-  width: 18px !important;
-  height: 18px !important;
-  fill: none !important;
-  stroke: currentColor !important;
-  stroke-width: 1.5 !important;
-  transition: transform .4s cubic-bezier(.16, .84, .44, 1) !important;
+.wss-testi-nav-btns button[type="button"] svg,
+.wss-testi-prev svg,
+.wss-testi-next svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  transition: transform .4s cubic-bezier(.16, .84, .44, 1);
 }
 
 .wss-testi-nav-btns .wss-testi-prev:hover svg {
