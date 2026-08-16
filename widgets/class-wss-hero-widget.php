@@ -1034,11 +1034,22 @@ class WSS_Hero_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'mark_margin_top',
 			array(
-				'label'     => __( 'Top Spacing', 'website-section-supporter' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array( 'px' => array( 'min' => 0, 'max' => 200 ) ),
-				'default'   => array( 'size' => 90 ),
-				'selectors' => array( '{{WRAPPER}} .wss-hero-mark' => 'margin-top: {{SIZE}}{{UNIT}};' ),
+				'label'      => __( 'Top Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'vh' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 200 ) ),
+				'default'    => array( 'size' => 90, 'unit' => 'px' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-hero-mark' => 'margin-top: {{SIZE}}{{UNIT}};' ),
+			)
+		);
+		$this->add_responsive_control(
+			'mark_margin_bottom',
+			array(
+				'label'      => __( 'Bottom Spacing (Gap below Mark)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'vh' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 150 ) ),
+				'selectors'  => array( '{{WRAPPER}} .wss-hero-mark' => 'margin-bottom: {{SIZE}}{{UNIT}};' ),
 			)
 		);
 		$this->add_control( 'eyebrow_heading', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
@@ -1049,6 +1060,17 @@ class WSS_Hero_Widget extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array( 'name' => 'eyebrow_typography', 'selector' => '{{WRAPPER}} .wss-hero-eyebrow' )
+		);
+		$this->add_responsive_control(
+			'eyebrow_margin_bottom',
+			array(
+				'label'      => __( 'Eyebrow Bottom Gap (to Heading)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'vh' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 150 ) ),
+				'default'    => array( 'size' => 20, 'unit' => 'px' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-hero-eyebrow' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;' ),
+			)
 		);
 		$this->end_controls_section();
 
@@ -1108,6 +1130,31 @@ class WSS_Hero_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array( 'name' => 'line2_typography', 'selector' => '{{WRAPPER}} .wss-hero-line2' )
 		);
+		$this->add_responsive_control(
+			'heading_line_gap',
+			array(
+				'label'      => __( 'Gap Between Line 1 & Line 2', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'vh' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 100 ) ),
+				'default'    => array( 'size' => 14, 'unit' => 'px' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-hero .wss-hero-line2' => 'margin-top: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'heading_margin_bottom',
+			array(
+				'label'      => __( 'Gap Below Heading (to Search Bar)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'vh' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 150 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-hero-heading-wrap, {{WRAPPER}} .wss-hero h1' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		/* ================= STYLE: SCROLL CUE ================= */
@@ -1125,6 +1172,28 @@ class WSS_Hero_Widget extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array( 'name' => 'scroll_typography', 'selector' => '{{WRAPPER}} .wss-scroll-cue span' )
+		);
+		$this->add_responsive_control(
+			'scroll_bottom_spacing',
+			array(
+				'label'      => __( 'Bottom Position Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'vh', '%' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 200 ) ),
+				'default'    => array( 'size' => 32, 'unit' => 'px' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-scroll-cue' => 'bottom: {{SIZE}}{{UNIT}};' ),
+			)
+		);
+		$this->add_responsive_control(
+			'scroll_item_gap',
+			array(
+				'label'      => __( 'Line to Text Gap', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'default'    => array( 'size' => 14, 'unit' => 'px' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-scroll-cue' => 'gap: {{SIZE}}{{UNIT}};' ),
+			)
 		);
 		$this->end_controls_section();
 	}
