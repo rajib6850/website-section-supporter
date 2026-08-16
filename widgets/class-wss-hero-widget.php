@@ -1089,7 +1089,7 @@ class WSS_Hero_Widget extends Widget_Base {
 					'vh' => array( 'min' => 0, 'max' => 30 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-mark' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-hero-mark' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -1101,6 +1101,22 @@ class WSS_Hero_Widget extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array( 'name' => 'eyebrow_typography', 'selector' => '{{WRAPPER}} .wss-hero-eyebrow' )
+		);
+		$this->add_responsive_control(
+			'eyebrow_margin_top',
+			array(
+				'label'      => __( 'Eyebrow Top Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', 'vh' ),
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 300 ),
+					'em' => array( 'min' => 0, 'max' => 20 ),
+					'vh' => array( 'min' => 0, 'max' => 30 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-hero-eyebrow' => 'margin-top: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
 		);
 		$this->add_responsive_control(
 			'eyebrow_margin_bottom',
