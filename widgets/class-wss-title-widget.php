@@ -254,6 +254,12 @@ class WSS_Title_Widget extends Widget_Base {
 			array( 'label' => __( 'Heading', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
 		$this->add_control( 'line1_heading_ctrl', array( 'label' => __( 'Line 1', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING ) );
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array( 'name' => 'line1_typography', 'selector' => '{{WRAPPER}} .wss-title-heading, {{WRAPPER}} .wss-title-heading .wss-line1' )
+		);
+		$this->start_controls_tabs( 'tabs_line1_style' );
+		$this->start_controls_tab( 'tab_line1_normal', array( 'label' => __( 'Normal', 'website-section-supporter' ) ) );
 		$this->add_control(
 			'line1_color',
 			array(
@@ -262,12 +268,26 @@ class WSS_Title_Widget extends Widget_Base {
 				'selectors' => array( '{{WRAPPER}} .wss-title-heading, {{WRAPPER}} .wss-title-heading .wss-line1' => 'color: {{VALUE}} !important;' ),
 			)
 		);
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array( 'name' => 'line1_typography', 'selector' => '{{WRAPPER}} .wss-title-heading, {{WRAPPER}} .wss-title-heading .wss-line1' )
+		$this->end_controls_tab();
+		$this->start_controls_tab( 'tab_line1_hover', array( 'label' => __( 'Hover', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'line1_hover_color',
+			array(
+				'label'     => __( 'Hover Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-title-component:hover .wss-title-heading, {{WRAPPER}} .wss-title-component:hover .wss-line1, {{WRAPPER}} .wss-title-heading:hover .wss-line1' => 'color: {{VALUE}} !important;' ),
+			)
 		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 
 		$this->add_control( 'line2_heading_ctrl', array( 'label' => __( 'Line 2', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array( 'name' => 'line2_typography', 'selector' => '{{WRAPPER}} .wss-title-heading .wss-line2' )
+		);
+		$this->start_controls_tabs( 'tabs_line2_style' );
+		$this->start_controls_tab( 'tab_line2_normal', array( 'label' => __( 'Normal', 'website-section-supporter' ) ) );
 		$this->add_control(
 			'line2_color',
 			array(
@@ -276,10 +296,18 @@ class WSS_Title_Widget extends Widget_Base {
 				'selectors' => array( '{{WRAPPER}} .wss-title-heading .wss-line2' => 'color: {{VALUE}} !important;' ),
 			)
 		);
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array( 'name' => 'line2_typography', 'selector' => '{{WRAPPER}} .wss-title-heading .wss-line2' )
+		$this->end_controls_tab();
+		$this->start_controls_tab( 'tab_line2_hover', array( 'label' => __( 'Hover', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'line2_hover_color',
+			array(
+				'label'     => __( 'Hover Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-title-component:hover .wss-line2, {{WRAPPER}} .wss-title-heading:hover .wss-line2' => 'color: {{VALUE}} !important;' ),
+			)
 		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 		$this->add_responsive_control(
 			'heading_bottom_spacing',
 			array(

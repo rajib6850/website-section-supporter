@@ -132,8 +132,15 @@ class WSS_Notable_Sales_Widget extends Widget_Base {
 			)
 		);
 		$this->add_control( 'title_heading', array( 'label' => __( 'Title', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
-		$this->add_control( 'title_color', array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .wss-sale-card h3' => 'color: {{VALUE}};' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'title_typography', 'selector' => '{{WRAPPER}} .wss-sale-card h3' ) );
+		$this->start_controls_tabs( 'tabs_sale_title_style' );
+		$this->start_controls_tab( 'tab_sale_title_normal', array( 'label' => __( 'Normal', 'website-section-supporter' ) ) );
+		$this->add_control( 'title_color', array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .wss-sale-card h3' => 'color: {{VALUE}};' ) ) );
+		$this->end_controls_tab();
+		$this->start_controls_tab( 'tab_sale_title_hover', array( 'label' => __( 'Hover', 'website-section-supporter' ) ) );
+		$this->add_control( 'title_hover_color', array( 'label' => __( 'Hover Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-sale-card:hover h3' => 'color: {{VALUE}} !important;' ) ) );
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 		$this->add_control( 'loc_heading', array( 'label' => __( 'Location', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control( 'loc_color', array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-sale-card .wss-loc' => 'color: {{VALUE}};' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'loc_typography', 'selector' => '{{WRAPPER}} .wss-sale-card .wss-loc' ) );

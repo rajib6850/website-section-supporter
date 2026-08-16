@@ -111,8 +111,16 @@ class WSS_Lifestyles_Widget extends Widget_Base {
 			'style_label',
 			array( 'label' => __( 'Item Label', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
-		$this->add_control( 'label_color', array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .wss-lg-item span' => 'color: {{VALUE}};' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'label_typography', 'selector' => '{{WRAPPER}} .wss-lg-item span' ) );
+		$this->start_controls_tabs( 'tabs_label_style' );
+		$this->start_controls_tab( 'tab_label_normal', array( 'label' => __( 'Normal', 'website-section-supporter' ) ) );
+		$this->add_control( 'label_color', array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .wss-lg-item span' => 'color: {{VALUE}};' ) ) );
+		$this->end_controls_tab();
+
+		$this->start_controls_tab( 'tab_label_hover', array( 'label' => __( 'Hover', 'website-section-supporter' ) ) );
+		$this->add_control( 'label_hover_color', array( 'label' => __( 'Hover Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-lg-item:hover span' => 'color: {{VALUE}} !important;' ) ) );
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 		$this->end_controls_section();
 	}
 

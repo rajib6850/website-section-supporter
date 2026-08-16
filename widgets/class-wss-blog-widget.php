@@ -420,8 +420,57 @@ class WSS_Blog_Widget extends Widget_Base {
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'desc_typography', 'selector' => '{{WRAPPER}} .wss-blog-head-desc' ) );
 
 		$this->add_control( 'top_link_heading', array( 'label' => __( 'Top-Right Link', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
-		$this->add_control( 'top_link_color', array( 'label' => __( 'Link Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-blog-head .wss-btn-line' => 'color: {{VALUE}} !important;' ) ) );
-		$this->add_control( 'top_link_hover_color', array( 'label' => __( 'Link Hover Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-blog-head .wss-btn-line:hover' => 'color: {{VALUE}} !important;' ) ) );
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array( 'name' => 'top_link_typography', 'selector' => '{{WRAPPER}} .wss-blog-head .wss-btn-line' )
+		);
+		$this->start_controls_tabs( 'tabs_top_link_style' );
+		$this->start_controls_tab( 'tab_top_link_normal', array( 'label' => __( 'Normal', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'top_link_color',
+			array(
+				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-blog-head .wss-btn-line' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'top_link_icon_color',
+			array(
+				'label'     => __( 'Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-blog-head .wss-btn-line svg' => 'stroke: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_tab();
+
+		$this->start_controls_tab( 'tab_top_link_hover', array( 'label' => __( 'Hover', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'top_link_hover_color',
+			array(
+				'label'     => __( 'Hover Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-blog-head .wss-btn-line:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'top_link_hover_icon_color',
+			array(
+				'label'     => __( 'Hover Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-blog-head .wss-btn-line:hover svg' => 'stroke: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 		$this->end_controls_section();
 
 		/* ================= STYLE: CARDS & GRID ================= */
@@ -449,14 +498,6 @@ class WSS_Blog_Widget extends Widget_Base {
 				'selectors' => array( '{{WRAPPER}} .wss-blog-grid' => 'row-gap: {{SIZE}}{{UNIT}} !important;' ),
 			)
 		);
-		$this->add_control(
-			'card_bg',
-			array(
-				'label'     => __( 'Card Background Color', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .wss-blog-card' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
-			)
-		);
 		$this->add_responsive_control(
 			'card_padding',
 			array(
@@ -479,10 +520,56 @@ class WSS_Blog_Widget extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array( 'name' => 'card_border', 'selector' => '{{WRAPPER}} .wss-blog-card' )
 		);
+
+		$this->start_controls_tabs( 'tabs_card_style' );
+		$this->start_controls_tab( 'tab_card_normal', array( 'label' => __( 'Normal', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'card_bg',
+			array(
+				'label'     => __( 'Card Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-blog-card' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
+			)
+		);
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			array( 'name' => 'card_shadow', 'selector' => '{{WRAPPER}} .wss-blog-card' )
 		);
+		$this->end_controls_tab();
+
+		$this->start_controls_tab( 'tab_card_hover', array( 'label' => __( 'Hover', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'card_hover_bg',
+			array(
+				'label'     => __( 'Hover Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-blog-card:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
+			)
+		);
+		$this->add_control(
+			'card_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-blog-card:hover' => 'border-color: {{VALUE}} !important;' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array( 'name' => 'card_hover_shadow', 'selector' => '{{WRAPPER}} .wss-blog-card:hover' )
+		);
+		$this->add_control(
+			'card_hover_lift',
+			array(
+				'label'     => __( 'Hover Lift (px)', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array( 'px' => array( 'min' => 0, 'max' => 30 ) ),
+				'default'   => array( 'size' => 6 ),
+				'selectors' => array( '{{WRAPPER}} .wss-blog-card:hover' => 'transform: translateY(-{{SIZE}}px) !important;' ),
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 		$this->end_controls_section();
 
 		/* ================= STYLE: IMAGES ================= */
@@ -516,6 +603,22 @@ class WSS_Blog_Widget extends Widget_Base {
 			'style_badge',
 			array( 'label' => __( 'Category Badge', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array( 'name' => 'badge_typography', 'selector' => '{{WRAPPER}} .wss-blog-badge' )
+		);
+		$this->add_control(
+			'badge_border_radius',
+			array(
+				'label'     => __( 'Border Radius', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
+				'default'   => array( 'size' => 30 ),
+				'selectors' => array( '{{WRAPPER}} .wss-blog-badge' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
+			)
+		);
+		$this->start_controls_tabs( 'tabs_badge_style' );
+		$this->start_controls_tab( 'tab_badge_normal', array( 'label' => __( 'Normal', 'website-section-supporter' ) ) );
 		$this->add_control(
 			'badge_color',
 			array(
@@ -540,10 +643,35 @@ class WSS_Blog_Widget extends Widget_Base {
 				'selectors' => array( '{{WRAPPER}} .wss-blog-badge' => 'border-color: {{VALUE}} !important;' ),
 			)
 		);
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array( 'name' => 'badge_typography', 'selector' => '{{WRAPPER}} .wss-blog-badge' )
+		$this->end_controls_tab();
+
+		$this->start_controls_tab( 'tab_badge_hover', array( 'label' => __( 'Hover', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'badge_hover_color',
+			array(
+				'label'     => __( 'Hover Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-blog-card:hover .wss-blog-badge' => 'color: {{VALUE}} !important;' ),
+			)
 		);
+		$this->add_control(
+			'badge_hover_bg',
+			array(
+				'label'     => __( 'Hover Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-blog-card:hover .wss-blog-badge' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
+			)
+		);
+		$this->add_control(
+			'badge_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-blog-card:hover .wss-blog-badge' => 'border-color: {{VALUE}} !important;' ),
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 		$this->end_controls_section();
 
 		/* ================= STYLE: META ================= */
@@ -580,6 +708,12 @@ class WSS_Blog_Widget extends Widget_Base {
 			'style_title',
 			array( 'label' => __( 'Article Title', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array( 'name' => 'title_typography', 'selector' => '{{WRAPPER}} .wss-blog-title' )
+		);
+		$this->start_controls_tabs( 'tabs_title_style' );
+		$this->start_controls_tab( 'tab_title_normal', array( 'label' => __( 'Normal', 'website-section-supporter' ) ) );
 		$this->add_control(
 			'title_color',
 			array(
@@ -588,18 +722,20 @@ class WSS_Blog_Widget extends Widget_Base {
 				'selectors' => array( '{{WRAPPER}} .wss-blog-title' => 'color: {{VALUE}} !important;' ),
 			)
 		);
+		$this->end_controls_tab();
+
+		$this->start_controls_tab( 'tab_title_hover', array( 'label' => __( 'Hover', 'website-section-supporter' ) ) );
 		$this->add_control(
 			'title_hover_color',
 			array(
-				'label'     => __( 'Title Hover Color', 'website-section-supporter' ),
+				'label'     => __( 'Hover Title Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( '{{WRAPPER}} .wss-blog-card:hover .wss-blog-title' => 'color: {{VALUE}} !important;' ),
 			)
 		);
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array( 'name' => 'title_typography', 'selector' => '{{WRAPPER}} .wss-blog-title' )
-		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
 		$this->add_responsive_control(
 			'title_spacing',
 			array(
@@ -607,6 +743,7 @@ class WSS_Blog_Widget extends Widget_Base {
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
 				'default'   => array( 'size' => 12 ),
+				'separator' => 'before',
 				'selectors' => array( '{{WRAPPER}} .wss-blog-title' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;' ),
 			)
 		);
@@ -636,26 +773,49 @@ class WSS_Blog_Widget extends Widget_Base {
 			'style_more_link',
 			array( 'label' => __( 'Read More Link', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array( 'name' => 'more_typography', 'selector' => '{{WRAPPER}} .wss-blog-more' )
+		);
+		$this->start_controls_tabs( 'tabs_more_style' );
+		$this->start_controls_tab( 'tab_more_normal', array( 'label' => __( 'Normal', 'website-section-supporter' ) ) );
 		$this->add_control(
 			'more_color',
 			array(
-				'label'     => __( 'Color', 'website-section-supporter' ),
+				'label'     => __( 'Link Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( '{{WRAPPER}} .wss-blog-more' => 'color: {{VALUE}} !important;' ),
 			)
 		);
 		$this->add_control(
+			'more_icon_color',
+			array(
+				'label'     => __( 'Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-blog-more svg' => 'stroke: {{VALUE}} !important;' ),
+			)
+		);
+		$this->end_controls_tab();
+
+		$this->start_controls_tab( 'tab_more_hover', array( 'label' => __( 'Hover', 'website-section-supporter' ) ) );
+		$this->add_control(
 			'more_hover_color',
 			array(
-				'label'     => __( 'Hover Color', 'website-section-supporter' ),
+				'label'     => __( 'Hover Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array( '{{WRAPPER}} .wss-blog-card:hover .wss-blog-more' => 'color: {{VALUE}} !important;' ),
 			)
 		);
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array( 'name' => 'more_typography', 'selector' => '{{WRAPPER}} .wss-blog-more' )
+		$this->add_control(
+			'more_hover_icon_color',
+			array(
+				'label'     => __( 'Hover Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-blog-card:hover .wss-blog-more svg' => 'stroke: {{VALUE}} !important;' ),
+			)
 		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 		$this->end_controls_section();
 
 		/* ================= STYLE: BOTTOM CTA ================= */
