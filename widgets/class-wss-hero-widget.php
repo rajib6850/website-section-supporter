@@ -1029,7 +1029,8 @@ class WSS_Hero_Widget extends Widget_Base {
 				),
 				'default'    => array( 'unit' => '%', 'size' => 100 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-mark, {{WRAPPER}} .wss-hero-eyebrow' => 'width: {{SIZE}}{{UNIT}}; max-width: {{SIZE}}{{UNIT}}; margin-left: auto; margin-right: auto;',
+					'{{WRAPPER}} .wss-hero-mark'    => 'width: {{SIZE}}{{UNIT}} !important; max-width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-hero-eyebrow' => 'width: {{SIZE}}{{UNIT}} !important; max-width: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -1045,14 +1046,15 @@ class WSS_Hero_Widget extends Widget_Base {
 					'vw' => array( 'min' => 10, 'max' => 100, 'step' => 1 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-mark, {{WRAPPER}} .wss-hero-eyebrow' => 'max-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .wss-hero-mark'    => 'max-width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-hero-eyebrow' => 'max-width: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
 		$this->add_control( 'mark_heading', array( 'label' => __( 'Top Mark', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'mark_color',
-			array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .wss-hero-mark' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .wss-hero-mark' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
@@ -1064,10 +1066,14 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'      => __( 'Top Spacing', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', 'vh' ),
-				'range'      => array( 'px' => array( 'min' => 0, 'max' => 500 ) ),
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 500 ),
+					'em' => array( 'min' => 0, 'max' => 30 ),
+					'vh' => array( 'min' => 0, 'max' => 50 ),
+				),
 				'default'    => array( 'size' => 90, 'unit' => 'px' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-mark' => 'margin-top: {{SIZE}}{{UNIT}} !important; display: block !important;',
+					'{{WRAPPER}} .wss-hero-mark' => 'margin-top: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -1077,16 +1083,20 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'      => __( 'Bottom Spacing (Gap below Mark)', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', 'vh' ),
-				'range'      => array( 'px' => array( 'min' => 0, 'max' => 300 ) ),
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 300 ),
+					'em' => array( 'min' => 0, 'max' => 20 ),
+					'vh' => array( 'min' => 0, 'max' => 30 ),
+				),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-mark' => 'margin-bottom: {{SIZE}}{{UNIT}} !important; display: block !important;',
+					'{{WRAPPER}} .wss-hero-mark' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
 		$this->add_control( 'eyebrow_heading', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'eyebrow_color',
-			array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => 'rgba(250,248,244,.75)', 'selectors' => array( '{{WRAPPER}} .wss-hero-eyebrow' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => 'rgba(250,248,244,.75)', 'selectors' => array( '{{WRAPPER}} .wss-hero-eyebrow' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
@@ -1098,9 +1108,15 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'      => __( 'Eyebrow Bottom Gap (to Heading)', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', 'vh' ),
-				'range'      => array( 'px' => array( 'min' => 0, 'max' => 150 ) ),
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 200 ),
+					'em' => array( 'min' => 0, 'max' => 15 ),
+					'vh' => array( 'min' => 0, 'max' => 20 ),
+				),
 				'default'    => array( 'size' => 20, 'unit' => 'px' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-hero-eyebrow' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-hero-eyebrow' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
 			)
 		);
 		$this->end_controls_section();
@@ -1123,7 +1139,8 @@ class WSS_Hero_Widget extends Widget_Base {
 				),
 				'default'    => array( 'unit' => '%', 'size' => 100 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-heading-wrap, {{WRAPPER}} .wss-hero h1' => 'width: {{SIZE}}{{UNIT}}; max-width: {{SIZE}}{{UNIT}}; margin-left: auto; margin-right: auto;',
+					'{{WRAPPER}} .wss-hero-heading-wrap' => 'width: {{SIZE}}{{UNIT}} !important; max-width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-hero h1'           => 'width: {{SIZE}}{{UNIT}} !important; max-width: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
@@ -1139,7 +1156,8 @@ class WSS_Hero_Widget extends Widget_Base {
 					'vw' => array( 'min' => 10, 'max' => 100, 'step' => 1 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-heading-wrap, {{WRAPPER}} .wss-hero h1' => 'max-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .wss-hero-heading-wrap' => 'max-width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-hero h1'           => 'max-width: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
