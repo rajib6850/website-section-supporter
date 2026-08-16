@@ -25,14 +25,98 @@
   box-sizing: border-box;
 }
 
-.wss-scope img {
-  max-width: 100%;
-  display: block;
-}
-
-.wss-scope a {
+/* =========================================================
+   Theme & Elementor Focus / Active / Outline Luxury Reset
+   Prevents default theme/Elementor blue outlines and colors
+   ========================================================= */
+.wss-scope a,
+.wss-scope button,
+.wss-scope input,
+.wss-scope select,
+.wss-scope textarea {
   color: inherit;
   text-decoration: none;
+  background: transparent;
+  outline: none !important;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wss-scope a:visited {
+  color: inherit;
+}
+
+.wss-scope a:focus,
+.wss-scope a:active,
+.wss-scope a:focus-visible,
+.wss-scope button:focus,
+.wss-scope button:active,
+.wss-scope button:focus-visible,
+.wss-scope input:focus,
+.wss-scope input:active,
+.wss-scope input:focus-visible,
+.wss-scope select:focus,
+.wss-scope select:active,
+.wss-scope select:focus-visible,
+.wss-scope textarea:focus,
+.wss-scope textarea:active,
+.wss-scope textarea:focus-visible {
+  color: inherit;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+/* Specific Focus Isolation for All Buttons & Navs */
+.wss-scope .wss-btn-pill:focus,
+.wss-scope .wss-btn-pill:active,
+.wss-scope .wss-btn-pill:focus-visible,
+.wss-scope .wss-btn-solid:focus,
+.wss-scope .wss-btn-solid:active,
+.wss-scope .wss-btn-solid:focus-visible,
+.wss-scope .wss-btn-glass:focus,
+.wss-scope .wss-btn-glass:active,
+.wss-scope .wss-btn-glass:focus-visible,
+.wss-scope .wss-btn-line:focus,
+.wss-scope .wss-btn-line:active,
+.wss-scope .wss-btn-line:focus-visible,
+.wss-scope .wss-header-cta:focus,
+.wss-scope .wss-header-cta:active,
+.wss-scope .wss-header-cta:focus-visible,
+.wss-scope .wss-nav-link:focus,
+.wss-scope .wss-nav-link:active,
+.wss-scope .wss-nav-link:focus-visible,
+.wss-scope .wss-omni-submit-btn:focus,
+.wss-scope .wss-omni-submit-btn:active,
+.wss-scope .wss-omni-submit-btn:focus-visible,
+.wss-scope .wss-sales-nav button:focus,
+.wss-scope .wss-sales-nav button:active,
+.wss-scope .wss-sales-nav button:focus-visible,
+.wss-scope .wss-test-nav button:focus,
+.wss-scope .wss-test-nav button:active,
+.wss-scope .wss-test-nav button:focus-visible,
+.wss-scope .wss-testi-nav-btns button:focus,
+.wss-scope .wss-testi-nav-btns button:active,
+.wss-scope .wss-testi-nav-btns button:focus-visible,
+.wss-scope .wss-testi-dot:focus,
+.wss-scope .wss-testi-dot:active,
+.wss-scope .wss-testi-dot:focus-visible,
+.wss-scope .wss-nl-row button:focus,
+.wss-scope .wss-nl-row button:active,
+.wss-scope .wss-nl-row button:focus-visible,
+.wss-scope .wss-blog-more:focus,
+.wss-scope .wss-blog-more:active,
+.wss-scope .wss-blog-more:focus-visible,
+.wss-scope .wss-blog-card:focus,
+.wss-scope .wss-blog-card:active,
+.wss-scope .wss-blog-card:focus-visible,
+.wss-scope .wss-lg-item:focus,
+.wss-scope .wss-lg-item:active,
+.wss-scope .wss-lg-item:focus-visible,
+.wss-scope .wss-tri-panel:focus,
+.wss-scope .wss-tri-panel:active,
+.wss-scope .wss-tri-panel:focus-visible {
+  outline: none !important;
+  text-decoration: none !important;
 }
 
 .wss-scope ul {
