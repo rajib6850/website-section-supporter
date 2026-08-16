@@ -2277,42 +2277,63 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   flex-shrink: 0;
 }
 
-.wss-sales-nav button {
+.wss-scope .wss-sales-nav button,
+.wss-scope .wss-sales-nav button[type="button"],
+.wss-sales-nav button,
+.wss-sales-nav button[type="button"],
+.wss-sales-prev,
+.wss-sales-next {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  border: 1px solid rgba(250, 248, 244, .2);
-  background: rgba(255, 255, 255, .05);
-  color: var(--wss-white);
+  border: 1px solid rgba(250, 248, 244, .2) !important;
+  background: rgba(255, 255, 255, .05) !important;
+  background-color: rgba(255, 255, 255, .05) !important;
+  color: var(--wss-white) !important;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background .4s ease, border-color .4s ease, transform .4s cubic-bezier(.16, .84, .44, 1);
+  transition: background .4s ease, border-color .4s ease, transform .4s cubic-bezier(.16, .84, .44, 1), color .4s ease !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.wss-sales-nav button:hover {
-  background: var(--wss-white);
-  color: var(--wss-ink);
-  border-color: var(--wss-white);
-  transform: scale(1.08);
+.wss-scope .wss-sales-nav button:hover,
+.wss-scope .wss-sales-nav button[type="button"]:hover,
+.wss-scope .wss-sales-nav button:focus,
+.wss-scope .wss-sales-nav button[type="button"]:focus,
+.wss-scope .wss-sales-nav button:active,
+.wss-scope .wss-sales-nav button[type="button"]:active,
+.wss-sales-nav button:hover,
+.wss-sales-nav button[type="button"]:hover,
+.wss-sales-prev:hover,
+.wss-sales-next:hover {
+  background: var(--wss-white) !important;
+  background-color: var(--wss-white) !important;
+  color: var(--wss-ink) !important;
+  border-color: var(--wss-white) !important;
+  transform: scale(1.08) !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.wss-sales-nav button svg {
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  transition: transform .4s cubic-bezier(.16, .84, .44, 1);
+.wss-sales-nav button svg,
+.wss-sales-nav button[type="button"] svg {
+  width: 18px !important;
+  height: 18px !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.5 !important;
+  transition: transform .4s cubic-bezier(.16, .84, .44, 1) !important;
 }
 
 .wss-sales-nav .wss-sales-prev:hover svg {
-  transform: translateX(-3px);
+  transform: translateX(-3px) !important;
 }
 
 .wss-sales-nav .wss-sales-next:hover svg {
-  transform: translateX(3px);
+  transform: translateX(3px) !important;
 }
 
 .wss-sales-cta {
@@ -2555,42 +2576,63 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   margin-left: auto;
 }
 
-.wss-testi-nav-btns button {
+.wss-scope .wss-testi-nav-btns button,
+.wss-scope .wss-testi-nav-btns button[type="button"],
+.wss-testi-nav-btns button,
+.wss-testi-nav-btns button[type="button"],
+.wss-testi-prev,
+.wss-testi-next {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  border: 1px solid var(--wss-line);
-  background: none;
-  color: var(--wss-ink);
+  border: 1px solid var(--wss-line) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--wss-ink) !important;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background .4s ease, border-color .4s ease, transform .4s cubic-bezier(.16, .84, .44, 1);
+  transition: background .4s ease, border-color .4s ease, transform .4s cubic-bezier(.16, .84, .44, 1), color .4s ease !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.wss-testi-nav-btns button:hover {
-  background: var(--wss-ink);
-  border-color: var(--wss-ink);
-  color: var(--wss-white);
-  transform: scale(1.08);
+.wss-scope .wss-testi-nav-btns button:hover,
+.wss-scope .wss-testi-nav-btns button[type="button"]:hover,
+.wss-scope .wss-testi-nav-btns button:focus,
+.wss-scope .wss-testi-nav-btns button[type="button"]:focus,
+.wss-scope .wss-testi-nav-btns button:active,
+.wss-scope .wss-testi-nav-btns button[type="button"]:active,
+.wss-testi-nav-btns button:hover,
+.wss-testi-nav-btns button[type="button"]:hover,
+.wss-testi-prev:hover,
+.wss-testi-next:hover {
+  background: var(--wss-ink) !important;
+  background-color: var(--wss-ink) !important;
+  border-color: var(--wss-ink) !important;
+  color: var(--wss-white) !important;
+  transform: scale(1.08) !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.wss-testi-nav-btns button svg {
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  transition: transform .4s cubic-bezier(.16, .84, .44, 1);
+.wss-testi-nav-btns button svg,
+.wss-testi-nav-btns button[type="button"] svg {
+  width: 18px !important;
+  height: 18px !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.5 !important;
+  transition: transform .4s cubic-bezier(.16, .84, .44, 1) !important;
 }
 
 .wss-testi-nav-btns .wss-testi-prev:hover svg {
-  transform: translateX(-3px);
+  transform: translateX(-3px) !important;
 }
 
 .wss-testi-nav-btns .wss-testi-next:hover svg {
-  transform: translateX(3px);
+  transform: translateX(3px) !important;
 }
 
 /* Media: person portrait */

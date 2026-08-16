@@ -154,14 +154,76 @@ class WSS_Notable_Sales_Widget extends Widget_Base {
 			'style_nav',
 			array( 'label' => __( 'Nav Arrows', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
-		$this->add_control( 'nav_color', array( 'label' => __( 'Icon/Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array(
-			'{{WRAPPER}} .wss-sales-nav button' => 'color: {{VALUE}}; border-color: {{VALUE}};',
-		) ) );
-		$this->add_control( 'nav_hover_bg', array( 'label' => __( 'Hover Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-sales-nav button:hover' => 'background: {{VALUE}};' ) ) );
-		$this->add_control( 'nav_hover_color', array( 'label' => __( 'Hover Icon Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-sales-nav button:hover' => 'color: {{VALUE}};' ) ) );
+		$this->start_controls_tabs( 'tabs_sales_nav_style' );
+		$this->start_controls_tab( 'tab_sales_nav_normal', array( 'label' => __( 'Normal', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'nav_color',
+			array(
+				'label'     => __( 'Icon & Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-sales-nav button, {{WRAPPER}} .wss-sales-nav button[type="button"]' => 'color: {{VALUE}} !important; border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_bg',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-sales-nav button, {{WRAPPER}} .wss-sales-nav button[type="button"]' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_tab();
+
+		$this->start_controls_tab( 'tab_sales_nav_hover', array( 'label' => __( 'Hover', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'nav_hover_color',
+			array(
+				'label'     => __( 'Hover Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-sales-nav button:hover, {{WRAPPER}} .wss-sales-nav button[type="button"]:hover, {{WRAPPER}} .wss-sales-nav button:focus' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_hover_bg',
+			array(
+				'label'     => __( 'Hover Background', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-sales-nav button:hover, {{WRAPPER}} .wss-sales-nav button[type="button"]:hover, {{WRAPPER}} .wss-sales-nav button:focus' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important; border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-sales-nav button:hover, {{WRAPPER}} .wss-sales-nav button[type="button"]:hover, {{WRAPPER}} .wss-sales-nav button:focus' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
 		$this->add_control(
 			'nav_size',
-			array( 'label' => __( 'Button Size', 'website-section-supporter' ), 'type' => Controls_Manager::SLIDER, 'range' => array( 'px' => array( 'min' => 30, 'max' => 80 ) ), 'default' => array( 'size' => 46 ), 'selectors' => array( '{{WRAPPER}} .wss-sales-nav button' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};' ) )
+			array(
+				'label'     => __( 'Button Size', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array( 'px' => array( 'min' => 30, 'max' => 80 ) ),
+				'default'   => array( 'size' => 46 ),
+				'separator' => 'before',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-sales-nav button, {{WRAPPER}} .wss-sales-nav button[type="button"]' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
 		);
 		$this->end_controls_section();
 
