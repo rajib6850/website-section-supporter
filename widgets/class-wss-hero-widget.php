@@ -351,8 +351,24 @@ class WSS_Hero_Widget extends Widget_Base {
 				'default'   => 'center',
 				'selectors' => array(
 					'{{WRAPPER}} .wss-hero' => 'text-align: {{VALUE}}; align-items: {{VALUE}};',
-					'{{WRAPPER}} .wss-hero-inner' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .wss-hero-inner' => 'text-align: {{VALUE}}; align-items: {{VALUE}};',
 					'{{WRAPPER}} .wss-hero-heading-wrap' => 'text-align: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'vertical_align',
+			array(
+				'label'     => __( 'Vertical Position', 'website-section-supporter' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'flex-start' => array( 'title' => __( 'Top', 'website-section-supporter' ), 'icon' => 'eicon-v-align-top' ),
+					'center'     => array( 'title' => __( 'Middle', 'website-section-supporter' ), 'icon' => 'eicon-v-align-middle' ),
+					'flex-end'   => array( 'title' => __( 'Bottom', 'website-section-supporter' ), 'icon' => 'eicon-v-align-bottom' ),
+				),
+				'default'   => 'center',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-hero' => 'justify-content: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1050,7 +1066,9 @@ class WSS_Hero_Widget extends Widget_Base {
 				'size_units' => array( 'px', 'em', 'vh' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 500 ) ),
 				'default'    => array( 'size' => 90, 'unit' => 'px' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-hero-mark' => 'margin-top: {{SIZE}}{{UNIT}} !important;' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-hero-mark' => 'margin-top: {{SIZE}}{{UNIT}} !important; display: block !important;',
+				),
 			)
 		);
 		$this->add_responsive_control(
@@ -1059,8 +1077,10 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'      => __( 'Bottom Spacing (Gap below Mark)', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', 'vh' ),
-				'range'      => array( 'px' => array( 'min' => 0, 'max' => 200 ) ),
-				'selectors'  => array( '{{WRAPPER}} .wss-hero-mark' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 300 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-hero-mark' => 'margin-bottom: {{SIZE}}{{UNIT}} !important; display: block !important;',
+				),
 			)
 		);
 		$this->add_control( 'eyebrow_heading', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );

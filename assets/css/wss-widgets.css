@@ -1164,7 +1164,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   background: var(--wss-charcoal);
   color: var(--wss-white);
   overflow: hidden;
@@ -1231,7 +1231,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-hero-mark {
   position: relative;
   z-index: 2;
-  display: block;
+  display: block !important;
   width: 100%;
   font-family: var(--wss-font-accent);
   letter-spacing: .5em;
@@ -1239,6 +1239,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
+  line-height: 1.4;
 }
 
 .wss-hero-inner {
@@ -1250,18 +1251,26 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   padding: 30px 6vw 70px;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .wss-hero-eyebrow {
+  position: relative;
+  z-index: 2;
+  display: block !important;
+  width: 100%;
   font-family: var(--wss-font-accent);
   font-size: 11px;
   letter-spacing: .36em;
   color: rgba(250, 248, 244, .75);
-  margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
   font-weight: var(--wss-weight-accent);
   box-sizing: border-box;
+  line-height: 1.4;
 }
 
 .wss-hero-heading-wrap {
