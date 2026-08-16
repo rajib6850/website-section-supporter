@@ -15,8 +15,20 @@
   --wss-line-on-dark: rgba(250, 248, 244, 0.16);
   --wss-grey: #8c8577;
   --wss-ease: cubic-bezier(.16, .84, .44, 1);
-  font-family: 'Work Sans', sans-serif;
-  font-weight: 300;
+
+  /* Dynamic Elementor Site Settings Global Fonts Mapping */
+  --wss-font-primary: var(--e-global-typography-primary-font-family, 'Syncopate', sans-serif);
+  --wss-font-secondary: var(--e-global-typography-secondary-font-family, 'Work Sans', sans-serif);
+  --wss-font-text: var(--e-global-typography-text-font-family, var(--wss-font-secondary, 'Work Sans', sans-serif));
+  --wss-font-accent: var(--e-global-typography-accent-font-family, var(--wss-font-primary, 'Syncopate', sans-serif));
+
+  --wss-weight-primary: var(--e-global-typography-primary-font-weight, 700);
+  --wss-weight-secondary: var(--e-global-typography-secondary-font-weight, 400);
+  --wss-weight-text: var(--e-global-typography-text-font-weight, 300);
+  --wss-weight-accent: var(--e-global-typography-accent-font-weight, 400);
+
+  font-family: var(--wss-font-text);
+  font-weight: var(--wss-weight-text);
   color: var(--wss-ink);
   background: transparent;
 }
@@ -129,20 +141,20 @@
 .wss-scope h2,
 .wss-scope h3,
 .wss-disp {
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-primary);
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  font-weight: 700;
+  font-weight: var(--wss-weight-primary);
   line-height: 1.08;
   margin: 0;
 }
 
 .wss-eyebrow {
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 11px;
   letter-spacing: .32em;
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: var(--wss-weight-accent);
   color: var(--wss-grey);
   display: inline-block;
 }
@@ -180,7 +192,7 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 11px;
   letter-spacing: .26em;
   text-transform: uppercase;
@@ -220,7 +232,7 @@
   border: 1px solid var(--wss-ink);
   border-radius: 40px;
   padding: 14px 28px;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 10px;
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -392,7 +404,7 @@ body.admin-bar #wss-menu {
 }
 
 .wss-logo {
-  font-family: 'Syncopate';
+  font-family: var(--wss-font-primary);
   font-size: 17px;
   letter-spacing: .32em;
   font-weight: 700;
@@ -438,7 +450,7 @@ body.admin-bar #wss-menu {
 }
 
 .wss-inline-menu-links>li>a {
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 11px;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -547,7 +559,7 @@ body.admin-bar #wss-menu {
 .wss-inline-menu-links .sub-menu a:visited {
   padding: 11px 22px;
   display: flex;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 10px;
   letter-spacing: .16em;
   text-transform: uppercase;
@@ -585,7 +597,7 @@ body.admin-bar #wss-menu {
   box-shadow: none !important;
   outline: none !important;
   cursor: pointer !important;
-  font-family: 'Syncopate', sans-serif !important;
+  font-family: var(--wss-font-accent) !important;
   font-size: 11px !important;
   letter-spacing: .28em !important;
   text-transform: uppercase !important;
@@ -684,7 +696,7 @@ body.wss-menu-open .wss-logo {
   display: grid;
   grid-template-columns: 42% 58%;
   background: #ffffff;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   box-sizing: border-box;
   overflow: hidden;
   /* Menu itself doesn't move — children do */
@@ -763,7 +775,7 @@ body.wss-menu-open #wss-menu .wss-menu-right {
 }
 
 #wss-menu .wss-menu-logo {
-  font-family: 'Syncopate', sans-serif !important;
+  font-family: var(--wss-font-accent) !important;
   font-size: clamp(11px, 3.2vw, 14px) !important;
   letter-spacing: .15em !important;
   font-weight: 700 !important;
@@ -861,7 +873,7 @@ body.wss-menu-open #wss-menu .wss-menu-right {
   border: none !important;
   box-shadow: none !important;
   cursor: pointer;
-  font-family: 'Syncopate', sans-serif !important;
+  font-family: var(--wss-font-accent) !important;
   font-size: 11px !important;
   letter-spacing: .28em !important;
   text-transform: uppercase !important;
@@ -929,7 +941,7 @@ body.wss-menu-open #wss-menu .wss-menu-right {
   align-items: center !important;
   justify-content: space-between !important;
   padding: 16px 4px !important;
-  font-family: 'Syncopate', sans-serif !important;
+  font-family: var(--wss-font-accent) !important;
   font-size: clamp(15px, 1.6vw, 18px) !important;
   letter-spacing: .2em !important;
   color: #1a1812;
@@ -1013,7 +1025,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 #wss-menu .wss-menu-links > li > .sub-menu > li > a,
 #wss-menu .wss-menu-links > li > .sub-menu > li > a:link,
 #wss-menu .wss-menu-links > li > .sub-menu > li > a:visited {
-  font-family: 'Syncopate', sans-serif !important;
+  font-family: var(--wss-font-accent) !important;
   font-size: clamp(13px, 1.3vw, 15px) !important;
   font-weight: 500 !important;
   letter-spacing: .18em !important;
@@ -1129,7 +1141,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   color: #8c8577;
   line-height: 1.9;
   margin: 0;
-  font-family: 'Work Sans', sans-serif;
+  font-family: var(--wss-font-text);
   font-weight: 300;
 }
 
@@ -1220,7 +1232,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   position: relative;
   z-index: 2;
   margin-top: 90px;
-  font-family: 'Syncopate';
+  font-family: var(--wss-font-accent);
   letter-spacing: .5em;
   font-size: 13px;
 }
@@ -1232,7 +1244,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 }
 
 .wss-hero-eyebrow {
-  font-family: 'Syncopate';
+  font-family: var(--wss-font-accent);
   font-size: 11px;
   letter-spacing: .36em;
   color: rgba(250, 248, 244, .75);
@@ -1293,7 +1305,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 }
 
 .wss-hero-idx-wrapper .wss-shortcode-notice {
-  font-family: 'Work Sans', sans-serif;
+  font-family: var(--wss-font-text);
   font-size: 13px;
   color: rgba(250, 248, 244, 0.65);
   margin: 0;
@@ -1340,7 +1352,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   background: transparent;
   border: 1px solid transparent;
   color: rgba(250, 248, 244, 0.5);
-  font-family: 'Syncopate', sans-serif !important;
+  font-family: var(--wss-font-accent) !important;
   font-size: 9px !important;
   letter-spacing: .24em !important;
   text-transform: uppercase !important;
@@ -1431,7 +1443,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   display: flex !important;
   align-items: center !important;
   gap: 6px !important;
-  font-family: 'Syncopate', sans-serif !important;
+  font-family: var(--wss-font-accent) !important;
   font-size: 8.5px !important;
   letter-spacing: .22em !important;
   text-transform: uppercase !important;
@@ -1466,7 +1478,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   border-style: none !important;
   border-radius: 0 !important;
   color: #ffffff;
-  font-family: 'Work Sans', sans-serif !important;
+  font-family: var(--wss-font-text);
   font-size: 14.5px !important;
   font-weight: 400 !important;
   outline: none !important;
@@ -1502,7 +1514,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   border-style: none !important;
   border-radius: 0 !important;
   color: #ffffff;
-  font-family: 'Work Sans', sans-serif !important;
+  font-family: var(--wss-font-text);
   font-size: 14.5px !important;
   font-weight: 400 !important;
   outline: none !important;
@@ -1532,7 +1544,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-omni-select option {
   background: #181715;
   color: #faf8f4;
-  font-family: 'Work Sans', sans-serif !important;
+  font-family: var(--wss-font-text);
   font-size: 14px !important;
   padding: 10px !important;
 }
@@ -1548,7 +1560,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   color: var(--wss-white, #faf8f4);
   border: 1px solid rgba(250, 248, 244, 0.45);
   border-radius: 40px !important;
-  font-family: 'Syncopate', sans-serif !important;
+  font-family: var(--wss-font-accent) !important;
   font-size: 9.5px !important;
   font-weight: 600 !important;
   letter-spacing: .22em !important;
@@ -1755,7 +1767,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 }
 
 .wss-stat .wss-num {
-  font-family: 'Syncopate';
+  font-family: var(--wss-font-accent);
   font-size: clamp(26px, 3.4vw, 42px);
   font-weight: 700;
   color: var(--wss-white, #ffffff);
@@ -2111,7 +2123,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-tri-panel .wss-cap span.wss-tri-title,
 .wss-tri-panel .wss-cap > span {
   display: inline-block;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   color: var(--wss-white);
   font-size: clamp(10px, .9vw, 13px);
   letter-spacing: .28em;
@@ -2131,7 +2143,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 
 /* Luxury Description — smoothly revealed on hover */
 .wss-tri-desc {
-  font-family: 'Work Sans', sans-serif;
+  font-family: var(--wss-font-text);
   font-size: clamp(12px, .85vw, 14px);
   line-height: 1.6;
   color: rgba(250, 248, 244, .85);
@@ -2236,7 +2248,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 }
 
 .wss-sale-card h3 {
-  font-family: 'Work Sans', sans-serif;
+  font-family: var(--wss-font-secondary);
   font-weight: 500;
   font-size: 17px;
   text-transform: none;
@@ -2263,7 +2275,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 }
 
 .wss-sale-card .wss-price {
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-primary);
   font-size: 14px;
   margin-top: 6px;
   letter-spacing: .08em;
@@ -2501,7 +2513,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 }
 
 .wss-quote-mark {
-  font-family: 'Syncopate';
+  font-family: var(--wss-font-accent);
   font-size: 50px;
   color: var(--wss-taupe-deep);
   line-height: 1;
@@ -2532,7 +2544,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 }
 
 .wss-testi .wss-attrib-name {
-  font-family: 'Syncopate';
+  font-family: var(--wss-font-accent);
   font-size: 10px;
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -2773,7 +2785,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   bottom: 16px;
   color: var(--wss-white);
   z-index: 2;
-  font-family: 'Syncopate';
+  font-family: var(--wss-font-accent);
   font-size: 11px;
   letter-spacing: .16em;
   text-transform: uppercase;
@@ -2856,7 +2868,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--wss-white);
-  font-family: 'Work Sans';
+  font-family: var(--wss-font-text);
   font-size: 15px;
   padding: 12px 0;
   outline: none;
@@ -2880,7 +2892,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   color: var(--wss-white);
   border-radius: 40px;
   padding: 14px 28px;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 10px;
   letter-spacing: .2em;
   cursor: pointer;
@@ -3048,7 +3060,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-foot-nav ul a,
 .wss-foot-nav .wss-foot-menu-list a,
 .wss-foot-wp-menu ul a {
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 11px;
   letter-spacing: .16em;
   text-transform: uppercase;
@@ -3156,7 +3168,7 @@ a.wss-badge-item:hover {
 }
 
 .wss-badge-title {
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 9.5px;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -3427,7 +3439,7 @@ body.elementor-editor-active .wss-mask>span {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 10px;
   letter-spacing: .2em;
   color: var(--wss-ink, #1a1812);
@@ -3458,7 +3470,7 @@ body.elementor-editor-active .wss-mask>span {
 }
 
 #wss-preloader .wss-preloader-mark {
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   color: var(--wss-ink, #1a1812);
   font-size: 14px;
   letter-spacing: .5em;
@@ -3532,7 +3544,7 @@ body.elementor-editor-active .wss-mask>span {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 11px;
   letter-spacing: .28em;
   text-transform: uppercase;
@@ -3567,7 +3579,7 @@ body.elementor-editor-active .wss-mask>span {
 }
 
 .wss-title-heading {
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-weight: 700;
   letter-spacing: .06em;
   text-transform: uppercase;
@@ -3587,7 +3599,7 @@ body.elementor-editor-active .wss-mask>span {
 }
 
 .wss-title-desc {
-  font-family: 'Work Sans', sans-serif;
+  font-family: var(--wss-font-text);
   font-size: 16px;
   line-height: 1.75;
   color: var(--wss-ink-soft, #555048);
@@ -3664,7 +3676,7 @@ body.elementor-editor-active .wss-mask>span {
   border: 1px solid var(--wss-ink, #131210);
   border-radius: 4px;
   padding: 14px 28px;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 10px;
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -3714,7 +3726,7 @@ body.elementor-editor-active .wss-mask>span {
   border: 1px solid rgba(250, 248, 244, 0.25);
   border-radius: 40px;
   padding: 14px 28px;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 10px;
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -3812,7 +3824,7 @@ body.elementor-editor-active .wss-mask>span {
   top: 20px;
   left: 20px;
   z-index: 3;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 9px;
   letter-spacing: .22em;
   text-transform: uppercase;
@@ -3852,7 +3864,7 @@ body.elementor-editor-active .wss-mask>span {
   bottom: 20px;
   right: 24px;
   z-index: 3;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 11px;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -3922,7 +3934,7 @@ body.elementor-editor-active .wss-mask>span {
 }
 
 .wss-text-content {
-  font-family: 'Work Sans', sans-serif;
+  font-family: var(--wss-font-text);
   font-size: 16px;
   line-height: 1.85;
   color: var(--wss-ink-soft, #555048);
@@ -3961,7 +3973,7 @@ body.elementor-editor-active .wss-mask>span {
 .wss-text-has-dropcap .wss-text-content > p:first-of-type::first-letter,
 .wss-drop-cap-letter {
   float: left;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 3.4em;
   line-height: 0.85;
   padding-top: 4px;
@@ -3986,7 +3998,7 @@ body.elementor-editor-active .wss-mask>span {
 }
 
 .wss-text-quote-mark {
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 44px;
   line-height: 1;
   color: var(--wss-taupe-deep, #786f60);
@@ -3998,7 +4010,7 @@ body.elementor-editor-active .wss-mask>span {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 9.5px;
   letter-spacing: .24em;
   text-transform: uppercase;
@@ -4064,7 +4076,7 @@ body.elementor-editor-active .wss-mask>span {
 }
 
 .wss-blog-head-desc {
-  font-family: 'Work Sans', sans-serif;
+  font-family: var(--wss-font-text);
   font-size: 16px;
   line-height: 1.7;
   color: var(--wss-ink-soft, #555048);
@@ -4134,7 +4146,7 @@ body.elementor-editor-active .wss-mask>span {
   top: 16px;
   left: 16px;
   z-index: 2;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 8.5px;
   letter-spacing: .22em;
   text-transform: uppercase;
@@ -4154,7 +4166,7 @@ body.elementor-editor-active .wss-mask>span {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 9.5px;
   letter-spacing: .22em;
   text-transform: uppercase;
@@ -4174,7 +4186,7 @@ body.elementor-editor-active .wss-mask>span {
 
 /* Post Title */
 .wss-blog-title {
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-weight: 700;
   font-size: clamp(15px, 1.25vw, 19px);
   letter-spacing: .03em;
@@ -4191,7 +4203,7 @@ body.elementor-editor-active .wss-mask>span {
 
 /* Excerpt */
 .wss-blog-excerpt {
-  font-family: 'Work Sans', sans-serif;
+  font-family: var(--wss-font-text);
   font-size: 14.5px;
   line-height: 1.7;
   color: var(--wss-ink-soft, #555048);
@@ -4208,7 +4220,7 @@ body.elementor-editor-active .wss-mask>span {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: 'Syncopate', sans-serif;
+  font-family: var(--wss-font-accent);
   font-size: 9.5px;
   letter-spacing: .22em;
   text-transform: uppercase;
