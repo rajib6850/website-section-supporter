@@ -211,6 +211,7 @@ class WSS_Newsletter_Widget extends Widget_Base {
 			'type'      => Controls_Manager::COLOR,
 			'selectors' => array(
 				'{{WRAPPER}} .wss-nl-row button::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				'{{WRAPPER}} .wss-nl-row button:hover'   => 'background: transparent !important; background-color: transparent !important;',
 			),
 		) );
 		$this->add_control( 'btn_hover_border_color', array( 'label' => __( 'Hover Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-nl-row button:hover' => 'border-color: {{VALUE}} !important;' ) ) );

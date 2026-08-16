@@ -3070,13 +3070,16 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   text-transform: uppercase;
 }
 
+.wss-scope .wss-nl-row button,
 .wss-nl-row button {
-  background: none;
+  background: transparent !important;
+  background-color: transparent !important;
   border: 1px solid var(--wss-white);
   color: var(--wss-white);
   border-radius: 40px;
   padding: 14px 28px;
-  font-family: var(--wss-font-accent);
+  font-family: var(--wss-font-accent, var(--wss-font-primary, inherit));
+  font-weight: var(--wss-weight-accent, var(--wss-weight-primary, 500));
   font-size: 10px;
   letter-spacing: .2em;
   cursor: pointer;
@@ -3089,8 +3092,11 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   gap: 12px;
   text-transform: uppercase;
   transition: color .4s ease, border-color .4s ease;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
+.wss-scope .wss-nl-row button::before,
 .wss-nl-row button::before {
   content: '';
   position: absolute;
@@ -3099,20 +3105,27 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   width: 100%;
   height: 100%;
   background: var(--wss-btn-hover-bg, var(--wss-white));
+  background-color: var(--wss-btn-hover-bg, var(--wss-white));
   z-index: -1;
   transform: scaleX(0);
   transform-origin: right;
   transition: transform .5s cubic-bezier(.16, .84, .44, 1);
 }
 
+.wss-scope .wss-nl-row button:hover::before,
 .wss-nl-row button:hover::before {
   transform: scaleX(1);
   transform-origin: left;
 }
 
+.wss-scope .wss-nl-row button:hover,
 .wss-nl-row button:hover {
-  color: var(--wss-ink);
+  color: var(--wss-ink) !important;
   border-color: transparent;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .wss-nl-row button svg {
