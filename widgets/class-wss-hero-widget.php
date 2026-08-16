@@ -1039,7 +1039,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'size_units' => array( 'px', 'em', 'vh' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 200 ) ),
 				'default'    => array( 'size' => 90, 'unit' => 'px' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-hero-mark' => 'margin-top: {{SIZE}}{{UNIT}};' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-hero-inner' => 'padding-top: {{SIZE}}{{UNIT}};' ),
 			)
 		);
 		$this->add_responsive_control(
