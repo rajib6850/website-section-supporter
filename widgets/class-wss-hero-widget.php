@@ -1073,7 +1073,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				),
 				'default'    => array( 'size' => 90, 'unit' => 'px' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-mark' => 'margin-top: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-hero-mark' => 'padding-top: {{SIZE}}{{UNIT}} !important; margin-top: 0 !important;',
 				),
 			)
 		);
@@ -1089,7 +1089,7 @@ class WSS_Hero_Widget extends Widget_Base {
 					'vh' => array( 'min' => 0, 'max' => 30 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-mark' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .wss-hero-mark' => 'padding-bottom: {{SIZE}}{{UNIT}} !important; margin-bottom: 0 !important;',
 				),
 			)
 		);
@@ -1114,7 +1114,7 @@ class WSS_Hero_Widget extends Widget_Base {
 					'vh' => array( 'min' => 0, 'max' => 30 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-eyebrow' => 'margin-top: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-hero-eyebrow' => 'padding-top: {{SIZE}}{{UNIT}} !important; margin-top: 0 !important;',
 				),
 			)
 		);
@@ -1131,7 +1131,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				),
 				'default'    => array( 'size' => 20, 'unit' => 'px' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-eyebrow' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-hero-eyebrow' => 'padding-bottom: {{SIZE}}{{UNIT}} !important; margin-bottom: 0 !important;',
 				),
 			)
 		);
@@ -1204,7 +1204,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 100 ) ),
 				'default'    => array( 'size' => 14, 'unit' => 'px' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero .wss-hero-line2' => 'margin-top: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-hero .wss-hero-line2' => 'padding-top: {{SIZE}}{{UNIT}} !important; margin-top: 0 !important;',
 				),
 			)
 		);
@@ -1216,7 +1216,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'size_units' => array( 'px', 'em', 'vh' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 150 ) ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-heading-wrap, {{WRAPPER}} .wss-hero h1' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-hero-heading-wrap, {{WRAPPER}} .wss-hero h1' => 'padding-bottom: {{SIZE}}{{UNIT}} !important; margin-bottom: 0 !important;',
 				),
 			)
 		);
