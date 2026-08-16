@@ -3026,20 +3026,40 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   gap: 20px;
 }
 
-.wss-foot-nav ul {
+.wss-foot-nav ul,
+.wss-foot-nav .wss-foot-menu-list,
+.wss-foot-wp-menu ul {
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.wss-foot-nav ul a {
-  font-family: 'Syncopate';
+.wss-foot-nav ul li,
+.wss-foot-nav .wss-foot-menu-list li,
+.wss-foot-wp-menu ul li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.wss-foot-nav ul a,
+.wss-foot-nav .wss-foot-menu-list a,
+.wss-foot-wp-menu ul a {
+  font-family: 'Syncopate', sans-serif;
   font-size: 11px;
   letter-spacing: .16em;
   text-transform: uppercase;
+  color: inherit;
+  transition: color .35s ease;
+  text-decoration: none;
 }
 
-.wss-foot-nav ul a:hover {
+.wss-foot-nav ul a:hover,
+.wss-foot-nav .wss-foot-menu-list a:hover,
+.wss-foot-wp-menu ul a:hover {
   color: var(--wss-taupe-deep);
 }
 
@@ -3064,6 +3084,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
     border-color .4s cubic-bezier(.16, .84, .44, 1),
     color .4s cubic-bezier(.16, .84, .44, 1),
     transform .4s cubic-bezier(.16, .84, .44, 1);
+  text-decoration: none;
 }
 
 .wss-foot-social a:hover {
@@ -3076,11 +3097,6 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-foot-social a svg {
   width: 15px;
   height: 15px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
   transition: transform .3s cubic-bezier(.16, .84, .44, 1);
 }
 
