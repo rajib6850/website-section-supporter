@@ -319,10 +319,10 @@ class WSS_Hero_Widget extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/* ================= STYLE: SECTION ================= */
+		/* ================= STYLE: SECTION & LAYOUT ================= */
 		$this->start_controls_section(
 			'style_section',
-			array( 'label' => __( 'Section', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
+			array( 'label' => __( 'Section & Content Layout', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
 		$this->add_responsive_control(
 			'min_height',
@@ -338,7 +338,40 @@ class WSS_Hero_Widget extends Widget_Base {
 				'selectors'  => array( '{{WRAPPER}} .wss-hero' => 'min-height: {{SIZE}}{{UNIT}};' ),
 			)
 		);
-		$this->add_control(
+		$this->add_responsive_control(
+			'content_width',
+			array(
+				'label'      => __( 'Content Width', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( '%', 'px', 'vw' ),
+				'range'      => array(
+					'%'  => array( 'min' => 10, 'max' => 100, 'step' => 1 ),
+					'px' => array( 'min' => 300, 'max' => 2400, 'step' => 10 ),
+					'vw' => array( 'min' => 10, 'max' => 100, 'step' => 1 ),
+				),
+				'default'    => array( 'unit' => '%', 'size' => 100 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-hero-inner' => 'width: {{SIZE}}{{UNIT}}; max-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'content_max_width',
+			array(
+				'label'      => __( 'Content Max Width', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 200, 'max' => 2400, 'step' => 10 ),
+					'%'  => array( 'min' => 10, 'max' => 100, 'step' => 1 ),
+					'vw' => array( 'min' => 10, 'max' => 100, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-hero-inner' => 'max-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+		$this->add_responsive_control(
 			'content_align',
 			array(
 				'label'     => __( 'Content Alignment', 'website-section-supporter' ),
@@ -349,7 +382,10 @@ class WSS_Hero_Widget extends Widget_Base {
 					'right'  => array( 'title' => __( 'Right', 'website-section-supporter' ), 'icon' => 'eicon-text-align-right' ),
 				),
 				'default'   => 'center',
-				'selectors' => array( '{{WRAPPER}} .wss-hero' => 'text-align: {{VALUE}}; align-items: {{VALUE}};' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-hero' => 'text-align: {{VALUE}}; align-items: {{VALUE}};',
+					'{{WRAPPER}} .wss-hero-inner' => 'text-align: {{VALUE}};',
+				),
 			)
 		);
 		$this->add_control(
