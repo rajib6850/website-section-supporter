@@ -199,12 +199,35 @@ class WSS_Footer_Widget extends Widget_Base {
 		$this->add_control( 'fine_print', array( 'label' => __( 'Fine Print', 'website-section-supporter' ), 'type' => Controls_Manager::TEXTAREA, 'default' => __( 'The marks used above are used under license by independently owned and operated member offices. Each office fully supports the principles of fair and equal housing opportunity.', 'website-section-supporter' ), 'rows' => 3, 'condition' => array( 'show_legal' => 'yes' ) ) );
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'section_badges', array( 'label' => __( 'Badges (Images)', 'website-section-supporter' ) ) );
+		$this->start_controls_section( 'section_badges', array( 'label' => __( 'Badges & Affiliations', 'website-section-supporter' ) ) );
 		$this->add_control( 'show_badges', array( 'label' => __( 'Show Badges', 'website-section-supporter' ), 'type' => Controls_Manager::SWITCHER, 'default' => 'yes' ) );
 		$badge_repeater = new Repeater();
 		$badge_repeater->add_control( 'image', array(
 			'label' => __( 'Badge Image', 'website-section-supporter' ),
 			'type'  => Controls_Manager::MEDIA,
+		) );
+		$badge_repeater->add_control( 'title', array(
+			'label'       => __( 'Badge Title (Optional)', 'website-section-supporter' ),
+			'type'        => Controls_Manager::TEXT,
+			'default'     => '',
+			'placeholder' => __( 'e.g. Exclusive Member / Affiliate', 'website-section-supporter' ),
+			'description' => __( 'Leave empty if you do not want to display a title.', 'website-section-supporter' ),
+		) );
+		$badge_repeater->add_control( 'title_position', array(
+			'label'     => __( 'Title Position', 'website-section-supporter' ),
+			'type'      => Controls_Manager::CHOOSE,
+			'options'   => array(
+				'top'    => array( 'title' => __( 'Top (Above Image)', 'website-section-supporter' ), 'icon' => 'eicon-v-align-top' ),
+				'bottom' => array( 'title' => __( 'Bottom (Below Image)', 'website-section-supporter' ), 'icon' => 'eicon-v-align-bottom' ),
+			),
+			'default'   => 'bottom',
+			'condition' => array( 'title!' => '' ),
+		) );
+		$badge_repeater->add_control( 'link', array(
+			'label'       => __( 'Link URL (Optional)', 'website-section-supporter' ),
+			'type'        => Controls_Manager::URL,
+			'placeholder' => __( 'https://example.com', 'website-section-supporter' ),
+			'default'     => array( 'url' => '', 'is_external' => true ),
 		) );
 		$badge_repeater->add_control( 'alt_text', array(
 			'label'   => __( 'Alt Text', 'website-section-supporter' ),
@@ -214,14 +237,14 @@ class WSS_Footer_Widget extends Widget_Base {
 		$this->add_control(
 			'badges',
 			array(
-				'label'       => __( 'Badge Images', 'website-section-supporter' ),
+				'label'       => __( 'Badge Items', 'website-section-supporter' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $badge_repeater->get_controls(),
 				'default'     => array(
-					array( 'alt_text' => 'Badge 1' ),
-					array( 'alt_text' => 'Badge 2' ),
+					array( 'title' => '', 'alt_text' => 'Badge 1' ),
+					array( 'title' => '', 'alt_text' => 'Badge 2' ),
 				),
-				'title_field' => '{{{ alt_text || "Badge Image" }}}',
+				'title_field' => '{{{ title ? title : ( alt_text ? alt_text : "Badge Item" ) }}}',
 				'condition'   => array( 'show_badges' => 'yes' )
 			)
 		);
@@ -405,7 +428,7 @@ class WSS_Footer_Widget extends Widget_Base {
 		$this->add_control( 'fine_print_color', array( 'label' => __( 'Fine Print Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-fine' => 'color: {{VALUE}};' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'legal_typography', 'selector' => '{{WRAPPER}} .wss-foot-legal p' ) );
 		
-		$this->add_control( 'badge_heading', array( 'label' => __( 'Badge Images', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
+		$this->add_control( 'badge_heading', array( 'label' => __( 'Badge Images & Titles', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_responsive_control(
 			'badge_height',
 			array(
@@ -426,6 +449,39 @@ class WSS_Footer_Widget extends Widget_Base {
 				'range'      => array( 'px' => array( 'min' => 20, 'max' => 300 ) ),
 				'default'    => array( 'size' => 120, 'unit' => 'px' ),
 				'selectors'  => array( '{{WRAPPER}} .wss-badge-img' => 'max-width: {{SIZE}}{{UNIT}};' ),
+			)
+		);
+		$this->add_responsive_control(
+			'badge_gap',
+			array(
+				'label'      => __( 'Gap Between Items', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 4, 'max' => 60 ) ),
+				'default'    => array( 'size' => 16 ),
+				'selectors'  => array( '{{WRAPPER}} .wss-badges' => 'gap: {{SIZE}}{{UNIT}};' ),
+			)
+		);
+		$this->add_control(
+			'badge_title_color',
+			array(
+				'label'     => __( 'Badge Title Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-badge-title' => 'color: {{VALUE}} !important;' ),
+			)
+		);
+		$this->add_control(
+			'badge_title_hover_color',
+			array(
+				'label'     => __( 'Badge Title Hover Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} a.wss-badge-item:hover .wss-badge-title, {{WRAPPER}} .wss-badge-item a:hover .wss-badge-title' => 'color: {{VALUE}} !important;' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'badge_title_typography',
+				'selector' => '{{WRAPPER}} .wss-badge-title',
 			)
 		);
 		$this->end_controls_section();
@@ -530,12 +586,30 @@ class WSS_Footer_Widget extends Widget_Base {
 							<?php endif; ?>
 							<?php if ( 'yes' === $s['show_badges'] && ! empty( $s['badges'] ) ) : ?>
 								<div class="wss-badges">
-									<?php foreach ( $s['badges'] as $badge ) : ?>
-										<?php if ( ! empty( $badge['image']['url'] ) ) : ?>
-											<div class="wss-badge-img">
-												<img src="<?php echo esc_url( $badge['image']['url'] ); ?>" alt="<?php echo esc_attr( ! empty( $badge['alt_text'] ) ? $badge['alt_text'] : 'Badge' ); ?>" loading="lazy">
-											</div>
-										<?php endif; ?>
+									<?php foreach ( $s['badges'] as $badge ) :
+										$has_img   = ! empty( $badge['image']['url'] );
+										$has_title = ! empty( $badge['title'] );
+										if ( ! $has_img && ! $has_title ) { continue; }
+										$has_link  = ! empty( $badge['link']['url'] );
+										$pos       = ! empty( $badge['title_position'] ) ? $badge['title_position'] : 'bottom';
+										$tag       = $has_link ? 'a' : 'div';
+										$href      = $has_link ? ' href="' . esc_url( $badge['link']['url'] ) . '"' : '';
+										$target    = ( $has_link && ! empty( $badge['link']['is_external'] ) ) ? ' target="_blank" rel="noopener"' : '';
+										$alt       = ! empty( $badge['alt_text'] ) ? $badge['alt_text'] : ( $has_title ? $badge['title'] : 'Badge' );
+									?>
+										<<?php echo $tag; ?><?php echo $href . $target; ?> class="wss-badge-item">
+											<?php if ( 'top' === $pos && $has_title ) : ?>
+												<span class="wss-badge-title"><?php echo esc_html( $badge['title'] ); ?></span>
+											<?php endif; ?>
+											<?php if ( $has_img ) : ?>
+												<div class="wss-badge-img">
+													<img src="<?php echo esc_url( $badge['image']['url'] ); ?>" alt="<?php echo esc_attr( $alt ); ?>" loading="lazy">
+												</div>
+											<?php endif; ?>
+											<?php if ( 'bottom' === $pos && $has_title ) : ?>
+												<span class="wss-badge-title"><?php echo esc_html( $badge['title'] ); ?></span>
+											<?php endif; ?>
+										</<?php echo $tag; ?>>
 									<?php endforeach; ?>
 								</div>
 							<?php endif; ?>

@@ -3130,10 +3130,44 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 
 .wss-badges {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   margin-top: 22px;
   flex-wrap: wrap;
   align-items: center;
+}
+
+.wss-badge-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none !important;
+  color: inherit;
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+a.wss-badge-item {
+  cursor: pointer;
+}
+
+a.wss-badge-item:hover {
+  opacity: .85;
+  transform: translateY(-2px);
+}
+
+.wss-badge-title {
+  font-family: 'Syncopate', sans-serif;
+  font-size: 9.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--wss-grey);
+  line-height: 1.3;
+  text-align: center;
+  transition: color .35s ease;
+}
+
+a.wss-badge-item:hover .wss-badge-title {
+  color: var(--wss-ink);
 }
 
 .wss-badge-img {
@@ -3153,6 +3187,11 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   max-width: 100%;
   object-fit: contain;
   object-position: center;
+  transition: transform .35s ease;
+}
+
+a.wss-badge-item:hover .wss-badge-img img {
+  transform: scale(1.04);
 }
 
 .wss-foot-bottom {
