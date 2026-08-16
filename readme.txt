@@ -23,6 +23,7 @@ home page — block by block, section by section:
 * WSS — Testimonial (quote, attribution, image)
 * WSS — Lifestyles / Neighborhoods Grid (repeatable location cards)
 * WSS — Newsletter CTA (background image + subscribe form)
+* WSS — Luxury Blog & Journal (3-col grid, magazine layout, list, WP query + custom stories)
 * WSS — Site Footer (brand, contact, nav, socials, legal, badges, credit line)
 * WSS — Luxury Title & Heading (modular title, eyebrow, mask reveal, desc, divider)
 * WSS — Luxury Button (pill sweep, underline slide, solid, glass, dual buttons)
