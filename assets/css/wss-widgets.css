@@ -3,6 +3,8 @@
    Built by Digitize Growth — https://digitizegrowth.com/
    ========================================================= */
 
+:root,
+body,
 .wss-scope {
   --wss-ivory: #faf8f4;
   --wss-white: #ffffff;
@@ -19,8 +21,8 @@
   /* Dynamic Elementor Site Settings Global Fonts Mapping */
   --wss-font-primary: var(--e-global-typography-primary-font-family, 'Syncopate', sans-serif);
   --wss-font-secondary: var(--e-global-typography-secondary-font-family, 'Work Sans', sans-serif);
-  --wss-font-text: var(--e-global-typography-text-font-family, var(--wss-font-secondary, 'Work Sans', sans-serif));
-  --wss-font-accent: var(--e-global-typography-accent-font-family, var(--wss-font-primary, 'Syncopate', sans-serif));
+  --wss-font-text: var(--e-global-typography-text-font-family, var(--e-global-typography-secondary-font-family, 'Work Sans', sans-serif));
+  --wss-font-accent: var(--e-global-typography-accent-font-family, var(--e-global-typography-primary-font-family, 'Syncopate', sans-serif));
 
   --wss-weight-primary: var(--e-global-typography-primary-font-weight, 700);
   --wss-weight-secondary: var(--e-global-typography-secondary-font-weight, 400);
@@ -422,7 +424,7 @@ body.admin-bar #wss-menu {
   font-family: var(--wss-font-primary);
   font-size: 17px;
   letter-spacing: .32em;
-  font-weight: 700;
+  font-weight: var(--wss-weight-primary, 700);
   color: var(--wss-ink);
   display: flex;
   align-items: center;
@@ -440,7 +442,7 @@ body.admin-bar #wss-menu {
 }
 
 .wss-logo span {
-  font-weight: 400;
+  font-weight: var(--wss-weight-text, 400);
   opacity: .5;
 }
 
@@ -612,10 +614,11 @@ body.admin-bar #wss-menu {
   box-shadow: none !important;
   outline: none !important;
   cursor: pointer !important;
-  font-family: var(--wss-font-accent) !important;
-  font-size: 11px !important;
-  letter-spacing: .28em !important;
-  text-transform: uppercase !important;
+  font-family: var(--wss-font-accent, var(--wss-font-primary, inherit));
+  font-weight: var(--wss-weight-accent, var(--wss-weight-primary, 500));
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
   color: var(--wss-ink) !important;
   padding: 0 !important;
   margin: 0 !important;
@@ -793,7 +796,7 @@ body.wss-menu-open #wss-menu .wss-menu-right {
   font-family: var(--wss-font-accent);
   font-size: clamp(11px, 3.2vw, 14px);
   letter-spacing: .15em !important;
-  font-weight: 700;
+  font-weight: var(--wss-weight-primary, 700);
   color: #1a1812 !important;
   text-decoration: none !important;
   text-transform: uppercase !important;
@@ -802,7 +805,7 @@ body.wss-menu-open #wss-menu .wss-menu-right {
 }
 
 #wss-menu .wss-menu-logo span {
-  font-weight: 300;
+  font-weight: var(--wss-weight-text, 300);
   opacity: .75;
 }
 
@@ -963,7 +966,7 @@ body.wss-menu-open #wss-menu .wss-menu-right {
   background: none !important;
   text-decoration: none !important;
   text-transform: uppercase !important;
-  font-weight: 700;
+  font-weight: var(--wss-weight-primary, 700);
   transform: translateY(60%);
   opacity: 0;
   transition: transform .7s var(--wss-ease), opacity .7s var(--wss-ease), color .3s !important;
@@ -1042,7 +1045,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 #wss-menu .wss-menu-links > li > .sub-menu > li > a:visited {
   font-family: var(--wss-font-accent);
   font-size: clamp(13px, 1.3vw, 15px);
-  font-weight: 500;
+  font-weight: var(--wss-weight-accent, 500);
   letter-spacing: .18em !important;
   padding: 14px 20px 14px 28px !important;
   color: #4a453d !important;
@@ -1076,7 +1079,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 #wss-menu .wss-menu-links .sub-menu .sub-menu > li > a:link,
 #wss-menu .wss-menu-links .sub-menu .sub-menu > li > a:visited {
   font-size: clamp(12px, 1.1vw, 13.5px);
-  font-weight: 400;
+  font-weight: var(--wss-weight-text, 400);
   letter-spacing: .15em !important;
   padding: 12px 20px 12px 46px !important;
   color: #6e675c !important;
@@ -1093,7 +1096,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 #wss-menu .wss-menu-links .sub-menu .sub-menu .sub-menu > li > a:link,
 #wss-menu .wss-menu-links .sub-menu .sub-menu .sub-menu > li > a:visited {
   font-size: clamp(11px, 1vw, 12px);
-  font-weight: 400;
+  font-weight: var(--wss-weight-text, 400);
   letter-spacing: .12em !important;
   padding: 10px 20px 10px 64px !important;
   color: #8c8477 !important;
@@ -1411,7 +1414,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   border-radius: 30px !important;
   cursor: pointer !important;
   transition: all .35s cubic-bezier(.16, .84, .44, 1) !important;
-  font-weight: 500;
+  font-weight: var(--wss-weight-accent, 500);
   outline: none !important;
   box-shadow: none !important;
   line-height: 1;
@@ -1436,7 +1439,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   background: var(--wss-white, #faf8f4);
   border-color: var(--wss-white, #faf8f4);
   border-radius: 30px !important;
-  font-weight: 700;
+  font-weight: var(--wss-weight-accent, 700);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.28);
 }
 
@@ -1500,7 +1503,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   text-transform: uppercase;
   color: rgba(250, 248, 244, 0.55);
   margin-bottom: 5px !important;
-  font-weight: 500;
+  font-weight: var(--wss-weight-accent, 500);
   white-space: nowrap !important;
 }
 
@@ -1531,7 +1534,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   color: #ffffff;
   font-family: var(--wss-font-text);
   font-size: 14.5px;
-  font-weight: 400;
+  font-weight: var(--wss-weight-text, 400);
   outline: none !important;
   box-shadow: none !important;
   padding: 4px 0 !important;
@@ -1552,7 +1555,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-omni-input::placeholder {
   color: rgba(250, 248, 244, 0.38);
   font-size: 13.5px;
-  font-weight: 300;
+  font-weight: var(--wss-weight-text, 300);
 }
 
 /* Custom Dropdown Selects — Pure Frameless Reset */
@@ -1567,7 +1570,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   color: #ffffff;
   font-family: var(--wss-font-text);
   font-size: 14.5px;
-  font-weight: 400;
+  font-weight: var(--wss-weight-text, 400);
   outline: none !important;
   box-shadow: none !important;
   padding: 4px 20px 4px 0 !important;
