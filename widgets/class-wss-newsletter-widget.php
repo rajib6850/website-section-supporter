@@ -165,9 +165,10 @@ class WSS_Newsletter_Widget extends Widget_Base {
 			'style_form',
 			array( 'label' => __( 'Form Fields', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
-		$this->add_control( 'input_color', array( 'label' => __( 'Input Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-nl-row input' => 'color: {{VALUE}};' ) ) );
-		$this->add_control( 'placeholder_color', array( 'label' => __( 'Placeholder Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-nl-row input::placeholder' => 'color: {{VALUE}};' ) ) );
-		$this->add_control( 'input_border_color', array( 'label' => __( 'Bottom Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-nl-row' => 'border-bottom-color: {{VALUE}};' ) ) );
+		$this->add_control( 'input_color', array( 'label' => __( 'Input Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-nl-row input' => 'color: {{VALUE}} !important;' ) ) );
+		$this->add_control( 'placeholder_color', array( 'label' => __( 'Placeholder Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-nl-row input::placeholder' => 'color: {{VALUE}} !important;' ) ) );
+		$this->add_control( 'input_border_color', array( 'label' => __( 'Bottom Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-nl-row input' => 'border-bottom-color: {{VALUE}} !important;' ) ) );
+		$this->add_control( 'input_focus_border_color', array( 'label' => __( 'Focus Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-nl-row input:focus' => 'border-bottom-color: {{VALUE}} !important;' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'input_typography', 'selector' => '{{WRAPPER}} .wss-nl-row input' ) );
 		$this->add_responsive_control(
 			'form_gap',

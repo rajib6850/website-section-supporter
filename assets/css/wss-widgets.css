@@ -3046,21 +3046,35 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   align-items: flex-end;
 }
 
+.wss-scope .wss-nl-row input,
 .wss-nl-row input {
   flex: 1;
-  background: none;
-  border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent !important;
+  background-color: transparent !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 0 !important;
   color: var(--wss-white);
   font-family: var(--wss-font-text);
   font-size: 15px;
-  padding: 12px 0;
-  outline: none;
-  transition: border-color .4s ease;
+  padding: 12px 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: border-bottom-color .4s ease;
 }
 
-.wss-nl-row input:focus {
-  border-bottom-color: var(--wss-white);
+.wss-scope .wss-nl-row input:focus,
+.wss-nl-row input:focus,
+.wss-scope .wss-nl-row input:hover,
+.wss-nl-row input:hover {
+  border-bottom: 1px solid var(--wss-white) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .wss-nl-row input::placeholder {
@@ -3074,7 +3088,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-nl-row button {
   background: transparent !important;
   background-color: transparent !important;
-  border: 1px solid var(--wss-white);
+  border: 1px solid var(--wss-white) !important;
   color: var(--wss-white);
   border-radius: 40px;
   padding: 14px 28px;
@@ -3121,7 +3135,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-scope .wss-nl-row button:hover,
 .wss-nl-row button:hover {
   color: var(--wss-ink) !important;
-  border-color: transparent;
+  border-color: var(--wss-white) !important;
   background: transparent !important;
   background-color: transparent !important;
   box-shadow: none !important;
