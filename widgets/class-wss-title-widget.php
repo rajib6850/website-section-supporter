@@ -335,7 +335,7 @@ class WSS_Title_Widget extends Widget_Base {
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			array( 'name' => 'desc_typography', 'selector' => '{{WRAPPER}} .wss-title-desc' )
+			array( 'name' => 'desc_typography', 'selector' => '{{WRAPPER}} .wss-title-desc, {{WRAPPER}} .wss-title-desc p' )
 		);
 		$this->add_responsive_control(
 			'desc_max_width',
