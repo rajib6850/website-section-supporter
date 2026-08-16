@@ -1248,6 +1248,14 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   margin-right: auto;
 }
 
+.wss-hero-content-wrap {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .wss-hero-eyebrow {
   font-family: var(--wss-font-accent);
   font-size: 11px;

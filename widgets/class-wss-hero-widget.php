@@ -341,7 +341,7 @@ class WSS_Hero_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'content_width',
 			array(
-				'label'      => __( 'Content Width', 'website-section-supporter' ),
+				'label'      => __( 'Heading Content Width', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( '%', 'px', 'vw' ),
 				'range'      => array(
@@ -351,14 +351,14 @@ class WSS_Hero_Widget extends Widget_Base {
 				),
 				'default'    => array( 'unit' => '%', 'size' => 100 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-inner' => 'width: {{SIZE}}{{UNIT}}; max-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .wss-hero-content-wrap' => 'width: {{SIZE}}{{UNIT}}; max-width: {{SIZE}}{{UNIT}}; margin-left: auto; margin-right: auto;',
 				),
 			)
 		);
 		$this->add_responsive_control(
 			'content_max_width',
 			array(
-				'label'      => __( 'Content Max Width', 'website-section-supporter' ),
+				'label'      => __( 'Heading Max Width', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%', 'vw' ),
 				'range'      => array(
@@ -367,7 +367,7 @@ class WSS_Hero_Widget extends Widget_Base {
 					'vw' => array( 'min' => 10, 'max' => 100, 'step' => 1 ),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-hero-inner' => 'max-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .wss-hero-content-wrap' => 'max-width: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -385,6 +385,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wss-hero' => 'text-align: {{VALUE}}; align-items: {{VALUE}};',
 					'{{WRAPPER}} .wss-hero-inner' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .wss-hero-content-wrap' => 'text-align: {{VALUE}};',
 				),
 			)
 		);
@@ -419,10 +420,16 @@ class WSS_Hero_Widget extends Widget_Base {
 			array(
 				'label'      => __( 'Console Max Width', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', '%' ),
-				'range'      => array( 'px' => array( 'min' => 300, 'max' => 1600 ) ),
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 300, 'max' => 2000, 'step' => 10 ),
+					'%'  => array( 'min' => 10, 'max' => 100, 'step' => 1 ),
+					'vw' => array( 'min' => 10, 'max' => 100, 'step' => 1 ),
+				),
 				'default'    => array( 'size' => 1080, 'unit' => 'px' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-hero-search-wrap' => 'max-width: {{SIZE}}{{UNIT}};' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-hero-search-wrap' => 'max-width: {{SIZE}}{{UNIT}}; width: 100%; margin-left: auto; margin-right: auto;',
+				),
 			)
 		);
 		$this->add_responsive_control(
@@ -1047,13 +1054,15 @@ class WSS_Hero_Widget extends Widget_Base {
 					<div class="wss-hero-mark wss-reveal"><?php echo esc_html( $s['mark_text'] ); ?></div>
 				<?php endif; ?>
 				<div class="wss-hero-inner">
-					<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
-						<div class="wss-hero-eyebrow wss-reveal"><?php echo esc_html( $s['eyebrow'] ); ?></div>
-					<?php endif; ?>
-					<h1 class="wss-reveal">
-						<span class="wss-mask"><span><?php echo esc_html( $s['heading_line1'] ); ?></span></span>
-						<span class="wss-hero-line2 wss-mask wss-r2"><span><?php echo esc_html( $s['heading_line2'] ); ?></span></span>
-					</h1>
+					<div class="wss-hero-content-wrap">
+						<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
+							<div class="wss-hero-eyebrow wss-reveal"><?php echo esc_html( $s['eyebrow'] ); ?></div>
+						<?php endif; ?>
+						<h1 class="wss-reveal">
+							<span class="wss-mask"><span><?php echo esc_html( $s['heading_line1'] ); ?></span></span>
+							<span class="wss-hero-line2 wss-mask wss-r2"><span><?php echo esc_html( $s['heading_line2'] ); ?></span></span>
+						</h1>
+					</div>
 
 					<?php if ( 'yes' === ( $s['enable_search'] ?? 'yes' ) ) : ?>
 						<div class="wss-hero-search-wrap wss-reveal wss-r3">
