@@ -1235,6 +1235,9 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   font-family: var(--wss-font-accent);
   letter-spacing: .5em;
   font-size: 13px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
 .wss-hero-inner {
@@ -1248,7 +1251,19 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   margin-right: auto;
 }
 
-.wss-hero-content-wrap {
+.wss-hero-eyebrow {
+  font-family: var(--wss-font-accent);
+  font-size: 11px;
+  letter-spacing: .36em;
+  color: rgba(250, 248, 244, .75);
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: var(--wss-weight-accent);
+  box-sizing: border-box;
+}
+
+.wss-hero-heading-wrap {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -1256,19 +1271,13 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   margin-right: auto;
 }
 
-.wss-hero-eyebrow {
-  font-family: var(--wss-font-accent);
-  font-size: 11px;
-  letter-spacing: .36em;
-  color: rgba(250, 248, 244, .75);
-  margin-bottom: 20px;
-  font-weight: var(--wss-weight-accent);
-}
-
 .wss-hero h1 {
   font-family: var(--wss-font-primary);
   font-weight: var(--wss-weight-primary);
   font-size: clamp(38px, 7.5vw, 100px);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
 .wss-hero .wss-hero-line2 {
