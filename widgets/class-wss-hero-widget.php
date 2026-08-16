@@ -518,6 +518,56 @@ class WSS_Hero_Widget extends Widget_Base {
 			'style_search_tabs',
 			array( 'label' => __( 'Status Tabs (Buy / Rent / Sold)', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'enable_search' => 'yes', 'show_status_tabs' => 'yes', 'search_mode' => 'demo' ) )
 		);
+
+		/* ----- TABS BAR CONTAINER ----- */
+		$this->add_control( 'tabs_container_heading', array( 'label' => __( 'Tabs Bar Container', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING ) );
+		$this->add_control(
+			'tabs_container_bg',
+			array(
+				'label'     => __( 'Container Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.04)',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tabs, {{WRAPPER}} .wss-omni-tabs' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'tabs_container_border_color',
+			array(
+				'label'     => __( 'Container Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(250, 248, 244, 0.08)',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tabs, {{WRAPPER}} .wss-omni-tabs' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'tabs_container_padding',
+			array(
+				'label'      => __( 'Container Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tabs, {{WRAPPER}} .wss-omni-tabs' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'tabs_container_border_radius',
+			array(
+				'label'     => __( 'Container Border Radius', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tabs, {{WRAPPER}} .wss-omni-tabs' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		/* ----- TAB BUTTONS ----- */
+		$this->add_control( 'tabs_buttons_heading', array( 'label' => __( 'Tab Buttons', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array( 'name' => 'tabs_typography', 'selector' => '{{WRAPPER}} .wss-omni-tab' )
@@ -525,20 +575,133 @@ class WSS_Hero_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'tabs_padding',
 			array(
-				'label'      => __( 'Tab Padding', 'website-section-supporter' ),
+				'label'      => __( 'Button Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-omni-tab' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-omni-tab' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
 			)
 		);
+		$this->add_control(
+			'tab_border_radius',
+			array(
+				'label'     => __( 'Button Border Radius', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tab, {{WRAPPER}} .wss-omni-tab' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
 		$this->start_controls_tabs( 'tabs_status_style' );
 		$this->start_controls_tab( 'tab_status_normal', array( 'label' => __( 'Inactive', 'website-section-supporter' ) ) );
-		$this->add_control( 'tab_text_color', array( 'label' => __( 'Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => 'rgba(250, 248, 244, 0.5)', 'selectors' => array( '{{WRAPPER}} .wss-omni-tab:not(.wss-active)' => 'color: {{VALUE}} !important;' ) ) );
-		$this->add_control( 'tab_bg_color', array( 'label' => __( 'Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => 'transparent', 'selectors' => array( '{{WRAPPER}} .wss-omni-tab:not(.wss-active)' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ) ) );
+		$this->add_control(
+			'tab_text_color',
+			array(
+				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(250, 248, 244, 0.5)',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tab:not(.wss-active), {{WRAPPER}} .wss-omni-tab:not(.wss-active), {{WRAPPER}} button.wss-omni-tab:not(.wss-active)' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'tab_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'transparent',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tab:not(.wss-active), {{WRAPPER}} .wss-omni-tab:not(.wss-active), {{WRAPPER}} button.wss-omni-tab:not(.wss-active)' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'tab_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tab:not(.wss-active), {{WRAPPER}} .wss-omni-tab:not(.wss-active), {{WRAPPER}} button.wss-omni-tab:not(.wss-active)' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
 		$this->end_controls_tab();
+
 		$this->start_controls_tab( 'tab_status_active', array( 'label' => __( 'Active', 'website-section-supporter' ) ) );
-		$this->add_control( 'tab_active_text_color', array( 'label' => __( 'Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#131210', 'selectors' => array( '{{WRAPPER}} .wss-omni-tab.wss-active' => 'color: {{VALUE}} !important;' ) ) );
-		$this->add_control( 'tab_active_bg_color', array( 'label' => __( 'Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#faf8f4', 'selectors' => array( '{{WRAPPER}} .wss-omni-tab.wss-active' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ) ) );
+		$this->add_control(
+			'tab_active_text_color',
+			array(
+				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#131210',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tab.wss-active, {{WRAPPER}} .wss-omni-tab.wss-active, {{WRAPPER}} button.wss-omni-tab.wss-active' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'tab_active_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#faf8f4',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tab.wss-active, {{WRAPPER}} .wss-omni-tab.wss-active, {{WRAPPER}} button.wss-omni-tab.wss-active' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important; border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'tab_active_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tab.wss-active, {{WRAPPER}} .wss-omni-tab.wss-active, {{WRAPPER}} button.wss-omni-tab.wss-active' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'tab_active_shadow',
+				'selector' => '{{WRAPPER}} .wss-omni-tab.wss-active',
+			)
+		);
+		$this->end_controls_tab();
+
+		$this->start_controls_tab( 'tab_status_hover', array( 'label' => __( 'Hover', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'tab_hover_text_color',
+			array(
+				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tab:hover:not(.wss-active), {{WRAPPER}} .wss-omni-tab:hover:not(.wss-active), {{WRAPPER}} button.wss-omni-tab:hover:not(.wss-active)' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'tab_hover_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tab:hover:not(.wss-active), {{WRAPPER}} .wss-omni-tab:hover:not(.wss-active), {{WRAPPER}} button.wss-omni-tab:hover:not(.wss-active)' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'tab_hover_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-tab:hover:not(.wss-active), {{WRAPPER}} .wss-omni-tab:hover:not(.wss-active), {{WRAPPER}} button.wss-omni-tab:hover:not(.wss-active)' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
 		$this->end_controls_tab();
 		$this->end_controls_tabs();
 		$this->end_controls_section();
