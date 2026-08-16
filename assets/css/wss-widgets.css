@@ -188,11 +188,25 @@
 }
 
 /* Premium Button Styles */
+.wss-scope button,
+.wss-scope input[type="button"],
+.wss-scope input[type="submit"],
+.wss-scope .wss-btn,
+.wss-scope .wss-btn-pill,
+.wss-scope .wss-btn-line,
+.wss-scope .wss-btn-solid,
+.wss-scope .wss-omni-submit-btn,
+.wss-scope .wss-header-cta {
+  font-family: var(--wss-font-accent, var(--wss-font-primary, inherit));
+  font-weight: var(--wss-weight-accent, var(--wss-weight-primary, 500));
+}
+
 .wss-btn-line {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font-family: var(--wss-font-accent);
+  font-family: var(--wss-font-accent, var(--wss-font-primary, inherit));
+  font-weight: var(--wss-weight-accent, var(--wss-weight-primary, 500));
   font-size: 11px;
   letter-spacing: .26em;
   text-transform: uppercase;
@@ -232,7 +246,8 @@
   border: 1px solid var(--wss-ink);
   border-radius: 40px;
   padding: 14px 28px;
-  font-family: var(--wss-font-accent);
+  font-family: var(--wss-font-accent, var(--wss-font-primary, inherit));
+  font-weight: var(--wss-weight-accent, var(--wss-weight-primary, 500));
   font-size: 10px;
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -1596,9 +1611,9 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   color: var(--wss-white, #faf8f4);
   border: 1px solid rgba(250, 248, 244, 0.45);
   border-radius: 40px !important;
-  font-family: var(--wss-font-accent);
+  font-family: var(--wss-font-accent, var(--wss-font-primary, inherit));
+  font-weight: var(--wss-weight-accent, var(--wss-weight-primary, 500));
   font-size: 9.5px;
-  font-weight: 600;
   letter-spacing: .22em;
   text-transform: uppercase;
   padding: 13px 24px !important;

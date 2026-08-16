@@ -885,7 +885,7 @@ class WSS_Hero_Widget extends Widget_Base {
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			array( 'name' => 'btn_typography', 'selector' => '{{WRAPPER}} .wss-omni-submit-btn' )
+			array( 'name' => 'btn_typography', 'selector' => '{{WRAPPER}} .wss-omni-submit-btn, {{WRAPPER}} .wss-omni-submit-btn.wss-btn-pill, {{WRAPPER}} button.wss-omni-submit-btn' )
 		);
 		$this->add_responsive_control(
 			'btn_padding',
