@@ -395,6 +395,8 @@ class WSS_Triptych_Widget extends Widget_Base {
 			'overlay_color',
 			array( 'label' => __( 'Overlay Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => 'rgba(19,18,16,.28)', 'selectors' => array( '{{WRAPPER}} .wss-tri-panel::after' => 'background: {{VALUE}};' ) )
 		);
+
+		$this->add_control( 'zoom_effects_heading', array( 'label' => __( 'Hover Zoom Effect', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'zoom_hover',
 			array(
@@ -404,62 +406,25 @@ class WSS_Triptych_Widget extends Widget_Base {
 				'label_off'    => __( 'No', 'website-section-supporter' ),
 				'return_value' => 'yes',
 				'default'      => 'no',
-			)
-		);
-
-		$this->add_control( 'img_controls_heading', array( 'label' => __( 'Image Adjustments', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
-		$this->add_control(
-			'img_object_fit',
-			array(
-				'label'     => __( 'Background Size / Object Fit', 'website-section-supporter' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'cover',
-				'options'   => array(
-					'cover'   => __( 'Cover — fill panel (recommended)', 'website-section-supporter' ),
-					'contain' => __( 'Contain — show full image', 'website-section-supporter' ),
-					'fill'    => __( 'Fill — stretch to fit', 'website-section-supporter' ),
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .wss-tri-img' => 'object-fit: {{VALUE}};',
-					'{{WRAPPER}} .wss-tri-bg'  => 'background-size: {{VALUE}};',
-				),
+				'description'  => __( 'Default is OFF. Enable to zoom image scale when hovering.', 'website-section-supporter' ),
 			)
 		);
 		$this->add_responsive_control(
-			'img_brightness',
+			'zoom_scale',
 			array(
-				'label'      => __( 'Brightness', 'website-section-supporter' ),
+				'label'      => __( 'Zoom Scale', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array(),
-				'range'      => array( 'px' => array( 'min' => 0, 'max' => 2, 'step' => 0.05 ) ),
-				'default'    => array( 'size' => 0.70 ),
+				'range'      => array( 'px' => array( 'min' => 1.02, 'max' => 1.30, 'step' => 0.01 ) ),
+				'default'    => array( 'size' => 1.06 ),
+				'condition'  => array( 'zoom_hover' => 'yes' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-tri-img, {{WRAPPER}} .wss-tri-bg, {{WRAPPER}} .wss-tri-panorama-slice img' => 'filter: brightness({{SIZE}}) contrast(1.08);',
+					'{{WRAPPER}}' => '--wss-tri-zoom-scale: {{SIZE}};',
 				),
 			)
 		);
-		$this->add_responsive_control(
-			'img_contrast',
-			array(
-				'label'      => __( 'Contrast', 'website-section-supporter' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array(),
-				'range'      => array( 'px' => array( 'min' => 0, 'max' => 3, 'step' => 0.05 ) ),
-				'default'    => array( 'size' => 1.08 ),
-				'selectors'  => array(
-					'{{WRAPPER}} .wss-tri-img, {{WRAPPER}} .wss-tri-bg, {{WRAPPER}} .wss-tri-panorama-slice img' => 'filter: brightness(' . "'" . '{{img_brightness.SIZE}}' . "'" . ') contrast({{SIZE}});',
-				),
-				'description' => __( 'Note: set Brightness first, then adjust Contrast.', 'website-section-supporter' ),
-			)
-		);
-		$this->end_controls_section();
 
-		/* ================= STYLE: HOVER BLUR & LUXURY EFFECTS ================= */
-		$this->start_controls_section(
-			'style_hover_blur',
-			array( 'label' => __( 'Hover Blur & Luxury Effects', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
-		);
-
+		$this->add_control( 'hover_blur_heading', array( 'label' => __( 'Hover Background Blur (Luxury Glass Effect)', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'enable_hover_blur',
 			array(
@@ -559,6 +524,51 @@ class WSS_Triptych_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control( 'img_controls_heading', array( 'label' => __( 'Image Adjustments', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
+		$this->add_control(
+			'img_object_fit',
+			array(
+				'label'     => __( 'Background Size / Object Fit', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'cover',
+				'options'   => array(
+					'cover'   => __( 'Cover — fill panel (recommended)', 'website-section-supporter' ),
+					'contain' => __( 'Contain — show full image', 'website-section-supporter' ),
+					'fill'    => __( 'Fill — stretch to fit', 'website-section-supporter' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-tri-img' => 'object-fit: {{VALUE}};',
+					'{{WRAPPER}} .wss-tri-bg'  => 'background-size: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'img_brightness',
+			array(
+				'label'      => __( 'Brightness', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array(),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 2, 'step' => 0.05 ) ),
+				'default'    => array( 'size' => 0.70 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-tri-img, {{WRAPPER}} .wss-tri-bg, {{WRAPPER}} .wss-tri-panorama-slice img' => 'filter: brightness({{SIZE}}) contrast(1.08);',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'img_contrast',
+			array(
+				'label'      => __( 'Contrast', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array(),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 3, 'step' => 0.05 ) ),
+				'default'    => array( 'size' => 1.08 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-tri-img, {{WRAPPER}} .wss-tri-bg, {{WRAPPER}} .wss-tri-panorama-slice img' => 'filter: brightness(' . "'" . '{{img_brightness.SIZE}}' . "'" . ') contrast({{SIZE}});',
+				),
+				'description' => __( 'Note: set Brightness first, then adjust Contrast.', 'website-section-supporter' ),
+			)
+		);
 		$this->end_controls_section();
 
 		/* ================= STYLE: CAPTION ================= */
@@ -707,9 +717,8 @@ class WSS_Triptych_Widget extends Widget_Base {
 	}
 
 	protected function render() {
-		$s = $this->get_settings_for_display();
-
-		$zoom_class    = 'yes' === $s['zoom_hover'] ? '' : ' wss-no-zoom';
+		$has_zoom      = ! empty( $s['zoom_hover'] ) && 'yes' === $s['zoom_hover'];
+		$zoom_class    = $has_zoom ? ' wss-has-zoom' : ' wss-no-zoom';
 		$is_boxed      = ! empty( $s['container_width_type'] ) && 'boxed' === $s['container_width_type'];
 		$show_dividers = ! empty( $s['show_dividers'] ) && 'yes' === $s['show_dividers'];
 		$div_class     = $show_dividers ? ' wss-has-dividers' : '';

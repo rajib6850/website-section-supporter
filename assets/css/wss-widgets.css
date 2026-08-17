@@ -2578,7 +2578,6 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-triptych.wss-hover-blur.wss-blur-hovered .wss-tri-panel:hover .wss-tri-panorama-slice img,
 .wss-triptych.wss-hover-blur.wss-blur-hovered .wss-tri-panel:hover .wss-tri-panorama-slice .wss-tri-img {
   filter: blur(var(--wss-tri-blur, 8px)) brightness(var(--wss-tri-hover-bright, 0.55)) contrast(var(--wss-tri-hover-contrast, 1.05)) !important;
-  transform: scale(1.06) !important;
 }
 
 .wss-triptych.wss-hover-blur.wss-blur-siblings:hover .wss-tri-panel:not(:hover) .wss-tri-img,
@@ -2586,7 +2585,26 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-triptych.wss-hover-blur.wss-blur-siblings:hover .wss-tri-panel:not(:hover) .wss-tri-panorama-slice img,
 .wss-triptych.wss-hover-blur.wss-blur-siblings:hover .wss-tri-panel:not(:hover) .wss-tri-panorama-slice .wss-tri-img {
   filter: blur(var(--wss-tri-blur, 8px)) brightness(var(--wss-tri-hover-bright, 0.45)) contrast(var(--wss-tri-hover-contrast, 1.05)) !important;
-  transform: scale(1.06) !important;
+}
+
+/* Strictly enforce NO ZOOM when Zoom on hover is disabled */
+.wss-triptych.wss-no-zoom .wss-tri-img,
+.wss-triptych.wss-no-zoom .wss-tri-bg,
+.wss-triptych.wss-no-zoom .wss-tri-panorama-slice img,
+.wss-triptych.wss-no-zoom .wss-tri-panorama-slice .wss-tri-img,
+.wss-triptych.wss-no-zoom .wss-tri-panel:hover .wss-tri-img,
+.wss-triptych.wss-no-zoom .wss-tri-panel:hover .wss-tri-bg,
+.wss-triptych.wss-no-zoom .wss-tri-panel:hover .wss-tri-panorama-slice img,
+.wss-triptych.wss-no-zoom .wss-tri-panel:hover .wss-tri-panorama-slice .wss-tri-img {
+  transform: none !important;
+}
+
+/* Zoom on hover ONLY when explicitly enabled */
+.wss-triptych.wss-has-zoom .wss-tri-panel:hover .wss-tri-img,
+.wss-triptych.wss-has-zoom .wss-tri-panel:hover .wss-tri-bg,
+.wss-triptych.wss-has-zoom .wss-tri-panel:hover .wss-tri-panorama-slice img,
+.wss-triptych.wss-has-zoom .wss-tri-panel:hover .wss-tri-panorama-slice .wss-tri-img {
+  transform: scale(var(--wss-tri-zoom-scale, 1.06)) !important;
 }
 
 .wss-triptych.wss-hover-blur .wss-tri-panel:hover::after {
