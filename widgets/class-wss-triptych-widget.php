@@ -124,12 +124,10 @@ class WSS_Triptych_Widget extends Widget_Base {
 		$repeater->add_control(
 			'image',
 			array(
-				'label'     => __( 'Image (Individual Mode)', 'website-section-supporter' ),
-				'type'      => Controls_Manager::MEDIA,
-				'default'   => array( 'url' => 'https://picsum.photos/seed/noirmark1/700/560' ),
-				'condition' => array(
-					'../image_source_type' => 'individual',
-				),
+				'label'       => __( 'Panel Image', 'website-section-supporter' ),
+				'type'        => Controls_Manager::MEDIA,
+				'default'     => array( 'url' => 'https://picsum.photos/seed/noirmark1/700/560' ),
+				'description' => __( 'Select image for this panel (used in Individual mode or to override master image).', 'website-section-supporter' ),
 			)
 		);
 		$repeater->add_control( 'caption', array( 'label' => __( 'Caption', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Bespoke Marketing', 'website-section-supporter' ) ) );
@@ -160,9 +158,6 @@ class WSS_Triptych_Widget extends Widget_Base {
 					'bottom left'   => __( 'Bottom Left', 'website-section-supporter' ),
 					'bottom right'  => __( 'Bottom Right', 'website-section-supporter' ),
 				),
-				'condition' => array(
-					'../image_source_type' => 'individual',
-				),
 			)
 		);
 		$repeater->add_control(
@@ -174,9 +169,6 @@ class WSS_Triptych_Widget extends Widget_Base {
 				'options'   => array(
 					'scroll' => __( 'Scroll (Normal)', 'website-section-supporter' ),
 					'fixed'  => __( 'Fixed (Seamless single image)', 'website-section-supporter' ),
-				),
-				'condition' => array(
-					'../image_source_type' => 'individual',
 				),
 			)
 		);
@@ -215,9 +207,6 @@ class WSS_Triptych_Widget extends Widget_Base {
 				'name'      => 'individual_image_size',
 				'default'   => 'full',
 				'separator' => 'before',
-				'condition' => array(
-					'image_source_type' => 'individual',
-				),
 			)
 		);
 
@@ -445,7 +434,7 @@ class WSS_Triptych_Widget extends Widget_Base {
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 2, 'step' => 0.05 ) ),
 				'default'    => array( 'size' => 0.70 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-tri-img, {{WRAPPER}} .wss-tri-bg' => 'filter: brightness({{SIZE}}) contrast(1.08);',
+					'{{WRAPPER}} .wss-tri-img, {{WRAPPER}} .wss-tri-bg, {{WRAPPER}} .wss-tri-panorama-slice img' => 'filter: brightness({{SIZE}}) contrast(1.08);',
 				),
 			)
 		);
@@ -458,11 +447,118 @@ class WSS_Triptych_Widget extends Widget_Base {
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 3, 'step' => 0.05 ) ),
 				'default'    => array( 'size' => 1.08 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-tri-img, {{WRAPPER}} .wss-tri-bg' => 'filter: brightness(' . "'" . '{{img_brightness.SIZE}}' . "'" . ') contrast({{SIZE}});',
+					'{{WRAPPER}} .wss-tri-img, {{WRAPPER}} .wss-tri-bg, {{WRAPPER}} .wss-tri-panorama-slice img' => 'filter: brightness(' . "'" . '{{img_brightness.SIZE}}' . "'" . ') contrast({{SIZE}});',
 				),
 				'description' => __( 'Note: set Brightness first, then adjust Contrast.', 'website-section-supporter' ),
 			)
 		);
+		$this->end_controls_section();
+
+		/* ================= STYLE: HOVER BLUR & LUXURY EFFECTS ================= */
+		$this->start_controls_section(
+			'style_hover_blur',
+			array( 'label' => __( 'Hover Blur & Luxury Effects', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
+		);
+
+		$this->add_control(
+			'enable_hover_blur',
+			array(
+				'label'        => __( 'Enable Background Blur on Hover', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'description'  => __( 'Blurs the background image on hover to create a luxury frosted depth effect.', 'website-section-supporter' ),
+			)
+		);
+
+		$this->add_control(
+			'blur_mode',
+			array(
+				'label'     => __( 'Blur Behavior', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'hovered',
+				'options'   => array(
+					'hovered'  => __( 'Blur Hovered Panel (Focus Content)', 'website-section-supporter' ),
+					'siblings' => __( 'Blur Other Panels (Spotlight Hovered Panel)', 'website-section-supporter' ),
+				),
+				'condition' => array( 'enable_hover_blur' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'blur_intensity',
+			array(
+				'label'      => __( 'Blur Radius (Strength)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array( 'px' => array( 'min' => 1, 'max' => 30, 'step' => 0.5 ) ),
+				'default'    => array( 'size' => 8, 'unit' => 'px' ),
+				'condition'  => array( 'enable_hover_blur' => 'yes' ),
+				'selectors'  => array(
+					'{{WRAPPER}}' => '--wss-tri-blur: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hover_brightness',
+			array(
+				'label'      => __( 'Hover Image Brightness', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array(),
+				'range'      => array( 'px' => array( 'min' => 0.1, 'max' => 2, 'step' => 0.05 ) ),
+				'default'    => array( 'size' => 0.55 ),
+				'condition'  => array( 'enable_hover_blur' => 'yes' ),
+				'selectors'  => array(
+					'{{WRAPPER}}' => '--wss-tri-hover-bright: {{SIZE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hover_contrast',
+			array(
+				'label'      => __( 'Hover Image Contrast', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array(),
+				'range'      => array( 'px' => array( 'min' => 0.5, 'max' => 2, 'step' => 0.05 ) ),
+				'default'    => array( 'size' => 1.05 ),
+				'condition'  => array( 'enable_hover_blur' => 'yes' ),
+				'selectors'  => array(
+					'{{WRAPPER}}' => '--wss-tri-hover-contrast: {{SIZE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'hover_overlay_color',
+			array(
+				'label'     => __( 'Hover Overlay Tint', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(15, 15, 15, 0.45)',
+				'condition' => array( 'enable_hover_blur' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}}' => '--wss-tri-hover-overlay: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'blur_transition_speed',
+			array(
+				'label'      => __( 'Transition Duration (Seconds)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 's' ),
+				'range'      => array( 's' => array( 'min' => 0.2, 'max' => 2, 'step' => 0.05 ) ),
+				'default'    => array( 'size' => 0.6, 'unit' => 's' ),
+				'selectors'  => array(
+					'{{WRAPPER}}' => '--wss-tri-trans-dur: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		/* ================= STYLE: CAPTION ================= */
@@ -618,6 +714,10 @@ class WSS_Triptych_Widget extends Widget_Base {
 		$show_dividers = ! empty( $s['show_dividers'] ) && 'yes' === $s['show_dividers'];
 		$div_class     = $show_dividers ? ' wss-has-dividers' : '';
 
+		$enable_blur   = ! empty( $s['enable_hover_blur'] ) && 'yes' === $s['enable_hover_blur'];
+		$blur_mode     = ! empty( $s['blur_mode'] ) ? $s['blur_mode'] : 'hovered';
+		$blur_class    = $enable_blur ? ( ' wss-hover-blur wss-blur-' . $blur_mode ) : '';
+
 		$image_mode    = ! empty( $s['image_source_type'] ) ? $s['image_source_type'] : 'panorama';
 		$panorama_fit  = ! empty( $s['panorama_fit'] ) ? $s['panorama_fit'] : 'continuous';
 		$span_mode     = ! empty( $s['panorama_span_mode'] ) ? $s['panorama_span_mode'] : 'full_grid';
@@ -653,7 +753,7 @@ class WSS_Triptych_Widget extends Widget_Base {
 				<div class="wss-container">
 				<?php endif; ?>
 
-					<div class="wss-triptych<?php echo esc_attr( $zoom_class . $div_class ); ?>">
+					<div class="wss-triptych<?php echo esc_attr( $zoom_class . $div_class . $blur_class ); ?>">
 						<?php foreach ( $panels as $i => $panel ) :
 							$has_link   = ! empty( $panel['link']['url'] );
 							$tag        = $has_link ? 'a' : 'div';

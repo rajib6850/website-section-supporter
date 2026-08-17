@@ -2411,8 +2411,9 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   background-size: cover;
   filter: brightness(.7) contrast(1.08);
   transform: none !important;
-  transition: filter .9s ease;
-  will-change: filter;
+  transition: filter var(--wss-tri-trans-dur, 0.6s) cubic-bezier(0.25, 1, 0.5, 1),
+              transform var(--wss-tri-trans-dur, 0.6s) cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: filter, transform;
 }
 
 .wss-tri-panel:hover .wss-tri-bg {
@@ -2434,7 +2435,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
       rgba(19, 18, 16, .06) 0%,
       rgba(19, 18, 16, .28) 55%,
       rgba(19, 18, 16, .74) 100%);
-  transition: background .7s ease;
+  transition: background var(--wss-tri-trans-dur, 0.6s) cubic-bezier(0.25, 1, 0.5, 1);
   z-index: 1;
   pointer-events: none;
 }
@@ -2546,8 +2547,9 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   display: block !important;
   filter: brightness(.7) contrast(1.08);
   transform: none !important;
-  transition: filter .9s ease;
-  will-change: filter;
+  transition: filter var(--wss-tri-trans-dur, 0.6s) cubic-bezier(0.25, 1, 0.5, 1),
+              transform var(--wss-tri-trans-dur, 0.6s) cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: filter, transform;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: auto;
   backface-visibility: hidden;
@@ -2563,6 +2565,32 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-triptych.wss-no-zoom .wss-tri-panorama-slice img,
 .wss-triptych.wss-no-zoom .wss-tri-panel:hover .wss-tri-panorama-slice img {
   transform: none !important;
+}
+
+/* ── Luxury Hover Background Blur System ── */
+.wss-tri-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.wss-triptych.wss-hover-blur.wss-blur-hovered .wss-tri-panel:hover .wss-tri-img,
+.wss-triptych.wss-hover-blur.wss-blur-hovered .wss-tri-panel:hover .wss-tri-bg,
+.wss-triptych.wss-hover-blur.wss-blur-hovered .wss-tri-panel:hover .wss-tri-panorama-slice img,
+.wss-triptych.wss-hover-blur.wss-blur-hovered .wss-tri-panel:hover .wss-tri-panorama-slice .wss-tri-img {
+  filter: blur(var(--wss-tri-blur, 8px)) brightness(var(--wss-tri-hover-bright, 0.55)) contrast(var(--wss-tri-hover-contrast, 1.05)) !important;
+  transform: scale(1.06) !important;
+}
+
+.wss-triptych.wss-hover-blur.wss-blur-siblings:hover .wss-tri-panel:not(:hover) .wss-tri-img,
+.wss-triptych.wss-hover-blur.wss-blur-siblings:hover .wss-tri-panel:not(:hover) .wss-tri-bg,
+.wss-triptych.wss-hover-blur.wss-blur-siblings:hover .wss-tri-panel:not(:hover) .wss-tri-panorama-slice img,
+.wss-triptych.wss-hover-blur.wss-blur-siblings:hover .wss-tri-panel:not(:hover) .wss-tri-panorama-slice .wss-tri-img {
+  filter: blur(var(--wss-tri-blur, 8px)) brightness(var(--wss-tri-hover-bright, 0.45)) contrast(var(--wss-tri-hover-contrast, 1.05)) !important;
+  transform: scale(1.06) !important;
+}
+
+.wss-triptych.wss-hover-blur .wss-tri-panel:hover::after {
+  background: var(--wss-tri-hover-overlay, rgba(15, 15, 15, 0.45)) !important;
 }
 
 /* ── Responsive Triptych ── */
