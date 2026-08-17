@@ -6,6 +6,7 @@ use Elementor\Controls_Manager;
 use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Background;
+use Elementor\Group_Control_Image_Size;
 
 class WSS_Triptych_Widget extends Widget_Base {
 
@@ -49,6 +50,18 @@ class WSS_Triptych_Widget extends Widget_Base {
 					'image_source_type' => 'panorama',
 				),
 				'description' => __( 'Upload 1 wide master image. It will span seamlessly across the 3 panels with dividing lines.', 'website-section-supporter' ),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Image_Size::get_type(),
+			array(
+				'name'      => 'panorama_image_size',
+				'default'   => 'full',
+				'separator' => 'none',
+				'condition' => array(
+					'image_source_type' => 'panorama',
+				),
 			)
 		);
 
@@ -195,6 +208,19 @@ class WSS_Triptych_Widget extends Widget_Base {
 				'title_field' => '{{{ caption }}}',
 			)
 		);
+
+		$this->add_group_control(
+			Group_Control_Image_Size::get_type(),
+			array(
+				'name'      => 'individual_image_size',
+				'default'   => 'full',
+				'separator' => 'before',
+				'condition' => array(
+					'image_source_type' => 'individual',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		/* ================= STYLE: GRID & LAYOUT ================= */
@@ -593,9 +619,26 @@ class WSS_Triptych_Widget extends Widget_Base {
 		$div_class     = $show_dividers ? ' wss-has-dividers' : '';
 
 		$image_mode    = ! empty( $s['image_source_type'] ) ? $s['image_source_type'] : 'panorama';
-		$panorama_img  = ! empty( $s['panorama_image']['url'] ) ? $s['panorama_image']['url'] : 'https://picsum.photos/seed/noirinterior19/1920/900';
 		$panorama_fit  = ! empty( $s['panorama_fit'] ) ? $s['panorama_fit'] : 'continuous';
 		$span_mode     = ! empty( $s['panorama_span_mode'] ) ? $s['panorama_span_mode'] : 'full_grid';
+
+		// Get highest quality uncompressed resolution for panorama image
+		$panorama_img = '';
+		if ( ! empty( $s['panorama_image']['id'] ) ) {
+			$src = Group_Control_Image_Size::get_attachment_image_src( $s['panorama_image']['id'], 'panorama_image_size', $s );
+			if ( ! empty( $src ) ) {
+				$panorama_img = $src;
+			} else {
+				$full_data = wp_get_attachment_image_src( $s['panorama_image']['id'], 'full' );
+				$panorama_img = ! empty( $full_data[0] ) ? $full_data[0] : '';
+			}
+		}
+		if ( empty( $panorama_img ) && ! empty( $s['panorama_image']['url'] ) ) {
+			$panorama_img = $s['panorama_image']['url'];
+		}
+		if ( empty( $panorama_img ) ) {
+			$panorama_img = 'https://picsum.photos/seed/noirinterior19/1920/900';
+		}
 
 		$panels        = ! empty( $s['panels'] ) && is_array( $s['panels'] ) ? $s['panels'] : array();
 		$total_panels  = count( $panels );
@@ -618,7 +661,21 @@ class WSS_Triptych_Widget extends Widget_Base {
 							$desc       = ! empty( $panel['description'] ) ? $panel['description'] : '';
 							$img_focus  = ! empty( $panel['image_focus'] ) ? $panel['image_focus'] : 'center center';
 							$bg_attach  = ! empty( $panel['bg_attachment'] ) ? $panel['bg_attachment'] : 'scroll';
-							$custom_img = ! empty( $panel['image']['url'] ) ? $panel['image']['url'] : '';
+
+							// Get highest quality uncompressed resolution for individual panel images
+							$custom_img = '';
+							if ( ! empty( $panel['image']['id'] ) ) {
+								$src = Group_Control_Image_Size::get_attachment_image_src( $panel['image']['id'], 'individual_image_size', $s );
+								if ( ! empty( $src ) ) {
+									$custom_img = $src;
+								} else {
+									$full_data = wp_get_attachment_image_src( $panel['image']['id'], 'full' );
+									$custom_img = ! empty( $full_data[0] ) ? $full_data[0] : '';
+								}
+							}
+							if ( empty( $custom_img ) && ! empty( $panel['image']['url'] ) ) {
+								$custom_img = $panel['image']['url'];
+							}
 							$final_img  = ! empty( $custom_img ) ? $custom_img : $panorama_img;
 
 							// Column & Row index in the 2D grid
@@ -635,14 +692,14 @@ class WSS_Triptych_Widget extends Widget_Base {
 										<div class="wss-tri-bg wss-tri-bg-fixed" style="background-image: url('<?php echo esc_url( $panorama_img ); ?>'); background-attachment: fixed; background-size: cover; background-position: <?php echo esc_attr( ! empty( $s['panorama_y_position'] ) ? $s['panorama_y_position'] : 'center center' ); ?>;"></div>
 									<?php else : ?>
 										<div class="wss-tri-panorama-slice" style="left: -<?php echo ( $col_index * 100 ); ?>%; top: -<?php echo ( $slice_top ); ?>%; width: <?php echo ( $cols * 100 ); ?>%; height: <?php echo ( $slice_h ); ?>%;">
-											<img class="wss-tri-img wss-tri-panorama-img" src="<?php echo esc_url( $panorama_img ); ?>" alt="<?php echo esc_attr( $caption ); ?>">
+											<img class="wss-tri-img wss-tri-panorama-img" src="<?php echo esc_url( $panorama_img ); ?>" alt="<?php echo esc_attr( $caption ); ?>" loading="eager" decoding="async">
 										</div>
 									<?php endif; ?>
 								<?php else : ?>
 									<?php if ( 'fixed' === $bg_attach ) : ?>
 										<div class="wss-tri-bg" style="background-image: url('<?php echo esc_url( $final_img ); ?>'); background-position: <?php echo esc_attr( $img_focus ); ?>; background-attachment: fixed;"></div>
 									<?php else : ?>
-										<img class="wss-tri-img" src="<?php echo esc_url( $final_img ); ?>" alt="<?php echo esc_attr( $caption ); ?>" style="object-position: <?php echo esc_attr( $img_focus ); ?>;">
+										<img class="wss-tri-img" src="<?php echo esc_url( $final_img ); ?>" alt="<?php echo esc_attr( $caption ); ?>" style="object-position: <?php echo esc_attr( $img_focus ); ?>;" loading="eager" decoding="async">
 									<?php endif; ?>
 								<?php endif; ?>
 								<div class="wss-cap">

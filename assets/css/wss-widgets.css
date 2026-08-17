@@ -2548,6 +2548,10 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   transform: none !important;
   transition: filter .9s ease;
   will-change: filter;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .wss-tri-panel:hover .wss-tri-panorama-slice img,
