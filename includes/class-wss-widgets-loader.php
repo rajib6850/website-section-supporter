@@ -12,6 +12,7 @@ class WSS_Widgets_Loader {
 	public function __construct() {
 		add_action( 'elementor/elements/categories_registered', array( $this, 'add_category' ) );
 		add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ) );
+		add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets_legacy' ) );
 	}
 
 	public function add_category( $elements_manager ) {
@@ -22,6 +23,10 @@ class WSS_Widgets_Loader {
 				'icon'  => 'eicon-flex',
 			)
 		);
+	}
+
+	public function register_widgets_legacy( $widgets_manager ) {
+		$this->register_widgets( $widgets_manager );
 	}
 
 	public function register_widgets( $widgets_manager ) {

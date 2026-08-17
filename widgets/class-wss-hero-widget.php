@@ -1273,7 +1273,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				<div class="wss-hero-bg">
 					<?php if ( 'image' === $bg_type ) : ?>
 						<?php if ( ! empty( $s['bg_image']['url'] ) ) : ?>
-							<img src="<?php echo esc_url( $s['bg_image']['url'] ); ?>" alt="<?php echo esc_attr( $s['heading_line1'] . ' ' . $s['heading_line2'] ); ?>">
+							<img src="<?php echo esc_url( $s['bg_image']['url'] ); ?>" alt="<?php echo esc_attr( ( $s['heading_line1'] ?? '' ) . ' ' . ( $s['heading_line2'] ?? '' ) ); ?>">
 						<?php endif; ?>
 					<?php elseif ( 'gradient' === $bg_type ) : ?>
 						<?php
@@ -1315,8 +1315,8 @@ class WSS_Hero_Widget extends Widget_Base {
 					<?php endif; ?>
 					<div class="wss-hero-heading-wrap">
 						<h1 class="wss-reveal">
-							<span class="wss-mask"><span><?php echo esc_html( $s['heading_line1'] ); ?></span></span>
-							<span class="wss-hero-line2 wss-mask wss-r2"><span><?php echo esc_html( $s['heading_line2'] ); ?></span></span>
+							<span class="wss-mask"><span><?php echo esc_html( $s['heading_line1'] ?? '' ); ?></span></span>
+							<span class="wss-hero-line2 wss-mask wss-r2"><span><?php echo esc_html( $s['heading_line2'] ?? '' ); ?></span></span>
 						</h1>
 					</div>
 
@@ -1438,8 +1438,8 @@ class WSS_Hero_Widget extends Widget_Base {
 						</div>
 					<?php endif; ?>
 				</div>
-				<?php if ( 'yes' === $s['show_scroll_cue'] ) : ?>
-					<div class="wss-scroll-cue wss-reveal wss-r3"><i></i><span class="wss-eyebrow" style="color:inherit;"><?php echo esc_html( $s['scroll_text'] ); ?></span></div>
+				<?php if ( ! empty( $s['show_scroll_cue'] ) && 'yes' === $s['show_scroll_cue'] ) : ?>
+					<div class="wss-scroll-cue wss-reveal wss-r3"><i></i><span class="wss-eyebrow" style="color:inherit;"><?php echo esc_html( $s['scroll_text'] ?? '' ); ?></span></div>
 				<?php endif; ?>
 			</section>
 		</div>
