@@ -164,29 +164,39 @@ class WSS_About_Widget extends Widget_Base {
 			<section class="wss-pad">
 				<div class="wss-container wss-about">
 					<div class="wss-reveal">
-						<span class="wss-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
-						<h2><span class="wss-mask"><span><?php echo esc_html( $s['heading'] ); ?></span></span></h2>
-						<p><?php echo esc_html( $s['description'] ); ?></p>
-						<div class="wss-about-actions">
-							<?php if ( ! empty( $s['btn1_text'] ) ) : ?>
-								<a href="<?php echo esc_url( $s['btn1_link']['url'] ?: '#' ); ?>"<?php echo ! empty( $s['btn1_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?> class="wss-btn-pill"><?php echo esc_html( $s['btn1_text'] ); ?> <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-							<?php endif; ?>
-							<?php if ( ! empty( $s['btn2_text'] ) ) : ?>
-								<a href="<?php echo esc_url( $s['btn2_link']['url'] ?: '#' ); ?>"<?php echo ! empty( $s['btn2_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?> class="wss-btn-pill"><?php echo esc_html( $s['btn2_text'] ); ?> <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-							<?php endif; ?>
-						</div>
-					</div>
-					<div class="wss-about-media wss-reveal wss-r2">
-						<div class="wss-img-reveal"><img src="<?php echo esc_url( $s['main_image']['url'] ); ?>" alt="<?php echo esc_attr( $s['heading'] ); ?>"></div>
-						<?php if ( 'yes' === $s['show_video_chip'] ) : ?>
-							<div class="wss-video-chip wss-video-trigger" data-video-url="<?php echo esc_url( $s['video_link'] ); ?>">
-								<img src="<?php echo esc_url( $s['video_image']['url'] ); ?>" alt="<?php echo esc_attr( $s['heading'] ); ?> preview">
-								<div class="wss-play-overlay">
-									<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
-								</div>
+						<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
+							<span class="wss-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
+						<?php endif; ?>
+						<?php if ( ! empty( $s['heading'] ) ) : ?>
+							<h2><span class="wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span></h2>
+						<?php endif; ?>
+						<?php if ( ! empty( $s['description'] ) ) : ?>
+							<p><?php echo nl2br( esc_html( $s['description'] ) ); ?></p>
+						<?php endif; ?>
+						<?php if ( ! empty( $s['btn1_text'] ) || ! empty( $s['btn2_text'] ) ) : ?>
+							<div class="wss-about-actions">
+								<?php if ( ! empty( $s['btn1_text'] ) ) : ?>
+									<a href="<?php echo esc_url( $s['btn1_link']['url'] ?: '#' ); ?>"<?php echo ! empty( $s['btn1_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?> class="wss-btn-pill"><?php echo esc_html( $s['btn1_text'] ); ?> <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+								<?php endif; ?>
+								<?php if ( ! empty( $s['btn2_text'] ) ) : ?>
+									<a href="<?php echo esc_url( $s['btn2_link']['url'] ?: '#' ); ?>"<?php echo ! empty( $s['btn2_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?> class="wss-btn-pill"><?php echo esc_html( $s['btn2_text'] ); ?> <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+								<?php endif; ?>
 							</div>
 						<?php endif; ?>
 					</div>
+					<?php if ( ! empty( $s['main_image']['url'] ) ) : ?>
+						<div class="wss-about-media wss-reveal wss-r2">
+							<div class="wss-img-reveal"><img src="<?php echo esc_url( $s['main_image']['url'] ); ?>" alt="<?php echo esc_attr( $s['heading'] ); ?>"></div>
+							<?php if ( 'yes' === $s['show_video_chip'] && ! empty( $s['video_image']['url'] ) ) : ?>
+								<div class="wss-video-chip wss-video-trigger" data-video-url="<?php echo esc_url( $s['video_link'] ); ?>">
+									<img src="<?php echo esc_url( $s['video_image']['url'] ); ?>" alt="<?php echo esc_attr( $s['heading'] ); ?> preview">
+									<div class="wss-play-overlay">
+										<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+									</div>
+								</div>
+							<?php endif; ?>
+						</div>
+					<?php endif; ?>
 				</div>
 			</section>
 		</div>
