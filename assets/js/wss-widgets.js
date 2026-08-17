@@ -263,6 +263,108 @@
 			}, { passive: true } );
 		}
 
+		/* ─── 9. About / Advisory Media Parallax & Motion Engine ─── */
+		function initAboutParallax() {
+			var parallaxItems = document.querySelectorAll( ".wss-about-media.wss-has-parallax" );
+			if ( ! parallaxItems.length ) return;
+
+			var ticking = false;
+
+			function updateParallax() {
+				var isMobile = window.innerWidth <= 768;
+				var winH = window.innerHeight;
+
+				parallaxItems.forEach( function ( wrap ) {
+					var mode = wrap.getAttribute( "data-parallax-mode" ) || "scroll";
+					var disableMobile = wrap.getAttribute( "data-parallax-disable-mobile" ) === "yes";
+					var img = wrap.querySelector( ".wss-parallax-img" );
+
+					if ( isMobile && disableMobile ) {
+						if ( img ) { img.style.transform = "none"; }
+						return;
+					}
+
+					var rect = wrap.getBoundingClientRect();
+					if ( rect.top < winH && rect.bottom > 0 ) {
+						var speed = parseFloat( wrap.getAttribute( "data-parallax-speed" ) ) || 0.18;
+						var scale = parseFloat( wrap.getAttribute( "data-parallax-scale" ) ) || 1.15;
+						var dir = wrap.getAttribute( "data-parallax-direction" ) || "up";
+						var offset = ( rect.top + rect.height / 2 ) - ( winH / 2 );
+
+						if ( mode === "scroll" && img ) {
+							var moveX = 0;
+							var moveY = 0;
+							if ( dir === "up" ) {
+								moveY = -offset * speed;
+							} else if ( dir === "down" ) {
+								moveY = offset * speed;
+							} else if ( dir === "left" ) {
+								moveX = -offset * speed;
+							} else if ( dir === "right" ) {
+								moveX = offset * speed;
+							}
+							img.style.transform = "scale(" + scale + ") translate3d(" + moveX.toFixed(2) + "px, " + moveY.toFixed(2) + "px, 0)";
+						} else if ( mode === "zoom" && img ) {
+							var progress = 1 - Math.abs( offset ) / ( winH + rect.height );
+							progress = Math.max( 0, Math.min( 1, progress ) );
+							var zoom = scale + ( progress * speed * 0.4 );
+							img.style.transform = "scale(" + zoom.toFixed(3) + ")";
+						}
+					}
+				} );
+				ticking = false;
+			}
+
+			function requestParallaxTick() {
+				if ( ! ticking ) {
+					requestAnimationFrame( updateParallax );
+					ticking = true;
+				}
+			}
+
+			window.addEventListener( "scroll", requestParallaxTick, { passive: true } );
+			window.addEventListener( "resize", requestParallaxTick, { passive: true } );
+			updateParallax();
+
+			/* 3D Tilt Mouse Parallax */
+			parallaxItems.forEach( function ( wrap ) {
+				var mode = wrap.getAttribute( "data-parallax-mode" );
+				if ( mode === "tilt" && ! wrap._tiltBound ) {
+					wrap._tiltBound = true;
+					var img = wrap.querySelector( ".wss-parallax-img" );
+					var tiltMax = parseFloat( wrap.getAttribute( "data-tilt-max" ) ) || 12;
+					var scale = parseFloat( wrap.getAttribute( "data-parallax-scale" ) ) || 1.1;
+
+					wrap.addEventListener( "mousemove", function ( e ) {
+						if ( window.innerWidth <= 768 && wrap.getAttribute( "data-parallax-disable-mobile" ) === "yes" ) return;
+						var r = wrap.getBoundingClientRect();
+						var x = ( e.clientX - r.left ) / r.width - 0.5;
+						var y = ( e.clientY - r.top ) / r.height - 0.5;
+						var rotX = -y * tiltMax;
+						var rotY = x * tiltMax;
+						if ( img ) {
+							img.style.transform = "scale(" + scale + ") perspective(800px) rotateX(" + rotX.toFixed(2) + "deg) rotateY(" + rotY.toFixed(2) + "deg)";
+						}
+					} );
+
+					wrap.addEventListener( "mouseleave", function () {
+						if ( img ) {
+							img.style.transform = "scale(" + scale + ") perspective(800px) rotateX(0deg) rotateY(0deg)";
+						}
+					} );
+				}
+			} );
+		}
+
+		initAboutParallax();
+
+		/* Elementor editor live preview re-init */
+		if ( window.elementorFrontend && window.elementorFrontend.hooks ) {
+			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_about.default", function () {
+				initAboutParallax();
+			} );
+		}
+
 	} ); // end ready
 } )();
 

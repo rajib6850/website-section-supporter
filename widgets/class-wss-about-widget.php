@@ -39,6 +39,179 @@ class WSS_About_Widget extends Widget_Base {
 		$this->add_control( 'video_link', array( 'label' => __( 'Video Link (YouTube or MP4)', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'condition' => array( 'show_video_chip' => 'yes' ) ) );
 		$this->end_controls_section();
 
+		/* ================= PARALLAX & MOTION ================= */
+		$this->start_controls_section(
+			'section_parallax',
+			array( 'label' => __( 'Parallax & Motion Effects', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'enable_parallax',
+			array(
+				'label'        => __( 'Enable Parallax Effect', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'no',
+			)
+		);
+
+		$this->add_control(
+			'parallax_mode',
+			array(
+				'label'     => __( 'Parallax Mode', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'scroll',
+				'options'   => array(
+					'scroll' => __( 'Scroll Parallax (Smooth translate on scroll)', 'website-section-supporter' ),
+					'fixed'  => __( 'Fixed Attachment (Window reveal effect)', 'website-section-supporter' ),
+					'zoom'   => __( 'Scroll Zoom (Scale up on scroll)', 'website-section-supporter' ),
+					'tilt'   => __( '3D Mouse Tilt (Interactive on hover)', 'website-section-supporter' ),
+				),
+				'condition' => array( 'enable_parallax' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'parallax_direction',
+			array(
+				'label'     => __( 'Scroll Direction', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'up',
+				'options'   => array(
+					'up'    => __( 'Vertical Move Up', 'website-section-supporter' ),
+					'down'  => __( 'Vertical Move Down', 'website-section-supporter' ),
+					'left'  => __( 'Horizontal Move Left', 'website-section-supporter' ),
+					'right' => __( 'Horizontal Move Right', 'website-section-supporter' ),
+				),
+				'condition' => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode'   => 'scroll',
+				),
+			)
+		);
+
+		$this->add_control(
+			'parallax_speed',
+			array(
+				'label'     => __( 'Parallax Speed / Strength', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0.05,
+						'max'  => 0.8,
+						'step' => 0.01,
+					),
+				),
+				'default'   => array( 'size' => 0.18 ),
+				'condition' => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode'   => array( 'scroll', 'zoom' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'parallax_scale',
+			array(
+				'label'       => __( 'Image Bleed / Scale', 'website-section-supporter' ),
+				'description' => __( 'Extra image scale inside container to prevent white borders during motion.', 'website-section-supporter' ),
+				'type'        => Controls_Manager::SLIDER,
+				'range'       => array(
+					'px' => array(
+						'min'  => 1.0,
+						'max'  => 1.6,
+						'step' => 0.01,
+					),
+				),
+				'default'     => array( 'size' => 1.15 ),
+				'condition'   => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode!'  => 'fixed',
+				),
+			)
+		);
+
+		$this->add_control(
+			'tilt_max',
+			array(
+				'label'     => __( '3D Tilt Max Angle (deg)', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 5,
+						'max'  => 35,
+						'step' => 1,
+					),
+				),
+				'default'   => array( 'size' => 12 ),
+				'condition' => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode'   => 'tilt',
+				),
+			)
+		);
+
+		$this->add_control(
+			'fixed_bg_pos',
+			array(
+				'label'     => __( 'Fixed Image Position', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'center center',
+				'options'   => array(
+					'center center' => __( 'Center Center', 'website-section-supporter' ),
+					'center top'    => __( 'Center Top', 'website-section-supporter' ),
+					'center bottom' => __( 'Center Bottom', 'website-section-supporter' ),
+					'left center'   => __( 'Left Center', 'website-section-supporter' ),
+					'right center'  => __( 'Right Center', 'website-section-supporter' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-parallax-fixed-img' => 'background-position: {{VALUE}} !important;',
+				),
+				'condition' => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode'   => 'fixed',
+				),
+			)
+		);
+
+		$this->add_control(
+			'fixed_bg_size',
+			array(
+				'label'     => __( 'Fixed Image Size', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'cover',
+				'options'   => array(
+					'cover'   => __( 'Cover', 'website-section-supporter' ),
+					'contain' => __( 'Contain', 'website-section-supporter' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-parallax-fixed-img' => 'background-size: {{VALUE}} !important;',
+				),
+				'condition' => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode'   => 'fixed',
+				),
+			)
+		);
+
+		$this->add_control(
+			'disable_parallax_mobile',
+			array(
+				'label'        => __( 'Disable Motion on Mobile', 'website-section-supporter' ),
+				'description'  => __( 'Disables scroll/tilt movement on screens <= 768px for smoother touch performance.', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => array( 'enable_parallax' => 'yes' ),
+			)
+		);
+
+		$this->end_controls_section();
+
 		/* ================= STYLE: SECTION ================= */
 		$this->start_controls_section(
 			'style_section',
@@ -138,10 +311,47 @@ class WSS_About_Widget extends Widget_Base {
 		);
 		$this->add_control( 'img_heading', array( 'label' => __( 'Main Image', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING ) );
 
+		$this->add_responsive_control(
+			'img_aspect_ratio',
+			array(
+				'label'     => __( 'Aspect Ratio', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => '4/5',
+				'options'   => array(
+					'4/5'   => '4:5 (Portrait Luxury)',
+					'1/1'   => '1:1 (Square)',
+					'3/4'   => '3:4 (Portrait Standard)',
+					'2/3'   => '2:3 (Tall Portrait)',
+					'16/11' => '16:11 (Landscape)',
+					'16/9'  => '16:9 (Widescreen)',
+					'auto'  => 'Auto / Custom Height',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-about-media .wss-img-cover, {{WRAPPER}} .wss-about-media .wss-img-reveal, {{WRAPPER}} .wss-about-media .wss-parallax-fixed-wrap' => 'aspect-ratio: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'img_custom_height',
+			array(
+				'label'      => __( 'Custom Min Height', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'vh' ),
+				'range'      => array(
+					'px' => array( 'min' => 200, 'max' => 900 ),
+					'vh' => array( 'min' => 20, 'max' => 100 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-about-media .wss-img-cover, {{WRAPPER}} .wss-about-media .wss-img-reveal, {{WRAPPER}} .wss-about-media .wss-parallax-fixed-wrap' => 'min-height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		$this->add_group_control( Group_Control_Border::get_type(), array( 'name' => 'img_border', 'selector' => '{{WRAPPER}} .wss-about-media .wss-img-reveal' ) );
 		$this->add_control(
 			'img_radius',
-			array( 'label' => __( 'Border Radius', 'website-section-supporter' ), 'type' => Controls_Manager::SLIDER, 'range' => array( 'px' => array( 'min' => 0, 'max' => 80 ) ), 'selectors' => array( '{{WRAPPER}} .wss-about-media .wss-img-reveal' => 'border-radius: {{SIZE}}{{UNIT}};' ) )
+			array( 'label' => __( 'Border Radius', 'website-section-supporter' ), 'type' => Controls_Manager::SLIDER, 'range' => array( 'px' => array( 'min' => 0, 'max' => 80 ) ), 'selectors' => array( '{{WRAPPER}} .wss-about-media .wss-img-reveal, {{WRAPPER}} .wss-about-media .wss-parallax-fixed-wrap, {{WRAPPER}} .wss-about-media .wss-parallax-fixed-img' => 'border-radius: {{SIZE}}{{UNIT}};' ) )
 		);
 		$this->add_group_control( Group_Control_Box_Shadow::get_type(), array( 'name' => 'img_shadow', 'selector' => '{{WRAPPER}} .wss-about-media .wss-img-reveal' ) );
 
@@ -159,6 +369,14 @@ class WSS_About_Widget extends Widget_Base {
 
 	protected function render() {
 		$s = $this->get_settings_for_display();
+
+		$enable_parallax = ! empty( $s['enable_parallax'] ) && 'yes' === $s['enable_parallax'];
+		$parallax_mode   = ! empty( $s['parallax_mode'] ) ? $s['parallax_mode'] : 'scroll';
+		$parallax_speed  = isset( $s['parallax_speed']['size'] ) ? floatval( $s['parallax_speed']['size'] ) : 0.18;
+		$parallax_dir    = ! empty( $s['parallax_direction'] ) ? $s['parallax_direction'] : 'up';
+		$disable_mobile  = ! empty( $s['disable_parallax_mobile'] ) && 'yes' === $s['disable_parallax_mobile'] ? 'yes' : 'no';
+		$initial_scale   = isset( $s['parallax_scale']['size'] ) ? floatval( $s['parallax_scale']['size'] ) : 1.15;
+		$tilt_max        = isset( $s['tilt_max']['size'] ) ? intval( $s['tilt_max']['size'] ) : 12;
 		?>
 		<div class="wss-scope">
 			<section class="wss-pad">
@@ -185,8 +403,26 @@ class WSS_About_Widget extends Widget_Base {
 						<?php endif; ?>
 					</div>
 					<?php if ( ! empty( $s['main_image']['url'] ) ) : ?>
-						<div class="wss-about-media wss-reveal wss-r2">
-							<div class="wss-img-reveal"><img src="<?php echo esc_url( $s['main_image']['url'] ); ?>" alt="<?php echo esc_attr( $s['heading'] ); ?>"></div>
+						<div class="wss-about-media wss-reveal wss-r2<?php echo $enable_parallax ? ' wss-has-parallax wss-parallax-' . esc_attr( $parallax_mode ) : ''; ?>"
+							<?php if ( $enable_parallax ) : ?>
+								data-parallax-mode="<?php echo esc_attr( $parallax_mode ); ?>"
+								data-parallax-speed="<?php echo esc_attr( $parallax_speed ); ?>"
+								data-parallax-direction="<?php echo esc_attr( $parallax_dir ); ?>"
+								data-parallax-scale="<?php echo esc_attr( $initial_scale ); ?>"
+								data-parallax-disable-mobile="<?php echo esc_attr( $disable_mobile ); ?>"
+								data-tilt-max="<?php echo esc_attr( $tilt_max ); ?>"
+							<?php endif; ?>
+						>
+							<?php if ( $enable_parallax && 'fixed' === $parallax_mode ) : ?>
+								<div class="wss-img-reveal wss-parallax-fixed-wrap">
+									<div class="wss-parallax-fixed-img" style="background-image: url('<?php echo esc_url( $s['main_image']['url'] ); ?>');"></div>
+								</div>
+							<?php else : ?>
+								<div class="wss-img-reveal">
+									<img class="wss-parallax-img" src="<?php echo esc_url( $s['main_image']['url'] ); ?>" alt="<?php echo esc_attr( $s['heading'] ); ?>" style="<?php echo $enable_parallax ? 'transform: scale(' . esc_attr( $initial_scale ) . ');' : ''; ?>">
+								</div>
+							<?php endif; ?>
+
 							<?php if ( 'yes' === $s['show_video_chip'] && ! empty( $s['video_image']['url'] ) ) : ?>
 								<div class="wss-video-chip wss-video-trigger" data-video-url="<?php echo esc_url( $s['video_link'] ); ?>">
 									<img src="<?php echo esc_url( $s['video_image']['url'] ); ?>" alt="<?php echo esc_attr( $s['heading'] ); ?> preview">
