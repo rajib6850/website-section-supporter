@@ -134,8 +134,8 @@ class WSS_Testimonial_Widget extends Widget_Base {
 				'label'     => __( 'Arrow Icon Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-testi-nav-btns button, {{WRAPPER}} .wss-testi-prev, {{WRAPPER}} .wss-testi-next' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-testi-nav-btns button svg, {{WRAPPER}} .wss-testi-prev svg, {{WRAPPER}} .wss-testi-next svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-testi-nav-btns button, {{WRAPPER}} .wss-testi-nav-btns button[type="button"], {{WRAPPER}} .wss-testi-prev, {{WRAPPER}} .wss-testi-next' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-testi-nav-btns button svg, {{WRAPPER}} .wss-testi-nav-btns button[type="button"] svg, {{WRAPPER}} .wss-testi-prev svg, {{WRAPPER}} .wss-testi-next svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -145,7 +145,7 @@ class WSS_Testimonial_Widget extends Widget_Base {
 				'label'     => __( 'Background Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-testi-nav-btns button, {{WRAPPER}} .wss-testi-prev, {{WRAPPER}} .wss-testi-next' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-testi-nav-btns button, {{WRAPPER}} .wss-testi-nav-btns button[type="button"], {{WRAPPER}} .wss-testi-prev, {{WRAPPER}} .wss-testi-next' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -155,7 +155,7 @@ class WSS_Testimonial_Widget extends Widget_Base {
 				'label'     => __( 'Border Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-testi-nav-btns button, {{WRAPPER}} .wss-testi-prev, {{WRAPPER}} .wss-testi-next' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-testi-nav-btns button, {{WRAPPER}} .wss-testi-nav-btns button[type="button"], {{WRAPPER}} .wss-testi-prev, {{WRAPPER}} .wss-testi-next' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -172,8 +172,8 @@ class WSS_Testimonial_Widget extends Widget_Base {
 				'label'     => __( 'Hover Icon Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-testi-nav-btns button:hover, {{WRAPPER}} .wss-testi-prev:hover, {{WRAPPER}} .wss-testi-next:hover' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-testi-nav-btns button:hover svg, {{WRAPPER}} .wss-testi-prev:hover svg, {{WRAPPER}} .wss-testi-next:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-testi-nav-btns button:hover, {{WRAPPER}} .wss-testi-nav-btns button[type="button"]:hover, {{WRAPPER}} .wss-testi-nav-btns button:focus, {{WRAPPER}} .wss-testi-nav-btns button[type="button"]:focus, {{WRAPPER}} .wss-testi-nav-btns button:focus-visible, {{WRAPPER}} .wss-testi-nav-btns button:active, {{WRAPPER}} .wss-testi-prev:hover, {{WRAPPER}} .wss-testi-prev:focus, {{WRAPPER}} .wss-testi-prev:focus-visible, {{WRAPPER}} .wss-testi-prev:active, {{WRAPPER}} .wss-testi-next:hover, {{WRAPPER}} .wss-testi-next:focus, {{WRAPPER}} .wss-testi-next:focus-visible, {{WRAPPER}} .wss-testi-next:active' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-testi-nav-btns button:hover svg, {{WRAPPER}} .wss-testi-nav-btns button[type="button"]:hover svg, {{WRAPPER}} .wss-testi-nav-btns button:focus svg, {{WRAPPER}} .wss-testi-nav-btns button[type="button"]:focus svg, {{WRAPPER}} .wss-testi-nav-btns button:focus-visible svg, {{WRAPPER}} .wss-testi-nav-btns button:active svg, {{WRAPPER}} .wss-testi-prev:hover svg, {{WRAPPER}} .wss-testi-prev:focus svg, {{WRAPPER}} .wss-testi-prev:focus-visible svg, {{WRAPPER}} .wss-testi-prev:active svg, {{WRAPPER}} .wss-testi-next:hover svg, {{WRAPPER}} .wss-testi-next:focus svg, {{WRAPPER}} .wss-testi-next:focus-visible svg, {{WRAPPER}} .wss-testi-next:active svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -183,7 +183,7 @@ class WSS_Testimonial_Widget extends Widget_Base {
 				'label'     => __( 'Hover Background', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-testi-nav-btns button:hover, {{WRAPPER}} .wss-testi-prev:hover, {{WRAPPER}} .wss-testi-next:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-testi-nav-btns button:hover, {{WRAPPER}} .wss-testi-nav-btns button[type="button"]:hover, {{WRAPPER}} .wss-testi-nav-btns button:focus, {{WRAPPER}} .wss-testi-nav-btns button[type="button"]:focus, {{WRAPPER}} .wss-testi-nav-btns button:focus-visible, {{WRAPPER}} .wss-testi-nav-btns button:active, {{WRAPPER}} .wss-testi-prev:hover, {{WRAPPER}} .wss-testi-prev:focus, {{WRAPPER}} .wss-testi-prev:focus-visible, {{WRAPPER}} .wss-testi-prev:active, {{WRAPPER}} .wss-testi-next:hover, {{WRAPPER}} .wss-testi-next:focus, {{WRAPPER}} .wss-testi-next:focus-visible, {{WRAPPER}} .wss-testi-next:active' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -193,7 +193,7 @@ class WSS_Testimonial_Widget extends Widget_Base {
 				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-testi-nav-btns button:hover, {{WRAPPER}} .wss-testi-prev:hover, {{WRAPPER}} .wss-testi-next:hover' => 'border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-testi-nav-btns button:hover, {{WRAPPER}} .wss-testi-nav-btns button[type="button"]:hover, {{WRAPPER}} .wss-testi-nav-btns button:focus, {{WRAPPER}} .wss-testi-nav-btns button[type="button"]:focus, {{WRAPPER}} .wss-testi-nav-btns button:focus-visible, {{WRAPPER}} .wss-testi-nav-btns button:active, {{WRAPPER}} .wss-testi-prev:hover, {{WRAPPER}} .wss-testi-prev:focus, {{WRAPPER}} .wss-testi-prev:focus-visible, {{WRAPPER}} .wss-testi-prev:active, {{WRAPPER}} .wss-testi-next:hover, {{WRAPPER}} .wss-testi-next:focus, {{WRAPPER}} .wss-testi-next:focus-visible, {{WRAPPER}} .wss-testi-next:active' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);

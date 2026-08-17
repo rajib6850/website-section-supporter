@@ -2931,12 +2931,24 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-scope .wss-testi-nav-btns button[type="button"]:hover,
 .wss-scope .wss-testi-nav-btns button:focus,
 .wss-scope .wss-testi-nav-btns button[type="button"]:focus,
+.wss-scope .wss-testi-nav-btns button:focus-visible,
+.wss-scope .wss-testi-nav-btns button[type="button"]:focus-visible,
 .wss-scope .wss-testi-nav-btns button:active,
 .wss-scope .wss-testi-nav-btns button[type="button"]:active,
 .wss-testi-nav-btns button:hover,
 .wss-testi-nav-btns button[type="button"]:hover,
+.wss-testi-nav-btns button:focus,
+.wss-testi-nav-btns button[type="button"]:focus,
+.wss-testi-nav-btns button:focus-visible,
+.wss-testi-nav-btns button:active,
 .wss-testi-prev:hover,
-.wss-testi-next:hover {
+.wss-testi-prev:focus,
+.wss-testi-prev:focus-visible,
+.wss-testi-prev:active,
+.wss-testi-next:hover,
+.wss-testi-next:focus,
+.wss-testi-next:focus-visible,
+.wss-testi-next:active {
   background: var(--wss-ink);
   background-color: var(--wss-ink);
   border-color: var(--wss-ink);
