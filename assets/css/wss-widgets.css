@@ -2368,11 +2368,11 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 .wss-tri-panel {
   display: block !important;
   width: 100% !important;
-  height: 100%;
+  min-height: var(--wss-tri-panel-min-height, 460px);
   position: relative !important;
-  aspect-ratio: 16/13;
+  aspect-ratio: var(--wss-tri-aspect-ratio, 16/13);
   overflow: hidden !important;
-  background: var(--wss-charcoal);
+  background: var(--wss-charcoal, #131210);
   cursor: pointer;
   box-sizing: border-box !important;
   text-decoration: none;

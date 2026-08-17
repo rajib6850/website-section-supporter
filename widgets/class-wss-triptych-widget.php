@@ -305,10 +305,14 @@ class WSS_Triptych_Widget extends Widget_Base {
 			array(
 				'label'      => __( 'Min Height', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px', 'vh' ),
-				'range'      => array( 'px' => array( 'min' => 0, 'max' => 800 ) ),
+				'size_units' => array( 'px', 'vh', 'em' ),
+				'range'      => array(
+					'px' => array( 'min' => 200, 'max' => 1000 ),
+					'vh' => array( 'min' => 20, 'max' => 100 ),
+				),
+				'default'    => array( 'size' => 480, 'unit' => 'px' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-tri-panel' => 'min-height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .wss-tri-panel' => 'min-height: {{SIZE}}{{UNIT}} !important; --wss-tri-panel-min-height: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
