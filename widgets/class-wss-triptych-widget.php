@@ -69,6 +69,24 @@ class WSS_Triptych_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'panorama_span_mode',
+			array(
+				'label'       => __( 'Panorama Coverage', 'website-section-supporter' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'full_grid',
+				'options'     => array(
+					'full_grid' => __( 'Full Grid (1 Single Image covers entire widget across all rows & columns)', 'website-section-supporter' ),
+					'per_row'   => __( 'Per Row (Image repeats & splits on each row individually)', 'website-section-supporter' ),
+				),
+				'condition'   => array(
+					'image_source_type' => 'panorama',
+					'panorama_fit'      => 'continuous',
+				),
+				'description' => __( 'Full Grid makes 1 single image span the entire widget across all rows and columns.', 'website-section-supporter' ),
+			)
+		);
+
+		$this->add_control(
 			'panorama_y_position',
 			array(
 				'label'     => __( 'Vertical Image Crop Position', 'website-section-supporter' ),
@@ -577,10 +595,14 @@ class WSS_Triptych_Widget extends Widget_Base {
 		$image_mode    = ! empty( $s['image_source_type'] ) ? $s['image_source_type'] : 'panorama';
 		$panorama_img  = ! empty( $s['panorama_image']['url'] ) ? $s['panorama_image']['url'] : 'https://picsum.photos/seed/noirinterior19/1920/900';
 		$panorama_fit  = ! empty( $s['panorama_fit'] ) ? $s['panorama_fit'] : 'continuous';
+		$span_mode     = ! empty( $s['panorama_span_mode'] ) ? $s['panorama_span_mode'] : 'full_grid';
+
 		$panels        = ! empty( $s['panels'] ) && is_array( $s['panels'] ) ? $s['panels'] : array();
 		$total_panels  = count( $panels );
 		$cols          = ! empty( $s['columns'] ) ? intval( $s['columns'] ) : 3;
 		if ( $cols < 1 ) { $cols = 3; }
+		$total_rows    = ceil( $total_panels / $cols );
+		if ( $total_rows < 1 ) { $total_rows = 1; }
 		?>
 		<div class="wss-scope" style="display:block; width:100%; clear:both; position:relative;">
 			<section class="wss-triptych-section" style="display:block; width:100%; clear:both; position:relative;">
@@ -599,16 +621,20 @@ class WSS_Triptych_Widget extends Widget_Base {
 							$custom_img = ! empty( $panel['image']['url'] ) ? $panel['image']['url'] : '';
 							$final_img  = ! empty( $custom_img ) ? $custom_img : $panorama_img;
 
-							// Column index within the current row (0, 1, 2, ... cols-1)
+							// Column & Row index in the 2D grid
 							$col_index  = $cols > 0 ? ( $i % $cols ) : 0;
 							$row_index  = $cols > 0 ? floor( $i / $cols ) : 0;
+
+							// If full_grid, span across total_rows vertically. If per_row, height is 100% and top is 0%
+							$slice_h    = ( 'full_grid' === $span_mode ) ? ( $total_rows * 100 ) : 100;
+							$slice_top  = ( 'full_grid' === $span_mode ) ? ( $row_index * 100 ) : 0;
 							?>
 							<<?php echo $tag; ?> class="wss-tri-panel wss-panel-<?php echo esc_attr( $i ); ?>" data-col="<?php echo esc_attr( $col_index ); ?>" data-row="<?php echo esc_attr( $row_index ); ?>"<?php if ( $has_link ) : ?> href="<?php echo esc_url( $panel['link']['url'] ); ?>"<?php echo ! empty( $panel['link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?><?php endif; ?>>
 								<?php if ( 'panorama' === $image_mode && empty( $custom_img ) ) : ?>
 									<?php if ( 'fixed' === $panorama_fit ) : ?>
 										<div class="wss-tri-bg wss-tri-bg-fixed" style="background-image: url('<?php echo esc_url( $panorama_img ); ?>'); background-attachment: fixed; background-size: cover; background-position: <?php echo esc_attr( ! empty( $s['panorama_y_position'] ) ? $s['panorama_y_position'] : 'center center' ); ?>;"></div>
 									<?php else : ?>
-										<div class="wss-tri-panorama-slice" style="left: -<?php echo ( $col_index * 100 ); ?>%; width: <?php echo ( $cols * 100 ); ?>%;">
+										<div class="wss-tri-panorama-slice" style="left: -<?php echo ( $col_index * 100 ); ?>%; top: -<?php echo ( $slice_top ); ?>%; width: <?php echo ( $cols * 100 ); ?>%; height: <?php echo ( $slice_h ); ?>%;">
 											<img class="wss-tri-img wss-tri-panorama-img" src="<?php echo esc_url( $panorama_img ); ?>" alt="<?php echo esc_attr( $caption ); ?>">
 										</div>
 									<?php endif; ?>

@@ -2534,9 +2534,6 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 /* Continuous Panorama Slice Container */
 .wss-tri-panorama-slice {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  height: 100%;
   pointer-events: none;
   overflow: hidden;
 }
