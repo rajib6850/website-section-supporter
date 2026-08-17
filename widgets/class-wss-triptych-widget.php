@@ -718,7 +718,7 @@ class WSS_Triptych_Widget extends Widget_Base {
 		$blur_mode     = ! empty( $s['blur_mode'] ) ? $s['blur_mode'] : 'hovered';
 		$blur_class    = $enable_blur ? ( ' wss-hover-blur wss-blur-' . $blur_mode ) : '';
 
-		$image_mode    = ! empty( $s['image_source_type'] ) ? $s['image_source_type'] : 'panorama';
+		$image_mode    = ! empty( $s['image_source_type'] ) ? $s['image_source_type'] : ( ! empty( $s['panorama_image']['url'] ) ? 'panorama' : 'individual' );
 		$panorama_fit  = ! empty( $s['panorama_fit'] ) ? $s['panorama_fit'] : 'continuous';
 		$span_mode     = ! empty( $s['panorama_span_mode'] ) ? $s['panorama_span_mode'] : 'full_grid';
 
@@ -787,7 +787,7 @@ class WSS_Triptych_Widget extends Widget_Base {
 							$slice_top  = ( 'full_grid' === $span_mode ) ? ( $row_index * 100 ) : 0;
 							?>
 							<<?php echo $tag; ?> class="wss-tri-panel wss-panel-<?php echo esc_attr( $i ); ?>" data-col="<?php echo esc_attr( $col_index ); ?>" data-row="<?php echo esc_attr( $row_index ); ?>"<?php if ( $has_link ) : ?> href="<?php echo esc_url( $panel['link']['url'] ); ?>"<?php echo ! empty( $panel['link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?><?php endif; ?>>
-								<?php if ( 'panorama' === $image_mode && empty( $custom_img ) ) : ?>
+								<?php if ( 'panorama' === $image_mode ) : ?>
 									<?php if ( 'fixed' === $panorama_fit ) : ?>
 										<div class="wss-tri-bg wss-tri-bg-fixed" style="background-image: url('<?php echo esc_url( $panorama_img ); ?>'); background-attachment: fixed; background-size: cover; background-position: <?php echo esc_attr( ! empty( $s['panorama_y_position'] ) ? $s['panorama_y_position'] : 'center center' ); ?>;"></div>
 									<?php else : ?>
