@@ -721,6 +721,8 @@ class WSS_Triptych_Widget extends Widget_Base {
 	}
 
 	protected function render() {
+		$s = $this->get_settings_for_display();
+
 		$has_zoom      = ! empty( $s['zoom_hover'] ) && 'yes' === $s['zoom_hover'];
 		$zoom_class    = $has_zoom ? ' wss-has-zoom' : ' wss-no-zoom';
 		$is_boxed      = ! empty( $s['container_width_type'] ) && 'boxed' === $s['container_width_type'];
