@@ -2385,19 +2385,19 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   display: block !important;
   object-fit: cover;
   filter: brightness(.7) contrast(1.08);
-  transform: scale(1.06);
-  transition: transform 1.6s var(--wss-ease), filter .9s ease;
-  will-change: transform;
+  transform: none !important;
+  transition: filter .9s ease;
+  will-change: filter;
 }
 
 .wss-tri-panel:hover .wss-tri-img {
-  transform: scale(1.13);
+  transform: none !important;
   filter: brightness(.82) contrast(1.04);
 }
 
 .wss-triptych.wss-no-zoom .wss-tri-img,
 .wss-triptych.wss-no-zoom .wss-tri-panel:hover .wss-tri-img {
-  transform: scale(1.06);
+  transform: none !important;
 }
 
 /* ── Image Background (for fixed attachment) ── */
@@ -2410,19 +2410,19 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   background-repeat: no-repeat;
   background-size: cover;
   filter: brightness(.7) contrast(1.08);
-  transform: scale(1.06);
-  transition: transform 1.6s var(--wss-ease), filter .9s ease;
-  will-change: transform;
+  transform: none !important;
+  transition: filter .9s ease;
+  will-change: filter;
 }
 
 .wss-tri-panel:hover .wss-tri-bg {
-  transform: scale(1.13);
+  transform: none !important;
   filter: brightness(.82) contrast(1.04);
 }
 
 .wss-triptych.wss-no-zoom .wss-tri-bg,
 .wss-triptych.wss-no-zoom .wss-tri-panel:hover .wss-tri-bg {
-  transform: scale(1.06);
+  transform: none !important;
 }
 
 /* ── Gradient overlay ── */
@@ -2547,20 +2547,20 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   object-fit: cover !important;
   display: block !important;
   filter: brightness(.7) contrast(1.08);
-  transform: scale(1.04);
-  transition: transform 1.6s var(--wss-ease), filter .9s ease;
-  will-change: transform;
+  transform: none !important;
+  transition: filter .9s ease;
+  will-change: filter;
 }
 
 .wss-tri-panel:hover .wss-tri-panorama-slice img,
 .wss-tri-panel:hover .wss-tri-panorama-slice .wss-tri-img {
-  transform: scale(1.10);
+  transform: none !important;
   filter: brightness(.82) contrast(1.04);
 }
 
 .wss-triptych.wss-no-zoom .wss-tri-panorama-slice img,
 .wss-triptych.wss-no-zoom .wss-tri-panel:hover .wss-tri-panorama-slice img {
-  transform: scale(1.04);
+  transform: none !important;
 }
 
 /* ── Responsive Triptych ── */

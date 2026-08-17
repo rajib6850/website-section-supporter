@@ -364,7 +364,14 @@ class WSS_Triptych_Widget extends Widget_Base {
 		);
 		$this->add_control(
 			'zoom_hover',
-			array( 'label' => __( 'Zoom on Hover', 'website-section-supporter' ), 'type' => Controls_Manager::SWITCHER, 'default' => 'yes' )
+			array(
+				'label'        => __( 'Zoom on Hover', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'no',
+			)
 		);
 
 		$this->add_control( 'img_controls_heading', array( 'label' => __( 'Image Adjustments', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
