@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
+use Elementor\Group_Control_Image_Size;
 
 class WSS_Newsletter_Widget extends Widget_Base {
 
@@ -11,15 +12,151 @@ class WSS_Newsletter_Widget extends Widget_Base {
 	public function get_title() { return __( 'WSS — Newsletter CTA', 'website-section-supporter' ); }
 	public function get_icon() { return 'eicon-form-horizontal'; }
 	public function get_categories() { return array( 'website-section-supporter' ); }
-	public function get_keywords() { return array( 'newsletter', 'form', 'cta', 'subscribe' ); }
+	public function get_keywords() { return array( 'newsletter', 'form', 'cta', 'subscribe', 'parallax' ); }
 
 	protected function register_controls() {
 
 		/* ================= CONTENT ================= */
 		$this->start_controls_section( 'section_content', array( 'label' => __( 'Content', 'website-section-supporter' ) ) );
 		$this->add_control( 'bg_image', array( 'label' => __( 'Background Image', 'website-section-supporter' ), 'type' => Controls_Manager::MEDIA, 'default' => array( 'url' => 'https://picsum.photos/seed/noirocean/1800/900' ) ) );
+		$this->add_group_control(
+			Group_Control_Image_Size::get_type(),
+			array(
+				'name'      => 'bg_image_size',
+				'default'   => 'full',
+				'separator' => 'none',
+			)
+		);
 		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Newsletter', 'website-section-supporter' ) ) );
 		$this->add_control( 'heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::TEXTAREA, 'default' => __( 'Learn More About Our Luxury Listings & Services', 'website-section-supporter' ), 'rows' => 3 ) );
+		$this->end_controls_section();
+
+		/* ================= PARALLAX & MOTION CONTROLS ================= */
+		$this->start_controls_section(
+			'section_parallax',
+			array( 'label' => __( 'Parallax & Motion Effects', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'enable_parallax',
+			array(
+				'label'        => __( 'Enable Parallax Effect', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'parallax_mode',
+			array(
+				'label'     => __( 'Parallax Mode', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'scroll',
+				'options'   => array(
+					'scroll' => __( 'Scroll Parallax (Smooth translate on scroll)', 'website-section-supporter' ),
+					'fixed'  => __( 'Fixed Attachment (Window reveal effect)', 'website-section-supporter' ),
+					'zoom'   => __( 'Scroll Zoom (Scale up on scroll)', 'website-section-supporter' ),
+					'tilt'   => __( '3D Mouse Tilt (Interactive on hover)', 'website-section-supporter' ),
+				),
+				'condition' => array( 'enable_parallax' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'parallax_direction',
+			array(
+				'label'     => __( 'Scroll Direction', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'up',
+				'options'   => array(
+					'up'    => __( 'Vertical Move Up', 'website-section-supporter' ),
+					'down'  => __( 'Vertical Move Down', 'website-section-supporter' ),
+					'left'  => __( 'Horizontal Move Left', 'website-section-supporter' ),
+					'right' => __( 'Horizontal Move Right', 'website-section-supporter' ),
+				),
+				'condition' => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode'   => 'scroll',
+				),
+			)
+		);
+
+		$this->add_control(
+			'parallax_speed',
+			array(
+				'label'     => __( 'Parallax Speed / Strength', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0.05,
+						'max'  => 0.8,
+						'step' => 0.01,
+					),
+				),
+				'default'   => array( 'size' => 0.18 ),
+				'condition' => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode'   => array( 'scroll', 'zoom' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'parallax_scale',
+			array(
+				'label'       => __( 'Image Bleed / Scale', 'website-section-supporter' ),
+				'description' => __( 'Extra image scale inside container to prevent white borders during motion.', 'website-section-supporter' ),
+				'type'        => Controls_Manager::SLIDER,
+				'range'       => array(
+					'px' => array(
+						'min'  => 1.0,
+						'max'  => 1.6,
+						'step' => 0.01,
+					),
+				),
+				'default'     => array( 'size' => 1.25 ),
+				'condition'   => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode'   => array( 'scroll', 'zoom', 'tilt' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'tilt_max',
+			array(
+				'label'     => __( 'Max Tilt Angle (Deg)', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min' => 3,
+						'max' => 25,
+					),
+				),
+				'default'   => array( 'size' => 10 ),
+				'condition' => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode'   => 'tilt',
+				),
+			)
+		);
+
+		$this->add_control(
+			'parallax_disable_mobile',
+			array(
+				'label'        => __( 'Disable Motion on Mobile', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => array( 'enable_parallax' => 'yes' ),
+			)
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section( 'section_form', array( 'label' => __( 'Form', 'website-section-supporter' ) ) );
@@ -147,6 +284,50 @@ class WSS_Newsletter_Widget extends Widget_Base {
 			'columns_gap',
 			array( 'label' => __( 'Gap Between Text & Form', 'website-section-supporter' ), 'type' => Controls_Manager::SLIDER, 'size_units' => array( 'px', 'vw' ), 'range' => array( 'vw' => array( 'min' => 0, 'max' => 15 ) ), 'selectors' => array( '{{WRAPPER}} .wss-newsletter-inner' => 'gap: {{SIZE}}{{UNIT}};' ) )
 		);
+
+		$this->add_control( 'img_adjust_heading', array( 'label' => __( 'Background Image Adjustments', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
+		$this->add_responsive_control(
+			'bg_position',
+			array(
+				'label'     => __( 'Background Position', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'center center',
+				'options'   => array(
+					'center center' => __( 'Center Center (Default)', 'website-section-supporter' ),
+					'center top'    => __( 'Center Top', 'website-section-supporter' ),
+					'center bottom' => __( 'Center Bottom', 'website-section-supporter' ),
+					'left center'   => __( 'Left Center', 'website-section-supporter' ),
+					'right center'  => __( 'Right Center', 'website-section-supporter' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-newsletter-bg' => 'background-position: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'bg_brightness',
+			array(
+				'label'      => __( 'Brightness', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 2, 'step' => 0.05 ) ),
+				'default'    => array( 'size' => 0.55 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-newsletter-bg' => 'filter: brightness({{SIZE}}) contrast(1.1);',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'bg_contrast',
+			array(
+				'label'      => __( 'Contrast', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 3, 'step' => 0.05 ) ),
+				'default'    => array( 'size' => 1.1 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-newsletter-bg' => 'filter: brightness(' . "'" . '{{bg_brightness.SIZE}}' . "'" . ') contrast({{SIZE}});',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		/* ================= STYLE: HEADING ================= */
@@ -223,10 +404,54 @@ class WSS_Newsletter_Widget extends Widget_Base {
 
 	protected function render() {
 		$s = $this->get_settings_for_display();
+
+		$enable_parallax = ! empty( $s['enable_parallax'] ) && 'yes' === $s['enable_parallax'];
+		$parallax_mode   = ! empty( $s['parallax_mode'] ) ? $s['parallax_mode'] : 'scroll';
+		$parallax_speed  = ! empty( $s['parallax_speed']['size'] ) ? floatval( $s['parallax_speed']['size'] ) : 0.18;
+		$parallax_scale  = ! empty( $s['parallax_scale']['size'] ) ? floatval( $s['parallax_scale']['size'] ) : 1.25;
+		$parallax_dir    = ! empty( $s['parallax_direction'] ) ? $s['parallax_direction'] : 'up';
+		$tilt_max        = ! empty( $s['tilt_max']['size'] ) ? floatval( $s['tilt_max']['size'] ) : 10;
+		$disable_mobile  = ! empty( $s['parallax_disable_mobile'] ) ? $s['parallax_disable_mobile'] : 'yes';
+
+		// Get highest quality uncompressed resolution for background image
+		$bg_img = '';
+		if ( ! empty( $s['bg_image']['id'] ) ) {
+			$src = Group_Control_Image_Size::get_attachment_image_src( $s['bg_image']['id'], 'bg_image_size', $s );
+			if ( ! empty( $src ) ) {
+				$bg_img = $src;
+			} else {
+				$full_data = wp_get_attachment_image_src( $s['bg_image']['id'], 'full' );
+				$bg_img = ! empty( $full_data[0] ) ? $full_data[0] : '';
+			}
+		}
+		if ( empty( $bg_img ) && ! empty( $s['bg_image']['url'] ) ) {
+			$bg_img = $s['bg_image']['url'];
+		}
+		if ( empty( $bg_img ) ) {
+			$bg_img = 'https://picsum.photos/seed/noirocean/1800/900';
+		}
+
+		$section_class = 'wss-newsletter';
+		if ( $enable_parallax ) {
+			$section_class .= ' wss-has-parallax';
+			if ( 'fixed' === $parallax_mode ) {
+				$section_class .= ' wss-parallax-fixed-section';
+			}
+		} else {
+			$section_class .= ' wss-no-parallax';
+		}
 		?>
 		<div class="wss-scope">
-			<section class="wss-newsletter">
-				<div class="wss-newsletter-bg" style="background-image: url('<?php echo esc_url( $s['bg_image']['url'] ); ?>');"></div>
+			<section class="<?php echo esc_attr( $section_class ); ?>"
+				<?php if ( $enable_parallax && 'fixed' !== $parallax_mode ) : ?>
+					data-parallax-mode="<?php echo esc_attr( $parallax_mode ); ?>"
+					data-parallax-speed="<?php echo esc_attr( $parallax_speed ); ?>"
+					data-parallax-scale="<?php echo esc_attr( $parallax_scale ); ?>"
+					data-parallax-direction="<?php echo esc_attr( $parallax_dir ); ?>"
+					data-tilt-max="<?php echo esc_attr( $tilt_max ); ?>"
+					data-parallax-disable-mobile="<?php echo esc_attr( $disable_mobile ); ?>"
+				<?php endif; ?>>
+				<div class="wss-newsletter-bg<?php echo ( $enable_parallax && 'fixed' === $parallax_mode ) ? ' wss-parallax-fixed-bg' : ( $enable_parallax ? ' wss-parallax-img' : '' ); ?>" style="background-image: url('<?php echo esc_url( $bg_img ); ?>');"></div>
 				<div class="wss-container wss-pad">
 					<div class="wss-newsletter-inner">
 						<div class="wss-reveal">

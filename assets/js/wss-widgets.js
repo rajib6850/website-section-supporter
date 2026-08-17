@@ -250,18 +250,102 @@
 			}
 		} );
 
-		/* ─── 8. Newsletter Parallax ──────────────────────────── */
-		var newsletter = document.querySelector( ".wss-newsletter" );
-		var nlBg = document.querySelector( ".wss-newsletter-bg" );
-		if ( newsletter && nlBg ) {
-			window.addEventListener( "scroll", function () {
-				var rect = newsletter.getBoundingClientRect();
-				if ( rect.top < window.innerHeight && rect.bottom > 0 ) {
-					var offset = ( rect.top + rect.height / 2 ) - ( window.innerHeight / 2 );
-					nlBg.style.transform = "translateY(" + ( offset * 0.15 ) + "px)";
+		/* ─── 8. Newsletter Parallax & Motion Engine ────────── */
+		function initNewsletterParallax() {
+			var nlSections = document.querySelectorAll( ".wss-newsletter.wss-has-parallax" );
+			if ( ! nlSections.length ) return;
+
+			var ticking = false;
+
+			function updateNlParallax() {
+				var isMobile = window.innerWidth <= 768;
+				var winH = window.innerHeight;
+
+				nlSections.forEach( function ( section ) {
+					var mode = section.getAttribute( "data-parallax-mode" ) || "scroll";
+					var disableMobile = section.getAttribute( "data-parallax-disable-mobile" ) === "yes";
+					var img = section.querySelector( ".wss-newsletter-bg.wss-parallax-img" );
+
+					if ( ! img ) return;
+
+					if ( isMobile && disableMobile ) {
+						img.style.transform = "none";
+						return;
+					}
+
+					var rect = section.getBoundingClientRect();
+					if ( rect.top < winH && rect.bottom > 0 ) {
+						var speed = parseFloat( section.getAttribute( "data-parallax-speed" ) ) || 0.18;
+						var scale = parseFloat( section.getAttribute( "data-parallax-scale" ) ) || 1.25;
+						var dir = section.getAttribute( "data-parallax-direction" ) || "up";
+						var offset = ( rect.top + rect.height / 2 ) - ( winH / 2 );
+
+						if ( mode === "scroll" ) {
+							var moveX = 0;
+							var moveY = 0;
+							if ( dir === "up" ) {
+								moveY = -offset * speed;
+							} else if ( dir === "down" ) {
+								moveY = offset * speed;
+							} else if ( dir === "left" ) {
+								moveX = -offset * speed;
+							} else if ( dir === "right" ) {
+								moveX = offset * speed;
+							}
+							img.style.transform = "scale(" + scale + ") translate3d(" + moveX.toFixed(2) + "px, " + moveY.toFixed(2) + "px, 0)";
+						} else if ( mode === "zoom" ) {
+							var progress = 1 - Math.abs( offset ) / ( winH + rect.height );
+							progress = Math.max( 0, Math.min( 1, progress ) );
+							var zoom = scale + ( progress * speed * 0.4 );
+							img.style.transform = "scale(" + zoom.toFixed(3) + ")";
+						}
+					}
+				} );
+				ticking = false;
+			}
+
+			function requestNlParallaxTick() {
+				if ( ! ticking ) {
+					requestAnimationFrame( updateNlParallax );
+					ticking = true;
 				}
-			}, { passive: true } );
+			}
+
+			window.addEventListener( "scroll", requestNlParallaxTick, { passive: true } );
+			window.addEventListener( "resize", requestNlParallaxTick, { passive: true } );
+			updateNlParallax();
+
+			/* 3D Tilt Mouse Parallax for Newsletter */
+			nlSections.forEach( function ( section ) {
+				var mode = section.getAttribute( "data-parallax-mode" );
+				if ( mode === "tilt" && ! section._tiltBound ) {
+					section._tiltBound = true;
+					var img = section.querySelector( ".wss-newsletter-bg.wss-parallax-img" );
+					var tiltMax = parseFloat( section.getAttribute( "data-tilt-max" ) ) || 10;
+					var scale = parseFloat( section.getAttribute( "data-parallax-scale" ) ) || 1.15;
+
+					section.addEventListener( "mousemove", function ( e ) {
+						if ( window.innerWidth <= 768 && section.getAttribute( "data-parallax-disable-mobile" ) === "yes" ) return;
+						var r = section.getBoundingClientRect();
+						var x = ( e.clientX - r.left ) / r.width - 0.5;
+						var y = ( e.clientY - r.top ) / r.height - 0.5;
+						var rotX = -y * tiltMax;
+						var rotY = x * tiltMax;
+						if ( img ) {
+							img.style.transform = "scale(" + scale + ") perspective(1000px) rotateX(" + rotX.toFixed(2) + "deg) rotateY(" + rotY.toFixed(2) + "deg)";
+						}
+					} );
+
+					section.addEventListener( "mouseleave", function () {
+						if ( img ) {
+							img.style.transform = "scale(" + scale + ") perspective(1000px) rotateX(0deg) rotateY(0deg)";
+						}
+					} );
+				}
+			} );
 		}
+
+		initNewsletterParallax();
 
 		/* ─── 9. About / Advisory Media Parallax & Motion Engine ─── */
 		function initAboutParallax() {
@@ -363,8 +447,12 @@
 			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_about.default", function () {
 				initAboutParallax();
 			} );
+			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_newsletter.default", function () {
+				initNewsletterParallax();
+			} );
 		}
 
 	} ); // end ready
 } )();
+
 

@@ -3265,13 +3265,38 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 
 .wss-newsletter-bg {
   position: absolute;
-  top: -15%;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 130%;
+  height: 100%;
   background-size: cover;
   background-position: center;
   filter: contrast(1.1) brightness(.55);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+}
+
+.wss-newsletter.wss-no-parallax .wss-newsletter-bg {
+  top: 0 !important;
+  height: 100% !important;
+  transform: none !important;
+}
+
+.wss-newsletter.wss-has-parallax .wss-newsletter-bg {
+  top: -20%;
+  height: 140%;
+  transition: transform .06s linear;
+}
+
+.wss-newsletter-bg.wss-parallax-fixed-bg {
+  top: 0 !important;
+  height: 100% !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+  transform: none !important;
 }
 
 .wss-newsletter::after {
