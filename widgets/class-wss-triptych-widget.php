@@ -315,7 +315,7 @@ class WSS_Triptych_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255, 255, 255, 0.25)',
 				'selectors' => array(
-					'{{WRAPPER}} .wss-triptych.wss-has-dividers .wss-tri-panel:not(:last-child)' => 'border-right-color: {{VALUE}} !important; border-bottom-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-triptych.wss-has-dividers .wss-tri-panel' => 'border-right-color: {{VALUE}} !important; border-bottom-color: {{VALUE}} !important;',
 				),
 				'condition' => array( 'show_dividers' => 'yes' ),
 			)
@@ -328,7 +328,7 @@ class WSS_Triptych_Widget extends Widget_Base {
 				'range'     => array( 'px' => array( 'min' => 1, 'max' => 10 ) ),
 				'default'   => array( 'size' => 1, 'unit' => 'px' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-triptych.wss-has-dividers .wss-tri-panel:not(:last-child)' => 'border-right-width: {{SIZE}}{{UNIT}} !important; border-bottom-width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-triptych.wss-has-dividers .wss-tri-panel' => 'border-right-width: {{SIZE}}{{UNIT}} !important; border-bottom-width: {{SIZE}}{{UNIT}} !important;',
 				),
 				'condition' => array( 'show_dividers' => 'yes' ),
 			)
@@ -345,7 +345,7 @@ class WSS_Triptych_Widget extends Widget_Base {
 					'dotted' => __( 'Dotted', 'website-section-supporter' ),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-triptych.wss-has-dividers .wss-tri-panel:not(:last-child)' => 'border-right-style: {{VALUE}} !important; border-bottom-style: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-triptych.wss-has-dividers .wss-tri-panel' => 'border-right-style: {{VALUE}} !important; border-bottom-style: {{VALUE}} !important;',
 				),
 				'condition' => array( 'show_dividers' => 'yes' ),
 			)
@@ -579,7 +579,7 @@ class WSS_Triptych_Widget extends Widget_Base {
 		$panorama_fit  = ! empty( $s['panorama_fit'] ) ? $s['panorama_fit'] : 'continuous';
 		$panels        = ! empty( $s['panels'] ) && is_array( $s['panels'] ) ? $s['panels'] : array();
 		$total_panels  = count( $panels );
-		$cols          = ! empty( $s['columns'] ) ? intval( $s['columns'] ) : ( $total_panels > 0 ? $total_panels : 3 );
+		$cols          = ! empty( $s['columns'] ) ? intval( $s['columns'] ) : 3;
 		if ( $cols < 1 ) { $cols = 3; }
 		?>
 		<div class="wss-scope" style="display:block; width:100%; clear:both; position:relative;">
@@ -590,28 +590,33 @@ class WSS_Triptych_Widget extends Widget_Base {
 
 					<div class="wss-triptych<?php echo esc_attr( $zoom_class . $div_class ); ?>">
 						<?php foreach ( $panels as $i => $panel ) :
-							$has_link  = ! empty( $panel['link']['url'] );
-							$tag       = $has_link ? 'a' : 'div';
-							$caption   = ! empty( $panel['caption'] ) ? $panel['caption'] : '';
-							$desc      = ! empty( $panel['description'] ) ? $panel['description'] : '';
-							$img_focus = ! empty( $panel['image_focus'] ) ? $panel['image_focus'] : 'center center';
-							$bg_attach = ! empty( $panel['bg_attachment'] ) ? $panel['bg_attachment'] : 'scroll';
-							$img_url   = ! empty( $panel['image']['url'] ) ? $panel['image']['url'] : '';
+							$has_link   = ! empty( $panel['link']['url'] );
+							$tag        = $has_link ? 'a' : 'div';
+							$caption    = ! empty( $panel['caption'] ) ? $panel['caption'] : '';
+							$desc       = ! empty( $panel['description'] ) ? $panel['description'] : '';
+							$img_focus  = ! empty( $panel['image_focus'] ) ? $panel['image_focus'] : 'center center';
+							$bg_attach  = ! empty( $panel['bg_attachment'] ) ? $panel['bg_attachment'] : 'scroll';
+							$custom_img = ! empty( $panel['image']['url'] ) ? $panel['image']['url'] : '';
+							$final_img  = ! empty( $custom_img ) ? $custom_img : $panorama_img;
+
+							// Column index within the current row (0, 1, 2, ... cols-1)
+							$col_index  = $cols > 0 ? ( $i % $cols ) : 0;
+							$row_index  = $cols > 0 ? floor( $i / $cols ) : 0;
 							?>
-							<<?php echo $tag; ?> class="wss-tri-panel wss-panel-<?php echo esc_attr( $i ); ?>"<?php if ( $has_link ) : ?> href="<?php echo esc_url( $panel['link']['url'] ); ?>"<?php echo ! empty( $panel['link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?><?php endif; ?>>
-								<?php if ( 'panorama' === $image_mode ) : ?>
+							<<?php echo $tag; ?> class="wss-tri-panel wss-panel-<?php echo esc_attr( $i ); ?>" data-col="<?php echo esc_attr( $col_index ); ?>" data-row="<?php echo esc_attr( $row_index ); ?>"<?php if ( $has_link ) : ?> href="<?php echo esc_url( $panel['link']['url'] ); ?>"<?php echo ! empty( $panel['link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?><?php endif; ?>>
+								<?php if ( 'panorama' === $image_mode && empty( $custom_img ) ) : ?>
 									<?php if ( 'fixed' === $panorama_fit ) : ?>
 										<div class="wss-tri-bg wss-tri-bg-fixed" style="background-image: url('<?php echo esc_url( $panorama_img ); ?>'); background-attachment: fixed; background-size: cover; background-position: <?php echo esc_attr( ! empty( $s['panorama_y_position'] ) ? $s['panorama_y_position'] : 'center center' ); ?>;"></div>
 									<?php else : ?>
-										<div class="wss-tri-panorama-slice" style="left: -<?php echo ( $i * 100 ); ?>%; width: <?php echo ( $cols * 100 ); ?>%;">
+										<div class="wss-tri-panorama-slice" style="left: -<?php echo ( $col_index * 100 ); ?>%; width: <?php echo ( $cols * 100 ); ?>%;">
 											<img class="wss-tri-img wss-tri-panorama-img" src="<?php echo esc_url( $panorama_img ); ?>" alt="<?php echo esc_attr( $caption ); ?>">
 										</div>
 									<?php endif; ?>
 								<?php else : ?>
 									<?php if ( 'fixed' === $bg_attach ) : ?>
-										<div class="wss-tri-bg" style="background-image: url('<?php echo esc_url( $img_url ); ?>'); background-position: <?php echo esc_attr( $img_focus ); ?>; background-attachment: fixed;"></div>
+										<div class="wss-tri-bg" style="background-image: url('<?php echo esc_url( $final_img ); ?>'); background-position: <?php echo esc_attr( $img_focus ); ?>; background-attachment: fixed;"></div>
 									<?php else : ?>
-										<img class="wss-tri-img" src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $caption ); ?>" style="object-position: <?php echo esc_attr( $img_focus ); ?>;">
+										<img class="wss-tri-img" src="<?php echo esc_url( $final_img ); ?>" alt="<?php echo esc_attr( $caption ); ?>" style="object-position: <?php echo esc_attr( $img_focus ); ?>;">
 									<?php endif; ?>
 								<?php endif; ?>
 								<div class="wss-cap">
