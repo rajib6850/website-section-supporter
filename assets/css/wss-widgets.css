@@ -2617,6 +2617,29 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   margin-top: 14px;
 }
 
+/* Shortcode / IDX Container */
+.wss-sales-shortcode-wrap {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+}
+
+.wss-sales-shortcode-wrap iframe {
+  max-width: 100% !important;
+}
+
+.wss-shortcode-empty-notice {
+  padding: 48px 24px;
+  text-align: center;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 .wss-sales-track {
   display: flex;
   gap: 32px;

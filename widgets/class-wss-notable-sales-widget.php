@@ -6,6 +6,7 @@ use Elementor\Controls_Manager;
 use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Background;
+use Elementor\Group_Control_Image_Size;
 
 class WSS_Notable_Sales_Widget extends Widget_Base {
 
@@ -13,19 +14,127 @@ class WSS_Notable_Sales_Widget extends Widget_Base {
 	public function get_title() { return __( 'WSS — Notable Sales / Properties', 'website-section-supporter' ); }
 	public function get_icon() { return 'eicon-posts-carousel'; }
 	public function get_categories() { return array( 'website-section-supporter' ); }
-	public function get_keywords() { return array( 'sales', 'properties', 'carousel', 'listings' ); }
+	public function get_keywords() { return array( 'sales', 'properties', 'carousel', 'listings', 'idx', 'mls', 'shortcode' ); }
 
 	protected function register_controls() {
 
-		/* ================= CONTENT ================= */
-		$this->start_controls_section( 'section_head', array( 'label' => __( 'Heading', 'website-section-supporter' ) ) );
-		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Our', 'website-section-supporter' ) ) );
-		$this->add_control( 'heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Notable Sales', 'website-section-supporter' ) ) );
-		$this->add_control( 'cta_text', array( 'label' => __( 'Bottom Button Text', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'View All Sales', 'website-section-supporter' ) ) );
-		$this->add_control( 'cta_link', array( 'label' => __( 'Bottom Button Link', 'website-section-supporter' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#' ) ) );
+		/* ================= CONTENT: SOURCE ================= */
+		$this->start_controls_section(
+			'section_source',
+			array( 'label' => __( 'Content Source', 'website-section-supporter' ) )
+		);
+		$this->add_control(
+			'source_type',
+			array(
+				'label'   => __( 'Properties Source', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'custom',
+				'options' => array(
+					'custom'    => __( 'Custom Property Cards (Repeater)', 'website-section-supporter' ),
+					'shortcode' => __( 'Shortcode / IDX Feed (MLS, Showcase IDX, iHomefinder, etc.)', 'website-section-supporter' ),
+				),
+			)
+		);
 		$this->end_controls_section();
 
-		$this->start_controls_section( 'section_cards', array( 'label' => __( 'Property Cards', 'website-section-supporter' ) ) );
+		/* ================= CONTENT: HEADING ================= */
+		$this->start_controls_section( 'section_head', array( 'label' => __( 'Heading & Header', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'show_heading',
+			array(
+				'label'        => __( 'Show Heading', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Our', 'website-section-supporter' ), 'condition' => array( 'show_heading' => 'yes' ) ) );
+		$this->add_control( 'heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Notable Sales', 'website-section-supporter' ), 'condition' => array( 'show_heading' => 'yes' ) ) );
+		
+		$this->add_control(
+			'show_nav_arrows',
+			array(
+				'label'        => __( 'Show Navigation Arrows', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => array(
+					'source_type'  => 'custom',
+					'show_heading' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'show_cta_btn',
+			array(
+				'label'        => __( 'Show Bottom Button', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'separator'    => 'before',
+			)
+		);
+		$this->add_control( 'cta_text', array( 'label' => __( 'Bottom Button Text', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'View All Sales', 'website-section-supporter' ), 'condition' => array( 'show_cta_btn' => 'yes' ) ) );
+		$this->add_control( 'cta_link', array( 'label' => __( 'Bottom Button Link', 'website-section-supporter' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#' ), 'condition' => array( 'show_cta_btn' => 'yes' ) ) );
+		$this->end_controls_section();
+
+		/* ================= CONTENT: SHORTCODE / IDX ================= */
+		$this->start_controls_section(
+			'section_shortcode',
+			array(
+				'label'     => __( 'Shortcode / IDX Settings', 'website-section-supporter' ),
+				'condition' => array(
+					'source_type' => 'shortcode',
+				),
+			)
+		);
+		$this->add_control(
+			'idx_shortcode',
+			array(
+				'label'       => __( 'IDX / MLS Shortcode', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 5,
+				'default'     => '',
+				'placeholder' => '[showcaseidx ...], [idx_listing_summary ...], [ihomefinder ...]',
+				'description' => __( 'Enter any IDX, MLS, or custom plugin shortcode here. It will render in the properties section.', 'website-section-supporter' ),
+				'dynamic'     => array(
+					'active' => true,
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'shortcode_min_height',
+			array(
+				'label'      => __( 'Min Height', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'vh' ),
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 1200 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-sales-shortcode-wrap' => 'min-height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+		$this->end_controls_section();
+
+		/* ================= CONTENT: CUSTOM PROPERTY CARDS ================= */
+		$this->start_controls_section(
+			'section_cards',
+			array(
+				'label'     => __( 'Property Cards', 'website-section-supporter' ),
+				'condition' => array(
+					'source_type' => 'custom',
+				),
+			)
+		);
 		$repeater = new Repeater();
 		$repeater->add_control( 'image', array( 'label' => __( 'Image', 'website-section-supporter' ), 'type' => Controls_Manager::MEDIA, 'default' => array( 'url' => 'https://picsum.photos/seed/noirsale1/700/580' ) ) );
 		$repeater->add_control( 'title', array( 'label' => __( 'Property Name', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Villa Meridian', 'website-section-supporter' ) ) );
@@ -45,6 +154,14 @@ class WSS_Notable_Sales_Widget extends Widget_Base {
 					array( 'image' => array( 'url' => 'https://picsum.photos/seed/noirsale3/700/580' ), 'title' => 'Undisclosed Address', 'location' => 'Beverly Hills, USA', 'price' => '$41,300,000' ),
 				),
 				'title_field' => '{{{ title }}}',
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Image_Size::get_type(),
+			array(
+				'name'      => 'card_image_size',
+				'default'   => 'full',
+				'separator' => 'before',
 			)
 		);
 		$this->end_controls_section();
@@ -72,10 +189,60 @@ class WSS_Notable_Sales_Widget extends Widget_Base {
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-sales-head h2' ) );
 		$this->end_controls_section();
 
+		/* ================= STYLE: SHORTCODE CONTAINER ================= */
+		$this->start_controls_section(
+			'style_shortcode',
+			array(
+				'label'     => __( 'Shortcode Container', 'website-section-supporter' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array(
+					'source_type' => 'shortcode',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'     => 'shortcode_bg',
+				'types'    => array( 'classic', 'gradient' ),
+				'selector' => '{{WRAPPER}} .wss-sales-shortcode-wrap',
+			)
+		);
+		$this->add_responsive_control(
+			'shortcode_padding',
+			array(
+				'label'      => __( 'Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-sales-shortcode-wrap' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'shortcode_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'em' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-sales-shortcode-wrap' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+		$this->end_controls_section();
+
 		/* ================= STYLE: CARDS ================= */
 		$this->start_controls_section(
 			'style_cards',
-			array( 'label' => __( 'Property Cards', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
+			array(
+				'label'     => __( 'Property Cards', 'website-section-supporter' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array(
+					'source_type' => 'custom',
+				),
+			)
 		);
 		$this->add_responsive_control(
 			'card_width',
@@ -152,7 +319,13 @@ class WSS_Notable_Sales_Widget extends Widget_Base {
 		/* ================= STYLE: NAV ARROWS ================= */
 		$this->start_controls_section(
 			'style_nav',
-			array( 'label' => __( 'Nav Arrows', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
+			array(
+				'label'     => __( 'Nav Arrows', 'website-section-supporter' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array(
+					'source_type' => 'custom',
+				),
+			)
 		);
 		$this->start_controls_tabs( 'tabs_sales_nav_style' );
 		$this->start_controls_tab( 'tab_sales_nav_normal', array( 'label' => __( 'Normal', 'website-section-supporter' ) ) );
@@ -273,50 +446,103 @@ class WSS_Notable_Sales_Widget extends Widget_Base {
 
 	protected function render() {
 		$s = $this->get_settings_for_display();
+
+		$source_type  = ! empty( $s['source_type'] ) ? $s['source_type'] : 'custom';
+		$show_heading = ! empty( $s['show_heading'] ) && 'yes' === $s['show_heading'];
+		$show_nav     = ! empty( $s['show_nav_arrows'] ) && 'yes' === $s['show_nav_arrows'];
+		$show_cta     = ! empty( $s['show_cta_btn'] ) && 'yes' === $s['show_cta_btn'];
 		?>
 		<div class="wss-scope">
 			<section class="wss-pad wss-on-dark">
 				<div class="wss-container wss-sales-wrap">
-					<div class="wss-sales-head wss-reveal">
-						<div>
-							<span class="wss-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
-							<h2><span class="wss-mask"><span><?php echo esc_html( $s['heading'] ); ?></span></span></h2>
-						</div>
-						<div class="wss-sales-nav">
-							<button type="button" class="wss-sales-prev" aria-label="Previous">
-								<svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-							</button>
-							<button type="button" class="wss-sales-next" aria-label="Next">
-								<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-							</button>
-						</div>
-					</div>
-					<div class="wss-sales-track">
-						<?php foreach ( $s['cards'] as $card ) :
-							$has_link = ! empty( $card['link']['url'] );
-							?>
-							<div class="wss-sale-card wss-reveal">
-								<div class="wss-img-reveal"><img src="<?php echo esc_url( $card['image']['url'] ); ?>" alt="<?php echo esc_attr( $card['title'] ); ?>"></div>
-								<?php if ( $has_link ) : ?>
-									<a href="<?php echo esc_url( $card['link']['url'] ); ?>"<?php echo ! empty( $card['link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
-										<h3><?php echo esc_html( $card['title'] ); ?></h3>
-									</a>
-								<?php else : ?>
-									<h3><?php echo esc_html( $card['title'] ); ?></h3>
+
+					<?php if ( $show_heading && ( ! empty( $s['heading'] ) || ! empty( $s['eyebrow'] ) ) ) : ?>
+						<div class="wss-sales-head wss-reveal">
+							<div>
+								<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
+									<span class="wss-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 								<?php endif; ?>
-								<div class="wss-loc"><?php echo esc_html( $card['location'] ); ?></div>
-								<div class="wss-price"><?php echo esc_html( $card['price'] ); ?></div>
+								<?php if ( ! empty( $s['heading'] ) ) : ?>
+									<h2><span class="wss-mask"><span><?php echo esc_html( $s['heading'] ); ?></span></span></h2>
+								<?php endif; ?>
 							</div>
-						<?php endforeach; ?>
-					</div>
-					<?php if ( ! empty( $s['cta_text'] ) ) : ?>
-						<div class="wss-sales-cta">
-							<a class="wss-btn-pill" href="<?php echo esc_url( $s['cta_link']['url'] ?: '#' ); ?>"<?php echo ! empty( $s['cta_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html( $s['cta_text'] ); ?> <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+							<?php if ( 'custom' === $source_type && $show_nav ) : ?>
+								<div class="wss-sales-nav">
+									<button type="button" class="wss-sales-prev" aria-label="Previous">
+										<svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+									</button>
+									<button type="button" class="wss-sales-next" aria-label="Next">
+										<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+									</button>
+								</div>
+							<?php endif; ?>
 						</div>
 					<?php endif; ?>
+
+					<?php if ( 'shortcode' === $source_type ) : ?>
+						<div class="wss-sales-shortcode-wrap wss-reveal">
+							<?php
+							$shortcode = ! empty( $s['idx_shortcode'] ) ? trim( $s['idx_shortcode'] ) : '';
+							if ( ! empty( $shortcode ) ) {
+								echo do_shortcode( $shortcode );
+							} else {
+								if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+									?>
+									<div class="wss-shortcode-empty-notice">
+										<p style="margin:0 0 8px; font-weight:600; font-size:16px; color:#fff;"><?php esc_html_e( 'IDX / MLS Shortcode Area', 'website-section-supporter' ); ?></p>
+										<p style="margin:0;"><?php esc_html_e( 'Please enter your IDX, MLS, or custom shortcode in the widget settings panel (e.g. [showcaseidx ...], [idx_listing_summary ...], or [ihomefinder ...]).', 'website-section-supporter' ); ?></p>
+									</div>
+									<?php
+								}
+							}
+							?>
+						</div>
+					<?php else : ?>
+						<div class="wss-sales-track">
+							<?php
+							$cards = ! empty( $s['cards'] ) && is_array( $s['cards'] ) ? $s['cards'] : array();
+							foreach ( $cards as $card ) :
+								$has_link  = ! empty( $card['link']['url'] );
+								$card_img  = '';
+								if ( ! empty( $card['image']['id'] ) ) {
+									$src = Group_Control_Image_Size::get_attachment_image_src( $card['image']['id'], 'card_image_size', $s );
+									if ( ! empty( $src ) ) {
+										$card_img = $src;
+									} else {
+										$full_data = wp_get_attachment_image_src( $card['image']['id'], 'full' );
+										$card_img = ! empty( $full_data[0] ) ? $full_data[0] : '';
+									}
+								}
+								if ( empty( $card_img ) && ! empty( $card['image']['url'] ) ) {
+									$card_img = $card['image']['url'];
+								}
+								?>
+								<div class="wss-sale-card wss-reveal">
+									<div class="wss-img-reveal"><img src="<?php echo esc_url( $card_img ); ?>" alt="<?php echo esc_attr( ! empty( $card['title'] ) ? $card['title'] : '' ); ?>" loading="lazy" decoding="async"></div>
+									<?php if ( $has_link ) : ?>
+										<a href="<?php echo esc_url( $card['link']['url'] ); ?>"<?php echo ! empty( $card['link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
+											<h3><?php echo esc_html( ! empty( $card['title'] ) ? $card['title'] : '' ); ?></h3>
+										</a>
+									<?php else : ?>
+										<h3><?php echo esc_html( ! empty( $card['title'] ) ? $card['title'] : '' ); ?></h3>
+									<?php endif; ?>
+									<div class="wss-loc"><?php echo esc_html( ! empty( $card['location'] ) ? $card['location'] : '' ); ?></div>
+									<div class="wss-price"><?php echo esc_html( ! empty( $card['price'] ) ? $card['price'] : '' ); ?></div>
+								</div>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
+
+					<?php if ( $show_cta && ! empty( $s['cta_text'] ) ) : ?>
+						<div class="wss-sales-cta">
+							<a class="wss-btn-pill" href="<?php echo esc_url( ! empty( $s['cta_link']['url'] ) ? $s['cta_link']['url'] : '#' ); ?>"<?php echo ! empty( $s['cta_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html( $s['cta_text'] ); ?> <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+						</div>
+					<?php endif; ?>
+
 				</div>
 			</section>
 		</div>
 		<?php
 	}
 }
+
