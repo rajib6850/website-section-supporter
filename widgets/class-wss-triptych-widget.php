@@ -17,10 +17,90 @@ class WSS_Triptych_Widget extends Widget_Base {
 
 	protected function register_controls() {
 
-		/* ================= CONTENT ================= */
-		$this->start_controls_section( 'section_panels', array( 'label' => __( 'Panels', 'website-section-supporter' ) ) );
+		/* ================= CONTENT: PANELS & IMAGE SOURCE ================= */
+		$this->start_controls_section(
+			'section_panels',
+			array( 'label' => __( 'Panels & Image Source', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'image_source_type',
+			array(
+				'label'   => __( 'Image Source Mode', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'panorama',
+				'options' => array(
+					'panorama'   => __( 'Single Panorama Image (Seamless Split across all panels)', 'website-section-supporter' ),
+					'individual' => __( 'Individual Images per Panel (Classic)', 'website-section-supporter' ),
+				),
+				'description' => __( 'Choose "Single Panorama Image" to give 1 master image that seamlessly splits across the 3 panels.', 'website-section-supporter' ),
+			)
+		);
+
+		$this->add_control(
+			'panorama_image',
+			array(
+				'label'       => __( 'Master Panorama Image', 'website-section-supporter' ),
+				'type'        => Controls_Manager::MEDIA,
+				'default'     => array(
+					'url' => 'https://picsum.photos/seed/noirinterior19/1920/900',
+				),
+				'condition'   => array(
+					'image_source_type' => 'panorama',
+				),
+				'description' => __( 'Upload 1 wide master image. It will span seamlessly across the 3 panels with dividing lines.', 'website-section-supporter' ),
+			)
+		);
+
+		$this->add_control(
+			'panorama_fit',
+			array(
+				'label'     => __( 'Panorama Display Style', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'continuous',
+				'options'   => array(
+					'continuous' => __( 'Continuous Seamless Panorama (Recommended)', 'website-section-supporter' ),
+					'fixed'      => __( 'Fixed Window Parallax (Background Attachment Fixed)', 'website-section-supporter' ),
+				),
+				'condition' => array(
+					'image_source_type' => 'panorama',
+				),
+			)
+		);
+
+		$this->add_control(
+			'panorama_y_position',
+			array(
+				'label'     => __( 'Vertical Image Crop Position', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'center center',
+				'options'   => array(
+					'center center' => __( 'Center Center (Default)', 'website-section-supporter' ),
+					'center top'    => __( 'Center Top', 'website-section-supporter' ),
+					'center bottom' => __( 'Center Bottom', 'website-section-supporter' ),
+				),
+				'condition' => array(
+					'image_source_type' => 'panorama',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-tri-panorama-img' => 'object-position: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-tri-bg-fixed'     => 'background-position: {{VALUE}} !important;',
+				),
+			)
+		);
+
 		$repeater = new Repeater();
-		$repeater->add_control( 'image', array( 'label' => __( 'Image', 'website-section-supporter' ), 'type' => Controls_Manager::MEDIA, 'default' => array( 'url' => 'https://picsum.photos/seed/noirmark1/700/560' ) ) );
+		$repeater->add_control(
+			'image',
+			array(
+				'label'     => __( 'Image (Individual Mode)', 'website-section-supporter' ),
+				'type'      => Controls_Manager::MEDIA,
+				'default'   => array( 'url' => 'https://picsum.photos/seed/noirmark1/700/560' ),
+				'condition' => array(
+					'../image_source_type' => 'individual',
+				),
+			)
+		);
 		$repeater->add_control( 'caption', array( 'label' => __( 'Caption', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Bespoke Marketing', 'website-section-supporter' ) ) );
 		$repeater->add_control(
 			'description',
@@ -35,10 +115,10 @@ class WSS_Triptych_Widget extends Widget_Base {
 		$repeater->add_control(
 			'image_focus',
 			array(
-				'label'   => __( 'Background Position / Crop Point', 'website-section-supporter' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'center center',
-				'options' => array(
+				'label'     => __( 'Background Position / Crop Point', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'center center',
+				'options'   => array(
 					'center center' => __( 'Center (default)', 'website-section-supporter' ),
 					'top center'    => __( 'Top Center', 'website-section-supporter' ),
 					'bottom center' => __( 'Bottom Center', 'website-section-supporter' ),
@@ -49,17 +129,23 @@ class WSS_Triptych_Widget extends Widget_Base {
 					'bottom left'   => __( 'Bottom Left', 'website-section-supporter' ),
 					'bottom right'  => __( 'Bottom Right', 'website-section-supporter' ),
 				),
+				'condition' => array(
+					'../image_source_type' => 'individual',
+				),
 			)
 		);
 		$repeater->add_control(
 			'bg_attachment',
 			array(
-				'label'   => __( 'Background Attachment', 'website-section-supporter' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'scroll',
-				'options' => array(
+				'label'     => __( 'Background Attachment', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'scroll',
+				'options'   => array(
 					'scroll' => __( 'Scroll (Normal)', 'website-section-supporter' ),
 					'fixed'  => __( 'Fixed (Seamless single image)', 'website-section-supporter' ),
+				),
+				'condition' => array(
+					'../image_source_type' => 'individual',
 				),
 			)
 		);
@@ -206,6 +292,66 @@ class WSS_Triptych_Widget extends Widget_Base {
 		);
 		$this->end_controls_section();
 
+		/* ================= STYLE: DIVIDERS ================= */
+		$this->start_controls_section(
+			'style_dividers',
+			array( 'label' => __( 'Dividers (Panel Separator Lines)', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
+		);
+		$this->add_control(
+			'show_dividers',
+			array(
+				'label'        => __( 'Show Panel Dividers', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+		$this->add_control(
+			'divider_color',
+			array(
+				'label'     => __( 'Divider Line Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.25)',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-triptych.wss-has-dividers .wss-tri-panel:not(:last-child)' => 'border-right-color: {{VALUE}} !important; border-bottom-color: {{VALUE}} !important;',
+				),
+				'condition' => array( 'show_dividers' => 'yes' ),
+			)
+		);
+		$this->add_responsive_control(
+			'divider_width',
+			array(
+				'label'     => __( 'Divider Line Width', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array( 'px' => array( 'min' => 1, 'max' => 10 ) ),
+				'default'   => array( 'size' => 1, 'unit' => 'px' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-triptych.wss-has-dividers .wss-tri-panel:not(:last-child)' => 'border-right-width: {{SIZE}}{{UNIT}} !important; border-bottom-width: {{SIZE}}{{UNIT}} !important;',
+				),
+				'condition' => array( 'show_dividers' => 'yes' ),
+			)
+		);
+		$this->add_control(
+			'divider_style',
+			array(
+				'label'     => __( 'Divider Line Style', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'solid',
+				'options'   => array(
+					'solid'  => __( 'Solid', 'website-section-supporter' ),
+					'dashed' => __( 'Dashed', 'website-section-supporter' ),
+					'dotted' => __( 'Dotted', 'website-section-supporter' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-triptych.wss-has-dividers .wss-tri-panel:not(:last-child)' => 'border-right-style: {{VALUE}} !important; border-bottom-style: {{VALUE}} !important;',
+				),
+				'condition' => array( 'show_dividers' => 'yes' ),
+			)
+		);
+		$this->end_controls_section();
+
 		/* ================= STYLE: IMAGE & OVERLAY ================= */
 		$this->start_controls_section(
 			'style_image',
@@ -221,7 +367,7 @@ class WSS_Triptych_Widget extends Widget_Base {
 			array( 'label' => __( 'Zoom on Hover', 'website-section-supporter' ), 'type' => Controls_Manager::SWITCHER, 'default' => 'yes' )
 		);
 
-		$this->add_control( 'img_controls_heading', array( 'label' => __( 'Image', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
+		$this->add_control( 'img_controls_heading', array( 'label' => __( 'Image Adjustments', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'img_object_fit',
 			array(
@@ -415,8 +561,19 @@ class WSS_Triptych_Widget extends Widget_Base {
 
 	protected function render() {
 		$s = $this->get_settings_for_display();
-		$zoom_class = 'yes' === $s['zoom_hover'] ? '' : ' wss-no-zoom';
-		$is_boxed   = ! empty( $s['container_width_type'] ) && 'boxed' === $s['container_width_type'];
+
+		$zoom_class    = 'yes' === $s['zoom_hover'] ? '' : ' wss-no-zoom';
+		$is_boxed      = ! empty( $s['container_width_type'] ) && 'boxed' === $s['container_width_type'];
+		$show_dividers = ! empty( $s['show_dividers'] ) && 'yes' === $s['show_dividers'];
+		$div_class     = $show_dividers ? ' wss-has-dividers' : '';
+
+		$image_mode    = ! empty( $s['image_source_type'] ) ? $s['image_source_type'] : 'panorama';
+		$panorama_img  = ! empty( $s['panorama_image']['url'] ) ? $s['panorama_image']['url'] : 'https://picsum.photos/seed/noirinterior19/1920/900';
+		$panorama_fit  = ! empty( $s['panorama_fit'] ) ? $s['panorama_fit'] : 'continuous';
+		$panels        = ! empty( $s['panels'] ) && is_array( $s['panels'] ) ? $s['panels'] : array();
+		$total_panels  = count( $panels );
+		$cols          = ! empty( $s['columns'] ) ? intval( $s['columns'] ) : ( $total_panels > 0 ? $total_panels : 3 );
+		if ( $cols < 1 ) { $cols = 3; }
 		?>
 		<div class="wss-scope" style="display:block; width:100%; clear:both; position:relative;">
 			<section class="wss-triptych-section" style="display:block; width:100%; clear:both; position:relative;">
@@ -424,25 +581,37 @@ class WSS_Triptych_Widget extends Widget_Base {
 				<div class="wss-container">
 				<?php endif; ?>
 
-					<div class="wss-triptych<?php echo esc_attr( $zoom_class ); ?>">
-						<?php foreach ( $s['panels'] as $panel ) :
+					<div class="wss-triptych<?php echo esc_attr( $zoom_class . $div_class ); ?>">
+						<?php foreach ( $panels as $i => $panel ) :
 							$has_link  = ! empty( $panel['link']['url'] );
 							$tag       = $has_link ? 'a' : 'div';
+							$caption   = ! empty( $panel['caption'] ) ? $panel['caption'] : '';
+							$desc      = ! empty( $panel['description'] ) ? $panel['description'] : '';
 							$img_focus = ! empty( $panel['image_focus'] ) ? $panel['image_focus'] : 'center center';
 							$bg_attach = ! empty( $panel['bg_attachment'] ) ? $panel['bg_attachment'] : 'scroll';
 							$img_url   = ! empty( $panel['image']['url'] ) ? $panel['image']['url'] : '';
 							?>
-							<<?php echo $tag; ?> class="wss-tri-panel"<?php if ( $has_link ) : ?> href="<?php echo esc_url( $panel['link']['url'] ); ?>"<?php echo ! empty( $panel['link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?><?php endif; ?>>
-								<?php if ( 'fixed' === $bg_attach ) : ?>
-									<div class="wss-tri-bg" style="background-image: url('<?php echo esc_url( $img_url ); ?>'); background-position: <?php echo esc_attr( $img_focus ); ?>; background-attachment: fixed;"></div>
+							<<?php echo $tag; ?> class="wss-tri-panel wss-panel-<?php echo esc_attr( $i ); ?>"<?php if ( $has_link ) : ?> href="<?php echo esc_url( $panel['link']['url'] ); ?>"<?php echo ! empty( $panel['link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?><?php endif; ?>>
+								<?php if ( 'panorama' === $image_mode ) : ?>
+									<?php if ( 'fixed' === $panorama_fit ) : ?>
+										<div class="wss-tri-bg wss-tri-bg-fixed" style="background-image: url('<?php echo esc_url( $panorama_img ); ?>'); background-attachment: fixed; background-size: cover; background-position: <?php echo esc_attr( ! empty( $s['panorama_y_position'] ) ? $s['panorama_y_position'] : 'center center' ); ?>;"></div>
+									<?php else : ?>
+										<div class="wss-tri-panorama-slice" style="left: -<?php echo ( $i * 100 ); ?>%; width: <?php echo ( $cols * 100 ); ?>%;">
+											<img class="wss-tri-img wss-tri-panorama-img" src="<?php echo esc_url( $panorama_img ); ?>" alt="<?php echo esc_attr( $caption ); ?>">
+										</div>
+									<?php endif; ?>
 								<?php else : ?>
-									<img class="wss-tri-img" src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $panel['caption'] ); ?>" style="object-position: <?php echo esc_attr( $img_focus ); ?>;">
+									<?php if ( 'fixed' === $bg_attach ) : ?>
+										<div class="wss-tri-bg" style="background-image: url('<?php echo esc_url( $img_url ); ?>'); background-position: <?php echo esc_attr( $img_focus ); ?>; background-attachment: fixed;"></div>
+									<?php else : ?>
+										<img class="wss-tri-img" src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $caption ); ?>" style="object-position: <?php echo esc_attr( $img_focus ); ?>;">
+									<?php endif; ?>
 								<?php endif; ?>
 								<div class="wss-cap">
 									<i class="wss-tri-line"></i>
-									<span class="wss-tri-title"><?php echo esc_html( $panel['caption'] ); ?></span>
-									<?php if ( ! empty( $panel['description'] ) ) : ?>
-										<p class="wss-tri-desc"><?php echo esc_html( $panel['description'] ); ?></p>
+									<span class="wss-tri-title"><?php echo esc_html( $caption ); ?></span>
+									<?php if ( ! empty( $desc ) ) : ?>
+										<p class="wss-tri-desc"><?php echo esc_html( $desc ); ?></p>
 									<?php endif; ?>
 								</div>
 							</<?php echo $tag; ?>>
