@@ -237,7 +237,42 @@ class WSS_Header_Widget extends Widget_Base {
 		/* ================= STYLE: BAR ================= */
 		$this->start_controls_section(
 			'style_bar',
-			array( 'label' => __( 'Header Bar', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
+			array( 'label' => __( 'Header Bar & Container', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
+		);
+		$this->add_control(
+			'container_width_type',
+			array(
+				'label'   => __( 'Container Width', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'boxed',
+				'options' => array(
+					'boxed'      => __( 'Boxed (Match Website Sections - 1400px)', 'website-section-supporter' ),
+					'full_width' => __( 'Full Width', 'website-section-supporter' ),
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'container_max_width',
+			array(
+				'label'      => __( 'Container Max Width', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 500, 'max' => 2400, 'step' => 10 ),
+					'%'  => array( 'min' => 50, 'max' => 100 ),
+					'vw' => array( 'min' => 50, 'max' => 100 ),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 1400,
+				),
+				'condition'  => array(
+					'container_width_type' => 'boxed',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-header-inner.wss-container' => 'max-width: {{SIZE}}{{UNIT}};',
+				),
+			)
 		);
 		$this->add_control(
 			'bar_bg',
@@ -565,41 +600,51 @@ class WSS_Header_Widget extends Widget_Base {
 		} else {
 			$header_class .= ' wss-header--light-static';
 		}
+		$is_full_width = ! empty( $s['container_width_type'] ) && 'full_width' === $s['container_width_type'];
+		$container_class = $is_full_width ? 'wss-header-inner wss-header-full' : 'wss-container wss-header-inner';
 		?>
 		<div class="wss-scope">
 			<header id="siteHeader" class="<?php echo esc_attr( $header_class ); ?>">
-				<a class="wss-logo" href="<?php echo esc_url( $s['logo_link']['url'] ?: '#' ); ?>">
-					<?php if ( 'image' === $s['logo_type'] && ! empty( $s['logo_image']['url'] ) ) : ?>
-						<img src="<?php echo esc_url( $s['logo_image']['url'] ); ?>" alt="Logo">
-					<?php else : ?>
-						<?php echo esc_html( $s['logo_bold'] ); ?> <span><?php echo esc_html( $s['logo_light'] ); ?></span>
+				<div class="<?php echo esc_attr( $container_class ); ?>">
+					<a class="wss-logo" href="<?php echo esc_url( $s['logo_link']['url'] ?: '#' ); ?>">
+						<?php if ( 'image' === $s['logo_type'] && ! empty( $s['logo_image']['url'] ) ) : ?>
+							<img src="<?php echo esc_url( $s['logo_image']['url'] ); ?>" alt="Logo">
+						<?php else : ?>
+							<?php echo esc_html( $s['logo_bold'] ); ?> <span><?php echo esc_html( $s['logo_light'] ); ?></span>
+						<?php endif; ?>
+					</a>
+					<?php if ( 'yes' === $s['show_inline_menu'] ) : 
+						$dropdown_align_class = ! empty( $s['dropdown_position'] ) && 'right' === $s['dropdown_position'] ? ' wss-dropdown-right' : ' wss-dropdown-left';
+					?>
+						<nav class="wss-inline-nav<?php echo esc_attr( $dropdown_align_class ); ?>">
+							<?php
+							if ( ! empty( $s['inline_wp_menu'] ) ) {
+								wp_nav_menu( array(
+									'menu'        => $s['inline_wp_menu'],
+									'container'   => false,
+									'menu_class'  => 'wss-inline-menu-links',
+									'fallback_cb' => false,
+								) );
+							} else {
+								echo '<ul class="wss-inline-menu-links"><li><a href="#">Select Inline Menu</a></li></ul>';
+							}
+							?>
+						</nav>
 					<?php endif; ?>
-				</a>
-				<?php if ( 'yes' === $s['show_inline_menu'] ) : 
-					$dropdown_align_class = ! empty( $s['dropdown_position'] ) && 'right' === $s['dropdown_position'] ? ' wss-dropdown-right' : ' wss-dropdown-left';
-				?>
-					<nav class="wss-inline-nav<?php echo esc_attr( $dropdown_align_class ); ?>">
-						<?php
-						if ( ! empty( $s['inline_wp_menu'] ) ) {
-							wp_nav_menu( array(
-								'menu'        => $s['inline_wp_menu'],
-								'container'   => false,
-								'menu_class'  => 'wss-inline-menu-links',
-								'fallback_cb' => false,
-							) );
-						} else {
-							echo '<ul class="wss-inline-menu-links"><li><a href="#">Select Inline Menu</a></li></ul>';
-						}
-						?>
-					</nav>
-				<?php endif; ?>
 
-				<?php if ( 'yes' === $s['show_popup_menu'] ) : ?>
-					<button class="wss-burger" id="wss-menuBtn" aria-label="Open menu" type="button">
-						<span class="wss-lines"><span class="wss-bar"></span><span class="wss-bar"></span></span>
-						<span class="wss-burger-text">Menu</span>
-					</button>
-				<?php endif; ?>
+					<div class="wss-header-actions">
+						<?php if ( 'yes' === ( $s['show_cta'] ?? '' ) && ! empty( $s['cta_text'] ) ) : ?>
+							<a href="<?php echo esc_url( $s['cta_link']['url'] ?: '#' ); ?>"<?php echo ! empty( $s['cta_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?> class="wss-header-cta wss-btn-pill"><?php echo esc_html( $s['cta_text'] ); ?></a>
+						<?php endif; ?>
+
+						<?php if ( 'yes' === $s['show_popup_menu'] ) : ?>
+							<button class="wss-burger" id="wss-menuBtn" aria-label="Open menu" type="button">
+								<span class="wss-lines"><span class="wss-bar"></span><span class="wss-bar"></span></span>
+								<span class="wss-burger-text">Menu</span>
+							</button>
+						<?php endif; ?>
+					</div>
+				</div>
 			</header>
 
 			<?php if ( 'yes' === $s['show_popup_menu'] ) : ?>

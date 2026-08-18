@@ -339,11 +339,28 @@
   left: 0;
   right: 0;
   z-index: 300;
+  padding: 26px 0;
+  transition: transform .5s var(--wss-ease), background .4s, padding .4s, border-color .4s;
+  box-sizing: border-box;
+}
+
+.wss-header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 26px 6vw;
-  transition: transform .5s var(--wss-ease), background .4s, padding .4s, border-color .4s;
+  width: 100%;
+}
+
+.wss-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.wss-header-full {
+  max-width: 100% !important;
+  padding-left: 6vw;
+  padding-right: 6vw;
 }
 
 /* Transparent (overlaps hero) */
@@ -356,14 +373,14 @@
 .wss-header.wss-header--light-static {
   background: var(--wss-ivory);
   border-bottom: 1px solid var(--wss-line);
-  padding: 16px 6vw;
+  padding: 16px 0;
 }
 
 /* Dark Static (absolute with bg) */
 .wss-header.wss-header--dark-static {
   background: var(--wss-charcoal);
   border-bottom: 1px solid var(--wss-line-on-dark);
-  padding: 16px 6vw;
+  padding: 16px 0;
 }
 
 .wss-header.wss-header--dark-static .wss-logo {
@@ -379,7 +396,7 @@
   position: fixed;
   background: rgba(250, 248, 244, .95);
   backdrop-filter: blur(10px);
-  padding: 16px 6vw;
+  padding: 16px 0;
   border-bottom: 1px solid var(--wss-line);
 }
 
