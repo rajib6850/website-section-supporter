@@ -1066,23 +1066,51 @@ class WSS_Contact_Widget extends Widget_Base {
 
 		$this->add_control(
 			'input_bg',
-			array( 'label' => __( 'Input Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#eceae4', 'selectors' => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'background-color: {{VALUE}} !important;' ) )
-		);
-		$this->add_control(
-			'input_border_color',
-			array( 'label' => __( 'Input Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'border-color: {{VALUE}} !important;' ) )
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#eceae4',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-contact-form input.wss-pill-input, {{WRAPPER}} .wss-contact-form select.wss-pill-select, {{WRAPPER}} .wss-contact-form textarea.wss-pill-textarea, {{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_control(
 			'input_text_color',
-			array( 'label' => __( 'Input Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'color: {{VALUE}} !important;' ) )
+			array(
+				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-contact-form input.wss-pill-input, {{WRAPPER}} .wss-contact-form select.wss-pill-select, {{WRAPPER}} .wss-contact-form textarea.wss-pill-textarea, {{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'color: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_control(
 			'input_placeholder_color',
-			array( 'label' => __( 'Placeholder Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-pill-input::placeholder, {{WRAPPER}} .wss-pill-textarea::placeholder' => 'color: {{VALUE}} !important;' ) )
+			array(
+				'label'     => __( 'Placeholder Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-contact-form input.wss-pill-input::placeholder, {{WRAPPER}} .wss-contact-form textarea.wss-pill-textarea::placeholder, {{WRAPPER}} .wss-pill-input::placeholder, {{WRAPPER}} .wss-pill-textarea::placeholder' => 'color: {{VALUE}} !important;',
+				),
+			)
 		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'input_border',
+				'label'    => __( 'Border', 'website-section-supporter' ),
+				'selector' => '{{WRAPPER}} .wss-contact-form input.wss-pill-input, {{WRAPPER}} .wss-contact-form select.wss-pill-select, {{WRAPPER}} .wss-contact-form textarea.wss-pill-textarea, {{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea',
+			)
+		);
+
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			array( 'name' => 'input_box_shadow', 'selector' => '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' )
+			array(
+				'name'     => 'input_box_shadow',
+				'selector' => '{{WRAPPER}} .wss-contact-form input.wss-pill-input, {{WRAPPER}} .wss-contact-form select.wss-pill-select, {{WRAPPER}} .wss-contact-form textarea.wss-pill-textarea, {{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea',
+			)
 		);
 
 		$this->end_controls_tab();
@@ -1095,33 +1123,64 @@ class WSS_Contact_Widget extends Widget_Base {
 
 		$this->add_control(
 			'input_focus_bg',
-			array( 'label' => __( 'Focus Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus' => 'background-color: {{VALUE}} !important;' ) )
-		);
-		$this->add_control(
-			'input_focus_border_color',
-			array( 'label' => __( 'Focus Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#a8916f', 'selectors' => array( '{{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus' => 'border-color: {{VALUE}} !important;' ) )
+			array(
+				'label'     => __( 'Focus Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-contact-form input.wss-pill-input:focus, {{WRAPPER}} .wss-contact-form select.wss-pill-select:focus, {{WRAPPER}} .wss-contact-form textarea.wss-pill-textarea:focus, {{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_control(
 			'input_focus_text_color',
-			array( 'label' => __( 'Focus Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus' => 'color: {{VALUE}} !important;' ) )
+			array(
+				'label'     => __( 'Focus Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-contact-form input.wss-pill-input:focus, {{WRAPPER}} .wss-contact-form select.wss-pill-select:focus, {{WRAPPER}} .wss-contact-form textarea.wss-pill-textarea:focus, {{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'input_focus_border_color',
+			array(
+				'label'     => __( 'Focus Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#a8916f',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-contact-form input.wss-pill-input:focus, {{WRAPPER}} .wss-contact-form select.wss-pill-select:focus, {{WRAPPER}} .wss-contact-form textarea.wss-pill-textarea:focus, {{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus' => 'border-color: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			array( 'name' => 'input_focus_box_shadow', 'selector' => '{{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus' )
+			array(
+				'name'     => 'input_focus_box_shadow',
+				'selector' => '{{WRAPPER}} .wss-contact-form input.wss-pill-input:focus, {{WRAPPER}} .wss-contact-form select.wss-pill-select:focus, {{WRAPPER}} .wss-contact-form textarea.wss-pill-textarea:focus, {{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus',
+			)
 		);
 
 		$this->end_controls_tab();
 		$this->end_controls_tabs();
 
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'input_typography',
+				'label'    => __( 'Input Typography', 'website-section-supporter' ),
+				'selector' => '{{WRAPPER}} .wss-contact-form input.wss-pill-input, {{WRAPPER}} .wss-contact-form select.wss-pill-select, {{WRAPPER}} .wss-contact-form textarea.wss-pill-textarea, {{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea',
+			)
+		);
+
 		$this->add_responsive_control(
 			'input_border_radius',
 			array(
-				'label'      => __( 'Input / Select / Textarea Border Radius', 'website-section-supporter' ),
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
 				'default'    => array( 'size' => 5, 'unit' => 'px' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-contact-form input.wss-pill-input, {{WRAPPER}} .wss-contact-form select.wss-pill-select, {{WRAPPER}} .wss-contact-form textarea.wss-pill-textarea, {{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
 			)
 		);
 
@@ -1131,7 +1190,7 @@ class WSS_Contact_Widget extends Widget_Base {
 				'label'      => __( 'Input Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-contact-form input.wss-pill-input, {{WRAPPER}} .wss-contact-form select.wss-pill-select, {{WRAPPER}} .wss-contact-form textarea.wss-pill-textarea, {{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
 			)
 		);
 
