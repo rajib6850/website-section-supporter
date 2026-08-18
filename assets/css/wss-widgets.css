@@ -5205,58 +5205,77 @@ body.elementor-editor-active .wss-mask > span {
   margin-bottom: 8px;
 }
 
+.wss-scope .wss-contact-form input.wss-pill-input,
+.wss-scope .wss-contact-form select.wss-pill-select,
+.wss-scope .wss-contact-form textarea.wss-pill-textarea,
+.wss-contact-form input.wss-pill-input,
+.wss-contact-form select.wss-pill-select,
+.wss-contact-form textarea.wss-pill-textarea,
 .wss-pill-input,
 .wss-pill-select,
 .wss-pill-textarea {
-  width: 100%;
-  background: #eceae4;
-  border: 1px solid transparent;
-  border-radius: 14px;
-  padding: 16px 20px;
-  font-family: var(--wss-font-text, 'Work Sans', sans-serif);
-  font-size: 14px;
-  line-height: 1.4;
-  color: var(--wss-ink, #1a1812);
+  width: 100% !important;
+  background: #eceae4 !important;
+  background-color: #eceae4 !important;
+  border: 1px solid transparent !important;
+  border-radius: 40px !important;
+  padding: 12px 22px !important;
+  font-family: var(--wss-font-text, 'Work Sans', sans-serif) !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  color: var(--wss-ink, #1a1812) !important;
   outline: none !important;
-  box-sizing: border-box;
-  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s !important;
 }
 
+.wss-scope .wss-contact-form input.wss-pill-input,
+.wss-scope .wss-contact-form select.wss-pill-select,
 .wss-pill-input,
 .wss-pill-select {
-  height: 52px;
-  min-height: 52px;
+  height: 46px !important;
+  min-height: 46px !important;
+  border-radius: 40px !important;
 }
 
 .wss-pill-input::placeholder,
 .wss-pill-textarea::placeholder {
-  color: #9c978e;
-  font-weight: 300;
+  color: #9c978e !important;
+  font-weight: 300 !important;
 }
 
+.wss-scope .wss-contact-form input.wss-pill-input:focus,
+.wss-scope .wss-contact-form select.wss-pill-select:focus,
+.wss-scope .wss-contact-form textarea.wss-pill-textarea:focus,
 .wss-pill-input:focus,
 .wss-pill-select:focus,
 .wss-pill-textarea:focus {
-  background-color: #ffffff;
-  border-color: var(--wss-taupe-deep, #a8916f);
-  box-shadow: 0 0 0 3px rgba(168, 145, 111, 0.15);
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-color: var(--wss-taupe-deep, #a8916f) !important;
+  box-shadow: 0 0 0 3px rgba(168, 145, 111, 0.15) !important;
 }
 
+.wss-scope .wss-contact-form select.wss-pill-select,
 .wss-pill-select {
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231a1812' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 20px center;
-  padding-right: 44px;
-  cursor: pointer;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231a1812' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 20px center !important;
+  padding-right: 44px !important;
+  cursor: pointer !important;
 }
 
+.wss-scope .wss-contact-form textarea.wss-pill-textarea,
 .wss-pill-textarea {
-  border-radius: 14px;
+  border-radius: 20px !important;
   resize: vertical;
-  min-height: 110px;
-  line-height: 1.5;
+  min-height: 100px !important;
+  padding: 14px 22px !important;
+  line-height: 1.5 !important;
 }
 
 .wss-simple-consent {
@@ -5522,24 +5541,35 @@ body.elementor-editor-active .wss-mask > span {
     margin-bottom: 9px;
   }
 
+  .wss-scope .wss-contact-form input.wss-pill-input,
+  .wss-scope .wss-contact-form select.wss-pill-select,
+  .wss-scope .wss-contact-form textarea.wss-pill-textarea,
+  .wss-contact-form input.wss-pill-input,
+  .wss-contact-form select.wss-pill-select,
+  .wss-contact-form textarea.wss-pill-textarea,
   .wss-pill-input,
   .wss-pill-select,
   .wss-pill-textarea {
-    padding: 16px 20px !important;
-    border-radius: 14px !important;
+    padding: 12px 20px !important;
     font-size: 16px !important;
     line-height: 1.4 !important;
+    border: 1px solid transparent !important;
   }
 
+  .wss-scope .wss-contact-form input.wss-pill-input,
+  .wss-scope .wss-contact-form select.wss-pill-select,
   .wss-pill-input,
   .wss-pill-select {
-    height: 54px !important;
-    min-height: 54px !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    border-radius: 40px !important;
   }
 
+  .wss-scope .wss-contact-form textarea.wss-pill-textarea,
   .wss-pill-textarea {
-    border-radius: 14px !important;
-    min-height: 110px !important;
+    border-radius: 20px !important;
+    min-height: 100px !important;
+    padding: 14px 20px !important;
   }
 
   .wss-simple-consent {
