@@ -244,14 +244,22 @@ class WSS_Contact_Widget extends Widget_Base {
 			array(
 				'label'   => __( 'Platform', 'website-section-supporter' ),
 				'type'    => Controls_Manager::SELECT,
-				'default' => 'fb',
+				'default' => 'google',
 				'options' => array(
-					'fb' => 'Facebook',
-					'ig' => 'Instagram',
-					'in' => 'LinkedIn',
-					'yt' => 'YouTube',
-					'x'  => 'X (Twitter)',
-					'wa' => 'WhatsApp',
+					'google'   => 'Google / Reviews',
+					'fb'       => 'Facebook',
+					'ig'       => 'Instagram',
+					'in'       => 'LinkedIn',
+					'yt'       => 'YouTube',
+					'x'        => 'X (Twitter)',
+					'wa'       => 'WhatsApp',
+					'pin'      => 'Pinterest',
+					'tt'       => 'TikTok',
+					'threads'  => 'Threads',
+					'yelp'     => 'Yelp',
+					'telegram' => 'Telegram',
+					'zillow'   => 'Zillow',
+					'realtor'  => 'Realtor.com',
 				),
 			)
 		);
@@ -808,32 +816,85 @@ class WSS_Contact_Widget extends Widget_Base {
 			array( 'label' => __( 'Submit Button', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
 
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'button_typography',
+				'selector' => '{{WRAPPER}} .wss-contact-form button.wss-send-btn, {{WRAPPER}} .wss-contact-form button.wss-send-btn span',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_btn_style' );
+
+		$this->start_controls_tab(
+			'tab_btn_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
 		$this->add_control(
 			'button_color',
-			array( 'label' => __( 'Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-send-btn' => 'color: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn, {{WRAPPER}} .wss-contact-form button.wss-send-btn span' => 'color: {{VALUE}} !important;' ),
+			)
 		);
 		$this->add_control(
 			'button_bg',
-			array( 'label' => __( 'Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-send-btn' => 'background-color: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
+			)
 		);
 		$this->add_control(
 			'button_border_color',
-			array( 'label' => __( 'Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-send-btn' => 'border-color: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn' => 'border-color: {{VALUE}} !important;' ),
+			)
 		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array( 'name' => 'button_shadow', 'selector' => '{{WRAPPER}} .wss-contact-form button.wss-send-btn' )
+		);
+		$this->end_controls_tab();
 
+		$this->start_controls_tab(
+			'tab_btn_hover',
+			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
+		);
 		$this->add_control(
 			'button_hover_color',
-			array( 'label' => __( 'Hover Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-send-btn:hover' => 'color: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Hover Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn:hover, {{WRAPPER}} .wss-contact-form button.wss-send-btn:hover span' => 'color: {{VALUE}} !important;' ),
+			)
 		);
 		$this->add_control(
 			'button_hover_bg',
-			array( 'label' => __( 'Hover Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-send-btn::before' => 'background-color: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Hover Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn::before, {{WRAPPER}} .wss-contact-form button.wss-send-btn:hover' => 'background-color: {{VALUE}} !important;' ),
+			)
 		);
-
+		$this->add_control(
+			'button_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn:hover' => 'border-color: {{VALUE}} !important;' ),
+			)
+		);
 		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			array( 'name' => 'button_typography', 'selector' => '{{WRAPPER}} .wss-send-btn' )
+			Group_Control_Box_Shadow::get_type(),
+			array( 'name' => 'button_hover_shadow', 'selector' => '{{WRAPPER}} .wss-contact-form button.wss-send-btn:hover' )
 		);
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->add_responsive_control(
 			'button_border_radius',
@@ -843,7 +904,7 @@ class WSS_Contact_Widget extends Widget_Base {
 				'size_units' => array( 'px', '%' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
 				'default'    => array( 'size' => 40, 'unit' => 'px' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-send-btn' => 'border-radius: {{SIZE}}{{UNIT}};' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
 			)
 		);
 
@@ -853,7 +914,7 @@ class WSS_Contact_Widget extends Widget_Base {
 				'label'      => __( 'Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-send-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
 			)
 		);
 
@@ -1089,13 +1150,25 @@ class WSS_Contact_Widget extends Widget_Base {
 	private function get_social_svg( $label ) {
 		$label = strtolower( trim( $label ) );
 		$icons = array(
-			'f'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>',
-			'fb'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>',
-			'in'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>',
-			'ig'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>',
-			'yt'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>',
-			'x'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M20 4L4 20"/></svg>',
-			'wa'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
+			'f'              => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>',
+			'fb'             => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>',
+			'google'         => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>',
+			'g'              => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>',
+			'in'             => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>',
+			'ig'             => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>',
+			'yt'             => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>',
+			'tw'             => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>',
+			'x'              => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M20 4L4 20"/></svg>',
+			'wa'             => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
+			'pin'            => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="9" x2="12" y2="22"/><path d="M8 12c-1.5-1.5-2-3-2-5a6 6 0 1 1 12 0c0 4-3 7-6 7-1.5 0-2.5-.5-3.5-1.5"/></svg>',
+			'pinterest'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="9" x2="12" y2="22"/><path d="M8 12c-1.5-1.5-2-3-2-5a6 6 0 1 1 12 0c0 4-3 7-6 7-1.5 0-2.5-.5-3.5-1.5"/></svg>',
+			'tt'             => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>',
+			'tiktok'         => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>',
+			'threads'        => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19.25 8.505C17.96 4.417 14.15 2 9.5 2.75 4.85 3.5 2 7.75 2.75 12.5c.75 4.75 4.85 7.5 9.5 7.5 3.75 0 6.5-1.5 7.5-3.5"/><path d="M8.5 12c0-2.5 1.5-4 3.5-4s3.5 1.5 3.5 4v1.5c0 1.1-.9 2-2 2s-2-.9-2-2"/></svg>',
+			'yelp'           => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z"/></svg>',
+			'telegram'       => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>',
+			'zillow'         => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+			'realtor'        => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>',
 		);
 		if ( isset( $icons[ $label ] ) ) {
 			return $icons[ $label ];
