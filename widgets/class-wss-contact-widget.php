@@ -764,7 +764,7 @@ class WSS_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Left Side Background', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#f5f3ee',
-				'selectors' => array( '{{WRAPPER}} .wss-contact-left' => 'background-color: {{VALUE}};' ),
+				'selectors' => array( '{{WRAPPER}} .wss-contact-left' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ),
 			)
 		);
 
@@ -774,7 +774,7 @@ class WSS_Contact_Widget extends Widget_Base {
 				'label'      => __( 'Left Side Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%', 'vw' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-contact-left' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-contact-left' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
 			)
 		);
 
@@ -783,7 +783,7 @@ class WSS_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Watermark Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .wss-watermark' => 'color: {{VALUE}};' ),
+				'selectors' => array( '{{WRAPPER}} .wss-watermark' => 'color: {{VALUE}} !important;' ),
 				'condition' => array( 'show_watermark' => 'yes' ),
 			)
 		);
@@ -794,7 +794,7 @@ class WSS_Contact_Widget extends Widget_Base {
 				'label'     => __( 'Right Image Dark Overlay', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(19, 18, 16, 0.22)',
-				'selectors' => array( '{{WRAPPER}} .wss-contact-right::before' => 'background: {{VALUE}};' ),
+				'selectors' => array( '{{WRAPPER}} .wss-contact-overlay, {{WRAPPER}} .wss-contact-right::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
 			)
 		);
 
@@ -804,7 +804,7 @@ class WSS_Contact_Widget extends Widget_Base {
 				'label'      => __( 'Right Side Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%', 'vw' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-contact-right' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-contact-right' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
 			)
 		);
 
@@ -819,27 +819,43 @@ class WSS_Contact_Widget extends Widget_Base {
 		$this->add_control( 'heading_style_title', array( 'label' => __( 'Main Heading', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING ) );
 		$this->add_control(
 			'heading_color',
-			array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-contact-left h1' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-contact-left h1, {{WRAPPER}} .wss-contact-left h1 span' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-contact-left h1' )
+			array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-contact-left h1, {{WRAPPER}} .wss-contact-left h1 span' )
 		);
 
 		$this->add_control( 'agent_style_title', array( 'label' => __( 'Agent Info & Details', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'agent_text_color',
-			array( 'label' => __( 'Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-contact-col p, {{WRAPPER}} .wss-contact-col a' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'General Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-contact-col p, {{WRAPPER}} .wss-contact-col a, {{WRAPPER}} .wss-contact-col .agent-name, {{WRAPPER}} .wss-contact-col .dre-number' => 'color: {{VALUE}} !important;' ) )
+		);
+		$this->add_control(
+			'agent_name_color',
+			array( 'label' => __( 'Agent Name Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-contact-col .agent-name' => 'color: {{VALUE}} !important;' ) )
+		);
+		$this->add_control(
+			'agent_dre_color',
+			array( 'label' => __( 'License / DRE Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-contact-col .dre-number' => 'color: {{VALUE}} !important;' ) )
+		);
+		$this->add_control(
+			'agent_link_color',
+			array( 'label' => __( 'Phone / Email Link Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-contact-col a' => 'color: {{VALUE}} !important;' ) )
+		);
+		$this->add_control(
+			'agent_link_hover_color',
+			array( 'label' => __( 'Phone / Email Hover Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-contact-col a:hover' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			array( 'name' => 'agent_typography', 'selector' => '{{WRAPPER}} .wss-contact-col' )
+			array( 'name' => 'agent_typography', 'selector' => '{{WRAPPER}} .wss-contact-col, {{WRAPPER}} .wss-contact-col p, {{WRAPPER}} .wss-contact-col a' )
 		);
 
 		$this->add_control( 'tagline_style_title', array( 'label' => __( 'Tagline', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'tagline_color',
-			array( 'label' => __( 'Tagline Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-tagline' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Tagline Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-tagline' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
@@ -858,27 +874,27 @@ class WSS_Contact_Widget extends Widget_Base {
 
 		$this->add_control(
 			'vcard_bg',
-			array( 'label' => __( 'Card Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card' => 'background-color: {{VALUE}};' ) )
+			array( 'label' => __( 'Card Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'vcard_border',
-			array( 'label' => __( 'Card Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card' => 'border-color: {{VALUE}};' ) )
+			array( 'label' => __( 'Card Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card' => 'border-color: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'vcard_label_color',
-			array( 'label' => __( 'Label Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-text span' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Label Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-text span' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'vcard_text_color',
-			array( 'label' => __( 'Text / Value Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-text strong' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Text / Value Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-text strong' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'vcard_icon_color',
-			array( 'label' => __( 'Icon Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-icon, {{WRAPPER}} .wss-vertical-card-icon svg, {{WRAPPER}} .wss-vertical-card-icon i' => 'color: {{VALUE}}; fill: currentColor;' ) )
+			array( 'label' => __( 'Icon Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-icon, {{WRAPPER}} .wss-vertical-card-icon svg, {{WRAPPER}} .wss-vertical-card-icon i, {{WRAPPER}} .wss-vertical-card-icon img, {{WRAPPER}} .wss-vertical-card-icon svg path' => 'color: {{VALUE}} !important; fill: currentColor !important;' ) )
 		);
 		$this->add_control(
 			'vcard_icon_bg',
-			array( 'label' => __( 'Icon Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-icon' => 'background-color: {{VALUE}};' ) )
+			array( 'label' => __( 'Icon Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-icon' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
@@ -895,27 +911,27 @@ class WSS_Contact_Widget extends Widget_Base {
 
 		$this->add_control(
 			'vcard_hover_bg',
-			array( 'label' => __( 'Hover Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover' => 'background-color: {{VALUE}};' ) )
+			array( 'label' => __( 'Hover Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'vcard_hover_border',
-			array( 'label' => __( 'Hover Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover' => 'border-color: {{VALUE}};' ) )
+			array( 'label' => __( 'Hover Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover' => 'border-color: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'vcard_hover_label_color',
-			array( 'label' => __( 'Hover Label Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-text span' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Hover Label Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-text span' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'vcard_hover_text_color',
-			array( 'label' => __( 'Hover Text / Value Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-text strong' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Hover Text / Value Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-text strong' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'vcard_hover_icon_color',
-			array( 'label' => __( 'Hover Icon Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon, {{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon svg, {{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon i' => 'color: {{VALUE}}; fill: currentColor;' ) )
+			array( 'label' => __( 'Hover Icon Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon, {{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon svg, {{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon i, {{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon img, {{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon svg path' => 'color: {{VALUE}} !important; fill: currentColor !important;' ) )
 		);
 		$this->add_control(
 			'vcard_hover_icon_bg',
-			array( 'label' => __( 'Hover Icon Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon' => 'background-color: {{VALUE}};' ) )
+			array( 'label' => __( 'Hover Icon Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
@@ -937,15 +953,15 @@ class WSS_Contact_Widget extends Widget_Base {
 
 		$this->add_control(
 			'social_color',
-			array( 'label' => __( 'Social Icon Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Social Icon Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a, {{WRAPPER}} .wss-social-row a svg, {{WRAPPER}} .wss-social-row a i, {{WRAPPER}} .wss-social-row a svg path' => 'color: {{VALUE}} !important; fill: currentColor !important;' ) )
 		);
 		$this->add_control(
 			'social_bg',
-			array( 'label' => __( 'Icon Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a' => 'background-color: {{VALUE}};' ) )
+			array( 'label' => __( 'Icon Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a' => 'background-color: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'social_border_color',
-			array( 'label' => __( 'Icon Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a' => 'border-color: {{VALUE}};' ) )
+			array( 'label' => __( 'Icon Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a' => 'border-color: {{VALUE}} !important;' ) )
 		);
 
 		$this->end_controls_tab();
@@ -958,15 +974,15 @@ class WSS_Contact_Widget extends Widget_Base {
 
 		$this->add_control(
 			'social_hover_color',
-			array( 'label' => __( 'Social Icon Hover Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a:hover' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Social Icon Hover Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a:hover, {{WRAPPER}} .wss-social-row a:hover svg, {{WRAPPER}} .wss-social-row a:hover i, {{WRAPPER}} .wss-social-row a:hover svg path' => 'color: {{VALUE}} !important; fill: currentColor !important;' ) )
 		);
 		$this->add_control(
 			'social_hover_bg',
-			array( 'label' => __( 'Hover Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a:hover' => 'background-color: {{VALUE}};' ) )
+			array( 'label' => __( 'Hover Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a:hover' => 'background-color: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'social_hover_border_color',
-			array( 'label' => __( 'Hover Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a:hover' => 'border-color: {{VALUE}};' ) )
+			array( 'label' => __( 'Hover Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a:hover' => 'border-color: {{VALUE}} !important;' ) )
 		);
 
 		$this->end_controls_tab();
@@ -982,7 +998,7 @@ class WSS_Contact_Widget extends Widget_Base {
 
 		$this->add_control(
 			'card_bg',
-			array( 'label' => __( 'Card Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .wss-floating-card' => 'background-color: {{VALUE}};' ) )
+			array( 'label' => __( 'Card Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .wss-floating-card' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;' ) )
 		);
 
 		$this->add_responsive_control(
@@ -991,7 +1007,7 @@ class WSS_Contact_Widget extends Widget_Base {
 				'label'      => __( 'Card Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-floating-card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-floating-card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
 			)
 		);
 
@@ -1003,7 +1019,7 @@ class WSS_Contact_Widget extends Widget_Base {
 				'size_units' => array( 'px', '%' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
 				'default'    => array( 'size' => 12, 'unit' => 'px' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-floating-card' => 'border-radius: {{SIZE}}{{UNIT}};' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-floating-card' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
 			)
 		);
 
@@ -1015,11 +1031,11 @@ class WSS_Contact_Widget extends Widget_Base {
 		$this->add_control( 'card_title_heading', array( 'label' => __( 'Card Title (Direct Inquiry)', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'card_title_color',
-			array( 'label' => __( 'Title Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-card-title, {{WRAPPER}} .wss-card-header h3' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Title Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-card-title, {{WRAPPER}} .wss-card-header h3, {{WRAPPER}} .wss-card-title span' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			array( 'name' => 'card_title_typography', 'selector' => '{{WRAPPER}} .wss-card-title, {{WRAPPER}} .wss-card-header h3' )
+			array( 'name' => 'card_title_typography', 'selector' => '{{WRAPPER}} .wss-card-title, {{WRAPPER}} .wss-card-header h3, {{WRAPPER}} .wss-card-title span' )
 		);
 		$this->add_responsive_control(
 			'card_title_align',
@@ -1032,7 +1048,7 @@ class WSS_Contact_Widget extends Widget_Base {
 					'right'  => array( 'title' => __( 'Right', 'website-section-supporter' ), 'icon' => 'eicon-text-align-right' ),
 				),
 				'default'   => 'left',
-				'selectors' => array( '{{WRAPPER}} .wss-card-header, {{WRAPPER}} .wss-card-title' => 'text-align: {{VALUE}};' ),
+				'selectors' => array( '{{WRAPPER}} .wss-card-header, {{WRAPPER}} .wss-card-title' => 'text-align: {{VALUE}} !important;' ),
 			)
 		);
 
@@ -1047,7 +1063,7 @@ class WSS_Contact_Widget extends Widget_Base {
 		$this->add_control( 'field_labels_heading', array( 'label' => __( 'Field Labels', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING ) );
 		$this->add_control(
 			'field_label_color',
-			array( 'label' => __( 'Label Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-field-label' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Label Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-field-label' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
@@ -1197,7 +1213,7 @@ class WSS_Contact_Widget extends Widget_Base {
 		$this->add_control( 'consent_style_heading', array( 'label' => __( 'Consent Checkbox & Text', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'consent_color',
-			array( 'label' => __( 'Consent Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-simple-consent label' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Consent Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-simple-consent label, {{WRAPPER}} .wss-simple-consent label a' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
@@ -1216,7 +1232,7 @@ class WSS_Contact_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'button_typography',
-				'selector' => '{{WRAPPER}} .wss-contact-form button.wss-send-btn, {{WRAPPER}} .wss-contact-form button.wss-send-btn span',
+				'selector' => '{{WRAPPER}} .wss-contact-form button.wss-send-btn, {{WRAPPER}} .wss-contact-form button.wss-send-btn span, {{WRAPPER}} button.wss-send-btn, {{WRAPPER}} button.wss-send-btn span',
 			)
 		);
 
@@ -1231,7 +1247,7 @@ class WSS_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn, {{WRAPPER}} .wss-contact-form button.wss-send-btn span' => 'color: {{VALUE}} !important;' ),
+				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn, {{WRAPPER}} .wss-contact-form button.wss-send-btn span, {{WRAPPER}} button.wss-send-btn, {{WRAPPER}} button.wss-send-btn span' => 'color: {{VALUE}} !important;' ),
 			)
 		);
 		$this->add_control(
@@ -1239,7 +1255,7 @@ class WSS_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
+				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn, {{WRAPPER}} button.wss-send-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
 			)
 		);
 		$this->add_control(
@@ -1247,12 +1263,12 @@ class WSS_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Border Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn' => 'border-color: {{VALUE}} !important;' ),
+				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn, {{WRAPPER}} button.wss-send-btn' => 'border-color: {{VALUE}} !important;' ),
 			)
 		);
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			array( 'name' => 'button_shadow', 'selector' => '{{WRAPPER}} .wss-contact-form button.wss-send-btn' )
+			array( 'name' => 'button_shadow', 'selector' => '{{WRAPPER}} .wss-contact-form button.wss-send-btn, {{WRAPPER}} button.wss-send-btn' )
 		);
 		$this->end_controls_tab();
 
@@ -1265,7 +1281,7 @@ class WSS_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn:hover, {{WRAPPER}} .wss-contact-form button.wss-send-btn:hover span' => 'color: {{VALUE}} !important;' ),
+				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn:hover, {{WRAPPER}} .wss-contact-form button.wss-send-btn:hover span, {{WRAPPER}} button.wss-send-btn:hover, {{WRAPPER}} button.wss-send-btn:hover span' => 'color: {{VALUE}} !important;' ),
 			)
 		);
 		$this->add_control(
@@ -1273,7 +1289,7 @@ class WSS_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Background Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn::before, {{WRAPPER}} .wss-contact-form button.wss-send-btn:hover' => 'background-color: {{VALUE}} !important;' ),
+				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn::before, {{WRAPPER}} button.wss-send-btn::before, {{WRAPPER}} .wss-contact-form button.wss-send-btn:hover, {{WRAPPER}} button.wss-send-btn:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
 			)
 		);
 		$this->add_control(
@@ -1281,12 +1297,12 @@ class WSS_Contact_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn:hover' => 'border-color: {{VALUE}} !important;' ),
+				'selectors' => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn:hover, {{WRAPPER}} button.wss-send-btn:hover' => 'border-color: {{VALUE}} !important;' ),
 			)
 		);
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			array( 'name' => 'button_hover_shadow', 'selector' => '{{WRAPPER}} .wss-contact-form button.wss-send-btn:hover' )
+			array( 'name' => 'button_hover_shadow', 'selector' => '{{WRAPPER}} .wss-contact-form button.wss-send-btn:hover, {{WRAPPER}} button.wss-send-btn:hover' )
 		);
 		$this->end_controls_tab();
 
@@ -1298,9 +1314,9 @@ class WSS_Contact_Widget extends Widget_Base {
 				'label'      => __( 'Border Radius', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
-				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
 				'default'    => array( 'size' => 40, 'unit' => 'px' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn, {{WRAPPER}} button.wss-send-btn' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
 			)
 		);
 
@@ -1310,7 +1326,7 @@ class WSS_Contact_Widget extends Widget_Base {
 				'label'      => __( 'Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-contact-form button.wss-send-btn, {{WRAPPER}} button.wss-send-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
 			)
 		);
 
