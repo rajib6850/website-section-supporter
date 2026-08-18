@@ -5069,7 +5069,7 @@ body.elementor-editor-active .wss-mask > span {
   justify-content: center;
   color: var(--wss-ink, #1a1812);
   flex-shrink: 0;
-  transition: background 0.3s, color 0.3s;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .wss-vertical-card:hover .wss-vertical-card-icon {
@@ -5077,9 +5077,16 @@ body.elementor-editor-active .wss-mask > span {
   color: #ffffff;
 }
 
-.wss-vertical-card-icon svg {
+.wss-vertical-card-icon svg,
+.wss-vertical-card-icon i,
+.wss-vertical-card-icon img {
   width: 17px;
   height: 17px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: contain;
 }
 
 .wss-vertical-card-text span {
@@ -5090,12 +5097,14 @@ body.elementor-editor-active .wss-mask > span {
   text-transform: uppercase;
   color: var(--wss-grey, #8c8577);
   margin-bottom: 2px;
+  transition: color 0.3s;
 }
 
 .wss-vertical-card-text strong {
   font-size: 13.5px;
   font-weight: 500;
   color: var(--wss-ink, #1a1812);
+  transition: color 0.3s;
 }
 
 .wss-tagline {
@@ -5121,7 +5130,7 @@ body.elementor-editor-active .wss-mask > span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.3s, transform 0.3s;
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s, transform 0.3s;
 }
 
 .wss-social-row a:hover {
@@ -5218,8 +5227,8 @@ body.elementor-editor-active .wss-mask > span {
   background: #eceae4 !important;
   background-color: #eceae4 !important;
   border: 1px solid transparent !important;
-  border-radius: 40px !important;
-  padding: 12px 22px !important;
+  border-radius: 5px !important;
+  padding: 12px 20px !important;
   font-family: var(--wss-font-text, 'Work Sans', sans-serif) !important;
   font-size: 14px !important;
   line-height: 1.4 !important;
@@ -5236,7 +5245,7 @@ body.elementor-editor-active .wss-mask > span {
 .wss-pill-select {
   height: 46px !important;
   min-height: 46px !important;
-  border-radius: 40px !important;
+  border-radius: 5px !important;
 }
 
 .wss-pill-input::placeholder,
@@ -5271,10 +5280,10 @@ body.elementor-editor-active .wss-mask > span {
 
 .wss-scope .wss-contact-form textarea.wss-pill-textarea,
 .wss-pill-textarea {
-  border-radius: 20px !important;
+  border-radius: 5px !important;
   resize: vertical;
   min-height: 100px !important;
-  padding: 14px 22px !important;
+  padding: 14px 20px !important;
   line-height: 1.5 !important;
 }
 
@@ -5444,6 +5453,10 @@ body.elementor-editor-active .wss-mask > span {
     max-width: 640px;
     margin: 0 auto;
   }
+
+  .wss-card-title {
+    font-size: 20px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -5462,6 +5475,10 @@ body.elementor-editor-active .wss-mask > span {
 
   .wss-floating-card {
     padding: 36px 28px;
+  }
+
+  .wss-card-title {
+    font-size: 18.5px;
   }
 
   .wss-pill-input,
@@ -5523,7 +5540,12 @@ body.elementor-editor-active .wss-mask > span {
   }
 
   .wss-card-header {
-    margin-bottom: 24px;
+    margin-bottom: 22px;
+  }
+
+  .wss-card-title {
+    font-size: 17px;
+    letter-spacing: 0.04em;
   }
 
   .wss-form-grid-2 {
@@ -5554,6 +5576,7 @@ body.elementor-editor-active .wss-mask > span {
     font-size: 16px !important;
     line-height: 1.4 !important;
     border: 1px solid transparent !important;
+    border-radius: 5px !important;
   }
 
   .wss-scope .wss-contact-form input.wss-pill-input,
@@ -5562,12 +5585,12 @@ body.elementor-editor-active .wss-mask > span {
   .wss-pill-select {
     height: 48px !important;
     min-height: 48px !important;
-    border-radius: 40px !important;
+    border-radius: 5px !important;
   }
 
   .wss-scope .wss-contact-form textarea.wss-pill-textarea,
   .wss-pill-textarea {
-    border-radius: 20px !important;
+    border-radius: 5px !important;
     min-height: 100px !important;
     padding: 14px 20px !important;
   }
@@ -5601,10 +5624,15 @@ body.elementor-editor-active .wss-mask > span {
     border-radius: 12px;
   }
 
+  .wss-card-title {
+    font-size: 15.5px;
+  }
+
   .wss-pill-input,
   .wss-pill-select,
   .wss-pill-textarea {
-    padding: 14px 18px;
+    padding: 12px 16px !important;
+    border-radius: 5px !important;
   }
 }
 
@@ -5619,5 +5647,9 @@ body.elementor-editor-active .wss-mask > span {
 
   .wss-card-header {
     margin-bottom: 18px;
+  }
+
+  .wss-card-title {
+    font-size: 14px;
   }
 }

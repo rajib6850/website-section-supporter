@@ -157,69 +157,118 @@ class WSS_Contact_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'card_phone_label',
+		$repeater_cards = new Repeater();
+
+		$repeater_cards->add_control(
+			'label',
 			array(
-				'label'     => __( 'Card 1 (Phone) Label', 'website-section-supporter' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Direct Call',
-				'condition' => array( 'show_vertical_cards' => 'yes' ),
-			)
-		);
-		$this->add_control(
-			'card_phone_value',
-			array(
-				'label'     => __( 'Card 1 (Phone) Value', 'website-section-supporter' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => '415.516.3939',
-				'condition' => array( 'show_vertical_cards' => 'yes' ),
+				'label'   => __( 'Card Label (Header)', 'website-section-supporter' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => 'Direct Call',
 			)
 		);
 
-		$this->add_control(
-			'card_email_label',
+		$repeater_cards->add_control(
+			'value',
 			array(
-				'label'     => __( 'Card 2 (Email) Label', 'website-section-supporter' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Confidential Email',
-				'condition' => array( 'show_vertical_cards' => 'yes' ),
-			)
-		);
-		$this->add_control(
-			'card_email_value',
-			array(
-				'label'     => __( 'Card 2 (Email) Value', 'website-section-supporter' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'ginger@gingermartin.com',
-				'condition' => array( 'show_vertical_cards' => 'yes' ),
+				'label'   => __( 'Card Value / Main Text', 'website-section-supporter' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => '415.516.3939',
 			)
 		);
 
-		$this->add_control(
-			'card_wa_label',
+		$repeater_cards->add_control(
+			'link',
 			array(
-				'label'     => __( 'Card 3 (WhatsApp) Label', 'website-section-supporter' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'WhatsApp Direct',
-				'condition' => array( 'show_vertical_cards' => 'yes' ),
-			)
-		);
-		$this->add_control(
-			'card_wa_value',
-			array(
-				'label'     => __( 'Card 3 (WhatsApp) Value', 'website-section-supporter' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => 'Connect on WhatsApp',
-				'condition' => array( 'show_vertical_cards' => 'yes' ),
-			)
-		);
-		$this->add_control(
-			'card_wa_link',
-			array(
-				'label'       => __( 'Card 3 (WhatsApp) URL', 'website-section-supporter' ),
+				'label'       => __( 'Card Link / URL', 'website-section-supporter' ),
 				'type'        => Controls_Manager::URL,
-				'default'     => array( 'url' => 'https://wa.me/14155163939' ),
-				'placeholder' => 'https://wa.me/14155163939',
+				'placeholder' => 'tel:4155163939, mailto:..., or https://...',
+				'default'     => array( 'url' => '' ),
+			)
+		);
+
+		$repeater_cards->add_control(
+			'icon_source',
+			array(
+				'label'   => __( 'Icon Source', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'predefined',
+				'options' => array(
+					'predefined' => __( 'Predefined Luxury Icon (SVG)', 'website-section-supporter' ),
+					'custom'     => __( 'Upload Custom SVG / Icon Library', 'website-section-supporter' ),
+				),
+			)
+		);
+
+		$repeater_cards->add_control(
+			'predefined_icon',
+			array(
+				'label'     => __( 'Predefined Icon', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'phone',
+				'options'   => array(
+					'phone'     => 'Phone / Call',
+					'email'     => 'Email / Envelope',
+					'whatsapp'  => 'WhatsApp',
+					'location'  => 'Map Pin / Location',
+					'clock'     => 'Clock / Hours',
+					'chat'      => 'Message / Chat',
+					'building'  => 'Office / Building',
+					'globe'     => 'Website / Globe',
+					'calendar'  => 'Calendar / Appointment',
+					'headset'   => 'Support / Headset',
+					'user'      => 'Agent / Profile',
+					'star'      => 'Luxury / Star',
+					'shield'    => 'Security / Confidential',
+					'fax'       => 'Fax / Landline',
+				),
+				'condition' => array( 'icon_source' => 'predefined' ),
+			)
+		);
+
+		$repeater_cards->add_control(
+			'custom_icon',
+			array(
+				'label'     => __( 'Custom SVG / Icon', 'website-section-supporter' ),
+				'type'      => Controls_Manager::ICONS,
+				'default'   => array(
+					'value'   => 'fas fa-phone-alt',
+					'library' => 'fa-solid',
+				),
+				'condition' => array( 'icon_source' => 'custom' ),
+			)
+		);
+
+		$this->add_control(
+			'vertical_cards_list',
+			array(
+				'label'       => __( 'Contact Cards List', 'website-section-supporter' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $repeater_cards->get_controls(),
+				'default'     => array(
+					array(
+						'label'           => 'Direct Call',
+						'value'           => '415.516.3939',
+						'link'            => array( 'url' => 'tel:4155163939' ),
+						'icon_source'     => 'predefined',
+						'predefined_icon' => 'phone',
+					),
+					array(
+						'label'           => 'Confidential Email',
+						'value'           => 'ginger@gingermartin.com',
+						'link'            => array( 'url' => 'mailto:ginger@gingermartin.com' ),
+						'icon_source'     => 'predefined',
+						'predefined_icon' => 'email',
+					),
+					array(
+						'label'           => 'WhatsApp Direct',
+						'value'           => 'Connect on WhatsApp',
+						'link'            => array( 'url' => 'https://wa.me/14155163939' ),
+						'icon_source'     => 'predefined',
+						'predefined_icon' => 'whatsapp',
+					),
+				),
+				'title_field' => '{{{ label }}}: {{{ value }}}',
 				'condition'   => array( 'show_vertical_cards' => 'yes' ),
 			)
 		);
@@ -662,6 +711,15 @@ class WSS_Contact_Widget extends Widget_Base {
 		);
 
 		$this->add_control( 'card_style_title', array( 'label' => __( 'Vertical Contact Cards', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
+
+		$this->start_controls_tabs( 'vcard_style_tabs' );
+
+		// Normal Tab
+		$this->start_controls_tab(
+			'vcard_tab_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
+
 		$this->add_control(
 			'vcard_bg',
 			array( 'label' => __( 'Card Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card' => 'background-color: {{VALUE}};' ) )
@@ -671,23 +729,112 @@ class WSS_Contact_Widget extends Widget_Base {
 			array( 'label' => __( 'Card Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card' => 'border-color: {{VALUE}};' ) )
 		);
 		$this->add_control(
+			'vcard_label_color',
+			array( 'label' => __( 'Label Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-text span' => 'color: {{VALUE}};' ) )
+		);
+		$this->add_control(
 			'vcard_text_color',
-			array( 'label' => __( 'Card Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-text strong' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Text / Value Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-text strong' => 'color: {{VALUE}};' ) )
 		);
 		$this->add_control(
 			'vcard_icon_color',
-			array( 'label' => __( 'Icon Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-icon' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Icon Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-icon, {{WRAPPER}} .wss-vertical-card-icon svg, {{WRAPPER}} .wss-vertical-card-icon i' => 'color: {{VALUE}}; fill: currentColor;' ) )
+		);
+		$this->add_control(
+			'vcard_icon_bg',
+			array( 'label' => __( 'Icon Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card-icon' => 'background-color: {{VALUE}};' ) )
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array( 'name' => 'vcard_shadow', 'selector' => '{{WRAPPER}} .wss-vertical-card' )
 		);
 
+		$this->end_controls_tab();
+
+		// Hover Tab
+		$this->start_controls_tab(
+			'vcard_tab_hover',
+			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'vcard_hover_bg',
+			array( 'label' => __( 'Hover Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover' => 'background-color: {{VALUE}};' ) )
+		);
+		$this->add_control(
+			'vcard_hover_border',
+			array( 'label' => __( 'Hover Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover' => 'border-color: {{VALUE}};' ) )
+		);
+		$this->add_control(
+			'vcard_hover_label_color',
+			array( 'label' => __( 'Hover Label Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-text span' => 'color: {{VALUE}};' ) )
+		);
+		$this->add_control(
+			'vcard_hover_text_color',
+			array( 'label' => __( 'Hover Text / Value Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-text strong' => 'color: {{VALUE}};' ) )
+		);
+		$this->add_control(
+			'vcard_hover_icon_color',
+			array( 'label' => __( 'Hover Icon Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon, {{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon svg, {{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon i' => 'color: {{VALUE}}; fill: currentColor;' ) )
+		);
+		$this->add_control(
+			'vcard_hover_icon_bg',
+			array( 'label' => __( 'Hover Icon Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-vertical-card:hover .wss-vertical-card-icon' => 'background-color: {{VALUE}};' ) )
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array( 'name' => 'vcard_hover_shadow', 'selector' => '{{WRAPPER}} .wss-vertical-card:hover' )
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
 		$this->add_control( 'social_style_title', array( 'label' => __( 'Social Icons', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
+
+		$this->start_controls_tabs( 'social_style_tabs' );
+
+		// Normal Tab
+		$this->start_controls_tab(
+			'social_tab_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
+
 		$this->add_control(
 			'social_color',
 			array( 'label' => __( 'Social Icon Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a' => 'color: {{VALUE}};' ) )
 		);
 		$this->add_control(
+			'social_bg',
+			array( 'label' => __( 'Icon Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a' => 'background-color: {{VALUE}};' ) )
+		);
+		$this->add_control(
+			'social_border_color',
+			array( 'label' => __( 'Icon Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a' => 'border-color: {{VALUE}};' ) )
+		);
+
+		$this->end_controls_tab();
+
+		// Hover Tab
+		$this->start_controls_tab(
+			'social_tab_hover',
+			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
 			'social_hover_color',
 			array( 'label' => __( 'Social Icon Hover Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a:hover' => 'color: {{VALUE}};' ) )
 		);
+		$this->add_control(
+			'social_hover_bg',
+			array( 'label' => __( 'Hover Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a:hover' => 'background-color: {{VALUE}};' ) )
+		);
+		$this->add_control(
+			'social_hover_border_color',
+			array( 'label' => __( 'Hover Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-social-row a:hover' => 'border-color: {{VALUE}};' ) )
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 
@@ -729,14 +876,28 @@ class WSS_Contact_Widget extends Widget_Base {
 			array( 'name' => 'card_box_shadow', 'selector' => '{{WRAPPER}} .wss-floating-card' )
 		);
 
-		$this->add_control( 'card_title_heading', array( 'label' => __( 'Card Title Typography', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
+		$this->add_control( 'card_title_heading', array( 'label' => __( 'Card Title (Direct Inquiry)', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'card_title_color',
-			array( 'label' => __( 'Title Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-card-title' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Title Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-card-title, {{WRAPPER}} .wss-card-header h3' => 'color: {{VALUE}};' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			array( 'name' => 'card_title_typography', 'selector' => '{{WRAPPER}} .wss-card-title' )
+			array( 'name' => 'card_title_typography', 'selector' => '{{WRAPPER}} .wss-card-title, {{WRAPPER}} .wss-card-header h3' )
+		);
+		$this->add_responsive_control(
+			'card_title_align',
+			array(
+				'label'     => __( 'Title Alignment', 'website-section-supporter' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'left'   => array( 'title' => __( 'Left', 'website-section-supporter' ), 'icon' => 'eicon-text-align-left' ),
+					'center' => array( 'title' => __( 'Center', 'website-section-supporter' ), 'icon' => 'eicon-text-align-center' ),
+					'right'  => array( 'title' => __( 'Right', 'website-section-supporter' ), 'icon' => 'eicon-text-align-right' ),
+				),
+				'default'   => 'left',
+				'selectors' => array( '{{WRAPPER}} .wss-card-header, {{WRAPPER}} .wss-card-title' => 'text-align: {{VALUE}};' ),
+			)
 		);
 
 		$this->end_controls_section();
@@ -759,31 +920,71 @@ class WSS_Contact_Widget extends Widget_Base {
 
 		$this->add_control( 'field_inputs_heading', array( 'label' => __( 'Input / Select / Textarea', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 
+		$this->start_controls_tabs( 'input_style_tabs' );
+
+		// Normal Tab
+		$this->start_controls_tab(
+			'input_tab_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
+
 		$this->add_control(
 			'input_bg',
-			array( 'label' => __( 'Input Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#eceae4', 'selectors' => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'background-color: {{VALUE}};' ) )
+			array( 'label' => __( 'Input Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#eceae4', 'selectors' => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'background-color: {{VALUE}} !important;' ) )
+		);
+		$this->add_control(
+			'input_border_color',
+			array( 'label' => __( 'Input Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'border-color: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'input_text_color',
-			array( 'label' => __( 'Input Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Input Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'input_placeholder_color',
-			array( 'label' => __( 'Placeholder Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-pill-input::placeholder, {{WRAPPER}} .wss-pill-textarea::placeholder' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Placeholder Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-pill-input::placeholder, {{WRAPPER}} .wss-pill-textarea::placeholder' => 'color: {{VALUE}} !important;' ) )
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array( 'name' => 'input_box_shadow', 'selector' => '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' )
+		);
+
+		$this->end_controls_tab();
+
+		// Focus Tab
+		$this->start_controls_tab(
+			'input_tab_focus',
+			array( 'label' => __( 'Focus', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'input_focus_bg',
+			array( 'label' => __( 'Focus Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus' => 'background-color: {{VALUE}} !important;' ) )
 		);
 		$this->add_control(
 			'input_focus_border_color',
-			array( 'label' => __( 'Focus Accent Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#a8916f', 'selectors' => array( '{{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus' => 'border-color: {{VALUE}} !important; box-shadow: 0 0 0 3px rgba(168,145,111,0.15) !important;' ) )
+			array( 'label' => __( 'Focus Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#a8916f', 'selectors' => array( '{{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus' => 'border-color: {{VALUE}} !important;' ) )
 		);
+		$this->add_control(
+			'input_focus_text_color',
+			array( 'label' => __( 'Focus Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus' => 'color: {{VALUE}} !important;' ) )
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array( 'name' => 'input_focus_box_shadow', 'selector' => '{{WRAPPER}} .wss-pill-input:focus, {{WRAPPER}} .wss-pill-select:focus, {{WRAPPER}} .wss-pill-textarea:focus' )
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 
 		$this->add_responsive_control(
 			'input_border_radius',
 			array(
 				'label'      => __( 'Input / Select / Textarea Border Radius', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => array( 'px' ),
+				'size_units' => array( 'px', '%' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
-				'default'    => array( 'size' => 40, 'unit' => 'px' ),
+				'default'    => array( 'size' => 5, 'unit' => 'px' ),
 				'selectors'  => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
 			)
 		);
@@ -794,7 +995,7 @@ class WSS_Contact_Widget extends Widget_Base {
 				'label'      => __( 'Input Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;' ),
 			)
 		);
 
@@ -972,44 +1173,41 @@ class WSS_Contact_Widget extends Widget_Base {
 						</div>
 					</div>
 
-					<!-- Vertical Quick Contact Cards -->
-					<?php if ( 'yes' === ( $s['show_vertical_cards'] ?? 'yes' ) ) : ?>
+					<!-- Vertical Quick Contact Cards (Repeater) -->
+					<?php if ( 'yes' === ( $s['show_vertical_cards'] ?? 'yes' ) && ! empty( $s['vertical_cards_list'] ) ) : ?>
 						<div class="wss-left-cards">
-							<?php if ( ! empty( $s['card_phone_value'] ) ) : ?>
-								<a href="<?php echo esc_url( $s['agent_phone_link']['url'] ?: 'tel:' . preg_replace('/[^0-9+]/', '', $s['card_phone_value']) ); ?>" class="wss-vertical-card">
+							<?php foreach ( $s['vertical_cards_list'] as $card ) :
+								$card_label = ! empty( $card['label'] ) ? $card['label'] : '';
+								$card_val   = ! empty( $card['value'] ) ? $card['value'] : '';
+								$card_link  = ! empty( $card['link']['url'] ) ? $card['link']['url'] : '';
+								$is_ext     = ! empty( $card['link']['is_external'] );
+								$nofollow   = ! empty( $card['link']['nofollow'] );
+								$tag        = ! empty( $card_link ) ? 'a' : 'div';
+								$attr       = ! empty( $card_link ) ? ' href="' . esc_url( $card_link ) . '"' : '';
+								if ( $is_ext ) { $attr .= ' target="_blank"'; }
+								if ( $nofollow ) { $attr .= ' rel="nofollow"'; }
+								?>
+								<<?php echo $tag; ?><?php echo $attr; ?> class="wss-vertical-card elementor-repeater-item-<?php echo esc_attr( $card['_id'] ?? '' ); ?>">
 									<div class="wss-vertical-card-icon">
-										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+										<?php
+										if ( 'custom' === ( $card['icon_source'] ?? 'predefined' ) && ! empty( $card['custom_icon']['value'] ) ) {
+											\Elementor\Icons_Manager::render_icon( $card['custom_icon'], array( 'aria-hidden' => 'true' ) );
+										} else {
+											$icon_key = ! empty( $card['predefined_icon'] ) ? $card['predefined_icon'] : 'phone';
+											echo $this->get_card_svg( $icon_key ); // phpcs:ignore WordPress.Security.EscapeOutput
+										}
+										?>
 									</div>
 									<div class="wss-vertical-card-text">
-										<span><?php echo esc_html( $s['card_phone_label'] ); ?></span>
-										<strong><?php echo esc_html( $s['card_phone_value'] ); ?></strong>
+										<?php if ( ! empty( $card_label ) ) : ?>
+											<span><?php echo esc_html( $card_label ); ?></span>
+										<?php endif; ?>
+										<?php if ( ! empty( $card_val ) ) : ?>
+											<strong><?php echo esc_html( $card_val ); ?></strong>
+										<?php endif; ?>
 									</div>
-								</a>
-							<?php endif; ?>
-
-							<?php if ( ! empty( $s['card_email_value'] ) ) : ?>
-								<a href="<?php echo esc_url( $s['agent_email_link']['url'] ?: 'mailto:' . $s['card_email_value'] ); ?>" class="wss-vertical-card">
-									<div class="wss-vertical-card-icon">
-										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-									</div>
-									<div class="wss-vertical-card-text">
-										<span><?php echo esc_html( $s['card_email_label'] ); ?></span>
-										<strong><?php echo esc_html( $s['card_email_value'] ); ?></strong>
-									</div>
-								</a>
-							<?php endif; ?>
-
-							<?php if ( ! empty( $s['card_wa_value'] ) ) : ?>
-								<a href="<?php echo esc_url( $s['card_wa_link']['url'] ?: '#' ); ?>" target="_blank" rel="noopener" class="wss-vertical-card">
-									<div class="wss-vertical-card-icon">
-										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-									</div>
-									<div class="wss-vertical-card-text">
-										<span><?php echo esc_html( $s['card_wa_label'] ); ?></span>
-										<strong><?php echo esc_html( $s['card_wa_value'] ); ?></strong>
-									</div>
-								</a>
-							<?php endif; ?>
+								</<?php echo $tag; ?>>
+							<?php endforeach; ?>
 						</div>
 					<?php endif; ?>
 
@@ -1174,5 +1372,29 @@ class WSS_Contact_Widget extends Widget_Base {
 			return $icons[ $label ];
 		}
 		return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><text x="12" y="16" text-anchor="middle" font-size="8" fill="currentColor" stroke="none">' . esc_html( strtoupper( substr( $label, 0, 2 ) ) ) . '</text></svg>';
+	}
+
+	private function get_card_svg( $icon ) {
+		$icon = strtolower( trim( $icon ) );
+		$card_icons = array(
+			'phone'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+			'email'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
+			'whatsapp'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
+			'location'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
+			'clock'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+			'chat'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+			'building'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/></svg>',
+			'globe'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+			'calendar'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+			'headset'   => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>',
+			'user'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+			'star'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+			'shield'    => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+			'fax'       => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>',
+		);
+		if ( isset( $card_icons[ $icon ] ) ) {
+			return $card_icons[ $icon ];
+		}
+		return $card_icons['phone'];
 	}
 }
