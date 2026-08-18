@@ -616,6 +616,142 @@ class WSS_Contact_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		/* ================= ANIMATION & LUXURY EFFECTS ================= */
+		$this->start_controls_section(
+			'section_motion',
+			array( 'label' => __( 'Animation & Luxury Effects', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'enable_reveal',
+			array(
+				'label'        => __( 'Scroll-Reveal Entrance', 'website-section-supporter' ),
+				'description'  => __( 'Applies smooth luxury scroll-triggered mask wipes and staggered cascade animations.', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'enable_parallax',
+			array(
+				'label'        => __( 'Background Parallax & Motion', 'website-section-supporter' ),
+				'description'  => __( 'Enables cinematic motion on the right estate background image.', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'parallax_mode',
+			array(
+				'label'     => __( 'Motion Mode', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'scroll',
+				'options'   => array(
+					'scroll' => __( 'Scroll Parallax (Smooth Vertical/Horizontal)', 'website-section-supporter' ),
+					'tilt'   => __( '3D Interactive Mouse Tilt', 'website-section-supporter' ),
+					'zoom'   => __( 'Ken Burns Scroll Zoom', 'website-section-supporter' ),
+					'fixed'  => __( 'Fixed Luxury Still', 'website-section-supporter' ),
+				),
+				'condition' => array( 'enable_parallax' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'parallax_direction',
+			array(
+				'label'     => __( 'Scroll Movement Direction', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'up',
+				'options'   => array(
+					'up'    => __( 'Up (Reverse Scroll)', 'website-section-supporter' ),
+					'down'  => __( 'Down (Natural Scroll)', 'website-section-supporter' ),
+					'left'  => __( 'Left', 'website-section-supporter' ),
+					'right' => __( 'Right', 'website-section-supporter' ),
+				),
+				'condition' => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode'   => 'scroll',
+				),
+			)
+		);
+
+		$this->add_control(
+			'parallax_speed',
+			array(
+				'label'     => __( 'Motion Intensity / Speed', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 0.05,
+						'max'  => 0.6,
+						'step' => 0.01,
+					),
+				),
+				'default'   => array( 'size' => 0.18 ),
+				'condition' => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode!'  => 'fixed',
+				),
+			)
+		);
+
+		$this->add_control(
+			'tilt_max',
+			array(
+				'label'     => __( 'Max Tilt Angle (deg)', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min'  => 3,
+						'max'  => 25,
+						'step' => 1,
+					),
+				),
+				'default'   => array( 'size' => 10 ),
+				'condition' => array(
+					'enable_parallax' => 'yes',
+					'parallax_mode'   => 'tilt',
+				),
+			)
+		);
+
+		$this->add_control(
+			'enable_floating_tilt',
+			array(
+				'label'        => __( '3D Float on Form Card', 'website-section-supporter' ),
+				'description'  => __( 'Subtle 3D perspective float tracking cursor hover on the Direct Inquiry card.', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'disable_parallax_mobile',
+			array(
+				'label'        => __( 'Disable Motion on Mobile', 'website-section-supporter' ),
+				'description'  => __( 'Disables heavy scroll/tilt movement on screens <= 768px for smoother touch performance.', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => array( 'enable_parallax' => 'yes' ),
+			)
+		);
+
+		$this->end_controls_section();
+
 		/* ================= STYLE: LAYOUT & BACKGROUNDS ================= */
 		$this->start_controls_section(
 			'style_layout',
@@ -1130,8 +1266,21 @@ class WSS_Contact_Widget extends Widget_Base {
 		$recaptcha_site_key = ! empty( $s['recaptcha_site_key'] ) ? $s['recaptcha_site_key'] : '';
 		$recaptcha_version = ! empty( $s['recaptcha_version'] ) ? $s['recaptcha_version'] : 'v2_checkbox';
 
+		// Reveal & Parallax Settings
+		$enable_reveal    = 'yes' === ( $s['enable_reveal'] ?? 'yes' );
+		$enable_parallax  = 'yes' === ( $s['enable_parallax'] ?? 'yes' );
+		$parallax_mode    = ! empty( $s['parallax_mode'] ) ? $s['parallax_mode'] : 'scroll';
+		$parallax_speed   = ! empty( $s['parallax_speed']['size'] ) ? $s['parallax_speed']['size'] : 0.18;
+		$parallax_dir     = ! empty( $s['parallax_direction'] ) ? $s['parallax_direction'] : 'up';
+		$parallax_scale   = 1.15;
+		$disable_mobile   = ! empty( $s['disable_parallax_mobile'] ) ? $s['disable_parallax_mobile'] : 'yes';
+		$tilt_max         = ! empty( $s['tilt_max']['size'] ) ? $s['tilt_max']['size'] : 10;
+		$enable_card_tilt = 'yes' === ( $s['enable_floating_tilt'] ?? 'yes' );
+
 		// Parse interest options
 		$interest_lines = ! empty( $s['interest_options'] ) ? explode( "\n", str_replace( "\r", "", $s['interest_options'] ) ) : array();
+
+		$stagger_delays = array( 'wss-r1', 'wss-r2', 'wss-r3', 'wss-r4' );
 		?>
 		<div class="wss-scope">
 			<section class="wss-contact-wrapper" id="<?php echo esc_attr( $widget_uid ); ?>">
@@ -1139,15 +1288,19 @@ class WSS_Contact_Widget extends Widget_Base {
 				<!-- LEFT SIDE: Contact Information & Branding -->
 				<div class="wss-contact-left">
 					<?php if ( 'yes' === ( $s['show_watermark'] ?? 'yes' ) && ! empty( $s['watermark_text'] ) ) : ?>
-						<div class="wss-watermark"><?php echo esc_html( $s['watermark_text'] ); ?></div>
+						<div class="wss-watermark<?php echo $enable_reveal ? ' wss-reveal' : ''; ?>"><?php echo esc_html( $s['watermark_text'] ); ?></div>
 					<?php endif; ?>
 
 					<?php if ( ! empty( $s['heading'] ) ) : ?>
-						<h1><?php echo esc_html( $s['heading'] ); ?></h1>
+						<h1<?php echo $enable_reveal ? ' class="wss-reveal"' : ''; ?>>
+							<span class="<?php echo $enable_reveal ? 'wss-mask' : ''; ?>">
+								<span><?php echo esc_html( $s['heading'] ); ?></span>
+							</span>
+						</h1>
 					<?php endif; ?>
 
 					<!-- Contact Details Grid -->
-					<div class="wss-contact-details-grid">
+					<div class="wss-contact-details-grid<?php echo $enable_reveal ? ' wss-reveal wss-r1' : ''; ?>">
 						<div class="wss-contact-col">
 							<?php if ( ! empty( $s['agent_name'] ) ) : ?>
 								<p class="agent-name"><?php echo esc_html( $s['agent_name'] ); ?></p>
@@ -1176,7 +1329,9 @@ class WSS_Contact_Widget extends Widget_Base {
 					<!-- Vertical Quick Contact Cards (Repeater) -->
 					<?php if ( 'yes' === ( $s['show_vertical_cards'] ?? 'yes' ) && ! empty( $s['vertical_cards_list'] ) ) : ?>
 						<div class="wss-left-cards">
-							<?php foreach ( $s['vertical_cards_list'] as $card ) :
+							<?php 
+							$card_idx = 0;
+							foreach ( $s['vertical_cards_list'] as $card ) :
 								$card_label = ! empty( $card['label'] ) ? $card['label'] : '';
 								$card_val   = ! empty( $card['value'] ) ? $card['value'] : '';
 								$card_link  = ! empty( $card['link']['url'] ) ? $card['link']['url'] : '';
@@ -1186,8 +1341,11 @@ class WSS_Contact_Widget extends Widget_Base {
 								$attr       = ! empty( $card_link ) ? ' href="' . esc_url( $card_link ) . '"' : '';
 								if ( $is_ext ) { $attr .= ' target="_blank"'; }
 								if ( $nofollow ) { $attr .= ' rel="nofollow"'; }
+
+								$stagger_class = $enable_reveal ? ' wss-reveal ' . $stagger_delays[ $card_idx % 4 ] : '';
+								$card_idx++;
 								?>
-								<<?php echo $tag; ?><?php echo $attr; ?> class="wss-vertical-card elementor-repeater-item-<?php echo esc_attr( $card['_id'] ?? '' ); ?>">
+								<<?php echo $tag; ?><?php echo $attr; ?> class="wss-vertical-card<?php echo esc_attr( $stagger_class ); ?> elementor-repeater-item-<?php echo esc_attr( $card['_id'] ?? '' ); ?>">
 									<div class="wss-vertical-card-icon">
 										<?php
 										if ( 'custom' === ( $card['icon_source'] ?? 'predefined' ) && ! empty( $card['custom_icon']['value'] ) ) {
@@ -1212,12 +1370,12 @@ class WSS_Contact_Widget extends Widget_Base {
 					<?php endif; ?>
 
 					<?php if ( ! empty( $s['tagline'] ) ) : ?>
-						<p class="wss-tagline"><?php echo esc_html( $s['tagline'] ); ?></p>
+						<p class="wss-tagline<?php echo $enable_reveal ? ' wss-reveal wss-r2' : ''; ?>"><?php echo esc_html( $s['tagline'] ); ?></p>
 					<?php endif; ?>
 
 					<!-- Social Icons Row -->
 					<?php if ( 'yes' === ( $s['show_social'] ?? 'yes' ) && ! empty( $s['social_links'] ) ) : ?>
-						<div class="wss-social-row">
+						<div class="wss-social-row<?php echo $enable_reveal ? ' wss-reveal wss-r3' : ''; ?>">
 							<?php foreach ( $s['social_links'] as $social ) :
 								$platform = ! empty( $social['platform'] ) ? $social['platform'] : 'fb';
 								$url      = ! empty( $social['link']['url'] ) ? $social['link']['url'] : '#';
@@ -1231,11 +1389,27 @@ class WSS_Contact_Widget extends Widget_Base {
 				</div>
 
 				<!-- RIGHT SIDE: Estate Background with Floating Card -->
-				<div class="wss-contact-right" style="background-image: url('<?php echo esc_url( $bg_img ); ?>');">
-					<div class="wss-floating-card">
+				<div class="wss-contact-right <?php echo $enable_parallax ? 'wss-has-parallax' : 'wss-no-parallax'; ?>"
+					<?php if ( $enable_parallax ) : ?>
+						data-parallax-mode="<?php echo esc_attr( $parallax_mode ); ?>"
+						data-parallax-speed="<?php echo esc_attr( $parallax_speed ); ?>"
+						data-parallax-direction="<?php echo esc_attr( $parallax_dir ); ?>"
+						data-parallax-scale="<?php echo esc_attr( $parallax_scale ); ?>"
+						data-parallax-disable-mobile="<?php echo esc_attr( $disable_mobile ); ?>"
+						data-tilt-max="<?php echo esc_attr( $tilt_max ); ?>"
+					<?php endif; ?>
+				>
+					<div class="wss-contact-bg <?php echo ( $enable_parallax && 'fixed' === $parallax_mode ) ? 'wss-parallax-fixed-bg' : 'wss-parallax-img'; ?><?php echo $enable_reveal ? ' wss-img-reveal' : ''; ?>" style="background-image: url('<?php echo esc_url( $bg_img ); ?>');"></div>
+					<div class="wss-contact-overlay"></div>
+
+					<div class="wss-floating-card<?php echo $enable_reveal ? ' wss-reveal wss-r2' : ''; ?><?php echo $enable_card_tilt ? ' wss-card-tilt' : ''; ?>">
 						<?php if ( ! empty( $s['card_title'] ) ) : ?>
 							<div class="wss-card-header">
-								<h3 class="wss-card-title"><?php echo esc_html( $s['card_title'] ); ?></h3>
+								<h3 class="wss-card-title">
+									<span class="<?php echo $enable_reveal ? 'wss-mask' : ''; ?>">
+										<span><?php echo esc_html( $s['card_title'] ); ?></span>
+									</span>
+								</h3>
 							</div>
 						<?php endif; ?>
 

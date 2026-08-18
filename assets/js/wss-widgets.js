@@ -510,6 +510,124 @@
 
 		initAboutParallax();
 
+		/* ─── 10. Contact Section Motion & Parallax Engine ────── */
+		function initContactParallax() {
+			var contactSections = document.querySelectorAll( ".wss-contact-right.wss-has-parallax" );
+			if ( ! contactSections.length ) return;
+
+			var ticking = false;
+
+			function updateContactParallax() {
+				var isMobile = window.innerWidth <= 768;
+				var winH = window.innerHeight;
+
+				contactSections.forEach( function ( section ) {
+					var mode = section.getAttribute( "data-parallax-mode" ) || "scroll";
+					var disableMobile = section.getAttribute( "data-parallax-disable-mobile" ) === "yes";
+					var img = section.querySelector( ".wss-contact-bg.wss-parallax-img" );
+
+					if ( ! img ) return;
+
+					if ( isMobile && disableMobile ) {
+						img.style.transform = "none";
+						return;
+					}
+
+					var rect = section.getBoundingClientRect();
+					if ( rect.top < winH && rect.bottom > 0 ) {
+						var speed = parseFloat( section.getAttribute( "data-parallax-speed" ) ) || 0.18;
+						var scale = parseFloat( section.getAttribute( "data-parallax-scale" ) ) || 1.15;
+						var dir = section.getAttribute( "data-parallax-direction" ) || "up";
+						var offset = ( rect.top + rect.height / 2 ) - ( winH / 2 );
+
+						if ( mode === "scroll" ) {
+							var moveX = 0;
+							var moveY = 0;
+							if ( dir === "up" ) {
+								moveY = -offset * speed;
+							} else if ( dir === "down" ) {
+								moveY = offset * speed;
+							} else if ( dir === "left" ) {
+								moveX = -offset * speed;
+							} else if ( dir === "right" ) {
+								moveX = offset * speed;
+							}
+							img.style.transform = "scale(" + scale + ") translate3d(" + moveX.toFixed(2) + "px, " + moveY.toFixed(2) + "px, 0)";
+						} else if ( mode === "zoom" ) {
+							var progress = 1 - Math.abs( offset ) / ( winH + rect.height );
+							progress = Math.max( 0, Math.min( 1, progress ) );
+							var zoom = scale + ( progress * speed * 0.35 );
+							img.style.transform = "scale(" + zoom.toFixed(3) + ")";
+						}
+					}
+				} );
+				ticking = false;
+			}
+
+			function requestContactParallaxTick() {
+				if ( ! ticking ) {
+					requestAnimationFrame( updateContactParallax );
+					ticking = true;
+				}
+			}
+
+			window.addEventListener( "scroll", requestContactParallaxTick, { passive: true } );
+			window.addEventListener( "resize", requestContactParallaxTick, { passive: true } );
+			updateContactParallax();
+
+			/* 3D Mouse Tilt */
+			contactSections.forEach( function ( section ) {
+				var mode = section.getAttribute( "data-parallax-mode" );
+				if ( mode === "tilt" && ! section._tiltBound ) {
+					section._tiltBound = true;
+					var img = section.querySelector( ".wss-contact-bg.wss-parallax-img" );
+					var tiltMax = parseFloat( section.getAttribute( "data-tilt-max" ) ) || 10;
+					var scale = parseFloat( section.getAttribute( "data-parallax-scale" ) ) || 1.12;
+
+					section.addEventListener( "mousemove", function ( e ) {
+						if ( window.innerWidth <= 768 && section.getAttribute( "data-parallax-disable-mobile" ) === "yes" ) return;
+						var r = section.getBoundingClientRect();
+						var x = ( e.clientX - r.left ) / r.width - 0.5;
+						var y = ( e.clientY - r.top ) / r.height - 0.5;
+						var rotX = -y * tiltMax;
+						var rotY = x * tiltMax;
+						if ( img ) {
+							img.style.transform = "scale(" + scale + ") perspective(1000px) rotateX(" + rotX.toFixed(2) + "deg) rotateY(" + rotY.toFixed(2) + "deg)";
+						}
+					} );
+
+					section.addEventListener( "mouseleave", function () {
+						if ( img ) {
+							img.style.transform = "scale(" + scale + ") perspective(1000px) rotateX(0deg) rotateY(0deg)";
+						}
+					} );
+				}
+			} );
+
+			/* 3D Card Float */
+			var tiltCards = document.querySelectorAll( ".wss-floating-card.wss-card-tilt" );
+			tiltCards.forEach( function ( card ) {
+				if ( card._cardTiltBound ) return;
+				card._cardTiltBound = true;
+				var parentSection = card.closest( ".wss-contact-right" );
+				if ( ! parentSection ) return;
+
+				parentSection.addEventListener( "mousemove", function ( e ) {
+					if ( window.innerWidth <= 768 ) return;
+					var r = parentSection.getBoundingClientRect();
+					var x = ( e.clientX - r.left ) / r.width - 0.5;
+					var y = ( e.clientY - r.top ) / r.height - 0.5;
+					card.style.transform = "perspective(1200px) rotateX(" + (-y * 4).toFixed(2) + "deg) rotateY(" + (x * 4).toFixed(2) + "deg) translateZ(8px)";
+				} );
+
+				parentSection.addEventListener( "mouseleave", function () {
+					card.style.transform = "perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px)";
+				} );
+			} );
+		}
+
+		initContactParallax();
+
 		/* Elementor editor live preview re-init */
 		if ( window.elementorFrontend && window.elementorFrontend.hooks ) {
 			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_about.default", function () {
@@ -517,6 +635,9 @@
 			} );
 			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_newsletter.default", function () {
 				initNewsletterParallax();
+			} );
+			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_contact.default", function () {
+				initContactParallax();
 			} );
 		}
 
