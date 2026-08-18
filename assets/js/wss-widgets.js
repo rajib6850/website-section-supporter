@@ -258,24 +258,30 @@
 		/* ─── 6. Header: solid / hide on scroll ─────────────── */
 		var siteHeader = document.querySelector( ".wss-header--sticky" );
 		if ( siteHeader ) {
-			var lastY    = window.scrollY;
-			var heroEl   = document.querySelector( ".wss-hero" );
-			var heroH    = heroEl ? heroEl.offsetHeight : 400;
-			var isTrans  = siteHeader.classList.contains( "wss-header--on-hero" );
+			var isEditor = document.body.classList.contains( "elementor-editor-active" ) || document.querySelector( ".elementor-editor-active" );
+			if ( ! isEditor ) {
+				var lastY    = window.scrollY;
+				var heroEl   = document.querySelector( ".wss-hero" );
+				var heroH    = heroEl ? heroEl.offsetHeight : 350;
+				var isTrans  = siteHeader.classList.contains( "wss-header--on-hero" );
 
-			window.addEventListener( "scroll", function () {
-				var y = window.scrollY;
-				siteHeader.classList.toggle( "wss-header--solid",  y > heroH - 100 );
-				if ( isTrans ) {
-					siteHeader.classList.toggle( "wss-header--on-hero", y <= heroH - 100 );
-				}
-				if ( y > lastY && y > 300 ) {
-					siteHeader.classList.add( "wss-header--hidden" );
-				} else {
-					siteHeader.classList.remove( "wss-header--hidden" );
-				}
-				lastY = y;
-			} );
+				window.addEventListener( "scroll", function () {
+					var y = window.scrollY;
+					var threshold = Math.max( 40, heroH - 100 );
+					siteHeader.classList.toggle( "wss-header--solid",  y > threshold );
+					if ( isTrans ) {
+						siteHeader.classList.toggle( "wss-header--on-hero", y <= threshold );
+					}
+					if ( y <= 150 ) {
+						siteHeader.classList.remove( "wss-header--hidden" );
+					} else if ( y > lastY && y > 300 ) {
+						siteHeader.classList.add( "wss-header--hidden" );
+					} else {
+						siteHeader.classList.remove( "wss-header--hidden" );
+					}
+					lastY = y;
+				}, { passive: true } );
+			}
 		}
 
 		/* ─── 7. Luxury Video Modal ───────────────────────────── */

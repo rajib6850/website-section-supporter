@@ -333,12 +333,18 @@
 }
 
 /* ---------- Header & Menu ---------- */
+.elementor-widget-wss_header {
+  position: relative;
+  z-index: 9999;
+}
+
 .wss-header {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 300;
+  width: 100%;
+  z-index: 9999;
   padding: 26px 0;
   transition: transform .5s var(--wss-ease), background .4s, padding .4s, border-color .4s;
   box-sizing: border-box;
@@ -349,6 +355,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .wss-header-actions {
@@ -365,22 +372,30 @@
 
 /* Transparent (overlaps hero) */
 .wss-header.wss-header--on-hero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   background: transparent;
   border-bottom: 1px solid transparent;
 }
 
-/* Light Static (absolute with bg) */
+/* Light Static (clean static/relative header) */
 .wss-header.wss-header--light-static {
-  background: var(--wss-ivory);
-  border-bottom: 1px solid var(--wss-line);
+  background: var(--wss-ivory, #faf8f4);
+  border-bottom: 1px solid var(--wss-line, #e6e1d6);
   padding: 16px 0;
+  position: relative;
+  z-index: 9999;
 }
 
-/* Dark Static (absolute with bg) */
+/* Dark Static (clean static/relative header) */
 .wss-header.wss-header--dark-static {
-  background: var(--wss-charcoal);
-  border-bottom: 1px solid var(--wss-line-on-dark);
+  background: var(--wss-charcoal, #1a1812);
+  border-bottom: 1px solid var(--wss-line-on-dark, rgba(255,255,255,0.12));
   padding: 16px 0;
+  position: relative;
+  z-index: 9999;
 }
 
 .wss-header.wss-header--dark-static .wss-logo {
@@ -393,19 +408,25 @@
 
 /* Sticky Solid (added by JS when scrolling down past top) */
 .wss-header.wss-header--solid {
-  position: fixed;
-  background: rgba(250, 248, 244, .95);
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  background: rgba(250, 248, 244, .95) !important;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 16px 0;
-  border-bottom: 1px solid var(--wss-line);
+  border-bottom: 1px solid var(--wss-line, #e6e1d6);
+  z-index: 99999 !important;
 }
 
 .wss-header.wss-header--solid .wss-logo {
-  color: var(--wss-ink);
+  color: var(--wss-ink, #1a1812);
 }
 
 .wss-header.wss-header--solid .wss-burger {
-  color: var(--wss-ink);
+  color: var(--wss-ink, #1a1812);
 }
 
 /* Hidden state (added by JS when scrolling down) */
@@ -413,9 +434,21 @@
   transform: translateY(-120%);
 }
 
+/* Elementor Editor Active - Always show header in preview */
+body.elementor-editor-active .wss-header,
+.elementor-editor-active .wss-header {
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 /* WordPress Admin Bar Compatibility (Logged-in users) */
 body.admin-bar .wss-header {
   top: 32px;
+}
+
+body.admin-bar .wss-header.wss-header--solid {
+  top: 32px !important;
 }
 
 body.admin-bar #wss-menu {
@@ -428,6 +461,9 @@ body.admin-bar #wss-menu {
 @media screen and (max-width: 782px) {
   body.admin-bar .wss-header {
     top: 46px;
+  }
+  body.admin-bar .wss-header.wss-header--solid {
+    top: 46px !important;
   }
 
   body.admin-bar #wss-menu {
