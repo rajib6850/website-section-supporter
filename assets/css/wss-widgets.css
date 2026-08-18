@@ -2021,7 +2021,9 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   word-break: break-word;
 }
 
-.wss-about p {
+.wss-about p,
+.wss-about-desc,
+.wss-about-desc p {
   font-family: var(--wss-font-text);
   font-size: clamp(14px, 1.1vw, 15px);
   line-height: 1.85;
@@ -2032,6 +2034,31 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   overflow-wrap: break-word;
   word-break: break-word;
   box-sizing: border-box;
+}
+
+.wss-about-desc p:not(:last-child) {
+  margin-bottom: 1em;
+}
+
+.wss-about-desc a {
+  color: inherit;
+  text-decoration: underline;
+  transition: opacity 0.25s ease;
+}
+
+.wss-about-desc a:hover {
+  opacity: 0.8;
+}
+
+.wss-about-desc ul,
+.wss-about-desc ol {
+  margin: 0.8em 0 0.8em 1.2em;
+  padding: 0;
+  max-width: 520px;
+}
+
+.wss-about-desc li {
+  margin-bottom: 0.35em;
 }
 
 .wss-about-actions {
@@ -2174,7 +2201,9 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
     margin-bottom: 18px;
   }
 
-  .wss-about p {
+  .wss-about p,
+  .wss-about-desc,
+  .wss-about-desc p {
     max-width: 100%;
   }
 
@@ -2203,7 +2232,9 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
     margin-bottom: 16px;
   }
 
-  .wss-about p {
+  .wss-about p,
+  .wss-about-desc,
+  .wss-about-desc p {
     font-size: 14px;
     line-height: 1.75;
   }

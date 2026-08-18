@@ -22,7 +22,14 @@ class WSS_About_Widget extends Widget_Base {
 		$this->start_controls_section( 'section_content', array( 'label' => __( 'Content', 'website-section-supporter' ) ) );
 		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'The Advisory', 'website-section-supporter' ) ) );
 		$this->add_control( 'heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'The Noir Standard', 'website-section-supporter' ) ) );
-		$this->add_control( 'description', array( 'label' => __( 'Description', 'website-section-supporter' ), 'type' => Controls_Manager::TEXTAREA, 'default' => __( 'For more than two decades, this advisory has proven itself indispensable in the refined world of international luxury real estate. Trusted by celebrated clients, respected colleagues, and the communities served — every website we build carries that same standard of craft, courtesy of Digitize Growth.', 'website-section-supporter' ), 'rows' => 6 ) );
+		$this->add_control(
+			'description',
+			array(
+				'label'   => __( 'Description', 'website-section-supporter' ),
+				'type'    => Controls_Manager::WYSIWYG,
+				'default' => __( '<p>For more than two decades, this advisory has proven itself indispensable in the refined world of international luxury real estate. Trusted by celebrated clients, respected colleagues, and the communities served — every website we build carries that same standard of craft, courtesy of Digitize Growth.</p>', 'website-section-supporter' ),
+			)
+		);
 		$this->end_controls_section();
 
 		$this->start_controls_section( 'section_buttons', array( 'label' => __( 'Buttons', 'website-section-supporter' ) ) );
@@ -253,8 +260,8 @@ class WSS_About_Widget extends Widget_Base {
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-about h2' ) );
 
 		$this->add_control( 'desc_heading', array( 'label' => __( 'Description', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
-		$this->add_control( 'desc_color', array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-about p' => 'color: {{VALUE}};' ) ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'desc_typography', 'selector' => '{{WRAPPER}} .wss-about p' ) );
+		$this->add_control( 'desc_color', array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-about-desc, {{WRAPPER}} .wss-about-desc p, {{WRAPPER}} .wss-about p' => 'color: {{VALUE}};' ) ) );
+		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'desc_typography', 'selector' => '{{WRAPPER}} .wss-about-desc, {{WRAPPER}} .wss-about-desc p, {{WRAPPER}} .wss-about p' ) );
 		$this->end_controls_section();
 
 		/* ================= STYLE: BUTTONS ================= */
@@ -389,7 +396,9 @@ class WSS_About_Widget extends Widget_Base {
 							<h2><span class="wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span></h2>
 						<?php endif; ?>
 						<?php if ( ! empty( $s['description'] ) ) : ?>
-							<p><?php echo nl2br( esc_html( $s['description'] ) ); ?></p>
+							<div class="wss-about-desc">
+								<?php echo wp_kses_post( $s['description'] ); ?>
+							</div>
 						<?php endif; ?>
 						<?php if ( ! empty( $s['btn1_text'] ) || ! empty( $s['btn2_text'] ) ) : ?>
 							<div class="wss-about-actions">
