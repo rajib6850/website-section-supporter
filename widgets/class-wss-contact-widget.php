@@ -779,12 +779,12 @@ class WSS_Contact_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'input_border_radius',
 			array(
-				'label'      => __( 'Input Border Radius', 'website-section-supporter' ),
+				'label'      => __( 'Input / Textarea Border Radius', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
-				'default'    => array( 'size' => 26, 'unit' => 'px' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select' => 'border-radius: {{SIZE}}{{UNIT}};' ),
+				'default'    => array( 'size' => 14, 'unit' => 'px' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-pill-input, {{WRAPPER}} .wss-pill-select, {{WRAPPER}} .wss-pill-textarea' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
 			)
 		);
 

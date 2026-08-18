@@ -5211,14 +5211,21 @@ body.elementor-editor-active .wss-mask > span {
   width: 100%;
   background: #eceae4;
   border: 1px solid transparent;
-  border-radius: 26px;
-  padding: 14px 20px;
+  border-radius: 14px;
+  padding: 16px 20px;
   font-family: var(--wss-font-text, 'Work Sans', sans-serif);
   font-size: 14px;
+  line-height: 1.4;
   color: var(--wss-ink, #1a1812);
   outline: none !important;
   box-sizing: border-box;
   transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.wss-pill-input,
+.wss-pill-select {
+  height: 52px;
+  min-height: 52px;
 }
 
 .wss-pill-input::placeholder,
@@ -5240,14 +5247,16 @@ body.elementor-editor-active .wss-mask > span {
   -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231a1812' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 18px center;
+  background-position: right 20px center;
+  padding-right: 44px;
   cursor: pointer;
 }
 
 .wss-pill-textarea {
-  border-radius: 18px;
+  border-radius: 14px;
   resize: vertical;
-  min-height: 100px;
+  min-height: 110px;
+  line-height: 1.5;
 }
 
 .wss-simple-consent {
@@ -5516,14 +5525,21 @@ body.elementor-editor-active .wss-mask > span {
   .wss-pill-input,
   .wss-pill-select,
   .wss-pill-textarea {
-    padding: 15px 20px;
-    border-radius: 26px;
+    padding: 16px 20px !important;
+    border-radius: 14px !important;
     font-size: 16px !important;
+    line-height: 1.4 !important;
+  }
+
+  .wss-pill-input,
+  .wss-pill-select {
+    height: 54px !important;
+    min-height: 54px !important;
   }
 
   .wss-pill-textarea {
-    border-radius: 18px;
-    min-height: 110px;
+    border-radius: 14px !important;
+    min-height: 110px !important;
   }
 
   .wss-simple-consent {
