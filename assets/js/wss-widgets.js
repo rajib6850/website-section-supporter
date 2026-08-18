@@ -78,52 +78,120 @@
 		}
 	} );
 
-	/* ─── 2. Newsletter form ────────────────────────────────── */
+	/* ─── 2. Newsletter & Contact Forms ─────────────────────── */
 	document.addEventListener( "submit", function ( e ) {
-		var form = e.target.closest( ".wss-nl-form" );
-		if ( ! form ) return;
+		// A. Newsletter Form
+		var nlForm = e.target.closest( ".wss-nl-form" );
+		if ( nlForm ) {
+			var isNlAjax = nlForm.classList.contains( "wss-ajax-form" );
+			if ( ! nlForm.getAttribute( "action" ) && ! isNlAjax ) {
+				e.preventDefault();
+				var btn = nlForm.querySelector( "button" );
+				if ( btn ) { btn.textContent = "Subscribed"; }
+				nlForm.reset();
+				return;
+			}
 
-		var isAjax = form.classList.contains( "wss-ajax-form" );
-		if ( ! form.getAttribute( "action" ) && ! isAjax ) {
-			e.preventDefault();
-			var btn = form.querySelector( "button" );
-			if ( btn ) { btn.textContent = "Subscribed"; }
-			form.reset();
+			if ( isNlAjax ) {
+				e.preventDefault();
+				var btn = nlForm.querySelector( "button" );
+				var msg = nlForm.querySelector( ".wss-nl-msg" );
+				var originalBtnText = btn ? btn.innerHTML : "Submit";
+				
+				if ( btn ) btn.innerHTML = "Sending...";
+				if ( msg ) { msg.style.display = "none"; msg.style.color = "var(--wss-white)"; }
+
+				var formData = new FormData( nlForm );
+
+				fetch( nlForm.getAttribute( "action" ), {
+					method: "POST",
+					body: formData
+				} )
+				.then( function( response ) { return response.json(); } )
+				.then( function( data ) {
+					if ( msg ) {
+						msg.style.display = "block";
+						msg.innerHTML = data.data && data.data.message ? data.data.message : ( data.success ? "Subscribed successfully!" : "Error submitting form." );
+						msg.style.color = data.success ? "#4caf50" : "#f44336";
+					}
+					if ( btn ) btn.innerHTML = data.success ? "Subscribed" : originalBtnText;
+					if ( data.success ) nlForm.reset();
+				} )
+				.catch( function( error ) {
+					if ( msg ) {
+						msg.style.display = "block";
+						msg.innerHTML = "A network error occurred.";
+						msg.style.color = "#f44336";
+					}
+					if ( btn ) btn.innerHTML = originalBtnText;
+				} );
+			}
 			return;
 		}
 
-		if ( isAjax ) {
+		// B. Contact Form
+		var contactForm = e.target.closest( ".wss-contact-ajax-form" );
+		if ( contactForm ) {
 			e.preventDefault();
-			var btn = form.querySelector( "button" );
-			var msg = form.querySelector( ".wss-nl-msg" );
-			var originalBtnText = btn ? btn.innerHTML : "Submit";
-			
-			if ( btn ) btn.innerHTML = "Sending...";
-			if ( msg ) { msg.style.display = "none"; msg.style.color = "var(--wss-white)"; }
+			var submitBtn = contactForm.querySelector( "button[type='submit'], .wss-send-btn" );
+			var statusMsg = contactForm.querySelector( ".wss-form-status-msg" );
+			var toast = document.getElementById( "wssToast" ) || document.querySelector( ".wss-toast-msg" );
+			var originalBtnHtml = submitBtn ? submitBtn.innerHTML : "<span>SEND MESSAGE</span>";
 
-			var formData = new FormData( form );
+			if ( submitBtn ) {
+				submitBtn.disabled = true;
+				var spanText = submitBtn.querySelector( "span" );
+				if ( spanText ) { spanText.textContent = "SENDING..."; }
+			}
 
-			fetch( form.getAttribute( "action" ), {
+			if ( statusMsg ) { statusMsg.style.display = "none"; }
+
+			var contactFormData = new FormData( contactForm );
+
+			fetch( contactForm.getAttribute( "action" ), {
 				method: "POST",
-				body: formData
+				body: contactFormData
 			} )
 			.then( function( response ) { return response.json(); } )
 			.then( function( data ) {
-				if ( msg ) {
-					msg.style.display = "block";
-					msg.innerHTML = data.data && data.data.message ? data.data.message : ( data.success ? "Subscribed successfully!" : "Error submitting form." );
-					msg.style.color = data.success ? "#4caf50" : "#f44336";
+				if ( submitBtn ) {
+					submitBtn.disabled = false;
+					submitBtn.innerHTML = originalBtnHtml;
 				}
-				if ( btn ) btn.innerHTML = data.success ? "Subscribed" : originalBtnText;
-				if ( data.success ) form.reset();
+
+				var replyText = data.data && data.data.message ? data.data.message : ( data.success ? "Message sent successfully!" : "Error submitting form." );
+
+				if ( statusMsg ) {
+					statusMsg.style.display = "block";
+					statusMsg.innerHTML = replyText;
+					statusMsg.style.background = data.success ? "rgba(56, 161, 105, 0.12)" : "rgba(229, 62, 62, 0.12)";
+					statusMsg.style.color = data.success ? "#276749" : "#c53030";
+					statusMsg.style.border = "1px solid " + ( data.success ? "rgba(56, 161, 105, 0.3)" : "rgba(229, 62, 62, 0.3)" );
+				}
+
+				if ( toast ) {
+					var toastSpan = toast.querySelector( "span" );
+					if ( toastSpan ) { toastSpan.textContent = replyText; }
+					toast.classList.add( "show" );
+					setTimeout( function () { toast.classList.remove( "show" ); }, 5000 );
+				}
+
+				if ( data.success ) {
+					contactForm.reset();
+				}
 			} )
 			.catch( function( error ) {
-				if ( msg ) {
-					msg.style.display = "block";
-					msg.innerHTML = "A network error occurred.";
-					msg.style.color = "#f44336";
+				if ( submitBtn ) {
+					submitBtn.disabled = false;
+					submitBtn.innerHTML = originalBtnHtml;
 				}
-				if ( btn ) btn.innerHTML = originalBtnText;
+				if ( statusMsg ) {
+					statusMsg.style.display = "block";
+					statusMsg.innerHTML = "A network error occurred. Please try again.";
+					statusMsg.style.background = "rgba(229, 62, 62, 0.12)";
+					statusMsg.style.color = "#c53030";
+					statusMsg.style.border = "1px solid rgba(229, 62, 62, 0.3)";
+				}
 			} );
 		}
 	} );

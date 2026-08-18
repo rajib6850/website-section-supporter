@@ -70,6 +70,120 @@ final class Website_Section_Supporter {
 		// Newsletter AJAX handlers
 		add_action( 'wp_ajax_wss_newsletter_submit', array( $this, 'handle_newsletter_submit' ) );
 		add_action( 'wp_ajax_nopriv_wss_newsletter_submit', array( $this, 'handle_newsletter_submit' ) );
+
+		// Contact Section AJAX handlers
+		add_action( 'wp_ajax_wss_contact_submit', array( $this, 'handle_contact_submit' ) );
+		add_action( 'wp_ajax_nopriv_wss_contact_submit', array( $this, 'handle_contact_submit' ) );
+	}
+
+	public function handle_contact_submit() {
+		// Nonce verification
+		if ( ! isset( $_POST['wss_contact_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wss_contact_nonce'] ) ), 'wss_contact_nonce' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Security check failed. Please refresh and try again.', 'website-section-supporter' ) ) );
+		}
+
+		// Google reCAPTCHA Verification (v2 / v3)
+		$recaptcha_response = isset( $_POST['g-recaptcha-response'] ) ? sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) ) : '';
+		$secret_key         = isset( $_POST['recaptcha_secret'] ) ? sanitize_text_field( wp_unslash( $_POST['recaptcha_secret'] ) ) : '';
+		
+		if ( ! empty( $secret_key ) && ! empty( $recaptcha_response ) ) {
+			$verify_url = 'https://www.google.com/recaptcha/api/siteverify';
+			$response   = wp_remote_post( $verify_url, array(
+				'body' => array(
+					'secret'   => $secret_key,
+					'response' => $recaptcha_response,
+					'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+				),
+			) );
+
+			if ( ! is_wp_error( $response ) ) {
+				$result = json_decode( wp_remote_retrieve_body( $response ), true );
+				if ( empty( $result['success'] ) ) {
+					wp_send_json_error( array( 'message' => __( 'reCAPTCHA verification failed. Please try again.', 'website-section-supporter' ) ) );
+				}
+			}
+		}
+
+		$name     = isset( $_POST['wss_name'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_name'] ) ) : '';
+		$email    = isset( $_POST['wss_email'] ) ? sanitize_email( wp_unslash( $_POST['wss_email'] ) ) : '';
+		$phone    = isset( $_POST['wss_phone'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_phone'] ) ) : '';
+		$interest = isset( $_POST['wss_interest'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_interest'] ) ) : '';
+		$message  = isset( $_POST['wss_message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['wss_message'] ) ) : '';
+
+		if ( empty( $name ) || empty( $email ) ) {
+			wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'website-section-supporter' ) ) );
+		}
+
+		$to      = isset( $_POST['email_to'] ) && ! empty( $_POST['email_to'] ) ? sanitize_email( wp_unslash( $_POST['email_to'] ) ) : get_option( 'admin_email' );
+		$cc      = isset( $_POST['email_cc'] ) ? sanitize_text_field( wp_unslash( $_POST['email_cc'] ) ) : '';
+		$bcc     = isset( $_POST['email_bcc'] ) ? sanitize_text_field( wp_unslash( $_POST['email_bcc'] ) ) : '';
+		$subject = isset( $_POST['email_subject'] ) && ! empty( $_POST['email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['email_subject'] ) ) : 'New Luxury Inquiry from {{name}} - {{interest}}';
+		$type    = isset( $_POST['email_content_type'] ) && $_POST['email_content_type'] === 'plain' ? 'text/plain' : 'text/html';
+
+		// Replace dynamic placeholder tokens
+		$subject = str_replace(
+			array( '{{name}}', '{{email}}', '{{phone}}', '{{interest}}', '{{message}}' ),
+			array( $name, $email, $phone, $interest, $message ),
+			$subject
+		);
+
+		$body = "";
+		if ( $type === 'text/html' ) {
+			$body .= "<div style='font-family: Arial, sans-serif; max-width: 600px; color: #1a1812; line-height: 1.6; padding: 20px; border: 1px solid #e6e1d6;'>";
+			$body .= "<h2 style='color: #1a1812; border-bottom: 2px solid #a8916f; padding-bottom: 8px; font-size: 18px; text-transform: uppercase;'>New Direct Contact Inquiry</h2>";
+			$body .= "<p><strong>Name:</strong> " . esc_html( $name ) . "</p>";
+			$body .= "<p><strong>Email:</strong> " . esc_html( $email ) . "</p>";
+			$body .= "<p><strong>Phone:</strong> " . esc_html( $phone ) . "</p>";
+			$body .= "<p><strong>Interest:</strong> " . esc_html( $interest ) . "</p>";
+			$body .= "<p><strong>Message:</strong><br>" . nl2br( esc_html( $message ) ) . "</p>";
+			$body .= "<hr style='border: none; border-top: 1px solid #e6e1d6; margin: 20px 0;'>";
+			$body .= "<p style='font-size: 11px; color: #8c8577;'>Sent via Noir Estates Luxury Website Section Supporter</p>";
+			$body .= "</div>";
+		} else {
+			$body .= "New Direct Contact Inquiry\n\n";
+			$body .= "Name: " . $name . "\n";
+			$body .= "Email: " . $email . "\n";
+			$body .= "Phone: " . $phone . "\n";
+			$body .= "Interest: " . $interest . "\n";
+			$body .= "Message:\n" . $message . "\n";
+		}
+
+		$headers = array();
+		$headers[] = 'Content-Type: ' . $type . '; charset=UTF-8';
+		$headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
+		if ( ! empty( $cc ) ) { $headers[] = 'Cc: ' . $cc; }
+		if ( ! empty( $bcc ) ) { $headers[] = 'Bcc: ' . $bcc; }
+
+		// Send Email
+		$sent = wp_mail( $to, $subject, $body, $headers );
+
+		// Record in Elementor Pro Submissions (if active)
+		if ( class_exists( '\ElementorPro\Plugin' ) ) {
+			$submission_data = array(
+				'post_id' => isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0,
+				'form_id' => isset( $_POST['widget_id'] ) ? sanitize_text_field( wp_unslash( $_POST['widget_id'] ) ) : 'wss_contact',
+				'fields'  => array(
+					'wss_name'     => $name,
+					'wss_email'    => $email,
+					'wss_phone'    => $phone,
+					'wss_interest' => $interest,
+					'wss_message'  => $message,
+				),
+				'meta'    => array(
+					'remote_ip'  => $_SERVER['REMOTE_ADDR'] ?? '',
+					'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? '',
+				),
+			);
+			do_action( 'elementor_pro/forms/new_record', $submission_data );
+		}
+
+		$success_msg = isset( $_POST['success_msg'] ) && ! empty( $_POST['success_msg'] ) ? sanitize_text_field( wp_unslash( $_POST['success_msg'] ) ) : __( 'Thank you for contacting us. We will get back to you shortly.', 'website-section-supporter' );
+
+		if ( $sent ) {
+			wp_send_json_success( array( 'message' => $success_msg ) );
+		} else {
+			wp_send_json_error( array( 'message' => __( 'Failed to send email. Please check server mail settings.', 'website-section-supporter' ) ) );
+		}
 	}
 
 	public function handle_newsletter_submit() {
