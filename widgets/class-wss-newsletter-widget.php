@@ -266,6 +266,63 @@ class WSS_Newsletter_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		/* ================= RECAPTCHA SETTINGS ================= */
+		$this->start_controls_section(
+			'section_recaptcha',
+			array(
+				'label'     => __( 'reCAPTCHA & Security', 'website-section-supporter' ),
+				'condition' => array( 'form_type' => 'custom' ),
+			)
+		);
+
+		$this->add_control(
+			'enable_recaptcha',
+			array(
+				'label'        => __( 'Enable Google reCAPTCHA', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'no',
+			)
+		);
+
+		$this->add_control(
+			'recaptcha_version',
+			array(
+				'label'     => __( 'reCAPTCHA Type', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'v2_checkbox',
+				'options'   => array(
+					'v2_checkbox' => __( 'reCAPTCHA v2 (Checkbox)', 'website-section-supporter' ),
+					'v3'          => __( 'reCAPTCHA v3 (Invisible Score)', 'website-section-supporter' ),
+				),
+				'condition' => array( 'enable_recaptcha' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'recaptcha_site_key',
+			array(
+				'label'       => __( 'reCAPTCHA Site Key', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => '6LeIxacZAAAAA...',
+				'condition'   => array( 'enable_recaptcha' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'recaptcha_secret_key',
+			array(
+				'label'       => __( 'reCAPTCHA Secret Key', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => '6LeIxacZAAAAA...',
+				'condition'   => array( 'enable_recaptcha' => 'yes' ),
+			)
+		);
+
+		$this->end_controls_section();
+
 		/* ================= STYLE: SECTION ================= */
 		$this->start_controls_section(
 			'style_section',
@@ -440,6 +497,10 @@ class WSS_Newsletter_Widget extends Widget_Base {
 		} else {
 			$section_class .= ' wss-no-parallax';
 		}
+		$enable_recaptcha   = ! empty( $s['enable_recaptcha'] ) && 'yes' === $s['enable_recaptcha'];
+		$recaptcha_site_key = ! empty( $s['recaptcha_site_key'] ) ? $s['recaptcha_site_key'] : '';
+		$recaptcha_version  = ! empty( $s['recaptcha_version'] ) ? $s['recaptcha_version'] : 'v2_checkbox';
+		$widget_uid         = 'wss-nl-' . $this->get_id();
 		?>
 		<div class="wss-scope">
 			<section class="<?php echo esc_attr( $section_class ); ?>"
@@ -483,12 +544,34 @@ class WSS_Newsletter_Widget extends Widget_Base {
 									<input type="hidden" name="email_content_type" value="<?php echo esc_attr( $s['email_content_type'] ?? 'html' ); ?>">
 									<input type="hidden" name="post_id" value="<?php echo get_the_ID(); ?>">
 									<input type="hidden" name="widget_id" value="<?php echo esc_attr($this->get_id()); ?>">
+									<input type="hidden" name="recaptcha_secret" value="<?php echo esc_attr( $s['recaptcha_secret_key'] ?? '' ); ?>">
 									
 									<div class="wss-nl-row"><input type="text" placeholder="<?php echo esc_attr( $s['name_placeholder'] ); ?>" name="wss_name" required></div>
 									<div class="wss-nl-row">
 										<input type="email" placeholder="<?php echo esc_attr( $s['email_placeholder'] ); ?>" name="wss_email" required>
 										<button type="submit"><?php echo esc_html( $s['button_text'] ); ?> <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
 									</div>
+
+									<?php if ( $enable_recaptcha && ! empty( $recaptcha_site_key ) ) : ?>
+										<div class="wss-recaptcha-wrap" style="margin-top: 12px; margin-bottom: 8px;">
+											<?php if ( 'v2_checkbox' === $recaptcha_version ) : ?>
+												<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+												<div class="g-recaptcha" data-sitekey="<?php echo esc_attr( $recaptcha_site_key ); ?>"></div>
+											<?php elseif ( 'v3' === $recaptcha_version ) : ?>
+												<script src="https://www.google.com/recaptcha/api.js?render=<?php echo esc_attr( $recaptcha_site_key ); ?>"></script>
+												<input type="hidden" name="g-recaptcha-response" id="<?php echo esc_attr( $widget_uid ); ?>-g-recaptcha-response">
+												<script>
+													grecaptcha.ready(function() {
+														grecaptcha.execute('<?php echo esc_attr( $recaptcha_site_key ); ?>', {action: 'newsletter'}).then(function(token) {
+															var input = document.getElementById('<?php echo esc_attr( $widget_uid ); ?>-g-recaptcha-response');
+															if (input) input.value = token;
+														});
+													});
+												</script>
+											<?php endif; ?>
+										</div>
+									<?php endif; ?>
+
 									<div class="wss-nl-msg" style="display:none; font-size:12px; margin-top:8px;"></div>
 								</form>
 							<?php endif; ?>
