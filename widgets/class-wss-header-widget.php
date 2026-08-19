@@ -1118,7 +1118,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_popup_menu' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger'                   => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger, {{WRAPPER}} .wss-header.wss-header--solid .wss-burger-text, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger-text' => 'color: {{VALUE}} !important;',
 					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger .wss-bar, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger .wss-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
@@ -1130,8 +1130,65 @@ class WSS_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_popup_menu' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger:hover'                   => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger:hover, {{WRAPPER}} .wss-header.wss-header--solid .wss-burger:hover .wss-burger-text, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger:hover .wss-burger-text' => 'color: {{VALUE}} !important;',
 					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger:hover .wss-bar, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger:hover .wss-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_burger_bg_color',
+			array(
+				'label'     => __( 'Sticky Hamburger Background', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_popup_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_burger_bg_hover',
+			array(
+				'label'     => __( 'Sticky Hamburger Background Hover', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_popup_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_burger_border_color',
+			array(
+				'label'     => __( 'Sticky Hamburger Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_popup_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger' => 'border: 1px solid {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'sticky_burger_padding',
+			array(
+				'label'      => __( 'Sticky Hamburger Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em' ),
+				'condition'  => array( 'show_popup_menu' => 'yes' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_burger_radius',
+			array(
+				'label'      => __( 'Sticky Hamburger Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'condition'  => array( 'show_popup_menu' => 'yes' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);

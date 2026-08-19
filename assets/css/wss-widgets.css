@@ -726,43 +726,40 @@ body.admin-bar #wss-menu {
   display: flex !important;
   align-items: center !important;
   gap: 12px !important;
-  background: none !important;
-  background-color: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  outline: none !important;
-  cursor: pointer !important;
+  background: none;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
   font-family: var(--wss-font-accent, var(--wss-font-primary, inherit));
   font-weight: var(--wss-weight-accent, var(--wss-weight-primary, 500));
   font-size: 11px;
   letter-spacing: .28em;
   text-transform: uppercase;
-  color: var(--wss-ink) !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  text-align: left !important;
-  line-height: 1 !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
+  color: var(--wss-ink);
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  line-height: 1;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: color .3s, background .3s, border-color .3s;
 }
 
-.wss-burger:hover,
 .wss-burger:focus,
 .wss-burger:active {
-  background: none !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
+  box-shadow: none;
+  outline: none;
 }
 
-.wss-header.wss-header--on-hero .wss-burger {
-  color: var(--wss-white) !important;
+.wss-header.wss-header--on-hero:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger {
+  color: var(--wss-white);
 }
 
-.wss-header.wss-header--dark-static .wss-burger {
-  color: var(--wss-white) !important;
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger {
+  color: var(--wss-white);
 }
 
 .wss-burger .wss-lines {
