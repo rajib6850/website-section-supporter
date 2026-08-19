@@ -6700,7 +6700,7 @@ body.elementor-editor-active .wss-mask > span {
   border-radius: 50%;
   border: 1px solid var(--wss-line, rgba(0, 0, 0, 0.12));
   background: transparent;
-  color: var(--wss-ink, #1a1812);
+  color: var(--wss-ink, #1a1812) !important;
   text-decoration: none;
   transition: all .35s ease;
 }
@@ -6708,13 +6708,22 @@ body.elementor-editor-active .wss-mask > span {
 .wss-team-icon-link svg {
   width: 14px;
   height: 14px;
+  stroke: currentColor;
+  fill: none;
+  transition: stroke .35s ease, color .35s ease;
 }
 
 .wss-team-icon-link:hover {
-  background: var(--wss-ink, #1a1812);
-  border-color: var(--wss-ink, #1a1812);
-  color: #ffffff;
+  background: var(--wss-ink, #1a1812) !important;
+  border-color: var(--wss-ink, #1a1812) !important;
+  color: #ffffff !important;
   transform: translateY(-2px);
+}
+
+.wss-team-icon-link:hover svg,
+.wss-team-icon-link:hover svg * {
+  stroke: #ffffff !important;
+  color: #ffffff !important;
 }
 
 /* ==========================================================================
@@ -6946,7 +6955,7 @@ body.wss-modal-open {
   border-radius: 50%;
   background: #ffffff;
   border: 1px solid var(--wss-line, rgba(0, 0, 0, 0.12));
-  color: var(--wss-ink, #1a1812);
+  color: var(--wss-ink, #1a1812) !important;
   text-decoration: none;
   transition: all .35s ease;
 }
@@ -6954,13 +6963,22 @@ body.wss-modal-open {
 .wss-social-pill svg {
   width: 16px;
   height: 16px;
+  stroke: currentColor;
+  fill: none;
+  transition: stroke .35s ease, color .35s ease;
 }
 
 .wss-social-pill:hover {
-  background: var(--wss-ink, #1a1812);
-  border-color: var(--wss-ink, #1a1812);
-  color: #ffffff;
+  background: var(--wss-ink, #1a1812) !important;
+  border-color: var(--wss-ink, #1a1812) !important;
+  color: #ffffff !important;
   transform: translateY(-2px);
+}
+
+.wss-social-pill:hover svg,
+.wss-social-pill:hover svg * {
+  stroke: #ffffff !important;
+  color: #ffffff !important;
 }
 
 /* Modal Right Column */

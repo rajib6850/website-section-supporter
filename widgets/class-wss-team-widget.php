@@ -967,6 +967,94 @@ class WSS_Team_Widget extends Widget_Base {
 			)
 		);
 
+		/* Modal Social Icons */
+		$this->add_control(
+			'modal_social_heading',
+			array(
+				'label'     => __( 'Social Media Icons', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_modal_social_style' );
+
+		$this->start_controls_tab(
+			'tab_modal_social_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
+		$this->add_control(
+			'modal_social_color',
+			array(
+				'label'     => __( 'Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-social-pill' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-social-pill svg, {{WRAPPER}} .wss-social-pill svg *' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'modal_social_bg',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-social-pill' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'modal_social_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-social-pill' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_modal_social_hover',
+			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
+		);
+		$this->add_control(
+			'modal_social_hover_color',
+			array(
+				'label'     => __( 'Hover Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-social-pill:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-social-pill:hover svg, {{WRAPPER}} .wss-social-pill:hover svg *' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'modal_social_hover_bg',
+			array(
+				'label'     => __( 'Hover Background', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-social-pill:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'modal_social_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-social-pill:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 	}
 
