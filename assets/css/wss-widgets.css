@@ -398,7 +398,12 @@
 /* Sticky Solid (added by JS when scrolling down past top) */
 .wss-header.wss-header--solid,
 .wss-header.wss-is-sticky {
-  position: fixed;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 99999;
   background: rgba(250, 248, 244, .95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -445,6 +450,20 @@
 /* WordPress Admin Bar Compatibility (Logged-in users) */
 body.admin-bar .wss-header {
   top: 32px;
+}
+body.admin-bar .wss-header.wss-header--solid,
+body.admin-bar .wss-header.wss-is-sticky {
+  top: 32px !important;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar .wss-header {
+    top: 46px;
+  }
+  body.admin-bar .wss-header.wss-header--solid,
+  body.admin-bar .wss-header.wss-is-sticky {
+    top: 46px !important;
+  }
 }
 
 body.admin-bar #wss-menu {

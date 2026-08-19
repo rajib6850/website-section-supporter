@@ -257,19 +257,35 @@
 
 		/* ─── 6. Header: luxury sticky / smart scroll ─────────────── */
 		function initHeaderSticky() {
-			var headers = document.querySelectorAll( ".wss-header[data-wss-sticky='yes'], .wss-header--sticky" );
+			var headers = document.querySelectorAll( ".wss-header" );
 			if ( ! headers.length ) return;
 
 			headers.forEach( function ( header ) {
-				if ( header._stickyBound ) return;
-				header._stickyBound = true;
+				var isStickyEnabled = header.getAttribute( "data-wss-sticky" ) === "yes" || header.classList.contains( "wss-header--sticky" );
+				if ( ! isStickyEnabled ) {
+					if ( header._onScrollHandler ) {
+						window.removeEventListener( "scroll", header._onScrollHandler );
+						header._onScrollHandler = null;
+					}
+					header.classList.remove( "wss-header--solid", "wss-is-sticky", "wss-header--hidden" );
+					return;
+				}
+
+				if ( header._onScrollHandler ) {
+					window.removeEventListener( "scroll", header._onScrollHandler );
+				}
 
 				var lastY = window.pageYOffset || document.documentElement.scrollTop;
 				var stickyType = header.getAttribute( "data-sticky-type" ) || "custom";
 				var customThresh = parseInt( header.getAttribute( "data-sticky-thresh" ), 10 );
 				if ( isNaN( customThresh ) ) { customThresh = 100; }
 				var behavior = header.getAttribute( "data-sticky-behavior" ) || "always_sticky";
-				var isTrans = header.classList.contains( "wss-header--on-hero" );
+
+				var baseIsOnHero = header.classList.contains( "wss-header--on-hero" ) || header.getAttribute( "data-is-on-hero" ) === "yes";
+				if ( header.classList.contains( "wss-header--on-hero" ) ) {
+					header.setAttribute( "data-is-on-hero", "yes" );
+					baseIsOnHero = true;
+				}
 
 				function onScroll() {
 					var y = window.pageYOffset || document.documentElement.scrollTop;
@@ -287,12 +303,12 @@
 					header.classList.toggle( "wss-header--solid", isPastThreshold );
 					header.classList.toggle( "wss-is-sticky", isPastThreshold );
 
-					if ( isTrans ) {
+					if ( baseIsOnHero ) {
 						header.classList.toggle( "wss-header--on-hero", ! isPastThreshold );
 					}
 
 					if ( behavior === "hide_on_scroll_down" ) {
-						if ( y > lastY && y > threshold + 150 ) {
+						if ( y > lastY && y > threshold + 100 ) {
 							header.classList.add( "wss-header--hidden" );
 						} else {
 							header.classList.remove( "wss-header--hidden" );
@@ -304,6 +320,7 @@
 					lastY = y;
 				}
 
+				header._onScrollHandler = onScroll;
 				window.addEventListener( "scroll", onScroll, { passive: true } );
 				onScroll();
 			} );
@@ -786,22 +803,30 @@
 		initScrollIndicators();
 
 		/* Elementor editor live preview re-init */
+		function bindElementorHooks() {
+			if ( window.elementorFrontend && window.elementorFrontend.hooks ) {
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_about.default", function () {
+					initAboutParallax();
+				} );
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_newsletter.default", function () {
+					initNewsletterParallax();
+				} );
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_contact.default", function () {
+					initContactParallax();
+				} );
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_scroll_indicator.default", function () {
+					initScrollIndicators();
+				} );
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_header.default", function () {
+					initHeaderSticky();
+				} );
+			}
+		}
+
 		if ( window.elementorFrontend && window.elementorFrontend.hooks ) {
-			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_about.default", function () {
-				initAboutParallax();
-			} );
-			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_newsletter.default", function () {
-				initNewsletterParallax();
-			} );
-			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_contact.default", function () {
-				initContactParallax();
-			} );
-			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_scroll_indicator.default", function () {
-				initScrollIndicators();
-			} );
-			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_header.default", function () {
-				initHeaderSticky();
-			} );
+			bindElementorHooks();
+		} else {
+			window.addEventListener( "elementor/frontend/init", bindElementorHooks );
 		}
 
 	} ); // end ready

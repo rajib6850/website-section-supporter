@@ -37,6 +37,7 @@ class WSS_Header_Widget extends Widget_Base {
 			'sort_column' => 'post_title',
 			'sort_order'  => 'ASC',
 			'post_status' => 'publish',
+			'number'      => 300,
 		) );
 		if ( ! empty( $pages ) && ! is_wp_error( $pages ) ) {
 			foreach ( $pages as $page ) {
@@ -425,11 +426,23 @@ class WSS_Header_Widget extends Widget_Base {
 		);
 		$this->add_control(
 			'bar_bg',
-			array( 'label' => __( 'Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-header' => 'background: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header:not(.wss-header--on-hero):not(.wss-header--solid):not(.wss-is-sticky)' => 'background: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_control(
 			'bar_border_color',
-			array( 'label' => __( 'Bottom Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-header' => 'border-bottom-color: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Bottom Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header:not(.wss-header--on-hero):not(.wss-header--solid):not(.wss-is-sticky)' => 'border-bottom-color: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_responsive_control(
 			'bar_padding',
@@ -437,7 +450,9 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'      => __( 'Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%', 'vw' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-header' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
 			)
 		);
 		$this->end_controls_section();
@@ -449,11 +464,23 @@ class WSS_Header_Widget extends Widget_Base {
 		);
 		$this->add_control(
 			'logo_color',
-			array( 'label' => __( 'Bold Part Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-logo' => 'color: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Bold Part Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo, {{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo-bold' => 'color: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_control(
 			'logo_light_color',
-			array( 'label' => __( 'Light Part Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-logo span' => 'color: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Light Part Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo-light' => 'color: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
@@ -472,8 +499,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-inline-menu-links > li > a' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-inline-menu-links a'        => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a, {{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -483,9 +509,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Hover Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-inline-menu-links > li > a:hover' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-inline-menu-links a:hover'        => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-inline-menu-links > li:hover > a' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a:hover, {{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li:hover > a' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -495,7 +519,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Submenu Arrow Indicator Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-inline-menu-links .menu-item-has-children > a::after' => 'border-right-color: {{VALUE}} !important; border-bottom-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links .menu-item-has-children > a::after' => 'border-right-color: {{VALUE}} !important; border-bottom-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -585,8 +609,8 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Text & Lines Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-burger'           => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-burger .wss-bar'  => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger'          => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger .wss-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -596,8 +620,8 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Hover Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-burger:hover'          => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-burger:hover .wss-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger:hover'          => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger:hover .wss-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -675,23 +699,53 @@ class WSS_Header_Widget extends Widget_Base {
 		);
 		$this->add_control(
 			'cta_color',
-			array( 'label' => __( 'Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-header-cta' => 'color: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta' => 'color: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_control(
 			'cta_bg',
-			array( 'label' => __( 'Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-header-cta' => 'background: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta' => 'background: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_control(
 			'cta_border_color',
-			array( 'label' => __( 'Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-header-cta' => 'border-color: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta' => 'border-color: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_control(
 			'cta_hover_color',
-			array( 'label' => __( 'Hover Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-header-cta:hover' => 'color: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Hover Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_control(
 			'cta_hover_bg',
-			array( 'label' => __( 'Hover Background', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-header-cta:hover' => 'background: {{VALUE}};' ) )
+			array(
+				'label'     => __( 'Hover Background', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta:hover' => 'background: {{VALUE}} !important;',
+				),
+			)
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
@@ -777,7 +831,6 @@ class WSS_Header_Widget extends Widget_Base {
 				'selector' => '{{WRAPPER}} .wss-header.wss-header--solid, {{WRAPPER}} .wss-header.wss-is-sticky',
 			)
 		);
-		$this->add_control(
 			'heading_sticky_logo',
 			array(
 				'label'     => __( 'Sticky Logo Colors', 'website-section-supporter' ),
@@ -791,7 +844,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Logo Bold Part Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--solid .wss-logo, {{WRAPPER}} .wss-header.wss-is-sticky .wss-logo' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-logo, {{WRAPPER}} .wss-header.wss-header--solid .wss-logo-bold, {{WRAPPER}} .wss-header.wss-is-sticky .wss-logo, {{WRAPPER}} .wss-header.wss-is-sticky .wss-logo-bold' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -801,7 +854,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Logo Light Part Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--solid .wss-logo span, {{WRAPPER}} .wss-header.wss-is-sticky .wss-logo span' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-logo .wss-logo-light, {{WRAPPER}} .wss-header.wss-is-sticky .wss-logo .wss-logo-light' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -817,7 +870,7 @@ class WSS_Header_Widget extends Widget_Base {
 		$this->add_control(
 			'sticky_nav_color',
 			array(
-				'label'     => __( 'Menu Text Color', 'website-section-supporter' ),
+				'label'     => __( 'Menu Links Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_inline_menu' => 'yes' ),
 				'selectors' => array(
@@ -828,11 +881,11 @@ class WSS_Header_Widget extends Widget_Base {
 		$this->add_control(
 			'sticky_nav_hover_color',
 			array(
-				'label'     => __( 'Menu Hover Color', 'website-section-supporter' ),
+				'label'     => __( 'Menu Links Hover Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_inline_menu' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links a:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links a:hover, {{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links > li:hover > a, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links > li:hover > a' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -881,7 +934,7 @@ class WSS_Header_Widget extends Widget_Base {
 		$this->add_control(
 			'sticky_dropdown_item_color',
 			array(
-				'label'     => __( 'Dropdown Item Text Color', 'website-section-supporter' ),
+				'label'     => __( 'Item Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_inline_menu' => 'yes' ),
 				'selectors' => array(
@@ -892,11 +945,22 @@ class WSS_Header_Widget extends Widget_Base {
 		$this->add_control(
 			'sticky_dropdown_item_hover_color',
 			array(
-				'label'     => __( 'Dropdown Item Hover Color', 'website-section-supporter' ),
+				'label'     => __( 'Item Hover Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_inline_menu' => 'yes' ),
 				'selectors' => array(
 					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links .sub-menu a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links .sub-menu a:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_dropdown_item_hover_bg',
+			array(
+				'label'     => __( 'Item Hover Background', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_inline_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links .sub-menu a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links .sub-menu a:hover' => 'background: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -916,7 +980,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_popup_menu' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger'                   => 'color: {{VALUE}} !important;',
 					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger .wss-bar, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger .wss-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
@@ -928,7 +992,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_popup_menu' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger:hover'                   => 'color: {{VALUE}} !important;',
 					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger:hover .wss-bar, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger:hover .wss-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
@@ -1004,7 +1068,13 @@ class WSS_Header_Widget extends Widget_Base {
 		$s = $this->get_settings_for_display();
 		
 		$style = ! empty( $s['header_style'] ) ? $s['header_style'] : 'light';
-		if ( 'transparent' === $style ) {
+
+		$is_edit_mode = false;
+		if ( class_exists( '\Elementor\Plugin' ) && isset( \Elementor\Plugin::$instance->editor ) ) {
+			$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
+		}
+
+		if ( 'transparent' === $style && ! $is_edit_mode ) {
 			$cond = ! empty( $s['transparent_condition'] ) ? $s['transparent_condition'] : 'all';
 			if ( 'all' !== $cond ) {
 				$selected_pages = ! empty( $s['transparent_selected_pages'] ) ? (array) $s['transparent_selected_pages'] : array();
@@ -1012,19 +1082,33 @@ class WSS_Header_Widget extends Widget_Base {
 					$legacy_ids     = array_map( 'trim', explode( ',', $s['transparent_pages'] ) );
 					$selected_pages = array_merge( $selected_pages, $legacy_ids );
 				}
+				$selected_pages = array_filter( array_map( 'strval', $selected_pages ) );
 
-				$current_id = (string) get_the_ID();
-				$is_match   = false;
+				$is_match = false;
 
-				if ( in_array( $current_id, $selected_pages, true ) ) {
+				// 1. Check front page / home page
+				$is_front = is_front_page() || ( is_home() && ! is_paged() );
+				$front_id = (string) get_option( 'page_on_front' );
+				$blog_id  = (string) get_option( 'page_for_posts' );
+
+				if ( $is_front && ( in_array( 'front_page', $selected_pages, true ) || ( $front_id && in_array( $front_id, $selected_pages, true ) ) ) ) {
 					$is_match = true;
 				}
 
-				if ( ( is_front_page() || is_home() ) && ( in_array( 'front_page', $selected_pages, true ) || in_array( (string) get_option( 'page_on_front' ), $selected_pages, true ) ) ) {
+				// 2. Check blog posts page
+				if ( is_home() && ( in_array( 'blog_page', $selected_pages, true ) || ( $blog_id && in_array( $blog_id, $selected_pages, true ) ) ) ) {
 					$is_match = true;
 				}
 
-				if ( is_home() && in_array( 'blog_page', $selected_pages, true ) ) {
+				// 3. Check current queried object ID (covers Pages, Posts, CPTs, HFE headers)
+				$queried_id = (string) get_queried_object_id();
+				if ( $queried_id && in_array( $queried_id, $selected_pages, true ) ) {
+					$is_match = true;
+				}
+
+				// 4. Fallback check for standard get_the_ID()
+				$the_id = (string) get_the_ID();
+				if ( $the_id && in_array( $the_id, $selected_pages, true ) ) {
 					$is_match = true;
 				}
 
@@ -1073,7 +1157,7 @@ class WSS_Header_Widget extends Widget_Base {
 							<?php if ( 'image' === $s['logo_type'] && ! empty( $s['logo_image']['url'] ) ) : ?>
 								<img src="<?php echo esc_url( $s['logo_image']['url'] ); ?>" alt="Logo">
 							<?php else : ?>
-								<?php echo esc_html( $s['logo_bold'] ); ?> <span><?php echo esc_html( $s['logo_light'] ); ?></span>
+								<span class="wss-logo-bold"><?php echo esc_html( $s['logo_bold'] ); ?></span> <span class="wss-logo-light"><?php echo esc_html( $s['logo_light'] ); ?></span>
 							<?php endif; ?>
 						</span>
 
@@ -1082,7 +1166,7 @@ class WSS_Header_Widget extends Widget_Base {
 								<?php if ( 'custom_image' === $sticky_logo_type && ! empty( $s['sticky_logo_image']['url'] ) ) : ?>
 									<img src="<?php echo esc_url( $s['sticky_logo_image']['url'] ); ?>" alt="Sticky Logo">
 								<?php else : ?>
-									<?php echo esc_html( $s['sticky_logo_bold'] ?? $s['logo_bold'] ); ?> <span><?php echo esc_html( $s['sticky_logo_light'] ?? $s['logo_light'] ); ?></span>
+									<span class="wss-logo-bold"><?php echo esc_html( $s['sticky_logo_bold'] ?? $s['logo_bold'] ); ?></span> <span class="wss-logo-light"><?php echo esc_html( $s['sticky_logo_light'] ?? $s['logo_light'] ); ?></span>
 								<?php endif; ?>
 							</span>
 						<?php endif; ?>
@@ -1134,7 +1218,7 @@ class WSS_Header_Widget extends Widget_Base {
 								<?php if ( 'image' === $s['logo_type'] && ! empty( $s['logo_image']['url'] ) ) : ?>
 									<img src="<?php echo esc_url( $s['logo_image']['url'] ); ?>" alt="Logo">
 								<?php else : ?>
-									<?php echo esc_html( $s['logo_bold'] ); ?> <span><?php echo esc_html( $s['logo_light'] ); ?></span>
+									<span class="wss-logo-bold"><?php echo esc_html( $s['logo_bold'] ); ?></span> <span class="wss-logo-light"><?php echo esc_html( $s['logo_light'] ); ?></span>
 								<?php endif; ?>
 							</a>
 							<button class="wss-menu-close" id="wss-closeBtn" type="button" aria-label="Close menu">
