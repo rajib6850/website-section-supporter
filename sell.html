@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sell With VP Signature Group | More Than a Listing. A Strategy.</title>
+	<meta name="description" content="Discover our bespoke strategy for selling luxury real estate in Central Florida. Precision market positioning, elevated editorial marketing, and high-stakes negotiation with VP Signature Group.">
+	
+	<!-- Google Fonts matching the plugin's luxury typography stack -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Syncopate:wght@400;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	
+	<!-- Core Plugin Stylesheet -->
+	<link rel="stylesheet" href="assets/css/wss-widgets.css">
+
+	<style>
+		/* =========================================================
+		   Sell Page Bespoke Luxury Styles & Refinements
+		   ========================================================= */
+		:root {
+			--wss-gold-subtle: #d4af37;
+			--wss-gold-gradient: linear-gradient(135deg, #dfba73 0%, #c59b4c 50%, #e8d098 100%);
+			--wss-surface-glass: rgba(255, 255, 255, 0.04);
+			--wss-border-glass: rgba(255, 255, 255, 0.12);
+		}
+
+		/* Smooth scrolling & page baseline */
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: var(--wss-ivory);
+			color: var(--wss-ink);
+			font-family: var(--wss-font-text);
+			overflow-x: hidden;
+			-webkit-font-smoothing: antialiased;
+		}
+
+		/* Gold metallic text accent */
+		.wss-gold-text {
+			background: var(--wss-gold-gradient);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			display: inline-block;
+		}
+
+		/* Hero Section Extensions */
+		.wss-sell-hero {
+			position: relative;
+			min-height: 92vh;
+			display: flex;
+			align-items: center;
+			background: var(--wss-charcoal);
+			color: var(--wss-white);
+			padding: 160px 0 100px;
+			overflow: hidden;
+		}
+
+		.wss-sell-hero-bg {
+			position: absolute;
+			inset: 0;
+			z-index: 1;
+			background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=85');
+			background-size: cover;
+			background-position: center 30%;
+			opacity: 0.38;
+			filter: saturate(0.85) contrast(1.1);
+			transform: scale(1.04);
+			transition: transform 10s ease;
+		}
+
+		.wss-sell-hero:hover .wss-sell-hero-bg {
+			transform: scale(1.0);
+		}
+
+		.wss-sell-hero-overlay {
+			position: absolute;
+			inset: 0;
+			z-index: 2;
+			background: linear-gradient(180deg, rgba(19, 18, 16, 0.75) 0%, rgba(19, 18, 16, 0.45) 50%, rgba(19, 18, 16, 0.95) 100%);
+		}
+
+		.wss-sell-hero-content {
+			position: relative;
+			z-index: 3;
+			max-width: 900px;
+		}
+
+		.wss-sell-hero h1 {
+			font-family: var(--wss-font-primary);
+			font-size: clamp(34px, 5.5vw, 68px);
+			font-weight: 700;
+			text-transform: uppercase;
+			line-height: 1.08;
+			letter-spacing: 0.02em;
+			margin: 20px 0 28px;
+		}
+
+		.wss-sell-hero p.wss-lead {
+			font-size: clamp(16px, 1.3vw, 20px);
+			line-height: 1.75;
+			color: rgba(250, 248, 244, 0.85);
+			max-width: 720px;
+			margin-bottom: 40px;
+			font-weight: 300;
+		}
+
+		.wss-hero-btns {
+			display: flex;
+			gap: 20px;
+			flex-wrap: wrap;
+			align-items: center;
+		}
+
+		/* Metrics Ribbon */
+		.wss-metrics-ribbon {
+			position: relative;
+			z-index: 4;
+			background: rgba(26, 24, 18, 0.94);
+			backdrop-filter: blur(16px);
+			-webkit-backdrop-filter: blur(16px);
+			border-top: 1px solid var(--wss-line-on-dark);
+			border-bottom: 1px solid var(--wss-line-on-dark);
+			padding: 40px 0;
+		}
+
+		.wss-metrics-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 30px;
+		}
+
+		.wss-metric-item {
+			text-align: center;
+			position: relative;
+		}
+
+		.wss-metric-item:not(:last-child)::after {
+			content: '';
+			position: absolute;
+			right: 0;
+			top: 20%;
+			height: 60%;
+			width: 1px;
+			background: rgba(250, 248, 244, 0.12);
+		}
+
+		.wss-metric-val {
+			font-family: var(--wss-font-primary);
+			font-size: clamp(32px, 3.5vw, 48px);
+			font-weight: 700;
+			color: var(--wss-white);
+			line-height: 1;
+			margin-bottom: 8px;
+		}
+
+		.wss-metric-label {
+			font-family: var(--wss-font-accent);
+			font-size: 11px;
+			text-transform: uppercase;
+			letter-spacing: 0.2em;
+			color: var(--wss-grey);
+		}
+
+		/* Comparison Strategy Section */
+		.wss-compare-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 40px;
+			margin-top: 50px;
+		}
+
+		.wss-compare-card {
+			background: var(--wss-white);
+			border: 1px solid var(--wss-line);
+			border-radius: 4px;
+			padding: 48px 40px;
+			transition: transform 0.4s var(--wss-ease), box-shadow 0.4s var(--wss-ease);
+		}
+
+		.wss-compare-card.wss-card-highlight {
+			background: var(--wss-charcoal);
+			color: var(--wss-white);
+			border-color: rgba(212, 175, 55, 0.4);
+			box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.wss-compare-card.wss-card-highlight::before {
+			content: 'RECOMMENDED STRATEGY';
+			position: absolute;
+			top: 24px;
+			right: -36px;
+			background: var(--wss-gold-gradient);
+			color: #131210;
+			font-family: var(--wss-font-accent);
+			font-size: 8.5px;
+			font-weight: 700;
+			letter-spacing: 0.2em;
+			padding: 4px 40px;
+			transform: rotate(45deg);
+		}
+
+		.wss-compare-card h3 {
+			font-family: var(--wss-font-primary);
+			font-size: 22px;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			margin-top: 0;
+			margin-bottom: 24px;
+		}
+
+		.wss-compare-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.wss-compare-list li {
+			display: flex;
+			align-items: flex-start;
+			gap: 14px;
+			padding: 14px 0;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+			font-size: 15px;
+			line-height: 1.6;
+		}
+
+		.wss-card-highlight .wss-compare-list li {
+			border-bottom-color: rgba(255, 255, 255, 0.08);
+			color: rgba(250, 248, 244, 0.9);
+		}
+
+		.wss-icon-badge {
+			width: 24px;
+			height: 24px;
+			border-radius: 50%;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			margin-top: 2px;
+		}
+
+		.wss-badge-cross {
+			background: rgba(239, 68, 68, 0.12);
+			color: #ef4444;
+		}
+
+		.wss-badge-check {
+			background: rgba(34, 197, 94, 0.15);
+			color: #22c55e;
+		}
+
+		/* 3-Pillar Interactive Process Tabs */
+		.wss-pillars-wrap {
+			margin-top: 60px;
+		}
+
+		.wss-pillar-nav {
+			display: flex;
+			gap: 16px;
+			margin-bottom: 40px;
+			border-bottom: 1px solid var(--wss-line);
+			overflow-x: auto;
+			padding-bottom: 2px;
+		}
+
+		.wss-pillar-tab {
+			background: transparent;
+			border: none;
+			padding: 16px 28px;
+			font-family: var(--wss-font-accent);
+			font-size: 12px;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			font-weight: 600;
+			color: var(--wss-grey);
+			cursor: pointer;
+			position: relative;
+			transition: color 0.3s ease;
+			white-space: nowrap;
+		}
+
+		.wss-pillar-tab::after {
+			content: '';
+			position: absolute;
+			bottom: -2px;
+			left: 0;
+			width: 100%;
+			height: 2px;
+			background: var(--wss-ink);
+			transform: scaleX(0);
+			transform-origin: center;
+			transition: transform 0.4s var(--wss-ease);
+		}
+
+		.wss-pillar-tab.active {
+			color: var(--wss-ink);
+		}
+
+		.wss-pillar-tab.active::after {
+			transform: scaleX(1);
+		}
+
+		.wss-pillar-content-panel {
+			display: none;
+			grid-template-columns: 1.1fr 0.9fr;
+			gap: 60px;
+			align-items: center;
+			animation: wssFadeSlide 0.6s var(--wss-ease) forwards;
+		}
+
+		.wss-pillar-content-panel.active {
+			display: grid;
+		}
+
+		@keyframes wssFadeSlide {
+			from { opacity: 0; transform: translateY(16px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		.wss-pillar-text h3 {
+			font-family: var(--wss-font-primary);
+			font-size: clamp(24px, 2.8vw, 36px);
+			text-transform: uppercase;
+			letter-spacing: 0.02em;
+			margin: 12px 0 20px;
+		}
+
+		.wss-pillar-text p {
+			font-size: 16px;
+			line-height: 1.8;
+			color: var(--wss-ink-soft);
+			margin-bottom: 28px;
+		}
+
+		.wss-pillar-features {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 18px;
+			margin-bottom: 32px;
+		}
+
+		.wss-feature-item {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			font-size: 14px;
+			font-weight: 500;
+		}
+
+		.wss-feature-bullet {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--wss-taupe-deep);
+		}
+
+		.wss-pillar-media {
+			position: relative;
+			border-radius: 4px;
+			overflow: hidden;
+			height: 480px;
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+		}
+
+		.wss-pillar-media img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			transition: transform 0.8s var(--wss-ease);
+		}
+
+		.wss-pillar-media:hover img {
+			transform: scale(1.04);
+		}
+
+		/* Interactive Home Valuation Experience */
+		.wss-valuation-section {
+			background: #181613;
+			color: var(--wss-white);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.wss-val-box {
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 6px;
+			padding: 50px 60px;
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			max-width: 960px;
+			margin: 0 auto;
+			box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+		}
+
+		.wss-val-progress-bar {
+			width: 100%;
+			height: 4px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 2px;
+			margin-bottom: 40px;
+			overflow: hidden;
+		}
+
+		.wss-val-progress-fill {
+			height: 100%;
+			width: 25%;
+			background: var(--wss-gold-gradient);
+			transition: width 0.4s ease;
+		}
+
+		.wss-val-step-title {
+			font-family: var(--wss-font-primary);
+			font-size: 24px;
+			text-transform: uppercase;
+			letter-spacing: 0.04em;
+			margin-bottom: 8px;
+		}
+
+		.wss-val-step-sub {
+			color: var(--wss-grey);
+			font-size: 14px;
+			margin-bottom: 32px;
+		}
+
+		.wss-val-step {
+			display: none;
+		}
+
+		.wss-val-step.active {
+			display: block;
+			animation: wssFadeSlide 0.5s ease;
+		}
+
+		.wss-form-grid-2 {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 20px;
+		}
+
+		.wss-input-group {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			margin-bottom: 20px;
+		}
+
+		.wss-input-group label {
+			font-family: var(--wss-font-accent);
+			font-size: 10.5px;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: rgba(250, 248, 244, 0.8);
+		}
+
+		.wss-custom-input,
+		.wss-custom-select,
+		.wss-custom-textarea {
+			width: 100%;
+			padding: 14px 18px;
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			border-radius: 4px;
+			color: var(--wss-white);
+			font-family: var(--wss-font-text);
+			font-size: 15px;
+			transition: border-color 0.3s ease, background 0.3s ease;
+		}
+
+		.wss-custom-input:focus,
+		.wss-custom-select:focus,
+		.wss-custom-textarea:focus {
+			border-color: #dfba73;
+			background: rgba(255, 255, 255, 0.09);
+		}
+
+		.wss-custom-select option {
+			background: #181613;
+			color: var(--wss-white);
+		}
+
+		.wss-property-types-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 14px;
+			margin-bottom: 24px;
+		}
+
+		.wss-type-card {
+			background: rgba(255, 255, 255, 0.04);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 4px;
+			padding: 16px;
+			text-align: center;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.wss-type-card:hover,
+		.wss-type-card.selected {
+			border-color: #dfba73;
+			background: rgba(223, 186, 115, 0.1);
+		}
+
+		.wss-type-card svg {
+			width: 24px;
+			height: 24px;
+			stroke: #dfba73;
+			fill: none;
+			stroke-width: 1.5;
+			margin-bottom: 8px;
+		}
+
+		.wss-type-card span {
+			display: block;
+			font-size: 12px;
+			font-weight: 500;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+		}
+
+		.wss-val-nav-btns {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 36px;
+			padding-top: 24px;
+			border-top: 1px solid rgba(255, 255, 255, 0.08);
+		}
+
+		/* Notable Sales Grid / Cards */
+		.wss-sales-grid-custom {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 32px;
+			margin-top: 48px;
+		}
+
+		.wss-sale-box {
+			background: var(--wss-white);
+			border: 1px solid var(--wss-line);
+			border-radius: 4px;
+			overflow: hidden;
+			transition: transform 0.4s var(--wss-ease), box-shadow 0.4s var(--wss-ease);
+		}
+
+		.wss-sale-box:hover {
+			transform: translateY(-6px);
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+		}
+
+		.wss-sale-img-wrap {
+			position: relative;
+			height: 260px;
+			overflow: hidden;
+		}
+
+		.wss-sale-img-wrap img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.8s var(--wss-ease);
+		}
+
+		.wss-sale-box:hover .wss-sale-img-wrap img {
+			transform: scale(1.06);
+		}
+
+		.wss-sale-status-tag {
+			position: absolute;
+			top: 16px;
+			left: 16px;
+			background: var(--wss-charcoal);
+			color: var(--wss-white);
+			font-family: var(--wss-font-accent);
+			font-size: 9px;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			padding: 6px 14px;
+			border-radius: 20px;
+		}
+
+		.wss-sale-price-tag {
+			position: absolute;
+			bottom: 16px;
+			right: 16px;
+			background: rgba(255, 255, 255, 0.92);
+			backdrop-filter: blur(8px);
+			color: var(--wss-ink);
+			font-family: var(--wss-font-primary);
+			font-size: 16px;
+			font-weight: 700;
+			padding: 6px 16px;
+			border-radius: 20px;
+		}
+
+		.wss-sale-info {
+			padding: 24px 28px;
+		}
+
+		.wss-sale-community {
+			font-family: var(--wss-font-accent);
+			font-size: 10px;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			color: var(--wss-grey);
+			margin-bottom: 6px;
+		}
+
+		.wss-sale-title {
+			font-family: var(--wss-font-primary);
+			font-size: 18px;
+			text-transform: uppercase;
+			margin: 0 0 16px;
+		}
+
+		.wss-sale-meta {
+			display: flex;
+			gap: 16px;
+			font-size: 13px;
+			color: var(--wss-ink-soft);
+			border-top: 1px solid var(--wss-line);
+			padding-top: 14px;
+		}
+
+		/* FAQ Accordion */
+		.wss-faq-list {
+			max-width: 900px;
+			margin: 48px auto 0;
+		}
+
+		.wss-faq-item {
+			border-bottom: 1px solid var(--wss-line);
+			padding: 24px 0;
+			cursor: pointer;
+		}
+
+		.wss-faq-head {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 20px;
+		}
+
+		.wss-faq-question {
+			font-family: var(--wss-font-primary);
+			font-size: 18px;
+			text-transform: uppercase;
+			letter-spacing: 0.02em;
+			margin: 0;
+		}
+
+		.wss-faq-icon {
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+			border: 1px solid var(--wss-line);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			transition: transform 0.35s ease, background 0.35s ease;
+		}
+
+		.wss-faq-item.active .wss-faq-icon {
+			transform: rotate(45deg);
+			background: var(--wss-ink);
+			color: var(--wss-white);
+			border-color: var(--wss-ink);
+		}
+
+		.wss-faq-body {
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.4s cubic-bezier(0.16, 0.84, 0.44, 1);
+		}
+
+		.wss-faq-item.active .wss-faq-body {
+			max-height: 400px;
+		}
+
+		.wss-faq-answer {
+			padding-top: 16px;
+			font-size: 15.5px;
+			line-height: 1.8;
+			color: var(--wss-ink-soft);
+			margin: 0;
+		}
+
+		/* Advisor Bio Feature Section */
+		.wss-advisor-feature {
+			display: grid;
+			grid-template-columns: 0.9fr 1.1fr;
+			gap: 60px;
+			align-items: center;
+		}
+
+		.wss-advisor-photo-card {
+			position: relative;
+			height: 540px;
+			border-radius: 4px;
+			overflow: hidden;
+			box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+		}
+
+		.wss-advisor-photo-card img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center top;
+			display: block;
+		}
+
+		.wss-advisor-badge-float {
+			position: absolute;
+			bottom: 24px;
+			left: 24px;
+			background: rgba(19, 18, 16, 0.92);
+			backdrop-filter: blur(12px);
+			border: 1px solid rgba(250, 248, 244, 0.15);
+			color: var(--wss-white);
+			padding: 16px 24px;
+			border-radius: 4px;
+		}
+
+		.wss-advisor-badge-float strong {
+			display: block;
+			font-family: var(--wss-font-primary);
+			font-size: 16px;
+			text-transform: uppercase;
+		}
+
+		.wss-advisor-badge-float span {
+			font-family: var(--wss-font-accent);
+			font-size: 10px;
+			color: #dfba73;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+		}
+
+		/* Responsive Breakdown */
+		@media (max-width: 991px) {
+			.wss-metrics-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+			.wss-metric-item:nth-child(2)::after {
+				display: none;
+			}
+			.wss-compare-grid {
+				grid-template-columns: 1fr;
+			}
+			.wss-pillar-content-panel {
+				grid-template-columns: 1fr;
+			}
+			.wss-pillar-media {
+				height: 340px;
+			}
+			.wss-sales-grid-custom {
+				grid-template-columns: repeat(2, 1fr);
+			}
+			.wss-advisor-feature {
+				grid-template-columns: 1fr;
+			}
+			.wss-val-box {
+				padding: 36px 24px;
+			}
+			.wss-property-types-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+
+		@media (max-width: 640px) {
+			.wss-metrics-grid {
+				grid-template-columns: 1fr;
+			}
+			.wss-metric-item::after {
+				display: none !important;
+			}
+			.wss-sales-grid-custom {
+				grid-template-columns: 1fr;
+			}
+			.wss-form-grid-2 {
+				grid-template-columns: 1fr;
+			}
+			.wss-property-types-grid {
+				grid-template-columns: 1fr;
+			}
+			.wss-hero-btns {
+				flex-direction: column;
+				align-items: stretch;
+			}
+			.wss-hero-btns a {
+				text-align: center;
+				justify-content: center;
+			}
+		}
+	</style>
+</head>
+<body class="wss-scope">
+
+	<!-- Optional Custom Cursor -->
+	<div id="wss-cursor"><span>EXPLORE</span></div>
+
+	<!-- =========================================================
+	     1. HEADER / NAVIGATION (WSS Matching Header Architecture)
+	     ========================================================= -->
+	<header class="wss-header wss-header--sticky wss-header--on-hero" data-wss-sticky="yes" data-sticky-type="custom" data-sticky-thresh="60">
+		<div class="wss-header-inner wss-container">
+			
+			<!-- Brand / Logo -->
+			<a class="wss-logo" href="index.html" aria-label="VP Signature Group Home">
+				<span class="wss-logo-text">VP SIGNATURE GROUP</span>
+				<span class="wss-logo-tagline">FLORIDA BOUTIQUE BROKERAGE</span>
+			</a>
+
+			<!-- Desktop Primary Nav Links -->
+			<nav class="wss-nav" aria-label="Primary Navigation">
+				<ul class="wss-nav-list">
+					<li><a class="wss-nav-link" href="#properties">PROPERTIES</a></li>
+					<li><a class="wss-nav-link" href="#buy">BUY</a></li>
+					<li><a class="wss-nav-link active" href="sell.html">SELL</a></li>
+					<li><a class="wss-nav-link" href="#communities">COMMUNITIES</a></li>
+					<li><a class="wss-nav-link" href="#about">ABOUT</a></li>
+					<li><a class="wss-nav-link" href="#contact">CONTACT</a></li>
+				</ul>
+			</nav>
+
+			<!-- Header Right Actions -->
+			<div class="wss-header-right">
+				<a href="tel:+14075847494" class="wss-header-cta" aria-label="Call Victoria Price">
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+					<span>+1 (407) 584-7494</span>
+				</a>
+
+				<button class="wss-burger" id="wss-menuBtn" aria-label="Open Navigation Menu" type="button">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+			</div>
+
+		</div>
+	</header>
+
+	<!-- Fullscreen Mobile Navigation Menu Overlay -->
+	<div class="wss-menu" id="wss-menu" aria-hidden="true">
+		<div class="wss-menu-top">
+			<span class="wss-logo-text">VP SIGNATURE GROUP</span>
+			<button class="wss-menu-close" id="wss-closeBtn" aria-label="Close Navigation Menu" type="button">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+			</button>
+		</div>
+		<div class="wss-menu-body">
+			<ul class="wss-menu-links">
+				<li><a href="#properties">PROPERTIES</a></li>
+				<li><a href="#buy">BUY</a></li>
+				<li><a href="sell.html" class="active">SELL</a></li>
+				<li><a href="#valuation">HOME EVALUATION</a></li>
+				<li><a href="#communities">COMMUNITIES</a></li>
+				<li><a href="#about">ABOUT VP SIGNATURE GROUP</a></li>
+				<li><a href="#contact">CONTACT ADVISORY</a></li>
+			</ul>
+			<div class="wss-menu-contact">
+				<p><strong>VP Signature Group</strong><br>300 S Orange Ave, Orlando, FL 32801<br>admin@vpsignature.com</p>
+				<p>Direct Broker Access: +1 (407) 584-7494</p>
+			</div>
+		</div>
+	</div>
+
+	<main>
+
+		<!-- =========================================================
+		     2. SELL HERO SECTION
+		     ========================================================= -->
+		<section class="wss-sell-hero">
+			<div class="wss-sell-hero-bg"></div>
+			<div class="wss-sell-hero-overlay"></div>
+			
+			<div class="wss-container">
+				<div class="wss-sell-hero-content wss-reveal">
+					<span class="wss-eyebrow">STRATEGIC REAL ESTATE REPRESENTATION</span>
+					<h1>More Than a Listing.<br><span class="wss-gold-text">A Strategy.</span></h1>
+					<p class="wss-lead">
+						Selling high-value real estate begins long before reaching the open market. We assess the asset, analyze competitive buyer landscapes, and curate high-impact positioning to maximize your return and protect your equity.
+					</p>
+					<div class="wss-hero-btns">
+						<a href="#valuation" class="wss-btn-pill" style="background: var(--wss-white); color: var(--wss-ink); border-color: var(--wss-white);">
+							<span>Request Property Valuation</span>
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+						</a>
+						<a href="#methodology" class="wss-btn-line" style="color: var(--wss-white);">
+							<span>Explore Our Methodology</span>
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- =========================================================
+		     3. METRICS / PROVEN EXECUTION RIBBON
+		     ========================================================= -->
+		<section class="wss-metrics-ribbon">
+			<div class="wss-container">
+				<div class="wss-metrics-grid">
+					<div class="wss-metric-item wss-reveal wss-r1">
+						<div class="wss-metric-val">$150M+</div>
+						<div class="wss-metric-label">Career Sales Volume</div>
+					</div>
+					<div class="wss-metric-item wss-reveal wss-r2">
+						<div class="wss-metric-val">98.6%</div>
+						<div class="wss-metric-label">List-To-Sale Price Ratio</div>
+					</div>
+					<div class="wss-metric-item wss-reveal wss-r3">
+						<div class="wss-metric-val">24 Days</div>
+						<div class="wss-metric-label">Avg. Market Velocity</div>
+					</div>
+					<div class="wss-metric-item wss-reveal wss-r4">
+						<div class="wss-metric-val">100%</div>
+						<div class="wss-metric-label">Principal Representation</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- =========================================================
+		     4. STRATEGY PHILOSOPHY: BEYOND THE MLS
+		     ========================================================= -->
+		<section class="wss-pad" style="background: var(--wss-ivory);">
+			<div class="wss-container">
+				<div class="wss-reveal" style="max-width: 780px;">
+					<span class="wss-eyebrow">SELLING WITH VP SIGNATURE GROUP</span>
+					<h2><span class="wss-mask"><span>Why Traditional Brokerage Approaches Fall Short</span></span></h2>
+					<p style="font-size: 17px; line-height: 1.85; color: var(--wss-ink-soft); margin-top: 18px;">
+						In luxury and high-stakes real estate, placing a sign in the yard and listing on the MLS is not a strategy—it is a passive hope. At VP Signature Group, our process begins weeks prior to public exposure: understanding buyer psychology, engineering architectural appeal, and mobilizing bespoke distribution channels.
+					</p>
+				</div>
+
+				<div class="wss-compare-grid">
+					<!-- Traditional Listing Card -->
+					<div class="wss-compare-card wss-reveal wss-r1">
+						<span class="wss-eyebrow" style="color: #991b1b; margin-bottom: 8px;">CONVENTIONAL MODEL</span>
+						<h3>The Generic Listing</h3>
+						<ul class="wss-compare-list">
+							<li>
+								<span class="wss-icon-badge wss-badge-cross">✕</span>
+								<span>Automated algorithms estimate price without recognizing architectural pedigree or bespoke renovations.</span>
+							</li>
+							<li>
+								<span class="wss-icon-badge wss-badge-cross">✕</span>
+								<span>Standard wide-angle photo packages that fail to evoke emotion or luxury lifestyle connection.</span>
+							</li>
+							<li>
+								<span class="wss-icon-badge wss-badge-cross">✕</span>
+								<span>Passive MLS distribution waiting for outside agents to bring unvetted prospective buyers.</span>
+							</li>
+							<li>
+								<span class="wss-icon-badge wss-badge-cross">✕</span>
+								<span>Delegated representation passed off to inexperienced junior assistants or transaction coordinators.</span>
+							</li>
+						</ul>
+					</div>
+
+					<!-- VP Signature Group Strategic Card -->
+					<div class="wss-compare-card wss-card-highlight wss-reveal wss-r2">
+						<span class="wss-eyebrow" style="color: #dfba73; margin-bottom: 8px;">THE BOUTIQUE ADVANTAGE</span>
+						<h3>The VP Signature Strategy</h3>
+						<ul class="wss-compare-list">
+							<li>
+								<span class="wss-icon-badge wss-badge-check">✓</span>
+								<span><strong>Precision Asset Valuation:</strong> Rigorous market analysis balancing micro-neighborhood metrics, luxury buyer liquidity, and unique property attributes.</span>
+							</li>
+							<li>
+								<span class="wss-icon-badge wss-badge-check">✓</span>
+								<span><strong>Editorial Production:</strong> Cinematic 4K video storytelling, twilight drone cinematography, and high-gloss architectural lookbooks.</span>
+							</li>
+							<li>
+								<span class="wss-icon-badge wss-badge-check">✓</span>
+								<span><strong>Targeted HNW Distribution:</strong> Direct outreach to high-net-worth relocation networks, wealth managers, and private buyer registries.</span>
+							</li>
+							<li>
+								<span class="wss-icon-badge wss-badge-check">✓</span>
+								<span><strong>Principal-Led Negotiation:</strong> Direct negotiation oversight by Victoria Price | Broker-Owner to secure maximum terms and transaction integrity.</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- =========================================================
+		     5. THE 3-PILLAR SELLING PROCESS (METHODOLOGY)
+		     ========================================================= -->
+		<section class="wss-pad" id="methodology" style="background: var(--wss-white); border-top: 1px solid var(--wss-line); border-bottom: 1px solid var(--wss-line);">
+			<div class="wss-container">
+				
+				<div class="wss-reveal" style="text-align: center; max-width: 720px; margin: 0 auto 50px;">
+					<span class="wss-eyebrow">THE ROADMAP TO EXTRAORDINARY RESULTS</span>
+					<h2><span class="wss-mask"><span>Our Three-Pillar Selling Framework</span></span></h2>
+					<p style="color: var(--wss-ink-soft); font-size: 16px; margin-top: 14px;">
+						A structured, proven campaign tailored to your timing, privacy requirements, and financial goals.
+					</p>
+				</div>
+
+				<div class="wss-pillars-wrap">
+					<!-- Interactive Navigation Tabs -->
+					<div class="wss-pillar-nav">
+						<button class="wss-pillar-tab active" data-tab="pillar-1" type="button">01. Consultation & Strategy</button>
+						<button class="wss-pillar-tab" data-tab="pillar-2" type="button">02. Marketing & Exposure</button>
+						<button class="wss-pillar-tab" data-tab="pillar-3" type="button">03. Negotiation & Results</button>
+					</div>
+
+					<!-- Panel 1: Consultation & Strategy -->
+					<div class="wss-pillar-content-panel active" id="pillar-1">
+						<div class="wss-pillar-text">
+							<span class="wss-eyebrow" style="color: var(--wss-taupe-deep);">PHASE 01 // POSITIONING BLUEPRINT</span>
+							<h3>Strategic Valuation & Preparation</h3>
+							<p>
+								We conduct a forensic analysis of recent comparable sales, competing inventory, and buyer demographic profiles. Together, we establish an aggressive yet defensible pricing strategy designed to command maximum attention during the critical initial days on market.
+							</p>
+							<div class="wss-pillar-features">
+								<div class="wss-feature-item">
+									<div class="wss-feature-bullet"></div>
+									<span>Custom Comparative Analysis (CMA)</span>
+								</div>
+								<div class="wss-feature-item">
+									<div class="wss-feature-bullet"></div>
+									<span>Architectural Pre-Listing Audit</span>
+								</div>
+								<div class="wss-feature-item">
+									<div class="wss-feature-bullet"></div>
+									<span>Professional Staging Consultation</span>
+								</div>
+								<div class="wss-feature-item">
+									<div class="wss-feature-bullet"></div>
+									<span>Target Buyer Persona Profiling</span>
+								</div>
+							</div>
+							<a href="#valuation" class="wss-btn-pill">
+								<span>Request Strategic Audit</span>
+								<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+							</a>
+						</div>
+						<div class="wss-pillar-media">
+							<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85" alt="Strategic Property Valuation">
+						</div>
+					</div>
+
+					<!-- Panel 2: Marketing & Exposure -->
+					<div class="wss-pillar-content-panel" id="pillar-2">
+						<div class="wss-pillar-text">
+							<span class="wss-eyebrow" style="color: var(--wss-taupe-deep);">PHASE 02 // BESPOKE CAMPAIGN</span>
+							<h3>Cinematic Media & Global Outreach</h3>
+							<p>
+								We treat every luxury property as a bespoke brand launch. Utilizing top-tier architectural photographers, cinematic videographers, and editorial copywriters, we craft an immersive visual story that resonates with discerning buyers locally, nationally, and worldwide.
+							</p>
+							<div class="wss-pillar-features">
+								<div class="wss-feature-item">
+									<div class="wss-feature-bullet"></div>
+									<span>4K HDR Architectural Photography</span>
+								</div>
+								<div class="wss-feature-item">
+									<div class="wss-feature-bullet"></div>
+									<span>Cinematic Aerial Drone & Video Tours</span>
+								</div>
+								<div class="wss-feature-item">
+									<div class="wss-feature-bullet"></div>
+									<span>Luxury Print Lookbooks & Editorial Ads</span>
+								</div>
+								<div class="wss-feature-item">
+									<div class="wss-feature-bullet"></div>
+									<span>Targeted High-Net-Worth Digital Ads</span>
+								</div>
+							</div>
+							<a href="#marketing" class="wss-btn-pill">
+								<span>View Media Lookbook</span>
+								<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+							</a>
+						</div>
+						<div class="wss-pillar-media">
+							<img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85" alt="Cinematic Architectural Marketing">
+						</div>
+					</div>
+
+					<!-- Panel 3: Negotiation & Results -->
+					<div class="wss-pillar-content-panel" id="pillar-3">
+						<div class="wss-pillar-text">
+							<span class="wss-eyebrow" style="color: var(--wss-taupe-deep);">PHASE 03 // VALUE MAXIMIZATION</span>
+							<h3>High-Stakes Negotiation & Closing</h3>
+							<p>
+								Receiving offers is only the beginning. With deep business leadership and MBA-level negotiation training, Victoria Price orchestrates competing interests, protects against appraisal and inspection pitfalls, and ensures flawless escrow execution until funds are wired.
+							</p>
+							<div class="wss-pillar-features">
+								<div class="wss-feature-item">
+									<div class="wss-feature-bullet"></div>
+									<span>Buyer Proof-of-Funds Verification</span>
+								</div>
+								<div class="wss-feature-item">
+									<div class="wss-feature-bullet"></div>
+									<span>Contingency & Inspection Shielding</span>
+								</div>
+								<div class="wss-feature-item">
+									<div class="wss-feature-bullet"></div>
+									<span>Multi-Offer Leverage Orchestration</span>
+								</div>
+								<div class="wss-feature-item">
+									<div class="wss-feature-bullet"></div>
+									<span>Concierge Escrow & Closing Oversight</span>
+								</div>
+							</div>
+							<a href="#contact" class="wss-btn-pill">
+								<span>Speak With Broker</span>
+								<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+							</a>
+						</div>
+						<div class="wss-pillar-media">
+							<img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=85" alt="Strategic Negotiation and Closing">
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+
+		<!-- =========================================================
+		     6. THE SIGNATURE DIFFERENCE (WHY VP SIGNATURE GROUP)
+		     ========================================================= -->
+		<section class="wss-pad" style="background: var(--wss-ivory);">
+			<div class="wss-container">
+				
+				<div class="wss-reveal" style="text-align: center; max-width: 760px; margin: 0 auto 60px;">
+					<span class="wss-eyebrow">THE BOUTIQUE STANDARD</span>
+					<h2><span class="wss-mask"><span>The Signature Difference</span></span></h2>
+					<p style="color: var(--wss-ink-soft); font-size: 16px; margin-top: 14px;">
+						Why discriminating homeowners in Winter Park, Windermere, Lake Nona, and across Central Florida entrust their most significant assets to VP Signature Group.
+					</p>
+				</div>
+
+				<div class="wss-metrics-grid" style="grid-template-columns: repeat(3, 1fr);">
+					
+					<!-- Card 1: Tailored Strategies -->
+					<div class="wss-compare-card wss-reveal wss-r1" style="border-radius: 4px; padding: 44px 36px; text-align: left;">
+						<div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(201, 187, 163, 0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: var(--wss-taupe-deep);">
+							<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+						</div>
+						<h3 style="font-size: 20px; margin-bottom: 14px;">Tailored Strategies</h3>
+						<p style="color: var(--wss-ink-soft); font-size: 14.5px; line-height: 1.75; margin: 0;">
+							No two premier properties are alike. We reject standardized franchise templates, designing a custom-built marketing playbook and target buyer persona for each unique residence.
+						</p>
+					</div>
+
+					<!-- Card 2: Concierge-Level Service -->
+					<div class="wss-compare-card wss-reveal wss-r2" style="border-radius: 4px; padding: 44px 36px; text-align: left;">
+						<div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(201, 187, 163, 0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: var(--wss-taupe-deep);">
+							<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+						</div>
+						<h3 style="font-size: 20px; margin-bottom: 14px;">Concierge Service</h3>
+						<p style="color: var(--wss-ink-soft); font-size: 14.5px; line-height: 1.75; margin: 0;">
+							Experience direct, round-the-clock access to your primary advisor. Discretion, thorough communication, and meticulous attention to detail at every step from first consult through closing.
+						</p>
+					</div>
+
+					<!-- Card 3: Trusted Results -->
+					<div class="wss-compare-card wss-reveal wss-r3" style="border-radius: 4px; padding: 44px 36px; text-align: left;">
+						<div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(201, 187, 163, 0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: var(--wss-taupe-deep);">
+							<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+						</div>
+						<h3 style="font-size: 20px; margin-bottom: 14px;">Trusted Results</h3>
+						<p style="color: var(--wss-ink-soft); font-size: 14.5px; line-height: 1.75; margin: 0;">
+							With an established 98.6% list-to-sale ratio and over 15 years of high-stakes corporate and real estate negotiation expertise, your equity is protected with uncompromising discipline.
+						</p>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+
+		<!-- =========================================================
+		     7. INTERACTIVE HOME VALUATION EXPERIENCE
+		     ========================================================= -->
+		<section class="wss-pad wss-valuation-section" id="valuation">
+			<div class="wss-container">
+				
+				<div class="wss-reveal" style="text-align: center; max-width: 760px; margin: 0 auto 48px;">
+					<span class="wss-eyebrow" style="color: #dfba73;">BESPOKE MARKET VALUATION</span>
+					<h2 style="color: var(--wss-white);"><span class="wss-mask"><span>What Is Your Home Worth?</span></span></h2>
+					<p style="color: rgba(250, 248, 244, 0.8); font-size: 16px; margin-top: 14px;">
+						A thoughtful, customized look at your property, prevailing micro-market dynamics, and strategic positioning—not an impersonal algorithmic estimate.
+					</p>
+				</div>
+
+				<!-- Interactive Multi-Step Form Container -->
+				<div class="wss-val-box wss-reveal">
+					
+					<!-- Progress Bar -->
+					<div class="wss-val-progress-bar">
+						<div class="wss-val-progress-fill" id="valProgress"></div>
+					</div>
+
+					<form id="valuationForm" onsubmit="handleValuationSubmit(event)">
+						
+						<!-- STEP 1: Property Location & Classification -->
+						<div class="wss-val-step active" id="valStep1">
+							<div class="wss-val-step-title">Step 01 // Property Location & Type</div>
+							<div class="wss-val-step-sub">Select the property classification and enter the address.</div>
+							
+							<div class="wss-input-group">
+								<label for="valAddress">Property Address *</label>
+								<input type="text" id="valAddress" class="wss-custom-input" placeholder="e.g. 1244 Isleworth Blvd, Windermere, FL" required>
+							</div>
+
+							<div class="wss-property-types-grid">
+								<div class="wss-type-card selected" onclick="selectPropType(this, 'Single Family Luxury')">
+									<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+									<span>Single Family Estate</span>
+								</div>
+								<div class="wss-type-card" onclick="selectPropType(this, 'Waterfront / Lakefront')">
+									<svg viewBox="0 0 24 24"><path d="M2 12h20M2 16h20M2 8h20"></path></svg>
+									<span>Waterfront / Lakefront</span>
+								</div>
+								<div class="wss-type-card" onclick="selectPropType(this, 'Golf / Country Club')">
+									<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="2" x2="12" y2="12"></line><polygon points="12 2 17 6 12 10 12 2"></polygon></svg>
+									<span>Golf & Country Club</span>
+								</div>
+								<div class="wss-type-card" onclick="selectPropType(this, 'Penthouse / High-Rise')">
+									<svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="2"></line><line x1="15" y1="22" x2="15" y2="2"></line></svg>
+									<span>Luxury Penthouse</span>
+								</div>
+								<div class="wss-type-card" onclick="selectPropType(this, 'Vacation / Resort')">
+									<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+									<span>Resort / Vacation Home</span>
+								</div>
+								<div class="wss-type-card" onclick="selectPropType(this, 'Land / Investment')">
+									<svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+									<span>Land / Development</span>
+								</div>
+							</div>
+							<input type="hidden" id="selectedPropType" value="Single Family Luxury">
+
+							<div class="wss-val-nav-btns" style="justify-content: flex-end;">
+								<button type="button" class="wss-btn-pill" style="background: var(--wss-gold-gradient); color: #131210; border-color: transparent;" onclick="goToValStep(2)">
+									<span>Next: Property Details</span>
+									<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+								</button>
+							</div>
+						</div>
+
+						<!-- STEP 2: Property Specifications -->
+						<div class="wss-val-step" id="valStep2">
+							<div class="wss-val-step-title">Step 02 // Property Specifications</div>
+							<div class="wss-val-step-sub">Give us a general idea of size, layout, and recent architectural upgrades.</div>
+							
+							<div class="wss-form-grid-2">
+								<div class="wss-input-group">
+									<label for="valBeds">Bedrooms</label>
+									<select id="valBeds" class="wss-custom-select">
+										<option value="3">3 Bedrooms</option>
+										<option value="4" selected>4 Bedrooms</option>
+										<option value="5">5 Bedrooms</option>
+										<option value="6+">6+ Bedrooms</option>
+									</select>
+								</div>
+								<div class="wss-input-group">
+									<label for="valBaths">Bathrooms</label>
+									<select id="valBaths" class="wss-custom-select">
+										<option value="2.5">2.5 Bathrooms</option>
+										<option value="3.5">3.5 Bathrooms</option>
+										<option value="4.5" selected>4.5 Bathrooms</option>
+										<option value="5.5+">5.5+ Bathrooms</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="wss-form-grid-2">
+								<div class="wss-input-group">
+									<label for="valSqft">Approx. Square Footage</label>
+									<input type="text" id="valSqft" class="wss-custom-input" placeholder="e.g. 4,850 sq ft">
+								</div>
+								<div class="wss-input-group">
+									<label for="valYear">Year Built / Renovated</label>
+									<input type="text" id="valYear" class="wss-custom-input" placeholder="e.g. 2021">
+								</div>
+							</div>
+
+							<div class="wss-input-group">
+								<label for="valUpgrades">Key Features & Custom Amenities</label>
+								<input type="text" id="valUpgrades" class="wss-custom-input" placeholder="e.g. Pool & Spa, Wine Room, Outdoor Kitchen, Boat Dock, Sub-Zero appliances">
+							</div>
+
+							<div class="wss-val-nav-btns">
+								<button type="button" class="wss-btn-line" style="color: var(--wss-white);" onclick="goToValStep(1)">
+									<span>← Back</span>
+								</button>
+								<button type="button" class="wss-btn-pill" style="background: var(--wss-gold-gradient); color: #131210; border-color: transparent;" onclick="goToValStep(3)">
+									<span>Next: Timeline & Goals</span>
+									<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+								</button>
+							</div>
+						</div>
+
+						<!-- STEP 3: Goals & Timeline -->
+						<div class="wss-val-step" id="valStep3">
+							<div class="wss-val-step-title">Step 03 // Timeline & Objectives</div>
+							<div class="wss-val-step-sub">What is your ideal window for putting the property on the market?</div>
+
+							<div class="wss-form-grid-2">
+								<div class="wss-input-group">
+									<label for="valTimeline">Desired Listing Window</label>
+									<select id="valTimeline" class="wss-custom-select">
+										<option value="Immediate (0 - 30 days)">Immediate (Next 30 Days)</option>
+										<option value="1 - 3 Months" selected>1 — 3 Months</option>
+										<option value="3 - 6 Months">3 — 6 Months</option>
+										<option value="Exploring / Future Planning">Just Exploring Valuation</option>
+									</select>
+								</div>
+								<div class="wss-input-group">
+									<label for="valOccupancy">Current Occupancy</label>
+									<select id="valOccupancy" class="wss-custom-select">
+										<option value="Primary Residence">Primary Residence</option>
+										<option value="Second / Vacation Home">Second / Vacation Home</option>
+										<option value="Tenant Occupied">Tenant Occupied / Income Property</option>
+										<option value="Vacant">Vacant</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="wss-input-group">
+								<label for="valPriorities">Primary Selling Priorities</label>
+								<input type="text" id="valPriorities" class="wss-custom-input" placeholder="e.g. Maximizing price, swift closing, complete privacy, 1031 exchange">
+							</div>
+
+							<div class="wss-val-nav-btns">
+								<button type="button" class="wss-btn-line" style="color: var(--wss-white);" onclick="goToValStep(2)">
+									<span>← Back</span>
+								</button>
+								<button type="button" class="wss-btn-pill" style="background: var(--wss-gold-gradient); color: #131210; border-color: transparent;" onclick="goToValStep(4)">
+									<span>Next: Contact Details</span>
+									<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+								</button>
+							</div>
+						</div>
+
+						<!-- STEP 4: Confidential Contact Details -->
+						<div class="wss-val-step" id="valStep4">
+							<div class="wss-val-step-title">Step 04 // Confidential Delivery</div>
+							<div class="wss-val-step-sub">Where should we deliver your comprehensive Market Valuation Analysis?</div>
+
+							<div class="wss-form-grid-2">
+								<div class="wss-input-group">
+									<label for="valName">Your Full Name *</label>
+									<input type="text" id="valName" class="wss-custom-input" placeholder="Victoria Price" required>
+								</div>
+								<div class="wss-input-group">
+									<label for="valEmail">Email Address *</label>
+									<input type="email" id="valEmail" class="wss-custom-input" placeholder="vprice@domain.com" required>
+								</div>
+							</div>
+
+							<div class="wss-form-grid-2">
+								<div class="wss-input-group">
+									<label for="valPhone">Phone Number *</label>
+									<input type="tel" id="valPhone" class="wss-custom-input" placeholder="+1 (407) 000-0000" required>
+								</div>
+								<div class="wss-input-group">
+									<label for="valContactPref">Preferred Contact Method</label>
+									<select id="valContactPref" class="wss-custom-select">
+										<option value="Email Report First">Email Report First</option>
+										<option value="Phone Call & Consultation">Phone Call & Consultation</option>
+										<option value="In-Person Property Walkthrough">In-Person Property Walkthrough</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="wss-val-nav-btns">
+								<button type="button" class="wss-btn-line" style="color: var(--wss-white);" onclick="goToValStep(3)">
+									<span>← Back</span>
+								</button>
+								<button type="submit" class="wss-btn-pill" style="background: var(--wss-gold-gradient); color: #131210; border-color: transparent;">
+									<span>Generate Strategic Valuation</span>
+									<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+								</button>
+							</div>
+						</div>
+
+						<!-- STEP 5: Success State -->
+						<div class="wss-val-step" id="valStepSuccess" style="text-align: center; padding: 30px 0;">
+							<div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(34, 197, 94, 0.15); color: #22c55e; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+								<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+							</div>
+							<h3 style="font-family: var(--wss-font-primary); font-size: 24px; margin-bottom: 12px;">Strategic Assessment Initialized</h3>
+							<p style="color: rgba(250, 248, 244, 0.85); max-width: 560px; margin: 0 auto 24px; font-size: 15px; line-height: 1.7;">
+								Thank you. Victoria Price and our strategic advisory team are reviewing your property metrics. We will contact you promptly with your bespoke market appraisal.
+							</p>
+							<a href="tel:+14075847494" class="wss-btn-pill" style="border-color: #dfba73; color: #dfba73;">
+								<span>Direct Broker Line: +1 (407) 584-7494</span>
+							</a>
+						</div>
+
+					</form>
+				</div>
+
+			</div>
+		</section>
+
+		<!-- =========================================================
+		     8. MEDIA & EDITORIAL LOOKBOOK SHOWCASE
+		     ========================================================= -->
+		<section class="wss-pad" id="marketing" style="background: var(--wss-ivory);">
+			<div class="wss-container">
+				
+				<div class="wss-reveal" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 24px;">
+					<div style="max-width: 640px;">
+						<span class="wss-eyebrow">HIGH-FIDELITY CAMPAIGNS</span>
+						<h2><span class="wss-mask"><span>Editorial Marketing in Action</span></span></h2>
+						<p style="color: var(--wss-ink-soft); font-size: 16px; margin: 12px 0 0;">
+							Every property listed with VP Signature Group receives bespoke media production that highlights architectural significance and commands buyer fascination.
+						</p>
+					</div>
+					<a href="#valuation" class="wss-btn-line">
+						<span>Commission Your Campaign</span>
+						<svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+					</a>
+				</div>
+
+				<div class="wss-sales-grid-custom">
+					<div class="wss-sale-box wss-reveal wss-r1">
+						<div class="wss-sale-img-wrap">
+							<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Architectural Photography">
+							<span class="wss-sale-status-tag">01 // PRODUCTION</span>
+						</div>
+						<div class="wss-sale-info">
+							<div class="wss-sale-community">VISUAL MASTERY</div>
+							<h4 class="wss-sale-title">Architectural Photography</h4>
+							<p style="font-size: 13.5px; color: var(--wss-ink-soft); line-height: 1.6; margin: 0;">
+								High-dynamic-range daytime, twilight, and detailed interior compositions designed for premier architectural publications.
+							</p>
+						</div>
+					</div>
+
+					<div class="wss-sale-box wss-reveal wss-r2">
+						<div class="wss-sale-img-wrap">
+							<img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" alt="Cinematic Drone Video">
+							<span class="wss-sale-status-tag">02 // CINEMA</span>
+						</div>
+						<div class="wss-sale-info">
+							<div class="wss-sale-community">STORYTELLING</div>
+							<h4 class="wss-sale-title">Cinematic Video & Drone</h4>
+							<p style="font-size: 13.5px; color: var(--wss-ink-soft); line-height: 1.6; margin: 0;">
+								60fps 4K drone fly-throughs, lifestyle narrative tours, and vertical social vignettes distributed to thousands of active buyers.
+							</p>
+						</div>
+					</div>
+
+					<div class="wss-sale-box wss-reveal wss-r3">
+						<div class="wss-sale-img-wrap">
+							<img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="Private HNW Network">
+							<span class="wss-sale-status-tag">03 // DISTRIBUTION</span>
+						</div>
+						<div class="wss-sale-info">
+							<div class="wss-sale-community">PRIVATE NETWORK</div>
+							<h4 class="wss-sale-title">Global Buyer Syndication</h4>
+							<p style="font-size: 13.5px; color: var(--wss-ink-soft); line-height: 1.6; margin: 0;">
+								Direct syndication across luxury portals, private investor registries, and exclusive corporate relocation executives.
+							</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+		<!-- =========================================================
+		     9. NOTABLE SALES & TRACK RECORD SHOWCASE
+		     ========================================================= -->
+		<section class="wss-pad" id="properties" style="background: var(--wss-white); border-top: 1px solid var(--wss-line);">
+			<div class="wss-container">
+				
+				<div class="wss-reveal" style="max-width: 680px; margin-bottom: 44px;">
+					<span class="wss-eyebrow">EXEMPLARY TRACK RECORD</span>
+					<h2><span class="wss-mask"><span>Notable Transactions & Results</span></span></h2>
+					<p style="color: var(--wss-ink-soft); font-size: 16px; margin-top: 12px;">
+						A sampling of landmark estates and premier properties strategically positioned and sold across Central Florida.
+					</p>
+				</div>
+
+				<div class="wss-sales-grid-custom">
+					
+					<!-- Sale 1 -->
+					<div class="wss-sale-box wss-reveal wss-r1">
+						<div class="wss-sale-img-wrap">
+							<img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80" alt="Isleworth Waterfront Estate">
+							<span class="wss-sale-status-tag">REPRESENTED SELLER</span>
+							<span class="wss-sale-price-tag">$4,250,000</span>
+						</div>
+						<div class="wss-sale-info">
+							<div class="wss-sale-community">ISLEWORTH // WINDERMERE</div>
+							<h4 class="wss-sale-title">Lake Butler Waterfront Estate</h4>
+							<div class="wss-sale-meta">
+								<span>6 Beds</span>
+								<span>•</span>
+								<span>7.5 Baths</span>
+								<span>•</span>
+								<span>7,420 Sq Ft</span>
+								<span>•</span>
+								<span style="color: var(--wss-taupe-deep); font-weight: 600;">14 DOM</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Sale 2 -->
+					<div class="wss-sale-box wss-reveal wss-r2">
+						<div class="wss-sale-img-wrap">
+							<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80" alt="Winter Park Chain of Lakes">
+							<span class="wss-sale-status-tag">REPRESENTED SELLER</span>
+							<span class="wss-sale-price-tag">$3,100,000</span>
+						</div>
+						<div class="wss-sale-info">
+							<div class="wss-sale-community">WINTER PARK // CHAIN OF LAKES</div>
+							<h4 class="wss-sale-title">Via Tuscany Lakefront Villa</h4>
+							<div class="wss-sale-meta">
+								<span>5 Beds</span>
+								<span>•</span>
+								<span>5.5 Baths</span>
+								<span>•</span>
+								<span>5,890 Sq Ft</span>
+								<span>•</span>
+								<span style="color: var(--wss-taupe-deep); font-weight: 600;">99.2% List/Sale</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Sale 3 -->
+					<div class="wss-sale-box wss-reveal wss-r3">
+						<div class="wss-sale-img-wrap">
+							<img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80" alt="Lake Nona Golf & CC">
+							<span class="wss-sale-status-tag">REPRESENTED SELLER</span>
+							<span class="wss-sale-price-tag">$2,850,000</span>
+						</div>
+						<div class="wss-sale-info">
+							<div class="wss-sale-community">LAKE NONA // GOLF & COUNTRY CLUB</div>
+							<h4 class="wss-sale-title">Tavistock Signature Modern</h4>
+							<div class="wss-sale-meta">
+								<span>4 Beds</span>
+								<span>•</span>
+								<span>4.5 Baths</span>
+								<span>•</span>
+								<span>4,950 Sq Ft</span>
+								<span>•</span>
+								<span style="color: var(--wss-taupe-deep); font-weight: 600;">18 DOM</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+
+		<!-- =========================================================
+		     10. BROKER SPOTLIGHT (VICTORIA PRICE LEADERSHIP)
+		     ========================================================= -->
+		<section class="wss-pad" id="about" style="background: var(--wss-ivory); border-top: 1px solid var(--wss-line);">
+			<div class="wss-container">
+				<div class="wss-advisor-feature">
+					
+					<div class="wss-advisor-photo-card wss-reveal wss-r1">
+						<img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop" alt="Victoria Price | Broker-Owner">
+						<div class="wss-advisor-badge-float">
+							<strong>VICTORIA PRICE</strong>
+							<span>BROKER - OWNER // BK3403615</span>
+						</div>
+					</div>
+
+					<div class="wss-reveal wss-r2">
+						<span class="wss-eyebrow">PRINCIPAL ADVISOR</span>
+						<h2><span class="wss-mask"><span>Business Strategy Meets Personal Representation</span></span></h2>
+						
+						<p style="font-size: 16px; line-height: 1.85; color: var(--wss-ink-soft); margin: 20px 0;">
+							As Broker-Owner of VP Signature Group, Victoria Price leads with a clear vision rooted in excellence, strategy, and a client-first philosophy. With over 15 years of experience across real estate, executive technology, and corporate business leadership, Victoria offers sellers a sophisticated understanding of market dynamics, contract mechanics, and high-stakes negotiation.
+						</p>
+
+						<p style="font-size: 16px; line-height: 1.85; color: var(--wss-ink-soft); margin-bottom: 30px;">
+							Originally from New York and holding both undergraduate and MBA degrees, she is known for sharp communication, meticulous attention to detail, and maintaining client equity as her highest priority.
+						</p>
+
+						<blockquote style="margin: 0 0 32px; padding-left: 20px; border-left: 2px solid var(--wss-taupe-deep); font-family: var(--wss-font-primary); font-size: 15px; text-transform: uppercase; color: var(--wss-ink); line-height: 1.6;">
+							“Our commitment is simple: treating your equity and privacy with the same precision, discretion, and strategic discipline as our own.”
+						</blockquote>
+
+						<div style="display: flex; gap: 16px; flex-wrap: wrap;">
+							<a href="tel:+14075847494" class="wss-btn-pill">
+								<span>Call Victoria Direct</span>
+								<svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+							</a>
+							<a href="mailto:admin@vpsignature.com" class="wss-btn-line">
+								<span>Email Advisory</span>
+								<svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+							</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- =========================================================
+		     11. TESTIMONIALS (EXACT CLIENT EXCERPTS FROM BRIEF)
+		     ========================================================= -->
+		<section class="wss-pad wss-on-dark" style="background: #131210;">
+			<div class="wss-container">
+				
+				<div class="wss-reveal" style="text-align: center; max-width: 680px; margin: 0 auto 54px;">
+					<span class="wss-eyebrow" style="color: #dfba73;">CLIENT EXPERIENCES</span>
+					<h2 style="color: var(--wss-white);"><span class="wss-mask"><span>Endorsed by Discerning Sellers</span></span></h2>
+				</div>
+
+				<div class="wss-metrics-grid" style="grid-template-columns: repeat(2, 1fr); gap: 32px;">
+					
+					<!-- Testimonial 1: Michael Williams -->
+					<div class="wss-compare-card wss-reveal wss-r1" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--wss-white); border-radius: 4px; padding: 36px 32px;">
+						<div style="color: #dfba73; margin-bottom: 16px;">★★★★★</div>
+						<p style="font-size: 15.5px; line-height: 1.8; color: rgba(250, 248, 244, 0.9); font-style: italic; margin-bottom: 24px;">
+							“Victoria’s guidance through the selling process was exceptional. Her strategic approach to marketing and negotiation ensured we received top value with zero friction. Truly a boutique, white-glove experience.”
+						</p>
+						<div>
+							<strong style="font-family: var(--wss-font-primary); font-size: 15px; text-transform: uppercase; display: block;">Michael Williams</strong>
+							<span style="font-family: var(--wss-font-accent); font-size: 10px; color: var(--wss-grey); letter-spacing: 0.15em;">WINDEMERE SELLER</span>
+						</div>
+					</div>
+
+					<!-- Testimonial 2: Chris Cramer -->
+					<div class="wss-compare-card wss-reveal wss-r2" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--wss-white); border-radius: 4px; padding: 36px 32px;">
+						<div style="color: #dfba73; margin-bottom: 16px;">★★★★★</div>
+						<p style="font-size: 15.5px; line-height: 1.8; color: rgba(250, 248, 244, 0.9); font-style: italic; margin-bottom: 24px;">
+							“The level of professionalism, communication, and market intelligence VP Signature Group brought to the table far exceeded any brokerage I have worked with in the past.”
+						</p>
+						<div>
+							<strong style="font-family: var(--wss-font-primary); font-size: 15px; text-transform: uppercase; display: block;">Chris Cramer</strong>
+							<span style="font-family: var(--wss-font-accent); font-size: 10px; color: var(--wss-grey); letter-spacing: 0.15em;">WINTER PARK SELLER</span>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+
+		<!-- =========================================================
+		     12. SELLER STRATEGIC FAQS (INTERACTIVE ACCORDION)
+		     ========================================================= -->
+		<section class="wss-pad" style="background: var(--wss-ivory); border-top: 1px solid var(--wss-line);">
+			<div class="wss-container">
+				
+				<div class="wss-reveal" style="text-align: center; max-width: 680px; margin: 0 auto;">
+					<span class="wss-eyebrow">SELLER ADVISORY</span>
+					<h2><span class="wss-mask"><span>Frequently Asked Questions</span></span></h2>
+					<p style="color: var(--wss-ink-soft); font-size: 16px; margin-top: 12px;">
+						Clear, straightforward answers to essential questions regarding the luxury selling process.
+					</p>
+				</div>
+
+				<div class="wss-faq-list wss-reveal">
+					
+					<!-- FAQ 1 -->
+					<div class="wss-faq-item active" onclick="toggleFaq(this)">
+						<div class="wss-faq-head">
+							<h3 class="wss-faq-question">How does VP Signature Group determine my property's listing price?</h3>
+							<div class="wss-faq-icon">+</div>
+						</div>
+						<div class="wss-faq-body">
+							<p class="wss-faq-answer">
+								We conduct an exhaustive Comparative Market Assessment (CMA) analyzing hyper-local closed transactions, pending contracts, active competition, and seasonal buyer momentum. We factor in unique architectural improvements, premium lot characteristics, and current interest rates to establish a price that maximizes return without languishing on the market.
+							</p>
+						</div>
+					</div>
+
+					<!-- FAQ 2 -->
+					<div class="wss-faq-item" onclick="toggleFaq(this)">
+						<div class="wss-faq-head">
+							<h3 class="wss-faq-question">How do you reach high-net-worth and out-of-state buyers?</h3>
+							<div class="wss-faq-icon">+</div>
+						</div>
+						<div class="wss-faq-body">
+							<p class="wss-faq-answer">
+								Over 60% of Central Florida luxury buyers relocate from the Northeast, California, the Midwest, and international hubs. We deploy hyper-targeted digital advertising campaigns, syndication on premier international luxury portals, and direct outreach through our private network of wealth advisors and executive relocation directors.
+							</p>
+						</div>
+					</div>
+
+					<!-- FAQ 3 -->
+					<div class="wss-faq-item" onclick="toggleFaq(this)">
+						<div class="wss-faq-head">
+							<h3 class="wss-faq-question">Can I sell my property privately without public open houses?</h3>
+							<div class="wss-faq-icon">+</div>
+						</div>
+						<div class="wss-faq-body">
+							<p class="wss-faq-answer">
+								Yes. Discretion is paramount for many of our clients. We offer private placement / off-market listing campaigns where your home is shown exclusively by appointment to strictly vetted, pre-qualified buyers who have signed Non-Disclosure Agreements (NDAs).
+							</p>
+						</div>
+					</div>
+
+					<!-- FAQ 4 -->
+					<div class="wss-faq-item" onclick="toggleFaq(this)">
+						<div class="wss-faq-head">
+							<h3 class="wss-faq-question">What pre-listing preparations or staging do you recommend?</h3>
+							<div class="wss-faq-icon">+</div>
+						</div>
+						<div class="wss-faq-body">
+							<p class="wss-faq-answer">
+								During our initial walkthrough, we provide a strategic punch-list of high-ROI improvements—such as lighting optimization, selective staging, paint touch-ups, and landscape refinement. We connect you with our vetted concierge vendors to ensure seamless execution.
+							</p>
+						</div>
+					</div>
+
+					<!-- FAQ 5 -->
+					<div class="wss-faq-item" onclick="toggleFaq(this)">
+						<div class="wss-faq-head">
+							<h3 class="wss-faq-question">What is the advantage of a boutique firm over a large franchise?</h3>
+							<div class="wss-faq-icon">+</div>
+						</div>
+						<div class="wss-faq-body">
+							<p class="wss-faq-answer">
+								At large mega-brokerages, your property is often one of hundreds and delegated to junior coordinators. At VP Signature Group, you receive direct principal representation from Victoria Price, customized marketing budgets, agile decision-making, and undivided fiduciary devotion.
+							</p>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+
+		<!-- =========================================================
+		     13. FINAL CONTACT & CONSULTATION CTA
+		     ========================================================= -->
+		<section class="wss-pad wss-on-dark" id="contact" style="background: #181613; border-top: 1px solid var(--wss-line-on-dark);">
+			<div class="wss-container">
+				
+				<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;" class="wss-reveal">
+					<div>
+						<span class="wss-eyebrow" style="color: #dfba73;">NEXT STEPS</span>
+						<h2 style="color: var(--wss-white);"><span class="wss-mask"><span>What Are You Planning Next?</span></span></h2>
+						<p style="color: rgba(250, 248, 244, 0.85); font-size: 16.5px; line-height: 1.8; margin: 20px 0 32px;">
+							Whether you are contemplating selling within 30 days or planning your positioning for the upcoming year, our advisory team is here to provide clarity, discretion, and market insight.
+						</p>
+
+						<div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px;">
+							<div style="display: flex; align-items: center; gap: 14px;">
+								<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255, 255, 255, 0.06); display: flex; align-items: center; justify-content: center; color: #dfba73;">
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+								</div>
+								<span style="font-size: 15px; color: var(--wss-white);">Direct Phone: +1 (407) 584-7494</span>
+							</div>
+
+							<div style="display: flex; align-items: center; gap: 14px;">
+								<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255, 255, 255, 0.06); display: flex; align-items: center; justify-content: center; color: #dfba73;">
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+								</div>
+								<span style="font-size: 15px; color: var(--wss-white);">Email: admin@vpsignature.com</span>
+							</div>
+
+							<div style="display: flex; align-items: center; gap: 14px;">
+								<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255, 255, 255, 0.06); display: flex; align-items: center; justify-content: center; color: #dfba73;">
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+								</div>
+								<span style="font-size: 15px; color: var(--wss-white);">Office: 300 S Orange Ave, Orlando, FL 32801</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Direct Short Inquiry Form -->
+					<div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 44px 36px; border-radius: 4px;">
+						<h3 style="font-family: var(--wss-font-primary); font-size: 20px; color: var(--wss-white); text-transform: uppercase; margin: 0 0 20px;">Book a Confidential Consultation</h3>
+						
+						<form onsubmit="alert('Thank you. Victoria Price and our team will contact you shortly.'); return false;">
+							<div class="wss-input-group">
+								<label>Full Name</label>
+								<input type="text" class="wss-custom-input" placeholder="Your Name" required>
+							</div>
+							<div class="wss-form-grid-2">
+								<div class="wss-input-group">
+									<label>Phone Number</label>
+									<input type="tel" class="wss-custom-input" placeholder="+1 (407) 000-0000" required>
+								</div>
+								<div class="wss-input-group">
+									<label>Email Address</label>
+									<input type="email" class="wss-custom-input" placeholder="email@address.com" required>
+								</div>
+							</div>
+							<div class="wss-input-group">
+								<label>Property Address / Notes</label>
+								<textarea class="wss-custom-textarea" rows="3" placeholder="Tell us about your property or timeline goals..."></textarea>
+							</div>
+							<button type="submit" class="wss-btn-pill" style="width: 100%; justify-content: center; background: var(--wss-gold-gradient); color: #131210; border-color: transparent; margin-top: 10px;">
+								<span>Request Private Consultation</span>
+							</button>
+						</form>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+
+	</main>
+
+	<!-- =========================================================
+	     14. GLOBAL LUXURY FOOTER
+	     ========================================================= -->
+	<footer class="wss-foot" style="background: #11100e; border-top: 1px solid var(--wss-line-on-dark); color: var(--wss-white); padding: 80px 0 40px;">
+		<div class="wss-container">
+			<div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 48px; margin-bottom: 60px;">
+				
+				<!-- Col 1: Brand Story -->
+				<div>
+					<span style="font-family: var(--wss-font-primary); font-size: 18px; letter-spacing: 0.05em; font-weight: 700; display: block; margin-bottom: 8px;">VP SIGNATURE GROUP</span>
+					<span style="font-family: var(--wss-font-accent); font-size: 10px; color: #dfba73; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 18px;">FLORIDA BOUTIQUE BROKERAGE</span>
+					<p style="font-size: 14px; line-height: 1.75; color: var(--wss-grey); margin: 0;">
+						A boutique Florida brokerage built around strategy, market knowledge, and highly personalized representation for luxury residences, second homes, and investment portfolios.
+					</p>
+				</div>
+
+				<!-- Col 2: Navigation -->
+				<div>
+					<span style="font-family: var(--wss-font-accent); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--wss-white); display: block; margin-bottom: 20px; font-weight: 600;">PORTFOLIO</span>
+					<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: var(--wss-grey);">
+						<li><a href="#properties" style="color: inherit; transition: color 0.2s;">Featured Properties</a></li>
+						<li><a href="#buy" style="color: inherit; transition: color 0.2s;">Buy With VP</a></li>
+						<li><a href="sell.html" style="color: var(--wss-white); font-weight: 600;">Sell Your Home</a></li>
+						<li><a href="#valuation" style="color: inherit; transition: color 0.2s;">Home Valuation</a></li>
+						<li><a href="#communities" style="color: inherit; transition: color 0.2s;">Central FL Communities</a></li>
+					</ul>
+				</div>
+
+				<!-- Col 3: Company -->
+				<div>
+					<span style="font-family: var(--wss-font-accent); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--wss-white); display: block; margin-bottom: 20px; font-weight: 600;">BROKERAGE</span>
+					<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: var(--wss-grey);">
+						<li><a href="#about" style="color: inherit; transition: color 0.2s;">About Victoria Price</a></li>
+						<li><a href="#methodology" style="color: inherit; transition: color 0.2s;">Our Methodology</a></li>
+						<li><a href="#marketing" style="color: inherit; transition: color 0.2s;">Media Production</a></li>
+						<li><a href="#contact" style="color: inherit; transition: color 0.2s;">Private Consultations</a></li>
+					</ul>
+				</div>
+
+				<!-- Col 4: Contact & Office -->
+				<div>
+					<span style="font-family: var(--wss-font-accent); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--wss-white); display: block; margin-bottom: 20px; font-weight: 600;">ORLANDO HEADQUARTERS</span>
+					<p style="font-size: 14px; line-height: 1.7; color: var(--wss-grey); margin: 0 0 16px;">
+						300 S Orange Ave, Suite 1000<br>Orlando, FL 32801-3314, USA<br>Phone: +1 (407) 584-7494
+					</p>
+					<div style="display: flex; gap: 12px;">
+						<a href="#" class="wss-social-pill" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+						<a href="#" class="wss-social-pill" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+						<a href="#" class="wss-social-pill" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- Legal Disclosures & Copyright -->
+			<div style="border-top: 1px solid rgba(250, 248, 244, 0.08); padding-top: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-size: 12px; color: var(--wss-grey);">
+				<div>
+					© 2026 VP Signature Group. All Rights Reserved. Licensed Florida Real Estate Brokerage. Equal Housing Opportunity.
+				</div>
+				<div style="display: flex; gap: 20px;">
+					<a href="#" style="color: inherit;">Privacy Policy</a>
+					<a href="#" style="color: inherit;">Terms of Service</a>
+					<a href="#" style="color: inherit;">Accessibility</a>
+					<a href="#" style="color: inherit;">DMCA / IDX Notice</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Core Plugin Javascript for Scroll-reveals, Menu, and Modals -->
+	<script src="assets/js/wss-widgets.js"></script>
+
+	<!-- Bespoke Interactive Script for Sell Page Features -->
+	<script>
+		/* 1. Interactive 3-Pillar Tab Switching */
+		document.addEventListener('DOMContentLoaded', function() {
+			var tabs = document.querySelectorAll('.wss-pillar-tab');
+			var panels = document.querySelectorAll('.wss-pillar-content-panel');
+
+			tabs.forEach(function(tab) {
+				tab.addEventListener('click', function() {
+					var targetId = this.getAttribute('data-tab');
+					tabs.forEach(function(t) { t.classList.remove('active'); });
+					panels.forEach(function(p) { p.classList.remove('active'); });
+
+					this.classList.add('active');
+					var activePanel = document.getElementById(targetId);
+					if (activePanel) {
+						activePanel.classList.add('active');
+					}
+				});
+			});
+		});
+
+		/* 2. Interactive Valuation Multi-Step Wizard */
+		function goToValStep(stepNum) {
+			var steps = document.querySelectorAll('.wss-val-step');
+			steps.forEach(function(s) { s.classList.remove('active'); });
+
+			var target = document.getElementById('valStep' + stepNum);
+			if (target) {
+				target.classList.add('active');
+				var progressFill = document.getElementById('valProgress');
+				if (progressFill) {
+					var pct = (stepNum / 4) * 100;
+					progressFill.style.width = pct + '%';
+				}
+			}
+		}
+
+		function selectPropType(element, typeName) {
+			var cards = document.querySelectorAll('.wss-type-card');
+			cards.forEach(function(c) { c.classList.remove('selected'); });
+			element.classList.add('selected');
+			document.getElementById('selectedPropType').value = typeName;
+		}
+
+		function handleValuationSubmit(e) {
+			e.preventDefault();
+			var steps = document.querySelectorAll('.wss-val-step');
+			steps.forEach(function(s) { s.classList.remove('active'); });
+
+			var successStep = document.getElementById('valStepSuccess');
+			if (successStep) {
+				successStep.classList.add('active');
+				var progressFill = document.getElementById('valProgress');
+				if (progressFill) {
+					progressFill.style.width = '100%';
+				}
+			}
+		}
+
+		/* 3. FAQ Accordion Toggle */
+		function toggleFaq(item) {
+			var isActive = item.classList.contains('active');
+			document.querySelectorAll('.wss-faq-item').forEach(function(f) {
+				f.classList.remove('active');
+			});
+			if (!isActive) {
+				item.classList.add('active');
+			}
+		}
+	</script>
+</body>
+</html>
