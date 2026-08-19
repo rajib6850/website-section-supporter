@@ -441,11 +441,64 @@ class WSS_CTA_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'bg_image_position',
+			array(
+				'label'     => __( 'Image Position', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'center center',
+				'options'   => array(
+					'center center' => __( 'Center Center', 'website-section-supporter' ),
+					'center top'    => __( 'Center Top', 'website-section-supporter' ),
+					'center bottom' => __( 'Center Bottom', 'website-section-supporter' ),
+					'left center'   => __( 'Left Center', 'website-section-supporter' ),
+					'right center'  => __( 'Right Center', 'website-section-supporter' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-cta-bg-img' => 'background-position: {{VALUE}};',
+				),
+				'condition' => array( 'theme_preset' => 'image' ),
+			)
+		);
+
+		$this->add_control(
+			'bg_image_attachment',
+			array(
+				'label'     => __( 'Image Attachment', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'scroll',
+				'options'   => array(
+					'scroll' => __( 'Scroll (Normal)', 'website-section-supporter' ),
+					'fixed'  => __( 'Fixed (Parallax Effect)', 'website-section-supporter' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-cta-bg-img' => 'background-attachment: {{VALUE}};',
+				),
+				'condition' => array( 'theme_preset' => 'image' ),
+			)
+		);
+
+		$this->add_control(
+			'bg_image_grayscale',
+			array(
+				'label'        => __( 'Black & White Filter', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'B&W', 'website-section-supporter' ),
+				'label_off'    => __( 'Color', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'no',
+				'selectors'    => array(
+					'{{WRAPPER}} .wss-cta-bg-img' => 'filter: grayscale(100%) contrast(1.05);',
+				),
+				'condition'    => array( 'theme_preset' => 'image' ),
+			)
+		);
+
+		$this->add_control(
 			'bg_overlay_color',
 			array(
-				'label'     => __( 'Overlay Color', 'website-section-supporter' ),
+				'label'     => __( 'Overlay Color & Opacity', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(19, 18, 16, 0.78)',
+				'default'   => 'rgba(19, 18, 16, 0.72)',
 				'selectors' => array(
 					'{{WRAPPER}} .wss-cta-bg-overlay' => 'background-color: {{VALUE}};',
 				),
