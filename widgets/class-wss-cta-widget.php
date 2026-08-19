@@ -14,9 +14,8 @@ use Elementor\Group_Control_Image_Size;
 /**
  * WSS Call to Action (CTA) Widget
  * 
- * Reusable, ultra-luxury Call to Action section widget
- * perfect for the bottom of About, Sell, Community, or Portfolio pages
- * to drive prospective clients seamlessly to the Contact page.
+ * Fully Elementor-controllable, ultra-luxury Call to Action section widget.
+ * Designed for About pages, Sell pages, Community pages, or global conversion sections.
  */
 class WSS_CTA_Widget extends Widget_Base {
 
@@ -42,10 +41,22 @@ class WSS_CTA_Widget extends Widget_Base {
 
 	protected function register_controls() {
 
-		/* ================= CONTENT: HEADINGS ================= */
+		/* ================= CONTENT: HEADINGS & TEXT ================= */
 		$this->start_controls_section(
 			'section_content',
 			array( 'label' => __( 'Headings & Content', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'show_eyebrow',
+			array(
+				'label'        => __( 'Show Eyebrow', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
 		);
 
 		$this->add_control(
@@ -55,6 +66,7 @@ class WSS_CTA_Widget extends Widget_Base {
 				'type'        => Controls_Manager::TEXT,
 				'default'     => __( 'BEGIN YOUR JOURNEY', 'website-section-supporter' ),
 				'label_block' => true,
+				'condition'   => array( 'show_eyebrow' => 'yes' ),
 				'dynamic'     => array( 'active' => true ),
 			)
 		);
@@ -71,12 +83,42 @@ class WSS_CTA_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'heading_html_tag',
+			array(
+				'label'   => __( 'Heading HTML Tag', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h2',
+				'options' => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'div'  => 'div',
+					'span' => 'span',
+				),
+			)
+		);
+
+		$this->add_control(
+			'show_desc',
+			array(
+				'label'        => __( 'Show Description', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+
+		$this->add_control(
 			'description',
 			array(
 				'label'       => __( 'Description', 'website-section-supporter' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'default'     => __( 'Whether buying, selling, or exploring market opportunities across Central Florida, VP Signature Group offers strategic guidance, absolute discretion, and personalized concierge representation.', 'website-section-supporter' ),
 				'rows'        => 3,
+				'condition'   => array( 'show_desc' => 'yes' ),
 				'dynamic'     => array( 'active' => true ),
 			)
 		);
@@ -84,13 +126,30 @@ class WSS_CTA_Widget extends Widget_Base {
 		$this->add_control(
 			'layout_type',
 			array(
-				'label'   => __( 'Layout Alignment', 'website-section-supporter' ),
+				'label'   => __( 'Layout Mode', 'website-section-supporter' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'center',
 				'options' => array(
 					'center' => __( 'Centered Banner', 'website-section-supporter' ),
-					'left'   => __( 'Left-Aligned Classic', 'website-section-supporter' ),
+					'left'   => __( 'Left-Aligned', 'website-section-supporter' ),
 					'split'  => __( 'Split 2-Column (Content Left, Actions Right)', 'website-section-supporter' ),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'text_align',
+			array(
+				'label'     => __( 'Text Alignment', 'website-section-supporter' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'left'   => array( 'title' => __( 'Left', 'website-section-supporter' ), 'icon' => 'eicon-text-align-left' ),
+					'center' => array( 'title' => __( 'Center', 'website-section-supporter' ), 'icon' => 'eicon-text-align-center' ),
+					'right'  => array( 'title' => __( 'Right', 'website-section-supporter' ), 'icon' => 'eicon-text-align-right' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-cta-inner' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .wss-cta-text-col' => 'text-align: {{VALUE}};',
 				),
 			)
 		);
@@ -180,6 +239,23 @@ class WSS_CTA_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'btn1_icon_position',
+			array(
+				'label'     => __( 'Icon Position', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'after',
+				'options'   => array(
+					'before' => __( 'Before Text', 'website-section-supporter' ),
+					'after'  => __( 'After Text', 'website-section-supporter' ),
+				),
+				'condition' => array(
+					'show_btn1'  => 'yes',
+					'btn1_icon!' => 'none',
+				),
+			)
+		);
+
 		// Secondary Button
 		$this->add_control(
 			'heading_btn2',
@@ -258,6 +334,23 @@ class WSS_CTA_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'btn2_icon_position',
+			array(
+				'label'     => __( 'Icon Position', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'before',
+				'options'   => array(
+					'before' => __( 'Before Text', 'website-section-supporter' ),
+					'after'  => __( 'After Text', 'website-section-supporter' ),
+				),
+				'condition' => array(
+					'show_btn2'  => 'yes',
+					'btn2_icon!' => 'none',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		/* ================= CONTENT: DIRECT CONTACT BADGES ================= */
@@ -285,6 +378,7 @@ class WSS_CTA_Widget extends Widget_Base {
 				'type'      => Controls_Manager::TEXT,
 				'default'   => '+1 (407) 584-7494',
 				'condition' => array( 'show_contact_bar' => 'yes' ),
+				'dynamic'   => array( 'active' => true ),
 			)
 		);
 
@@ -295,6 +389,7 @@ class WSS_CTA_Widget extends Widget_Base {
 				'type'      => Controls_Manager::TEXT,
 				'default'   => 'admin@vpsignature.com',
 				'condition' => array( 'show_contact_bar' => 'yes' ),
+				'dynamic'   => array( 'active' => true ),
 			)
 		);
 
@@ -305,12 +400,13 @@ class WSS_CTA_Widget extends Widget_Base {
 				'type'      => Controls_Manager::TEXT,
 				'default'   => '300 S Orange Ave, Orlando, FL',
 				'condition' => array( 'show_contact_bar' => 'yes' ),
+				'dynamic'   => array( 'active' => true ),
 			)
 		);
 
 		$this->end_controls_section();
 
-		/* ================= CONTENT: BACKGROUND & MEDIA ================= */
+		/* ================= CONTENT: BACKGROUND & PRESETS ================= */
 		$this->start_controls_section(
 			'section_bg_media',
 			array( 'label' => __( 'Background & Theme Preset', 'website-section-supporter' ) )
@@ -327,7 +423,7 @@ class WSS_CTA_Widget extends Widget_Base {
 					'light'  => __( 'Crisp Ivory / Minimal Light', 'website-section-supporter' ),
 					'taupe'  => __( 'Luxury Warm Taupe', 'website-section-supporter' ),
 					'image'  => __( 'Architectural Background Image', 'website-section-supporter' ),
-					'custom' => __( 'Custom Color / Gradient (Style Tab)', 'website-section-supporter' ),
+					'custom' => __( 'Custom Background (Style Tab)', 'website-section-supporter' ),
 				),
 			)
 		);
@@ -345,16 +441,13 @@ class WSS_CTA_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'bg_overlay_opacity',
+			'bg_overlay_color',
 			array(
-				'label'     => __( 'Dark Overlay Darkness', 'website-section-supporter' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
-					'px' => array( 'min' => 0.1, 'max' => 0.95, 'step' => 0.05 ),
-				),
-				'default'   => array( 'size' => 0.75 ),
+				'label'     => __( 'Overlay Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(19, 18, 16, 0.78)',
 				'selectors' => array(
-					'{{WRAPPER}} .wss-cta-bg-overlay' => 'background: rgba(19, 18, 16, {{SIZE}});',
+					'{{WRAPPER}} .wss-cta-bg-overlay' => 'background-color: {{VALUE}};',
 				),
 				'condition' => array( 'theme_preset' => 'image' ),
 			)
@@ -363,23 +456,22 @@ class WSS_CTA_Widget extends Widget_Base {
 		$this->add_control(
 			'card_boxed',
 			array(
-				'label'        => __( 'Boxed Container Card', 'website-section-supporter' ),
+				'label'        => __( 'Boxed Card Mode', 'website-section-supporter' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'label_on'     => __( 'Boxed Card', 'website-section-supporter' ),
 				'label_off'    => __( 'Full Section', 'website-section-supporter' ),
 				'return_value' => 'yes',
 				'default'      => 'no',
-				'description'  => __( 'Enclose the CTA inside an elegant bordered card with padding.', 'website-section-supporter' ),
 			)
 		);
 
 		$this->end_controls_section();
 
-		/* ================= STYLE: SECTION CONTAINER ================= */
+		/* ================= STYLE: SECTION & CONTAINER ================= */
 		$this->start_controls_section(
 			'style_section_container',
 			array(
-				'label' => __( 'Section Container & Box', 'website-section-supporter' ),
+				'label' => __( 'Section & Box Container', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -387,19 +479,18 @@ class WSS_CTA_Widget extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			array(
-				'name'      => 'custom_bg',
-				'types'     => array( 'classic', 'gradient' ),
-				'selector'  => '{{WRAPPER}} .wss-cta-wrap',
-				'condition' => array( 'theme_preset' => 'custom' ),
+				'name'     => 'section_custom_bg',
+				'types'    => array( 'classic', 'gradient' ),
+				'selector' => '{{WRAPPER}} .wss-cta-section',
 			)
 		);
 
 		$this->add_responsive_control(
 			'section_padding',
 			array(
-				'label'      => __( 'Padding', 'website-section-supporter' ),
+				'label'      => __( 'Section Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', '%', 'vw' ),
+				'size_units' => array( 'px', '%', 'vw', 'em' ),
 				'default'    => array(
 					'top'      => '120',
 					'right'    => '0',
@@ -416,13 +507,56 @@ class WSS_CTA_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'max_content_width',
 			array(
-				'label'      => __( 'Max Content Width', 'website-section-supporter' ),
+				'label'      => __( 'Content Max Width', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
-				'range'      => array( 'px' => array( 'min' => 400, 'max' => 1400, 'step' => 10 ) ),
-				'default'    => array( 'size' => 900 ),
+				'range'      => array( 'px' => array( 'min' => 400, 'max' => 1600, 'step' => 10 ) ),
+				'default'    => array( 'size' => 960 ),
 				'selectors'  => array(
 					'{{WRAPPER}} .wss-cta-inner' => 'max-width: {{SIZE}}{{UNIT}};',
 				),
+			)
+		);
+
+		// Boxed Card specific styles
+		$this->add_control(
+			'heading_card_style',
+			array(
+				'label'     => __( 'Boxed Card Styling', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'card_boxed' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'card_bg_color',
+			array(
+				'label'     => __( 'Card Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-cta-card' => 'background-color: {{VALUE}} !important;',
+				),
+				'condition' => array( 'card_boxed' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'card_padding',
+			array(
+				'label'      => __( 'Card Inner Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'default'    => array(
+					'top'      => '80',
+					'right'    => '60',
+					'bottom'   => '80',
+					'left'     => '60',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-cta-card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array( 'card_boxed' => 'yes' ),
 			)
 		);
 
@@ -473,8 +607,9 @@ class WSS_CTA_Widget extends Widget_Base {
 		$this->add_control(
 			'heading_style_eyebrow',
 			array(
-				'label' => __( 'Eyebrow', 'website-section-supporter' ),
-				'type'  => Controls_Manager::HEADING,
+				'label'     => __( 'Eyebrow', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'condition' => array( 'show_eyebrow' => 'yes' ),
 			)
 		);
 
@@ -486,14 +621,30 @@ class WSS_CTA_Widget extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wss-cta-eyebrow' => 'color: {{VALUE}} !important;',
 				),
+				'condition' => array( 'show_eyebrow' => 'yes' ),
 			)
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'eyebrow_typography',
-				'selector' => '{{WRAPPER}} .wss-cta-eyebrow',
+				'name'      => 'eyebrow_typography',
+				'selector'  => '{{WRAPPER}} .wss-cta-eyebrow',
+				'condition' => array( 'show_eyebrow' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'eyebrow_spacing',
+			array(
+				'label'      => __( 'Eyebrow Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
+				'default'    => array( 'size' => 16 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-cta-eyebrow' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array( 'show_eyebrow' => 'yes' ),
 			)
 		);
 
@@ -513,7 +664,7 @@ class WSS_CTA_Widget extends Widget_Base {
 				'label'     => __( 'Heading Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-cta-heading' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-cta-heading, {{WRAPPER}} .wss-cta-heading span' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -546,6 +697,7 @@ class WSS_CTA_Widget extends Widget_Base {
 				'label'     => __( 'Description', 'website-section-supporter' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
+				'condition' => array( 'show_desc' => 'yes' ),
 			)
 		);
 
@@ -557,14 +709,16 @@ class WSS_CTA_Widget extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wss-cta-desc' => 'color: {{VALUE}} !important;',
 				),
+				'condition' => array( 'show_desc' => 'yes' ),
 			)
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'desc_typography',
-				'selector' => '{{WRAPPER}} .wss-cta-desc',
+				'name'      => 'desc_typography',
+				'selector'  => '{{WRAPPER}} .wss-cta-desc',
+				'condition' => array( 'show_desc' => 'yes' ),
 			)
 		);
 
@@ -578,6 +732,7 @@ class WSS_CTA_Widget extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .wss-cta-desc' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				),
+				'condition'  => array( 'show_desc' => 'yes' ),
 			)
 		);
 
@@ -592,6 +747,19 @@ class WSS_CTA_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'buttons_gap',
+			array(
+				'label'      => __( 'Gap Between Buttons', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'default'    => array( 'size' => 18 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-cta-btns' => 'gap: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		// Primary Button Styles
 		$this->add_control(
 			'heading_style_btn1',
@@ -599,6 +767,41 @@ class WSS_CTA_Widget extends Widget_Base {
 				'label'     => __( 'Primary Button', 'website-section-supporter' ),
 				'type'      => Controls_Manager::HEADING,
 				'condition' => array( 'show_btn1' => 'yes' ),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'      => 'btn1_typography',
+				'selector'  => '{{WRAPPER}} .wss-cta-btn-primary',
+				'condition' => array( 'show_btn1' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn1_padding',
+			array(
+				'label'      => __( 'Button Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-cta-btn-primary' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array( 'show_btn1' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'btn1_radius',
+			array(
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-cta-btn-primary' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array( 'show_btn1' => 'yes' ),
 			)
 		);
 
@@ -699,6 +902,41 @@ class WSS_CTA_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'      => 'btn2_typography',
+				'selector'  => '{{WRAPPER}} .wss-cta-btn-secondary',
+				'condition' => array( 'show_btn2' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn2_padding',
+			array(
+				'label'      => __( 'Button Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-cta-btn-secondary' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array( 'show_btn2' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'btn2_radius',
+			array(
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-cta-btn-secondary' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array( 'show_btn2' => 'yes' ),
+			)
+		);
+
 		$this->start_controls_tabs( 'tabs_btn2_style', array( 'condition' => array( 'show_btn2' => 'yes' ) ) );
 
 		$this->start_controls_tab(
@@ -786,6 +1024,59 @@ class WSS_CTA_Widget extends Widget_Base {
 		$this->end_controls_tabs();
 
 		$this->end_controls_section();
+
+		/* ================= STYLE: CONTACT BAR ================= */
+		$this->start_controls_section(
+			'style_contact_bar',
+			array(
+				'label'     => __( 'Contact Bar Styling', 'website-section-supporter' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array( 'show_contact_bar' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'contact_text_color',
+			array(
+				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-cta-badge-item' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'contact_icon_color',
+			array(
+				'label'     => __( 'Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-cta-badge-item svg' => 'stroke: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'contact_typography',
+				'selector' => '{{WRAPPER}} .wss-cta-badge-item',
+			)
+		);
+
+		$this->add_control(
+			'contact_border_color',
+			array(
+				'label'     => __( 'Top Divider Line Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-cta-contact-bar' => 'border-top-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
 	}
 
 	private function render_icon( $icon_key ) {
@@ -809,6 +1100,7 @@ class WSS_CTA_Widget extends Widget_Base {
 		$theme   = ! empty( $s['theme_preset'] ) ? $s['theme_preset'] : 'dark';
 		$layout  = ! empty( $s['layout_type'] ) ? $s['layout_type'] : 'center';
 		$is_box  = ! empty( $s['card_boxed'] ) && 'yes' === $s['card_boxed'];
+		$tag     = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2';
 
 		// Section Theme Class
 		$theme_class = 'wss-cta--' . $theme;
@@ -828,6 +1120,9 @@ class WSS_CTA_Widget extends Widget_Base {
 		$btn1_style = ! empty( $s['btn1_style'] ) ? 'wss-btn-' . $s['btn1_style'] : 'wss-btn-pill';
 		$btn2_style = ! empty( $s['btn2_style'] ) ? 'wss-btn-' . $s['btn2_style'] : 'wss-btn-line';
 
+		$btn1_icon_pos = ! empty( $s['btn1_icon_position'] ) ? $s['btn1_icon_position'] : 'after';
+		$btn2_icon_pos = ! empty( $s['btn2_icon_position'] ) ? $s['btn2_icon_position'] : 'before';
+
 		$btn1_icon_html = ! empty( $s['btn1_icon'] ) && 'none' !== $s['btn1_icon'] ? $this->render_icon( $s['btn1_icon'] ) : '';
 		$btn2_icon_html = ! empty( $s['btn2_icon'] ) && 'none' !== $s['btn2_icon'] ? $this->render_icon( $s['btn2_icon'] ) : '';
 
@@ -846,17 +1141,17 @@ class WSS_CTA_Widget extends Widget_Base {
 						<div class="wss-cta-inner wss-reveal">
 							
 							<div class="wss-cta-text-col">
-								<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
+								<?php if ( ! empty( $s['show_eyebrow'] ) && 'yes' === $s['show_eyebrow'] && ! empty( $s['eyebrow'] ) ) : ?>
 									<span class="wss-eyebrow wss-cta-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 								<?php endif; ?>
 
 								<?php if ( ! empty( $s['heading'] ) ) : ?>
-									<h2 class="wss-cta-heading">
+									<<?php echo esc_attr( $tag ); ?> class="wss-cta-heading">
 										<span class="wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span>
-									</h2>
+									</<?php echo esc_attr( $tag ); ?>>
 								<?php endif; ?>
 
-								<?php if ( ! empty( $s['description'] ) ) : ?>
+								<?php if ( ! empty( $s['show_desc'] ) && 'yes' === $s['show_desc'] && ! empty( $s['description'] ) ) : ?>
 									<p class="wss-cta-desc"><?php echo nl2br( esc_html( $s['description'] ) ); ?></p>
 								<?php endif; ?>
 							</div>
@@ -870,8 +1165,9 @@ class WSS_CTA_Widget extends Widget_Base {
 												<a class="<?php echo esc_attr( $btn1_style ); ?> wss-cta-btn-primary" 
 													href="<?php echo esc_url( $s['btn1_link']['url'] ?: '#' ); ?>"
 													<?php echo ! empty( $s['btn1_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
+													<?php if ( 'before' === $btn1_icon_pos && ! empty( $btn1_icon_html ) ) echo $btn1_icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 													<span><?php echo esc_html( $s['btn1_text'] ); ?></span>
-													<?php echo $btn1_icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+													<?php if ( 'after' === $btn1_icon_pos && ! empty( $btn1_icon_html ) ) echo $btn1_icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 												</a>
 											<?php endif; ?>
 
@@ -879,8 +1175,9 @@ class WSS_CTA_Widget extends Widget_Base {
 												<a class="<?php echo esc_attr( $btn2_style ); ?> wss-cta-btn-secondary" 
 													href="<?php echo esc_url( $s['btn2_link']['url'] ?: '#' ); ?>"
 													<?php echo ! empty( $s['btn2_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
+													<?php if ( 'before' === $btn2_icon_pos && ! empty( $btn2_icon_html ) ) echo $btn2_icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 													<span><?php echo esc_html( $s['btn2_text'] ); ?></span>
-													<?php echo $btn2_icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+													<?php if ( 'after' === $btn2_icon_pos && ! empty( $btn2_icon_html ) ) echo $btn2_icon_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 												</a>
 											<?php endif; ?>
 										</div>
