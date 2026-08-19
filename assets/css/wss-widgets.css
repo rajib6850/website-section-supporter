@@ -7096,6 +7096,66 @@ body.wss-modal-open {
   border-top: 1px solid var(--wss-line, rgba(0, 0, 0, 0.08));
 }
 
+.wss-team-modal-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #1a1812;
+  background: transparent;
+  border: 1px solid #1a1812;
+  border-radius: 40px;
+  padding: 13px 26px;
+  font-family: var(--wss-font-accent, var(--wss-font-primary, inherit));
+  font-weight: var(--wss-weight-accent, var(--wss-weight-primary, 500));
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.4s ease;
+}
+
+.wss-team-modal-cta-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #1a1812;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.wss-team-modal-cta-btn:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.wss-team-modal-cta-btn:hover {
+  color: #ffffff !important;
+  border-color: #1a1812 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.wss-team-modal-cta-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor !important;
+  fill: none;
+  transition: transform 0.4s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.wss-team-modal-cta-btn:hover svg {
+  stroke: #ffffff !important;
+  transform: translateX(4px);
+}
+
 @media (max-width: 860px) {
   .wss-team-modal {
     padding: 16px;

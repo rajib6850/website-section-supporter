@@ -702,6 +702,49 @@ class WSS_Team_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		/* ================= CONTENT: PROFILE POPUP MODAL ================= */
+		$this->start_controls_section(
+			'section_modal_settings',
+			array( 'label' => __( 'Profile Popup Settings', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'show_modal_cta',
+			array(
+				'label'        => __( 'Show Advisor Contact Button', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'modal_cta_text',
+			array(
+				'label'       => __( 'Button Text', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Inquire With Advisor', 'website-section-supporter' ),
+				'condition'   => array( 'show_modal_cta' => 'yes' ),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'modal_cta_link',
+			array(
+				'label'       => __( 'Button Link', 'website-section-supporter' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => __( 'https://your-link.com/contact', 'website-section-supporter' ),
+				'default'     => array( 'url' => '#contact' ),
+				'condition'   => array( 'show_modal_cta' => 'yes' ),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$this->end_controls_section();
+
 		/* ================= STYLE: TYPOGRAPHY & BADGES ================= */
 		$this->start_controls_section(
 			'style_typography_section',
@@ -1055,6 +1098,142 @@ class WSS_Team_Widget extends Widget_Base {
 
 		$this->end_controls_tabs();
 
+		/* Modal Contact Button */
+		$this->add_control(
+			'modal_btn_heading',
+			array(
+				'label'     => __( 'Advisor Contact Button', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'modal_btn_typography',
+				'label'    => __( 'Button Typography', 'website-section-supporter' ),
+				'selector' => '{{WRAPPER}} .wss-team-modal-cta-btn',
+			)
+		);
+
+		$this->add_responsive_control(
+			'modal_btn_padding',
+			array(
+				'label'      => __( 'Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-team-modal-cta-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_radius',
+			array(
+				'label'     => __( 'Border Radius', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-modal-cta-btn' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_modal_btn_style' );
+
+		$this->start_controls_tab(
+			'tab_modal_btn_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'modal_btn_color',
+			array(
+				'label'     => __( 'Text / Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#1a1812',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-modal-cta-btn' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-team-modal-cta-btn svg, {{WRAPPER}} .wss-team-modal-cta-btn svg *' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_bg',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'transparent',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-modal-cta-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#1a1812',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-modal-cta-btn' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_modal_btn_hover',
+			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'modal_btn_hover_color',
+			array(
+				'label'     => __( 'Hover Text / Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-modal-cta-btn:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-team-modal-cta-btn:hover svg, {{WRAPPER}} .wss-team-modal-cta-btn:hover svg *' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_hover_bg',
+			array(
+				'label'     => __( 'Hover Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#1a1812',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-modal-cta-btn:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-team-modal-cta-btn::before, {{WRAPPER}} .wss-team-modal-cta-btn:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'modal_btn_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#1a1812',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-modal-cta-btn:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 	}
 
@@ -1284,10 +1463,10 @@ class WSS_Team_Widget extends Widget_Base {
 											</div>
 
 											<!-- Modal Footer CTA -->
-											<?php if ( ! empty( $modal_cta ) ) : ?>
+											<?php if ( ( ! isset( $s['show_modal_cta'] ) || 'yes' === $s['show_modal_cta'] ) && ! empty( $modal_cta ) ) : ?>
 												<div class="wss-team-modal-footer">
-													<a href="<?php echo esc_url( $modal_link ); ?>" class="wss-btn-pill wss-team-modal-cta-btn">
-														<?php echo esc_html( $modal_cta ); ?>
+													<a href="<?php echo esc_url( $modal_link ); ?>" class="wss-team-modal-cta-btn"<?php echo ! empty( $s['modal_cta_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
+														<span><?php echo esc_html( $modal_cta ); ?></span>
 														<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 													</a>
 												</div>
