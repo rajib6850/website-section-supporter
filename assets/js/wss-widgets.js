@@ -255,28 +255,61 @@
 			} );
 		}
 
-		/* ─── 6. Header: solid / hide on scroll ─────────────── */
-		var siteHeader = document.querySelector( ".wss-header--sticky" );
-		if ( siteHeader ) {
-			var lastY    = window.scrollY;
-			var heroEl   = document.querySelector( ".wss-hero" );
-			var heroH    = heroEl ? heroEl.offsetHeight : 400;
-			var isTrans  = siteHeader.classList.contains( "wss-header--on-hero" );
+		/* ─── 6. Header: luxury sticky / smart scroll ─────────────── */
+		function initHeaderSticky() {
+			var headers = document.querySelectorAll( ".wss-header[data-wss-sticky='yes'], .wss-header--sticky" );
+			if ( ! headers.length ) return;
 
-			window.addEventListener( "scroll", function () {
-				var y = window.scrollY;
-				siteHeader.classList.toggle( "wss-header--solid",  y > heroH - 100 );
-				if ( isTrans ) {
-					siteHeader.classList.toggle( "wss-header--on-hero", y <= heroH - 100 );
+			headers.forEach( function ( header ) {
+				if ( header._stickyBound ) return;
+				header._stickyBound = true;
+
+				var lastY = window.pageYOffset || document.documentElement.scrollTop;
+				var stickyType = header.getAttribute( "data-sticky-type" ) || "custom";
+				var customThresh = parseInt( header.getAttribute( "data-sticky-thresh" ), 10 );
+				if ( isNaN( customThresh ) ) { customThresh = 100; }
+				var behavior = header.getAttribute( "data-sticky-behavior" ) || "always_sticky";
+				var isTrans = header.classList.contains( "wss-header--on-hero" );
+
+				function onScroll() {
+					var y = window.pageYOffset || document.documentElement.scrollTop;
+					var threshold = customThresh;
+
+					if ( stickyType === "after_hero" ) {
+						var heroEl = document.querySelector( ".wss-hero" );
+						var heroH = heroEl ? heroEl.offsetHeight : 400;
+						threshold = Math.max( heroH - 100, 50 );
+					} else if ( stickyType === "instant" ) {
+						threshold = 10;
+					}
+
+					var isPastThreshold = y > threshold;
+					header.classList.toggle( "wss-header--solid", isPastThreshold );
+					header.classList.toggle( "wss-is-sticky", isPastThreshold );
+
+					if ( isTrans ) {
+						header.classList.toggle( "wss-header--on-hero", ! isPastThreshold );
+					}
+
+					if ( behavior === "hide_on_scroll_down" ) {
+						if ( y > lastY && y > threshold + 150 ) {
+							header.classList.add( "wss-header--hidden" );
+						} else {
+							header.classList.remove( "wss-header--hidden" );
+						}
+					} else {
+						header.classList.remove( "wss-header--hidden" );
+					}
+
+					lastY = y;
 				}
-				if ( y > lastY && y > 300 ) {
-					siteHeader.classList.add( "wss-header--hidden" );
-				} else {
-					siteHeader.classList.remove( "wss-header--hidden" );
-				}
-				lastY = y;
+
+				window.addEventListener( "scroll", onScroll, { passive: true } );
+				onScroll();
 			} );
 		}
+
+		initHeaderSticky();
 
 		/* ─── 7. Luxury Video Modal ───────────────────────────── */
 		document.addEventListener( "click", function ( e ) {
@@ -765,6 +798,9 @@
 			} );
 			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_scroll_indicator.default", function () {
 				initScrollIndicators();
+			} );
+			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_header.default", function () {
+				initHeaderSticky();
 			} );
 		}
 

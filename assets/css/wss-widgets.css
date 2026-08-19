@@ -396,25 +396,50 @@
 }
 
 /* Sticky Solid (added by JS when scrolling down past top) */
-.wss-header.wss-header--solid {
+.wss-header.wss-header--solid,
+.wss-header.wss-is-sticky {
   position: fixed;
   background: rgba(250, 248, 244, .95);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 16px 0;
   border-bottom: 1px solid var(--wss-line);
 }
 
-.wss-header.wss-header--solid .wss-logo {
+.wss-header.wss-header--solid .wss-logo,
+.wss-header.wss-is-sticky .wss-logo {
   color: var(--wss-ink);
 }
 
-.wss-header.wss-header--solid .wss-burger {
+.wss-header.wss-header--solid .wss-burger,
+.wss-header.wss-is-sticky .wss-burger {
   color: var(--wss-ink);
 }
 
-/* Hidden state (added by JS when scrolling down) */
+/* Normal vs Sticky logo toggling */
+.wss-logo-normal,
+.wss-logo-sticky {
+  display: inline-flex;
+  align-items: center;
+}
+
+.wss-logo-sticky {
+  display: none !important;
+}
+
+.wss-header.wss-header--solid .wss-has-sticky-logo .wss-logo-normal,
+.wss-header.wss-is-sticky .wss-has-sticky-logo .wss-logo-normal {
+  display: none !important;
+}
+
+.wss-header.wss-header--solid .wss-has-sticky-logo .wss-logo-sticky,
+.wss-header.wss-is-sticky .wss-has-sticky-logo .wss-logo-sticky {
+  display: inline-flex !important;
+}
+
+/* Hidden state (added by JS when scrolling down in hide_on_scroll_down mode) */
 .wss-header.wss-header--hidden {
-  transform: translateY(-120%);
+  transform: translateY(-120%) !important;
 }
 
 /* WordPress Admin Bar Compatibility (Logged-in users) */

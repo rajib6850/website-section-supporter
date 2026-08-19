@@ -27,6 +27,24 @@ class WSS_Header_Widget extends Widget_Base {
 		return $options;
 	}
 
+	private function get_available_pages() {
+		$options = array(
+			'front_page' => __( '🏠 Front / Home Page', 'website-section-supporter' ),
+			'blog_page'  => __( '📰 Blog / Posts Page', 'website-section-supporter' ),
+		);
+		$pages = get_pages( array(
+			'sort_column' => 'post_title',
+			'sort_order'  => 'ASC',
+			'post_status' => 'publish',
+		) );
+		if ( ! empty( $pages ) && ! is_wp_error( $pages ) ) {
+			foreach ( $pages as $page ) {
+				$options[ (string) $page->ID ] = $page->post_title . ' (ID: ' . $page->ID . ')';
+			}
+		}
+		return $options;
+	}
+
 	protected function register_controls() {
 
 		/* ================= LOGO ================= */
@@ -96,35 +114,165 @@ class WSS_Header_Widget extends Widget_Base {
 		$this->add_control(
 			'transparent_condition',
 			array(
-				'label'     => __( 'Transparent Condition', 'website-section-supporter' ),
+				'label'     => __( 'Transparent Display Rules', 'website-section-supporter' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'all',
 				'options'   => array(
-					'all'     => __( 'Apply Everywhere', 'website-section-supporter' ),
-					'include' => __( 'Only on Specific Page IDs', 'website-section-supporter' ),
-					'exclude' => __( 'All Pages EXCEPT Specific IDs', 'website-section-supporter' ),
+					'all'     => __( 'Apply Everywhere (All Pages)', 'website-section-supporter' ),
+					'include' => __( 'Inclusion: Only on Selected Pages', 'website-section-supporter' ),
+					'exclude' => __( 'Exclusion: All Pages EXCEPT Selected', 'website-section-supporter' ),
 				),
 				'condition' => array( 'header_style' => 'transparent' ),
 			)
 		);
 		$this->add_control(
-			'transparent_pages',
+			'transparent_selected_pages',
 			array(
-				'label'       => __( 'Page/Post IDs (comma separated)', 'website-section-supporter' ),
-				'type'        => Controls_Manager::TEXT,
-				'description' => __( 'E.g. 12, 45, 89', 'website-section-supporter' ),
+				'label'       => __( 'Select Specific Pages', 'website-section-supporter' ),
+				'type'        => Controls_Manager::SELECT2,
+				'multiple'    => true,
+				'options'     => $this->get_available_pages(),
+				'label_block' => true,
 				'condition'   => array(
-					'header_style' => 'transparent',
+					'header_style'          => 'transparent',
 					'transparent_condition' => array( 'include', 'exclude' ),
 				),
 			)
 		);
 		$this->add_control(
+			'transparent_pages',
+			array(
+				'label'       => __( 'Additional Custom Page/Post IDs', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXT,
+				'description' => __( 'Optional comma-separated IDs (e.g. 12, 45, 89)', 'website-section-supporter' ),
+				'condition'   => array(
+					'header_style'          => 'transparent',
+					'transparent_condition' => array( 'include', 'exclude' ),
+				),
+			)
+		);
+		$this->add_control(
+			'transparent_fallback_style',
+			array(
+				'label'       => __( 'Fallback Style for Non-Transparent Pages', 'website-section-supporter' ),
+				'description' => __( 'Style applied when transparent rule is not active on a page.', 'website-section-supporter' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'light',
+				'options'     => array(
+					'light' => __( 'Solid Light', 'website-section-supporter' ),
+					'dark'  => __( 'Solid Dark', 'website-section-supporter' ),
+				),
+				'condition'   => array(
+					'header_style'          => 'transparent',
+					'transparent_condition' => array( 'include', 'exclude' ),
+				),
+			)
+		);
+		$this->end_controls_section();
+
+		/* ================= STICKY HEADER SETTINGS ================= */
+		$this->start_controls_section(
+			'section_sticky_settings',
+			array( 'label' => __( 'Sticky Header Settings', 'website-section-supporter' ) )
+		);
+		$this->add_control(
 			'enable_sticky',
 			array(
-				'label'   => __( 'Enable Luxury Sticky Effect', 'website-section-supporter' ),
-				'type'    => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+				'label'        => __( 'Enable Sticky Header', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
+		$this->add_control(
+			'sticky_scroll_type',
+			array(
+				'label'     => __( 'Sticky Trigger Point', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'custom',
+				'options'   => array(
+					'custom'     => __( 'Custom Scroll Distance (px)', 'website-section-supporter' ),
+					'after_hero' => __( 'Auto (After Hero Section)', 'website-section-supporter' ),
+					'instant'    => __( 'Instant on Scroll (10px)', 'website-section-supporter' ),
+				),
+				'condition' => array( 'enable_sticky' => 'yes' ),
+			)
+		);
+		$this->add_control(
+			'sticky_scroll_threshold',
+			array(
+				'label'     => __( 'Scroll Threshold (px)', 'website-section-supporter' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 100,
+				'min'       => 0,
+				'max'       => 1000,
+				'step'      => 10,
+				'condition' => array(
+					'enable_sticky'      => 'yes',
+					'sticky_scroll_type' => 'custom',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_behavior',
+			array(
+				'label'     => __( 'Sticky Behavior', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'always_sticky',
+				'options'   => array(
+					'always_sticky'       => __( 'Always Visible on Scroll Down', 'website-section-supporter' ),
+					'hide_on_scroll_down' => __( 'Smart Header (Hide on Scroll Down, Show on Scroll Up)', 'website-section-supporter' ),
+				),
+				'condition' => array( 'enable_sticky' => 'yes' ),
+			)
+		);
+		$this->add_control(
+			'sticky_logo_type',
+			array(
+				'label'     => __( 'Sticky Logo Option', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'same',
+				'options'   => array(
+					'same'         => __( 'Same Logo as Default', 'website-section-supporter' ),
+					'custom_image' => __( 'Custom Image Logo (for Sticky)', 'website-section-supporter' ),
+					'custom_text'  => __( 'Custom Text Logo (for Sticky)', 'website-section-supporter' ),
+				),
+				'condition' => array( 'enable_sticky' => 'yes' ),
+			)
+		);
+		$this->add_control(
+			'sticky_logo_image',
+			array(
+				'label'     => __( 'Sticky Logo Image', 'website-section-supporter' ),
+				'type'      => Controls_Manager::MEDIA,
+				'condition' => array(
+					'enable_sticky'    => 'yes',
+					'sticky_logo_type' => 'custom_image',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_logo_bold',
+			array(
+				'label'     => __( 'Sticky Logo — Bold Part', 'website-section-supporter' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => __( 'NOIR', 'website-section-supporter' ),
+				'condition' => array(
+					'enable_sticky'    => 'yes',
+					'sticky_logo_type' => 'custom_text',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_logo_light',
+			array(
+				'label'     => __( 'Sticky Logo — Light Part', 'website-section-supporter' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => __( 'ESTATES', 'website-section-supporter' ),
+				'condition' => array(
+					'enable_sticky'    => 'yes',
+					'sticky_logo_type' => 'custom_text',
+				),
 			)
 		);
 		$this->end_controls_section();
@@ -568,6 +716,287 @@ class WSS_Header_Widget extends Widget_Base {
 			)
 		);
 		$this->end_controls_section();
+
+		/* ================= STYLE: STICKY HEADER (ON SCROLL) ================= */
+		$this->start_controls_section(
+			'style_sticky_header',
+			array(
+				'label'     => __( 'Sticky Header (On Scroll)', 'website-section-supporter' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array( 'enable_sticky' => 'yes' ),
+			)
+		);
+		$this->add_control(
+			'sticky_bar_bg',
+			array(
+				'label'     => __( 'Sticky Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid, {{WRAPPER}} .wss-header.wss-is-sticky' => 'background: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_backdrop_blur',
+			array(
+				'label'      => __( 'Sticky Backdrop Blur (px)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 30 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid, {{WRAPPER}} .wss-header.wss-is-sticky' => 'backdrop-filter: blur({{SIZE}}px) !important; -webkit-backdrop-filter: blur({{SIZE}}px) !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_border_color',
+			array(
+				'label'     => __( 'Sticky Bottom Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid, {{WRAPPER}} .wss-header.wss-is-sticky' => 'border-bottom-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'sticky_bar_padding',
+			array(
+				'label'      => __( 'Sticky Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid, {{WRAPPER}} .wss-header.wss-is-sticky' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'sticky_box_shadow',
+				'label'    => __( 'Sticky Box Shadow', 'website-section-supporter' ),
+				'selector' => '{{WRAPPER}} .wss-header.wss-header--solid, {{WRAPPER}} .wss-header.wss-is-sticky',
+			)
+		);
+		$this->add_control(
+			'heading_sticky_logo',
+			array(
+				'label'     => __( 'Sticky Logo Colors', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->add_control(
+			'sticky_logo_color',
+			array(
+				'label'     => __( 'Logo Bold Part Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-logo, {{WRAPPER}} .wss-header.wss-is-sticky .wss-logo' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_logo_light_color',
+			array(
+				'label'     => __( 'Logo Light Part Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-logo span, {{WRAPPER}} .wss-header.wss-is-sticky .wss-logo span' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'heading_sticky_menu',
+			array(
+				'label'     => __( 'Sticky Menu Items', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'show_inline_menu' => 'yes' ),
+			)
+		);
+		$this->add_control(
+			'sticky_nav_color',
+			array(
+				'label'     => __( 'Menu Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_inline_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links > li > a, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links > li > a, {{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links a, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links a' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_nav_hover_color',
+			array(
+				'label'     => __( 'Menu Hover Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_inline_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links a:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_nav_chevron_color',
+			array(
+				'label'     => __( 'Submenu Arrow Indicator Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_inline_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links .menu-item-has-children > a::after, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links .menu-item-has-children > a::after' => 'border-right-color: {{VALUE}} !important; border-bottom-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'heading_sticky_dropdown',
+			array(
+				'label'     => __( 'Sticky Sub-Menu Dropdown', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'show_inline_menu' => 'yes' ),
+			)
+		);
+		$this->add_control(
+			'sticky_dropdown_bg',
+			array(
+				'label'     => __( 'Dropdown Background', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_inline_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links .sub-menu, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links .sub-menu' => 'background: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_dropdown_border_color',
+			array(
+				'label'     => __( 'Dropdown Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_inline_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links .sub-menu, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links .sub-menu' => 'border-color: {{VALUE}} !important; border-top-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_dropdown_item_color',
+			array(
+				'label'     => __( 'Dropdown Item Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_inline_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links .sub-menu a, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links .sub-menu a' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_dropdown_item_hover_color',
+			array(
+				'label'     => __( 'Dropdown Item Hover Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_inline_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links .sub-menu a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links .sub-menu a:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'heading_sticky_burger',
+			array(
+				'label'     => __( 'Sticky Hamburger Button', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'show_popup_menu' => 'yes' ),
+			)
+		);
+		$this->add_control(
+			'sticky_burger_color',
+			array(
+				'label'     => __( 'Hamburger Text & Lines Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_popup_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger .wss-bar, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger .wss-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_burger_hover_color',
+			array(
+				'label'     => __( 'Hamburger Hover Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_popup_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-burger:hover .wss-bar, {{WRAPPER}} .wss-header.wss-is-sticky .wss-burger:hover .wss-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'heading_sticky_cta',
+			array(
+				'label'     => __( 'Sticky CTA Button', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'show_cta' => 'yes' ),
+			)
+		);
+		$this->add_control(
+			'sticky_cta_color',
+			array(
+				'label'     => __( 'CTA Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_cta' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-header-cta, {{WRAPPER}} .wss-header.wss-is-sticky .wss-header-cta' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_cta_bg',
+			array(
+				'label'     => __( 'CTA Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_cta' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-header-cta, {{WRAPPER}} .wss-header.wss-is-sticky .wss-header-cta' => 'background: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_cta_border_color',
+			array(
+				'label'     => __( 'CTA Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_cta' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-header-cta, {{WRAPPER}} .wss-header.wss-is-sticky .wss-header-cta' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_cta_hover_color',
+			array(
+				'label'     => __( 'CTA Hover Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_cta' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-header-cta:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-header-cta:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'sticky_cta_hover_bg',
+			array(
+				'label'     => __( 'CTA Hover Background', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_cta' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-header-cta:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-header-cta:hover' => 'background: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_section();
 	}
 
 	protected function render() {
@@ -577,19 +1006,40 @@ class WSS_Header_Widget extends Widget_Base {
 		if ( 'transparent' === $style ) {
 			$cond = ! empty( $s['transparent_condition'] ) ? $s['transparent_condition'] : 'all';
 			if ( 'all' !== $cond ) {
-				$pages = ! empty( $s['transparent_pages'] ) ? array_map( 'trim', explode( ',', $s['transparent_pages'] ) ) : array();
+				$selected_pages = ! empty( $s['transparent_selected_pages'] ) ? (array) $s['transparent_selected_pages'] : array();
+				if ( ! empty( $s['transparent_pages'] ) ) {
+					$legacy_ids     = array_map( 'trim', explode( ',', $s['transparent_pages'] ) );
+					$selected_pages = array_merge( $selected_pages, $legacy_ids );
+				}
+
 				$current_id = (string) get_the_ID();
-				
-				if ( 'include' === $cond && ! in_array( $current_id, $pages, true ) ) {
-					$style = 'light';
-				} elseif ( 'exclude' === $cond && in_array( $current_id, $pages, true ) ) {
-					$style = 'light';
+				$is_match   = false;
+
+				if ( in_array( $current_id, $selected_pages, true ) ) {
+					$is_match = true;
+				}
+
+				if ( ( is_front_page() || is_home() ) && ( in_array( 'front_page', $selected_pages, true ) || in_array( (string) get_option( 'page_on_front' ), $selected_pages, true ) ) ) {
+					$is_match = true;
+				}
+
+				if ( is_home() && in_array( 'blog_page', $selected_pages, true ) ) {
+					$is_match = true;
+				}
+
+				$fallback = ! empty( $s['transparent_fallback_style'] ) ? $s['transparent_fallback_style'] : 'light';
+
+				if ( 'include' === $cond && ! $is_match ) {
+					$style = $fallback;
+				} elseif ( 'exclude' === $cond && $is_match ) {
+					$style = $fallback;
 				}
 			}
 		}
 
+		$is_sticky = ( 'yes' === ( $s['enable_sticky'] ?? 'yes' ) );
 		$header_class = 'wss-header';
-		if ( 'yes' === $s['enable_sticky'] ) {
+		if ( $is_sticky ) {
 			$header_class .= ' wss-header--sticky';
 		}
 
@@ -602,15 +1052,38 @@ class WSS_Header_Widget extends Widget_Base {
 		}
 		$is_full_width = ! empty( $s['container_width_type'] ) && 'full_width' === $s['container_width_type'];
 		$container_class = $is_full_width ? 'wss-header-inner wss-header-full' : 'wss-container wss-header-inner';
+
+		$sticky_type     = $s['sticky_scroll_type'] ?? 'custom';
+		$sticky_thresh   = ! empty( $s['sticky_scroll_threshold'] ) ? intval( $s['sticky_scroll_threshold'] ) : 100;
+		$sticky_behavior = $s['sticky_behavior'] ?? 'always_sticky';
+		$sticky_logo_type = $s['sticky_logo_type'] ?? 'same';
+		$has_custom_sticky_logo = $is_sticky && ( 'same' !== $sticky_logo_type );
 		?>
 		<div class="wss-scope">
-			<header id="siteHeader" class="<?php echo esc_attr( $header_class ); ?>">
+			<header id="siteHeader" class="<?php echo esc_attr( $header_class ); ?>"
+				data-wss-sticky="<?php echo $is_sticky ? 'yes' : 'no'; ?>"
+				data-sticky-type="<?php echo esc_attr( $sticky_type ); ?>"
+				data-sticky-thresh="<?php echo esc_attr( $sticky_thresh ); ?>"
+				data-sticky-behavior="<?php echo esc_attr( $sticky_behavior ); ?>"
+			>
 				<div class="<?php echo esc_attr( $container_class ); ?>">
-					<a class="wss-logo" href="<?php echo esc_url( $s['logo_link']['url'] ?: '#' ); ?>">
-						<?php if ( 'image' === $s['logo_type'] && ! empty( $s['logo_image']['url'] ) ) : ?>
-							<img src="<?php echo esc_url( $s['logo_image']['url'] ); ?>" alt="Logo">
-						<?php else : ?>
-							<?php echo esc_html( $s['logo_bold'] ); ?> <span><?php echo esc_html( $s['logo_light'] ); ?></span>
+					<a class="wss-logo<?php echo $has_custom_sticky_logo ? ' wss-has-sticky-logo' : ''; ?>" href="<?php echo esc_url( $s['logo_link']['url'] ?: '#' ); ?>">
+						<span class="wss-logo-normal">
+							<?php if ( 'image' === $s['logo_type'] && ! empty( $s['logo_image']['url'] ) ) : ?>
+								<img src="<?php echo esc_url( $s['logo_image']['url'] ); ?>" alt="Logo">
+							<?php else : ?>
+								<?php echo esc_html( $s['logo_bold'] ); ?> <span><?php echo esc_html( $s['logo_light'] ); ?></span>
+							<?php endif; ?>
+						</span>
+
+						<?php if ( $has_custom_sticky_logo ) : ?>
+							<span class="wss-logo-sticky">
+								<?php if ( 'custom_image' === $sticky_logo_type && ! empty( $s['sticky_logo_image']['url'] ) ) : ?>
+									<img src="<?php echo esc_url( $s['sticky_logo_image']['url'] ); ?>" alt="Sticky Logo">
+								<?php else : ?>
+									<?php echo esc_html( $s['sticky_logo_bold'] ?? $s['logo_bold'] ); ?> <span><?php echo esc_html( $s['sticky_logo_light'] ?? $s['logo_light'] ); ?></span>
+								<?php endif; ?>
+							</span>
 						<?php endif; ?>
 					</a>
 					<?php if ( 'yes' === $s['show_inline_menu'] ) : 
