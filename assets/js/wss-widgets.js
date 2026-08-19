@@ -80,7 +80,7 @@
 			var teamTrack = teamWrap ? teamWrap.querySelector( ".wss-team-track" ) : null;
 			if ( teamContainer && teamTrack ) {
 				var teamCard = teamTrack.querySelector( ".wss-team-card" );
-				var teamGap  = parseFloat( window.getComputedStyle( teamTrack ).gap ) || 30;
+				var teamGap  = parseFloat( window.getComputedStyle( teamTrack ).gap ) || 32;
 				var scrollAmount = teamCard ? ( teamCard.offsetWidth + teamGap ) : ( teamContainer.clientWidth * 0.85 );
 				teamContainer.scrollBy( { left: teamNext ? scrollAmount : -scrollAmount, behavior: "smooth" } );
 			}
@@ -105,7 +105,7 @@
 		}
 
 		/* Team Profile Modal: Close Trigger (Close Button or Overlay) */
-		var modalClose = e.target.closest( ".wss-team-modal-close" );
+		var modalClose = e.target.closest( ".wss-team-modal-close, .wss-modal-close" );
 		var modalOverlay = e.target.closest( ".wss-team-modal-overlay" );
 		if ( modalClose || modalOverlay ) {
 			var openModal = ( modalClose || modalOverlay ).closest( ".wss-team-modal" );
@@ -868,21 +868,32 @@
 				var cards = track.querySelectorAll( ".wss-team-card" );
 				if ( ! cards.length ) return;
 
-				// Generate dots if dots container exists
+				// Bind dot clicks
 				if ( dotsWrap ) {
-					dotsWrap.innerHTML = "";
-					cards.forEach( function ( card, i ) {
-						var dot = document.createElement( "button" );
-						dot.type = "button";
-						dot.className = "wss-team-dot" + ( i === 0 ? " wss-dot-active" : "" );
-						dot.setAttribute( "aria-label", "Go to advisor slide " + ( i + 1 ) );
-						dot.addEventListener( "click", function () {
-							var gap = parseFloat( window.getComputedStyle( track ).gap ) || 30;
-							var scrollTarget = i * ( card.offsetWidth + gap );
-							container.scrollTo( { left: scrollTarget, behavior: "smooth" } );
+					var existingDots = dotsWrap.querySelectorAll( ".wss-team-dot" );
+					if ( existingDots.length ) {
+						existingDots.forEach( function ( dot, i ) {
+							dot.addEventListener( "click", function () {
+								var gap = parseFloat( window.getComputedStyle( track ).gap ) || 32;
+								var scrollTarget = i * ( cards[0] ? ( cards[0].offsetWidth + gap ) : 300 );
+								container.scrollTo( { left: scrollTarget, behavior: "smooth" } );
+							} );
 						} );
-						dotsWrap.appendChild( dot );
-					} );
+					} else {
+						dotsWrap.innerHTML = "";
+						cards.forEach( function ( card, i ) {
+							var dot = document.createElement( "button" );
+							dot.type = "button";
+							dot.className = "wss-team-dot" + ( i === 0 ? " wss-team-dot-active" : "" );
+							dot.setAttribute( "aria-label", "Go to advisor slide " + ( i + 1 ) );
+							dot.addEventListener( "click", function () {
+								var gap = parseFloat( window.getComputedStyle( track ).gap ) || 32;
+								var scrollTarget = i * ( card.offsetWidth + gap );
+								container.scrollTo( { left: scrollTarget, behavior: "smooth" } );
+							} );
+							dotsWrap.appendChild( dot );
+						} );
+					}
 
 					// Update active dot on scroll
 					var scrollTimeout;
@@ -890,15 +901,15 @@
 						clearTimeout( scrollTimeout );
 						scrollTimeout = setTimeout( function () {
 							var card = cards[0];
-							var gap = parseFloat( window.getComputedStyle( track ).gap ) || 30;
+							var gap = parseFloat( window.getComputedStyle( track ).gap ) || 32;
 							var cardWidth = card ? ( card.offsetWidth + gap ) : 1;
 							var activeIndex = Math.round( container.scrollLeft / cardWidth );
 							var dots = dotsWrap.querySelectorAll( ".wss-team-dot" );
 							dots.forEach( function ( d, idx ) {
 								if ( idx === activeIndex ) {
-									d.classList.add( "wss-dot-active" );
+									d.classList.add( "wss-team-dot-active" );
 								} else {
-									d.classList.remove( "wss-dot-active" );
+									d.classList.remove( "wss-team-dot-active" );
 								}
 							} );
 						}, 50 );
@@ -915,7 +926,7 @@
 					if ( ! isAutoplay || autoplayTimer ) return;
 					autoplayTimer = setInterval( function () {
 						var card = cards[0];
-						var gap = parseFloat( window.getComputedStyle( track ).gap ) || 30;
+						var gap = parseFloat( window.getComputedStyle( track ).gap ) || 32;
 						var cardWidth = card ? ( card.offsetWidth + gap ) : 300;
 						var maxScroll = container.scrollWidth - container.clientWidth;
 						if ( container.scrollLeft >= maxScroll - 10 ) {
@@ -965,8 +976,14 @@
 				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_header.default", function () {
 					initHeaderSticky();
 				} );
-				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_team.default", function () {
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_team.default", function ( $scope ) {
 					initTeamWidgets();
+					if ( window.IntersectionObserver ) {
+						var teamReveals = $scope[0] ? $scope[0].querySelectorAll( ".wss-reveal, .wss-img-reveal" ) : [];
+						teamReveals.forEach( function ( el ) {
+							el.classList.add( "wss-is-visible" );
+						} );
+					}
 				} );
 			}
 		}

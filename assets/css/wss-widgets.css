@@ -6319,42 +6319,38 @@ body.elementor-editor-active .wss-mask > span {
    WSS TEAM & AGENTS SECTION (Grid, Slider & Interactive Profile Popup Modal)
    ========================================================================== */
 .wss-team-section {
-  padding: var(--wss-section-padding, 90px 0);
-  background-color: transparent;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* ---------- Header ---------- */
-.wss-team-header {
-  margin-bottom: 45px;
+.wss-team-top {
+  margin-bottom: 48px;
   position: relative;
 }
 
-.wss-team-eyebrow {
-  display: inline-block;
-  font-family: var(--wss-font-accent, 'Cinzel', serif);
-  font-size: 11px;
-  letter-spacing: .25em;
-  text-transform: uppercase;
-  color: var(--wss-gold, #bfa270);
+.wss-team-top .wss-eyebrow {
   margin-bottom: 12px;
 }
 
-.wss-team-title {
-  font-family: var(--wss-font-primary, 'Cinzel', serif);
-  font-size: clamp(28px, 4.5vw, 42px);
-  font-weight: 400;
+.wss-team-top h2 {
+  font-family: var(--wss-font-primary);
+  font-size: clamp(28px, 4.4vw, 54px);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: var(--wss-weight-primary, 500);
+  line-height: 1.08;
+  margin-top: 8px;
+  margin-bottom: 14px;
   color: var(--wss-ink, #1a1812);
-  line-height: 1.2;
-  margin: 0 0 14px;
 }
 
 .wss-team-subtitle {
-  font-family: var(--wss-font-body, 'Inter', sans-serif);
+  font-family: var(--wss-font-text, 'Inter', sans-serif);
   font-size: 15px;
-  line-height: 1.7;
-  color: var(--wss-taupe-deep, #5c554e);
+  line-height: 1.8;
+  color: var(--wss-ink-soft, #4a453e);
   max-width: 680px;
   margin: 0 auto;
 }
@@ -6363,7 +6359,7 @@ body.elementor-editor-active .wss-mask > span {
 .wss-team-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 32px;
 }
 
 @media (max-width: 1024px) {
@@ -6381,8 +6377,7 @@ body.elementor-editor-active .wss-mask > span {
 /* ---------- Slider Layout ---------- */
 .wss-team-slider-wrap {
   position: relative;
-  overflow: visible;
-  padding: 10px 0 20px;
+  width: 100%;
 }
 
 .wss-team-track-container {
@@ -6391,7 +6386,7 @@ body.elementor-editor-active .wss-mask > span {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding-bottom: 10px;
+  padding-bottom: 8px;
 }
 
 .wss-team-track-container::-webkit-scrollbar {
@@ -6400,128 +6395,150 @@ body.elementor-editor-active .wss-mask > span {
 
 .wss-team-track {
   display: flex;
-  gap: 30px;
-  transition: transform 0.5s var(--wss-ease, cubic-bezier(0.16, 1, 0.3, 1));
+  gap: 32px;
+  transition: transform .5s cubic-bezier(.16, .84, .44, 1);
 }
 
 .wss-team-slider-wrap .wss-team-card {
-  flex: 0 0 calc((100% - 60px) / 3);
+  flex: 0 0 calc((100% - 64px) / 3);
   scroll-snap-align: start;
   min-width: 290px;
 }
 
 @media (max-width: 1024px) {
   .wss-team-slider-wrap .wss-team-card {
-    flex: 0 0 calc((100% - 30px) / 2);
+    flex: 0 0 calc((100% - 32px) / 2);
   }
 }
 
 @media (max-width: 640px) {
   .wss-team-slider-wrap .wss-team-card {
-    flex: 0 0 88%;
+    flex: 0 0 90%;
   }
 }
 
-/* Slider Nav Arrows */
-.wss-team-arrow {
-  position: absolute;
-  top: -65px;
-  z-index: 5;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  color: var(--wss-ink, #1a1812);
-  display: inline-flex;
+/* Slider Nav Bar (Dots on Left, Nav Arrows on Right) */
+.wss-team-slider-nav-bar {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-  transition: all 0.35s var(--wss-ease);
+  margin-top: 40px;
 }
 
-.wss-team-arrow svg {
-  width: 18px;
-  height: 18px;
-  transition: transform 0.3s;
-}
-
-.wss-team-prev {
-  right: 60px;
-}
-
-.wss-team-next {
-  right: 6px;
-}
-
-.wss-team-arrow:hover {
-  background: var(--wss-ink, #1a1812);
-  color: #ffffff;
-  border-color: var(--wss-ink, #1a1812);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-.wss-team-prev:hover svg {
-  transform: translateX(-2px);
-}
-
-.wss-team-next:hover svg {
-  transform: translateX(2px);
-}
-
-@media (max-width: 640px) {
-  .wss-team-arrow {
-    display: none;
-  }
-}
-
-/* Slider Dots */
+/* Slider Dots (Exact match to Testimonial) */
 .wss-team-dots {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 28px;
+  gap: 10px;
 }
 
 .wss-team-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.16);
+  background: var(--wss-line, rgba(0, 0, 0, 0.18));
+  cursor: pointer;
+  transition: width .4s ease, background .4s ease;
   border: none;
   padding: 0;
-  cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.19, 1, 0.22, 1);
+  outline: none;
 }
 
-.wss-team-dot.wss-dot-active {
+.wss-team-dot.wss-team-dot-active {
   width: 24px;
-  border-radius: 10px;
+  border-radius: 3px;
   background: var(--wss-ink, #1a1812);
 }
 
-/* ---------- Team Card ---------- */
+/* Slider Nav Buttons (Exact match to Testimonial) */
+.wss-team-nav-btns {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.wss-scope .wss-team-nav-btns button,
+.wss-scope .wss-team-nav-btns button[type="button"],
+.wss-team-nav-btns button,
+.wss-team-prev,
+.wss-team-next {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--wss-line, rgba(0, 0, 0, 0.15)) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--wss-ink, #1a1812) !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .4s ease, border-color .4s ease, transform .4s cubic-bezier(.16, .84, .44, 1), color .4s ease !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0;
+}
+
+.wss-scope .wss-team-nav-btns button:hover,
+.wss-scope .wss-team-nav-btns button[type="button"]:hover,
+.wss-scope .wss-team-nav-btns button:focus,
+.wss-scope .wss-team-nav-btns button[type="button"]:focus,
+.wss-scope .wss-team-nav-btns button:focus-visible,
+.wss-scope .wss-team-nav-btns button[type="button"]:focus-visible,
+.wss-scope .wss-team-nav-btns button:active,
+.wss-scope .wss-team-nav-btns button[type="button"]:active,
+.wss-team-nav-btns button:hover,
+.wss-team-prev:hover,
+.wss-team-next:hover {
+  background: var(--wss-ink, #1a1812) !important;
+  background-color: var(--wss-ink, #1a1812) !important;
+  border-color: var(--wss-ink, #1a1812) !important;
+  color: var(--wss-white, #ffffff) !important;
+  transform: scale(1.08) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.wss-team-nav-btns button svg,
+.wss-team-nav-btns button[type="button"] svg,
+.wss-team-prev svg,
+.wss-team-next svg {
+  width: 18px !important;
+  height: 18px !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.5 !important;
+  transition: transform .4s cubic-bezier(.16, .84, .44, 1) !important;
+}
+
+.wss-team-prev:hover svg {
+  transform: translateX(-3px) !important;
+}
+
+.wss-team-next:hover svg {
+  transform: translateX(3px) !important;
+}
+
+/* ---------- Team Card (Clean Luxury Monochrome) ---------- */
 .wss-team-card {
   background: #ffffff;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
-}
-
-.wss-team-card.wss-card-clickable {
+  border: 1px solid var(--wss-line, rgba(0, 0, 0, 0.08));
+  border-radius: 4px;
   cursor: pointer;
+  transition: transform .5s cubic-bezier(.16, .84, .44, 1), box-shadow .5s cubic-bezier(.16, .84, .44, 1), border-color .35s ease;
+  text-decoration: none;
+  user-select: none;
+  outline: none;
 }
 
-.wss-team-card:hover {
+.wss-team-card:hover,
+.wss-team-card:focus-visible {
   transform: translateY(-6px);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
-  border-color: rgba(191, 162, 112, 0.35);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+  border-color: var(--wss-ink, #1a1812);
 }
 
 /* Photo */
@@ -6537,12 +6554,14 @@ body.elementor-editor-active .wss-mask > span {
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s;
   display: block;
+  filter: grayscale(15%) contrast(1.04);
+  transition: transform 1.2s cubic-bezier(.16, .84, .44, 1), filter .6s ease;
 }
 
 .wss-team-card:hover .wss-team-photo {
   transform: scale(1.05);
+  filter: grayscale(0%) contrast(1.06);
 }
 
 .wss-team-photo-placeholder {
@@ -6554,63 +6573,9 @@ body.elementor-editor-active .wss-mask > span {
   color: rgba(0, 0, 0, 0.2);
 }
 
-.wss-team-photo-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(20, 18, 14, 0.7) 0%, rgba(20, 18, 14, 0.15) 50%, rgba(20, 18, 14, 0) 100%);
-  opacity: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 24px;
-  transition: opacity 0.4s var(--wss-ease);
-}
-
-.wss-team-card:hover .wss-team-photo-overlay {
-  opacity: 1;
-}
-
-.wss-team-quick-view-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #ffffff;
-  color: var(--wss-ink, #1a1812);
-  font-family: var(--wss-font-accent, 'Cinzel', serif);
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-  transform: translateY(12px);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, color 0.3s;
-}
-
-.wss-team-quick-view-btn svg {
-  width: 14px;
-  height: 14px;
-  transition: transform 0.3s;
-}
-
-.wss-team-card:hover .wss-team-quick-view-btn {
-  transform: translateY(0);
-}
-
-.wss-team-quick-view-btn:hover {
-  background: var(--wss-gold, #bfa270);
-  color: #ffffff;
-}
-
-.wss-team-quick-view-btn:hover svg {
-  transform: translateX(3px);
-}
-
 /* Card Info */
 .wss-team-info {
-  padding: 22px 24px 24px;
+  padding: 24px 22px 22px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -6621,46 +6586,48 @@ body.elementor-editor-active .wss-mask > span {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   flex-wrap: wrap;
 }
 
 .wss-team-role {
-  font-family: var(--wss-font-accent, 'Cinzel', serif);
-  font-size: 11px;
-  letter-spacing: .18em;
+  font-family: var(--wss-font-accent);
+  font-size: 10.5px;
+  letter-spacing: .2em;
   text-transform: uppercase;
   font-weight: 600;
-  color: var(--wss-gold, #bfa270);
+  color: var(--wss-ink, #1a1812);
 }
 
 .wss-team-license {
-  font-family: var(--wss-font-accent, 'Cinzel', serif);
+  font-family: var(--wss-font-accent);
   font-size: 10px;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--wss-taupe, #8c827a);
+  color: var(--wss-grey, #8c827a);
 }
 
 .wss-team-name {
-  font-family: var(--wss-font-primary, 'Cinzel', serif);
-  font-size: 22px;
-  font-weight: 400;
+  font-family: var(--wss-font-primary);
+  font-size: 21px;
+  font-weight: var(--wss-weight-primary, 500);
   color: var(--wss-ink, #1a1812);
-  margin: 0 0 10px;
+  margin: 6px 0 10px;
   line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   transition: color 0.3s;
 }
 
 .wss-team-card:hover .wss-team-name {
-  color: var(--wss-gold, #bfa270);
+  color: var(--wss-ink);
 }
 
 .wss-team-excerpt {
-  font-family: var(--wss-font-body, 'Inter', sans-serif);
+  font-family: var(--wss-font-text);
   font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--wss-taupe-deep, #5c554e);
+  line-height: 1.65;
+  color: var(--wss-ink-soft, #4a453e);
   margin: 0 0 18px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -6674,42 +6641,45 @@ body.elementor-editor-active .wss-mask > span {
   justify-content: space-between;
   margin-top: auto;
   padding-top: 14px;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 1px solid var(--wss-line, rgba(0, 0, 0, 0.07));
 }
 
-.wss-team-action-link {
+.wss-team-card-explore {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--wss-font-accent, 'Cinzel', serif);
-  font-size: 11px;
+  font-family: var(--wss-font-accent);
+  font-size: 10.5px;
   text-transform: uppercase;
-  letter-spacing: .18em;
+  letter-spacing: .2em;
   font-weight: 600;
   color: var(--wss-ink, #1a1812);
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: color 0.3s, gap 0.3s;
+  transition: gap .35s ease;
 }
 
-.wss-team-action-link svg {
+.wss-team-card:hover .wss-team-card-explore {
+  gap: 12px;
+}
+
+.wss-team-card-explore svg {
   width: 14px;
   height: 14px;
-  transition: transform 0.3s;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  transition: transform .35s cubic-bezier(.16, .84, .44, 1);
 }
 
-.wss-team-action-link:hover,
-.wss-team-card:hover .wss-team-action-link {
-  color: var(--wss-gold, #bfa270);
-  gap: 12px;
+.wss-team-card:hover .wss-team-card-explore svg {
+  transform: translateX(4px);
 }
 
 .wss-team-card-quick-icons {
   display: flex;
   align-items: center;
   gap: 8px;
+  position: relative;
+  z-index: 2;
 }
 
 .wss-team-icon-link {
@@ -6719,10 +6689,11 @@ body.elementor-editor-active .wss-mask > span {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--wss-line, rgba(0, 0, 0, 0.12));
+  background: transparent;
   color: var(--wss-ink, #1a1812);
   text-decoration: none;
-  transition: background 0.3s, color 0.3s, transform 0.3s;
+  transition: all .35s ease;
 }
 
 .wss-team-icon-link svg {
@@ -6732,25 +6703,30 @@ body.elementor-editor-active .wss-mask > span {
 
 .wss-team-icon-link:hover {
   background: var(--wss-ink, #1a1812);
+  border-color: var(--wss-ink, #1a1812);
   color: #ffffff;
   transform: translateY(-2px);
 }
 
 /* ==========================================================================
-   INTERACTIVE PROFILE POPUP MODAL (Split-screen Luxury Architecture)
+   INTERACTIVE PROFILE POPUP MODAL (Exact About Video Modal Architecture)
    ========================================================================== */
 .wss-team-modal {
   position: fixed;
   inset: 0;
-  z-index: 99999999;
+  z-index: 9999999;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px;
+  background: rgba(19, 18, 16, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+  transition: opacity .5s cubic-bezier(.16, .84, .44, 1), visibility .5s;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
 .wss-team-modal.wss-modal-active {
@@ -6767,78 +6743,72 @@ body.wss-modal-open {
 .wss-team-modal-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(18, 16, 13, 0.78);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   cursor: pointer;
 }
 
 .wss-team-modal-dialog {
   position: relative;
   z-index: 2;
-  width: 100%;
-  max-width: 960px;
-  max-height: 90vh;
+  width: 92%;
+  max-width: 1040px;
+  max-height: 88vh;
   display: flex;
   flex-direction: column;
-  transform: translateY(30px) scale(0.97);
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(0.96) translateY(20px);
+  transition: transform .5s cubic-bezier(.16, .84, .44, 1);
 }
 
 .wss-team-modal.wss-modal-active .wss-team-modal-dialog {
-  transform: translateY(0) scale(1);
+  transform: scale(1) translateY(0);
 }
 
-/* Close Button */
-.wss-team-modal-close {
+/* Close Button (Exact styling from About Video Modal) */
+.wss-team-modal .wss-modal-close {
   position: absolute;
-  top: -46px;
-  right: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--wss-font-accent, 'Cinzel', serif);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .22em;
-  color: #ffffff;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px 0;
-  transition: color 0.3s, transform 0.3s;
-}
-
-.wss-modal-close-icon {
-  display: inline-flex;
+  top: 30px;
+  right: 40px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--wss-white, #ffffff);
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: background 0.3s, border-color 0.3s;
+  cursor: pointer;
+  transition: background .4s ease, border-color .4s ease, transform .5s cubic-bezier(.16, .84, .44, 1), color .4s ease;
+  z-index: 100;
+  outline: none;
+  padding: 0;
 }
 
-.wss-team-modal-close:hover {
-  color: var(--wss-gold, #bfa270);
-  transform: translateY(-2px);
+.wss-team-modal .wss-modal-close:hover {
+  background: var(--wss-white, #ffffff);
+  color: var(--wss-ink, #1a1812);
+  border-color: var(--wss-white, #ffffff);
+  transform: scale(1.1) rotate(90deg);
 }
 
-.wss-team-modal-close:hover .wss-modal-close-icon {
-  border-color: var(--wss-gold, #bfa270);
-  background: rgba(191, 162, 112, 0.2);
+.wss-team-modal .wss-modal-close svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  transition: stroke .4s ease;
 }
 
 /* Modal Content Grid */
 .wss-team-modal-content {
   background: #faf8f4;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
   display: grid;
   grid-template-columns: 340px 1fr;
-  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.45);
-  max-height: calc(90vh - 50px);
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.45);
+  max-height: 88vh;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 /* Modal Left Column */
@@ -6848,14 +6818,16 @@ body.wss-modal-open {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  max-height: 88vh;
+  border-right: 1px solid var(--wss-line, rgba(0, 0, 0, 0.08));
+  -webkit-overflow-scrolling: touch;
 }
 
 .wss-team-modal-photo-wrap {
   width: 100%;
   height: 310px;
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 4px;
   margin-bottom: 24px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
@@ -6871,38 +6843,40 @@ body.wss-modal-open {
 .wss-team-modal-direct {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   margin-bottom: 24px;
 }
 
 .wss-team-modal-contact-row {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
 }
 
 .wss-modal-label {
-  font-family: var(--wss-font-accent, 'Cinzel', serif);
-  font-size: 9.5px;
+  font-family: var(--wss-font-accent);
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: .18em;
-  color: var(--wss-taupe, #8c827a);
+  letter-spacing: .2em;
+  color: var(--wss-ink, #1a1812);
+  font-weight: 600;
 }
 
 .wss-modal-value {
-  font-family: var(--wss-font-body, 'Inter', sans-serif);
-  font-size: 13.5px;
-  color: var(--wss-ink, #1a1812);
-  line-height: 1.4;
+  font-family: var(--wss-font-text);
+  font-size: 14px;
+  color: var(--wss-ink-soft, #4a453e);
+  line-height: 1.5;
 }
 
 .wss-modal-link {
   text-decoration: none;
-  transition: color 0.25s;
+  transition: color .25s;
 }
 
 .wss-modal-link:hover {
-  color: var(--wss-gold, #bfa270);
+  color: var(--wss-ink);
+  text-decoration: underline;
 }
 
 .wss-team-modal-socials {
@@ -6922,10 +6896,10 @@ body.wss-modal-open {
   height: 36px;
   border-radius: 50%;
   background: #ffffff;
+  border: 1px solid var(--wss-line, rgba(0, 0, 0, 0.12));
   color: var(--wss-ink, #1a1812);
   text-decoration: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: transform 0.3s, background 0.3s, color 0.3s;
+  transition: all .35s ease;
 }
 
 .wss-social-pill svg {
@@ -6935,6 +6909,7 @@ body.wss-modal-open {
 
 .wss-social-pill:hover {
   background: var(--wss-ink, #1a1812);
+  border-color: var(--wss-ink, #1a1812);
   color: #ffffff;
   transform: translateY(-2px);
 }
@@ -6945,10 +6920,25 @@ body.wss-modal-open {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  max-height: 88vh;
+  -webkit-overflow-scrolling: touch;
 }
 
-.wss-team-modal-header-meta {
-  margin-bottom: 20px;
+/* Custom Scrollbar for bio */
+.wss-team-modal-right::-webkit-scrollbar,
+.wss-team-modal-left::-webkit-scrollbar {
+  width: 5px;
+}
+
+.wss-team-modal-right::-webkit-scrollbar-track,
+.wss-team-modal-left::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.wss-team-modal-right::-webkit-scrollbar-thumb,
+.wss-team-modal-left::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
 }
 
 .wss-team-modal-role-row {
@@ -6961,65 +6951,68 @@ body.wss-modal-open {
 
 .wss-modal-role-badge {
   display: inline-block;
-  font-family: var(--wss-font-accent, 'Cinzel', serif);
-  font-size: 11px;
+  font-family: var(--wss-font-accent);
+  font-size: 10.5px;
   text-transform: uppercase;
-  letter-spacing: .18em;
+  letter-spacing: .2em;
   font-weight: 600;
-  color: var(--wss-gold, #bfa270);
-  background: rgba(191, 162, 112, 0.12);
-  padding: 4px 14px;
-  border-radius: 20px;
+  color: var(--wss-ink, #1a1812);
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 5px 14px;
+  border-radius: 30px;
 }
 
 .wss-modal-lic-badge {
   display: inline-block;
-  font-family: var(--wss-font-accent, 'Cinzel', serif);
-  font-size: 10.5px;
+  font-family: var(--wss-font-accent);
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: .14em;
-  color: var(--wss-taupe, #8c827a);
+  letter-spacing: .15em;
+  color: var(--wss-grey, #8c827a);
   border: 1px solid rgba(0, 0, 0, 0.12);
-  padding: 3px 12px;
-  border-radius: 20px;
+  padding: 4px 12px;
+  border-radius: 30px;
 }
 
 .wss-team-modal-name {
-  font-family: var(--wss-font-primary, 'Cinzel', serif);
-  font-size: 34px;
-  font-weight: 400;
+  font-family: var(--wss-font-primary);
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: var(--wss-weight-primary, 500);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--wss-ink, #1a1812);
   line-height: 1.15;
-  margin: 0;
+  margin: 6px 0 16px;
 }
 
 .wss-team-modal-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
   padding-bottom: 18px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--wss-line, rgba(0, 0, 0, 0.07));
 }
 
 .wss-team-modal-tag {
-  font-family: var(--wss-font-accent, 'Cinzel', serif);
+  font-family: var(--wss-font-accent);
   font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: .12em;
-  color: var(--wss-taupe-deep, #5c554e);
+  letter-spacing: .14em;
+  color: var(--wss-ink, #1a1812);
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 4px 12px;
-  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 5px 12px;
+  border-radius: 3px;
 }
 
 .wss-team-modal-bio {
-  font-family: var(--wss-font-body, 'Inter', sans-serif);
+  font-family: var(--wss-font-text);
   font-size: 15px;
-  line-height: 1.75;
-  color: var(--wss-taupe-deep, #5c554e);
-  margin-bottom: 28px;
+  line-height: 1.85;
+  color: var(--wss-ink-soft, #33312b);
+  margin-bottom: 30px;
 }
 
 .wss-team-modal-bio p {
@@ -7032,29 +7025,30 @@ body.wss-modal-open {
 
 .wss-team-modal-footer {
   margin-top: auto;
-  padding-top: 20px;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 24px;
+  border-top: 1px solid var(--wss-line, rgba(0, 0, 0, 0.08));
 }
 
-.wss-team-modal-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Modal Responsive */
 @media (max-width: 860px) {
   .wss-team-modal {
     padding: 16px;
   }
 
+  .wss-team-modal .wss-modal-close {
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+  }
+
   .wss-team-modal-dialog {
-    max-height: 94vh;
+    width: 100%;
+    max-height: 92vh;
   }
 
   .wss-team-modal-content {
     grid-template-columns: 1fr;
-    max-height: calc(94vh - 45px);
+    max-height: calc(92vh - 40px);
     overflow-y: auto;
   }
 
@@ -7062,6 +7056,8 @@ body.wss-modal-open {
     border-right: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     padding: 24px 20px;
+    max-height: none;
+    overflow-y: visible;
   }
 
   .wss-team-modal-photo-wrap {
@@ -7069,10 +7065,8 @@ body.wss-modal-open {
   }
 
   .wss-team-modal-right {
-    padding: 28px 20px 24px;
-  }
-
-  .wss-team-modal-name {
-    font-size: 26px;
+    padding: 26px 20px 24px;
+    max-height: none;
+    overflow-y: visible;
   }
 }

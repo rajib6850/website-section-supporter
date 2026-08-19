@@ -9,6 +9,7 @@ use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Border;
+use Elementor\Group_Control_Background;
 
 /**
  * WSS Team & Agents Widget
@@ -24,7 +25,7 @@ class WSS_Team_Widget extends Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'WSS — Team / Agents', 'website-section-supporter' );
+		return __( 'WSS — Team / Advisors', 'website-section-supporter' );
 	}
 
 	public function get_icon() {
@@ -36,7 +37,7 @@ class WSS_Team_Widget extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'team', 'agents', 'members', 'broker', 'realtor', 'carousel', 'slider', 'grid', 'popup', 'modal', 'luxury' );
+		return array( 'team', 'agents', 'advisors', 'members', 'broker', 'realtor', 'carousel', 'slider', 'grid', 'popup', 'modal', 'luxury' );
 	}
 
 	protected function register_controls() {
@@ -74,10 +75,10 @@ class WSS_Team_Widget extends Widget_Base {
 			'heading',
 			array(
 				'label'       => __( 'Heading', 'website-section-supporter' ),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Meet Our Advisors', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'default'     => __( "Meet Our Advisors\n& Leadership", 'website-section-supporter' ),
 				'condition'   => array( 'show_section_header' => 'yes' ),
-				'label_block' => true,
+				'rows'        => 2,
 			)
 		);
 
@@ -86,7 +87,7 @@ class WSS_Team_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Subtitle / Description', 'website-section-supporter' ),
 				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => __( 'A dedicated team of luxury real estate professionals offering decades of collective market insight, strategic negotiation, and personalized client-first service.', 'website-section-supporter' ),
+				'default'     => __( 'A dedicated team of luxury real estate professionals offering decades of collective market insight, strategic negotiation, and personalized concierge service.', 'website-section-supporter' ),
 				'condition'   => array( 'show_section_header' => 'yes' ),
 				'rows'        => 3,
 			)
@@ -105,7 +106,8 @@ class WSS_Team_Widget extends Widget_Base {
 				'default'   => 'center',
 				'condition' => array( 'show_section_header' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-team-header' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .wss-team-top' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .wss-team-subtitle' => 'text-align: {{VALUE}};',
 				),
 			)
 		);
@@ -160,7 +162,7 @@ class WSS_Team_Widget extends Widget_Base {
 				'label'      => __( 'Card Spacing (Gap)', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
-				'default'    => array( 'size' => 30 ),
+				'default'    => array( 'size' => 32 ),
 				'selectors'  => array(
 					'{{WRAPPER}} .wss-team-grid, {{WRAPPER}} .wss-team-track' => 'gap: {{SIZE}}{{UNIT}};',
 				),
@@ -300,11 +302,10 @@ class WSS_Team_Widget extends Widget_Base {
 		$repeater->add_control(
 			'member_excerpt',
 			array(
-				'label'       => __( 'Short Card Excerpt', 'website-section-supporter' ),
+				'label'       => __( 'Card Short Bio Excerpt', 'website-section-supporter' ),
 				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => __( 'Over 15 years of leadership across real estate, technology, and strategic negotiation in Central Florida & the Space Coast.', 'website-section-supporter' ),
+				'default'     => __( 'Over 15 years of leadership across real estate, executive technology, and strategic high-stakes negotiation.', 'website-section-supporter' ),
 				'rows'        => 2,
-				'description' => __( 'Brief introduction displayed on the card (optional).', 'website-section-supporter' ),
 			)
 		);
 
@@ -350,7 +351,7 @@ class WSS_Team_Widget extends Widget_Base {
 				'label'       => __( 'Specialties / Tags', 'website-section-supporter' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => 'Luxury Estates, Strategic Negotiation, Investment Portfolios, Brokerage Leadership',
-				'description' => __( 'Comma-separated specialty badges (displayed in popup).', 'website-section-supporter' ),
+				'description' => __( 'Comma-separated specialty badges displayed in the popup.', 'website-section-supporter' ),
 			)
 		);
 
@@ -403,7 +404,7 @@ class WSS_Team_Widget extends Widget_Base {
 						'member_role'        => 'Broker-Owner',
 						'member_license'     => 'BK3403615',
 						'member_image'       => array( 'url' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop' ),
-						'member_excerpt'     => 'Broker-Owner with over 15 years across real estate, executive technology, and strategic high-stakes negotiation.',
+						'member_excerpt'     => 'Over 15 years of leadership across real estate, executive technology, and strategic high-stakes negotiation.',
 						'member_bio'         => '<p>As Broker-Owner of VP Signature Group, Victoria Price leads with a clear vision rooted in excellence, strategy, and a client-first philosophy. Her leadership fosters a results-driven culture focused on integrity, service, and execution.</p><p>With over 15 years of experience across real estate, technology, and business leadership, Victoria offers clients a deep understanding of market dynamics and high-stakes negotiation. She has built and led growth-focused teams across industries, bringing a cross-functional perspective to every transaction.</p><p>Originally from New York and now based in Central Florida, Victoria holds both undergraduate and MBA degrees. She is known for her sharp communication, meticulous attention to detail, and commitment to keeping clients fully informed throughout the buying or selling process.</p><p>Victoria remains active in real estate organizations at both the local and national levels, continuously raising the bar for service and standards in the industry.</p>',
 						'member_phone'       => '+1 (407) 584-7494',
 						'member_email'       => 'admin@vpsignature.com',
@@ -447,28 +448,6 @@ class WSS_Team_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'card_click_action',
-			array(
-				'label'   => __( 'Card Click Trigger', 'website-section-supporter' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'card_and_btn',
-				'options' => array(
-					'card_and_btn' => __( 'Click Entire Card or Button to Open Modal', 'website-section-supporter' ),
-					'btn_only'     => __( 'Click "View Profile" Button Only', 'website-section-supporter' ),
-				),
-			)
-		);
-
-		$this->add_control(
-			'card_btn_label',
-			array(
-				'label'   => __( 'Card Button Label', 'website-section-supporter' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'View Profile', 'website-section-supporter' ),
-			)
-		);
-
-		$this->add_control(
 			'modal_cta_text',
 			array(
 				'label'   => __( 'Modal Contact Button Label', 'website-section-supporter' ),
@@ -488,11 +467,31 @@ class WSS_Team_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		/* ================= STYLE: SECTION ================= */
+		$this->start_controls_section(
+			'style_section',
+			array( 'label' => __( 'Section Container', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
+		);
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array( 'name' => 'section_bg', 'types' => array( 'classic', 'gradient' ), 'selector' => '{{WRAPPER}} .wss-pad' )
+		);
+		$this->add_responsive_control(
+			'section_padding',
+			array(
+				'label'      => __( 'Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-pad' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
+			)
+		);
+		$this->end_controls_section();
+
 		/* ================= STYLE: SECTION HEADER ================= */
 		$this->start_controls_section(
 			'style_header_section',
 			array(
-				'label'     => __( 'Header Styling', 'website-section-supporter' ),
+				'label'     => __( 'Eyebrow & Heading', 'website-section-supporter' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array( 'show_section_header' => 'yes' ),
 			)
@@ -504,7 +503,7 @@ class WSS_Team_Widget extends Widget_Base {
 				'label'     => __( 'Eyebrow Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-team-eyebrow' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-team-top .wss-eyebrow' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -514,7 +513,7 @@ class WSS_Team_Widget extends Widget_Base {
 			array(
 				'name'     => 'eyebrow_typography',
 				'label'    => __( 'Eyebrow Typography', 'website-section-supporter' ),
-				'selector' => '{{WRAPPER}} .wss-team-eyebrow',
+				'selector' => '{{WRAPPER}} .wss-team-top .wss-eyebrow',
 			)
 		);
 
@@ -524,7 +523,7 @@ class WSS_Team_Widget extends Widget_Base {
 				'label'     => __( 'Heading Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-team-title' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-team-top h2' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -534,7 +533,7 @@ class WSS_Team_Widget extends Widget_Base {
 			array(
 				'name'     => 'heading_typography',
 				'label'    => __( 'Heading Typography', 'website-section-supporter' ),
-				'selector' => '{{WRAPPER}} .wss-team-title',
+				'selector' => '{{WRAPPER}} .wss-team-top h2',
 			)
 		);
 
@@ -564,9 +563,9 @@ class WSS_Team_Widget extends Widget_Base {
 				'label'      => __( 'Header Bottom Spacing', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'range'      => array( 'px' => array( 'min' => 10, 'max' => 100 ) ),
-				'default'    => array( 'size' => 45 ),
+				'default'    => array( 'size' => 48 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-team-header' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .wss-team-top' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -701,25 +700,13 @@ class WSS_Team_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'photo_hover_zoom',
-			array(
-				'label'        => __( 'Hover Image Zoom Effect', 'website-section-supporter' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'website-section-supporter' ),
-				'label_off'    => __( 'No', 'website-section-supporter' ),
-				'return_value' => 'yes',
-				'default'      => 'yes',
-			)
-		);
-
 		$this->end_controls_section();
 
 		/* ================= STYLE: TYPOGRAPHY & BADGES ================= */
 		$this->start_controls_section(
 			'style_typography_section',
 			array(
-				'label' => __( 'Name & Role Badges', 'website-section-supporter' ),
+				'label' => __( 'Name, Role & Excerpt', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -732,17 +719,6 @@ class WSS_Team_Widget extends Widget_Base {
 				'default'   => '#1a1812',
 				'selectors' => array(
 					'{{WRAPPER}} .wss-team-name' => 'color: {{VALUE}} !important;',
-				),
-			)
-		);
-
-		$this->add_control(
-			'name_hover_color',
-			array(
-				'label'     => __( 'Member Name Hover Color', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .wss-team-card:hover .wss-team-name' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -761,7 +737,7 @@ class WSS_Team_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Role Badge Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#8c827a',
+				'default'   => '#1a1812',
 				'selectors' => array(
 					'{{WRAPPER}} .wss-team-role' => 'color: {{VALUE}} !important;',
 				),
@@ -782,7 +758,7 @@ class WSS_Team_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'License ID Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#a89f91',
+				'default'   => '#8c827a',
 				'selectors' => array(
 					'{{WRAPPER}} .wss-team-license' => 'color: {{VALUE}} !important;',
 				),
@@ -790,29 +766,160 @@ class WSS_Team_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'card_btn_color',
+			'excerpt_color',
 			array(
-				'label'     => __( '"View Profile" Link Color', 'website-section-supporter' ),
+				'label'     => __( 'Excerpt Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#1a1812',
+				'default'   => '#5c554e',
 				'selectors' => array(
-					'{{WRAPPER}} .wss-team-action-link' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-team-excerpt' => 'color: {{VALUE}} !important;',
 				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'excerpt_typography',
+				'label'    => __( 'Excerpt Typography', 'website-section-supporter' ),
+				'selector' => '{{WRAPPER}} .wss-team-excerpt',
+			)
+		);
+
+		$this->end_controls_section();
+
+		/* ================= STYLE: SLIDER NAV ARROWS & DOTS ================= */
+		$this->start_controls_section(
+			'style_nav',
+			array(
+				'label'     => __( 'Nav Arrows & Dots', 'website-section-supporter' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array( 'layout_type' => 'slider' ),
 			)
 		);
 
 		$this->add_control(
-			'card_btn_hover_color',
+			'nav_arrows_heading',
 			array(
-				'label'     => __( '"View Profile" Hover Color', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#bfa270',
+				'label' => __( 'Navigation Arrows', 'website-section-supporter' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_responsive_control(
+			'nav_size',
+			array(
+				'label'     => __( 'Button Size', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array( 'px' => array( 'min' => 30, 'max' => 90 ) ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-team-action-link:hover, {{WRAPPER}} .wss-team-card:hover .wss-team-action-link' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-team-nav-btns button, {{WRAPPER}} .wss-team-prev, {{WRAPPER}} .wss-team-next' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
 
+		$this->start_controls_tabs( 'tabs_team_nav_style' );
+
+		$this->start_controls_tab(
+			'tab_team_nav_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
+		$this->add_control(
+			'nav_color',
+			array(
+				'label'     => __( 'Arrow Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-nav-btns button, {{WRAPPER}} .wss-team-prev, {{WRAPPER}} .wss-team-next' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-team-nav-btns button svg, {{WRAPPER}} .wss-team-prev svg, {{WRAPPER}} .wss-team-next svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_bg',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-nav-btns button, {{WRAPPER}} .wss-team-prev, {{WRAPPER}} .wss-team-next' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-nav-btns button, {{WRAPPER}} .wss-team-prev, {{WRAPPER}} .wss-team-next' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_team_nav_hover',
+			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
+		);
+		$this->add_control(
+			'nav_hover_color',
+			array(
+				'label'     => __( 'Hover Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-nav-btns button:hover, {{WRAPPER}} .wss-team-prev:hover, {{WRAPPER}} .wss-team-next:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-team-nav-btns button:hover svg, {{WRAPPER}} .wss-team-prev:hover svg, {{WRAPPER}} .wss-team-next:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_hover_bg',
+			array(
+				'label'     => __( 'Hover Background', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-nav-btns button:hover, {{WRAPPER}} .wss-team-prev:hover, {{WRAPPER}} .wss-team-next:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-nav-btns button:hover, {{WRAPPER}} .wss-team-prev:hover, {{WRAPPER}} .wss-team-next:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		/* ----- DOTS ----- */
+		$this->add_control(
+			'dots_heading',
+			array(
+				'label'     => __( 'Pagination Dots', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->add_control(
+			'dot_color',
+			array(
+				'label'     => __( 'Dot Inactive Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-team-dot' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
+			)
+		);
+		$this->add_control(
+			'dot_active_color',
+			array(
+				'label'     => __( 'Dot Active Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array( '{{WRAPPER}} .wss-team-dot.wss-team-dot-active' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ),
+			)
+		);
 		$this->end_controls_section();
 
 		/* ================= STYLE: MODAL POPUP ================= */
@@ -837,27 +944,25 @@ class WSS_Team_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'modal_accent_color',
+			'modal_left_bg',
 			array(
-				'label'     => __( 'Modal Gold Accent Color', 'website-section-supporter' ),
+				'label'     => __( 'Modal Left Sidebar Background', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#bfa270',
+				'default'   => '#f2eee8',
 				'selectors' => array(
-					'{{WRAPPER}} .wss-team-modal-tag'     => 'border-color: {{VALUE}} !important; color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-team-modal-cta-btn' => 'background-color: {{VALUE}} !important; border-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-team-modal-left' => 'background-color: {{VALUE}} !important;',
 				),
 			)
 		);
 
 		$this->add_control(
-			'modal_backdrop_blur',
+			'modal_bio_color',
 			array(
-				'label'      => __( 'Backdrop Blur (px)', 'website-section-supporter' ),
-				'type'       => Controls_Manager::SLIDER,
-				'range'      => array( 'px' => array( 'min' => 0, 'max' => 30 ) ),
-				'default'    => array( 'size' => 12 ),
-				'selectors'  => array(
-					'{{WRAPPER}} .wss-team-modal-overlay' => 'backdrop-filter: blur({{SIZE}}px) !important; -webkit-backdrop-filter: blur({{SIZE}}px) !important;',
+				'label'     => __( 'Modal Bio Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#33312b',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-team-modal-bio, {{WRAPPER}} .wss-team-modal-bio p' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -873,6 +978,7 @@ class WSS_Team_Widget extends Widget_Base {
 			return;
 		}
 
+		$uid         = 'wss-team-' . $this->get_id();
 		$layout_type = ! empty( $s['layout_type'] ) ? $s['layout_type'] : 'grid';
 		$is_slider   = ( 'slider' === $layout_type );
 
@@ -880,44 +986,33 @@ class WSS_Team_Widget extends Widget_Base {
 		$speed    = ! empty( $s['slider_speed'] ) ? intval( $s['slider_speed'] ) : 4500;
 		$loop     = ! empty( $s['slider_loop'] ) && 'yes' === $s['slider_loop'];
 
-		$card_trigger = ! empty( $s['card_click_action'] ) ? $s['card_click_action'] : 'card_and_btn';
-		$btn_label    = ! empty( $s['card_btn_label'] ) ? $s['card_btn_label'] : __( 'View Profile', 'website-section-supporter' );
-		$modal_cta    = ! empty( $s['modal_cta_text'] ) ? $s['modal_cta_text'] : __( 'Inquire With Advisor', 'website-section-supporter' );
-		$modal_link   = ! empty( $s['modal_cta_link']['url'] ) ? $s['modal_cta_link']['url'] : '#contact';
+		$modal_cta  = ! empty( $s['modal_cta_text'] ) ? $s['modal_cta_text'] : __( 'Inquire With Advisor', 'website-section-supporter' );
+		$modal_link = ! empty( $s['modal_cta_link']['url'] ) ? $s['modal_cta_link']['url'] : '#contact';
 		?>
 		<div class="wss-scope">
-			<section class="wss-team-section" data-wss-widget="wss-team">
+			<section class="wss-pad wss-team-section" data-wss-widget="wss-team">
 				<div class="wss-container">
 
 					<?php if ( 'yes' === ( $s['show_section_header'] ?? 'yes' ) && ( ! empty( $s['heading'] ) || ! empty( $s['eyebrow'] ) ) ) : ?>
-						<div class="wss-team-header wss-reveal">
+						<div class="wss-team-top wss-reveal">
 							<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
-								<span class="wss-eyebrow wss-team-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
+								<span class="wss-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 							<?php endif; ?>
 							<?php if ( ! empty( $s['heading'] ) ) : ?>
-								<h2 class="wss-team-title"><span class="wss-mask"><span><?php echo esc_html( $s['heading'] ); ?></span></span></h2>
+								<h2><span class="wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span></h2>
 							<?php endif; ?>
 							<?php if ( ! empty( $s['subtitle'] ) ) : ?>
-								<p class="wss-team-subtitle"><?php echo esc_html( $s['subtitle'] ); ?></p>
+								<p class="wss-team-subtitle"><?php echo nl2br( esc_html( $s['subtitle'] ) ); ?></p>
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>
 
 					<?php if ( $is_slider ) : ?>
-						<div class="wss-team-slider-wrap" 
+						<div class="wss-team-slider-wrap" id="<?php echo esc_attr( $uid ); ?>-slider-wrap"
 							data-autoplay="<?php echo $autoplay ? 'true' : 'false'; ?>" 
 							data-speed="<?php echo esc_attr( $speed ); ?>"
 							data-loop="<?php echo $loop ? 'true' : 'false'; ?>">
 							
-							<?php if ( 'yes' === ( $s['slider_arrows'] ?? 'yes' ) ) : ?>
-								<button class="wss-team-arrow wss-team-prev" aria-label="<?php esc_attr_e( 'Previous', 'website-section-supporter' ); ?>" type="button">
-									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-								</button>
-								<button class="wss-team-arrow wss-team-next" aria-label="<?php esc_attr_e( 'Next', 'website-section-supporter' ); ?>" type="button">
-									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-								</button>
-							<?php endif; ?>
-
 							<div class="wss-team-track-container">
 								<div class="wss-team-track">
 					<?php else : ?>
@@ -943,10 +1038,15 @@ class WSS_Team_Widget extends Widget_Base {
 								'website'   => ! empty( $m['member_website']['url'] ) ? $m['member_website']['url'] : '',
 							);
 
-							$modal_id = 'wss-team-modal-' . $this->get_id() . '-' . $idx;
+							$stagger_delays = array( 'wss-r1', 'wss-r2', 'wss-r3', 'wss-r4' );
+							$stagger_class  = $stagger_delays[ $idx % 4 ];
+							$modal_id       = 'wss-team-modal-' . $this->get_id() . '-' . $idx;
 						?>
-							<article class="wss-team-card wss-reveal<?php echo ( 'card_and_btn' === $card_trigger ) ? ' wss-card-clickable' : ''; ?>" 
-								data-modal-target="#<?php echo esc_attr( $modal_id ); ?>">
+							<article class="wss-team-card wss-reveal <?php echo esc_attr( $stagger_class ); ?>" 
+								data-modal-target="#<?php echo esc_attr( $modal_id ); ?>"
+								tabindex="0"
+								role="button"
+								aria-label="<?php echo esc_attr( sprintf( __( 'View biography of %s', 'website-section-supporter' ), $m_name ) ); ?>">
 								
 								<div class="wss-team-photo-wrap">
 									<?php if ( ! empty( $m_img_url ) ) : ?>
@@ -954,13 +1054,6 @@ class WSS_Team_Widget extends Widget_Base {
 									<?php else : ?>
 										<div class="wss-team-photo-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
 									<?php endif; ?>
-									
-									<div class="wss-team-photo-overlay">
-										<button type="button" class="wss-team-quick-view-btn" aria-label="<?php echo esc_attr( sprintf( __( 'View Profile of %s', 'website-section-supporter' ), $m_name ) ); ?>">
-											<span><?php echo esc_html( $btn_label ); ?></span>
-											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-										</button>
-									</div>
 								</div>
 
 								<div class="wss-team-info">
@@ -980,23 +1073,25 @@ class WSS_Team_Widget extends Widget_Base {
 									<?php endif; ?>
 
 									<div class="wss-team-card-footer">
-										<button type="button" class="wss-team-action-link" data-modal-target="#<?php echo esc_attr( $modal_id ); ?>">
-											<span><?php echo esc_html( $btn_label ); ?></span>
-											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-										</button>
-
-										<div class="wss-team-card-quick-icons">
-											<?php if ( ! empty( $m_phone ) ) : ?>
-												<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9\+]/', '', $m_phone ) ); ?>" class="wss-team-icon-link" title="<?php echo esc_attr( $m_phone ); ?>" aria-label="Call">
-													<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-												</a>
-											<?php endif; ?>
-											<?php if ( ! empty( $m_email ) ) : ?>
-												<a href="mailto:<?php echo esc_attr( $m_email ); ?>" class="wss-team-icon-link" title="<?php echo esc_attr( $m_email ); ?>" aria-label="Email">
-													<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-												</a>
-											<?php endif; ?>
+										<div class="wss-team-card-explore">
+											<span><?php esc_html_e( 'View Profile', 'website-section-supporter' ); ?></span>
+											<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 										</div>
+
+										<?php if ( ! empty( $m_phone ) || ! empty( $m_email ) ) : ?>
+											<div class="wss-team-card-quick-icons">
+												<?php if ( ! empty( $m_phone ) ) : ?>
+													<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9\+]/', '', $m_phone ) ); ?>" class="wss-team-icon-link" title="<?php echo esc_attr( $m_phone ); ?>" aria-label="Call" onclick="event.stopPropagation();">
+														<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+													</a>
+												<?php endif; ?>
+												<?php if ( ! empty( $m_email ) ) : ?>
+													<a href="mailto:<?php echo esc_attr( $m_email ); ?>" class="wss-team-icon-link" title="<?php echo esc_attr( $m_email ); ?>" aria-label="Email" onclick="event.stopPropagation();">
+														<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+													</a>
+												<?php endif; ?>
+											</div>
+										<?php endif; ?>
 									</div>
 								</div>
 							</article>
@@ -1006,15 +1101,12 @@ class WSS_Team_Widget extends Widget_Base {
 								<div class="wss-team-modal-overlay" tabindex="-1"></div>
 								
 								<div class="wss-team-modal-dialog">
-									<button class="wss-team-modal-close" aria-label="<?php esc_attr_e( 'Close profile modal', 'website-section-supporter' ); ?>" type="button">
-										<span>Close</span>
-										<span class="wss-modal-close-icon">
-											<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-										</span>
+									<button class="wss-modal-close wss-team-modal-close" aria-label="<?php esc_attr_e( 'Close profile modal', 'website-section-supporter' ); ?>" type="button">
+										<svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
 									</button>
 
 									<div class="wss-team-modal-content">
-										<!-- Left Column: Portrait & Quick Meta -->
+										<!-- Left Column: Portrait & Quick Contact Info -->
 										<div class="wss-team-modal-left">
 											<div class="wss-team-modal-photo-wrap">
 												<?php if ( ! empty( $m_img_url ) ) : ?>
@@ -1096,7 +1188,7 @@ class WSS_Team_Widget extends Widget_Base {
 												</div>
 											<?php endif; ?>
 
-											<!-- Full Rich Biography -->
+											<!-- Full Rich Biography with smooth scrollbar -->
 											<div class="wss-team-modal-bio">
 												<?php echo wp_kses_post( $m_bio ); ?>
 											</div>
@@ -1120,9 +1212,27 @@ class WSS_Team_Widget extends Widget_Base {
 								</div>
 							</div>
 
-							<?php if ( 'yes' === ( $s['slider_dots'] ?? 'yes' ) ) : ?>
-								<div class="wss-team-dots" role="tablist"></div>
-							<?php endif; ?>
+							<!-- Dots + Arrow nav matching Testimonial widget -->
+							<div class="wss-team-slider-nav-bar" id="<?php echo esc_attr( $uid ); ?>-dots-bar">
+								<?php if ( 'yes' === ( $s['slider_dots'] ?? 'yes' ) ) : ?>
+									<div class="wss-team-dots" role="tablist">
+										<?php foreach ( $members as $i => $m ) : ?>
+											<button class="wss-team-dot<?php echo 0 === $i ? ' wss-team-dot-active' : ''; ?>" data-index="<?php echo esc_attr( $i ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Advisor slide %d', 'website-section-supporter' ), $i + 1 ) ); ?>"></button>
+										<?php endforeach; ?>
+									</div>
+								<?php endif; ?>
+
+								<?php if ( 'yes' === ( $s['slider_arrows'] ?? 'yes' ) ) : ?>
+									<div class="wss-team-nav-btns">
+										<button type="button" class="wss-team-prev" aria-label="<?php esc_attr_e( 'Previous', 'website-section-supporter' ); ?>">
+											<svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+										</button>
+										<button type="button" class="wss-team-next" aria-label="<?php esc_attr_e( 'Next', 'website-section-supporter' ); ?>">
+											<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+										</button>
+									</div>
+								<?php endif; ?>
+							</div>
 						</div>
 					<?php else : ?>
 						</div>
