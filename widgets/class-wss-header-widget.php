@@ -515,7 +515,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a, {{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -525,7 +525,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Hover Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a:hover, {{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li:hover > a' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li:hover > a' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -584,7 +584,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Item Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-inline-menu-links .sub-menu a' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-inline-menu-links .sub-menu a, {{WRAPPER}} .wss-inline-menu-links .sub-menu li a, {{WRAPPER}} .wss-inline-nav .sub-menu a' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -594,7 +594,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Item Hover Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-inline-menu-links .sub-menu a:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-inline-menu-links .sub-menu a:hover, {{WRAPPER}} .wss-inline-menu-links .sub-menu li:hover > a, {{WRAPPER}} .wss-inline-nav .sub-menu a:hover' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -847,7 +847,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_inline_menu' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a, {{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -858,7 +858,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_inline_menu' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a:hover, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li:hover > a, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li:hover > a' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1012,7 +1012,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_inline_menu' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links > li > a, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links > li > a, {{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links a, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links a' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links > li > a, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links > li > a' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1023,7 +1023,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_inline_menu' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links a:hover, {{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links > li:hover > a, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links > li:hover > a' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links > li:hover > a, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links > li:hover > a' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1076,7 +1076,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_inline_menu' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links .sub-menu a, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links .sub-menu a' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links .sub-menu a, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links .sub-menu a, {{WRAPPER}} .wss-header.wss-header--solid .sub-menu a, {{WRAPPER}} .wss-header.wss-is-sticky .sub-menu a' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -1087,7 +1087,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'condition' => array( 'show_inline_menu' => 'yes' ),
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links .sub-menu a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links .sub-menu a:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-inline-menu-links .sub-menu a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .wss-inline-menu-links .sub-menu a:hover, {{WRAPPER}} .wss-header.wss-header--solid .sub-menu a:hover, {{WRAPPER}} .wss-header.wss-is-sticky .sub-menu a:hover' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);

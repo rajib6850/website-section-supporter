@@ -391,12 +391,11 @@
 .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo-light {
   color: var(--wss-taupe, #8C827A) !important;
 }
-.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a,
-.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a {
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a {
   color: var(--wss-ink, #1a1812) !important;
 }
 .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover,
-.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a:hover {
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li:hover > a {
   color: var(--wss-taupe-deep, #5c554e) !important;
 }
 .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links .menu-item-has-children > a::after {
@@ -428,12 +427,11 @@
 .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo-light {
   color: rgba(255, 255, 255, 0.65) !important;
 }
-.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a,
-.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a {
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a {
   color: var(--wss-white, #ffffff) !important;
 }
 .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover,
-.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a:hover {
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li:hover > a {
   color: var(--wss-taupe, #C4B5A5) !important;
 }
 .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links .menu-item-has-children > a::after {
