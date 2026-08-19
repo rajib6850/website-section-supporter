@@ -7142,3 +7142,226 @@ body.wss-modal-open {
     overflow-y: visible;
   }
 }
+
+/* ==========================================================================
+   CALL TO ACTION (CTA) WIDGET STYLES (WSS CTA)
+   ========================================================================== */
+.wss-cta-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.wss-cta-section.wss-cta--dark {
+  background: var(--wss-charcoal, #131210);
+  color: var(--wss-white, #ffffff);
+}
+
+.wss-cta-section.wss-cta--light {
+  background: var(--wss-ivory, #faf8f4);
+  color: var(--wss-ink, #1a1812);
+}
+
+.wss-cta-section.wss-cta--taupe {
+  background: var(--wss-taupe, #c9bba3);
+  color: var(--wss-white, #ffffff);
+}
+
+.wss-cta-section.wss-cta--image {
+  background: var(--wss-charcoal, #131210);
+  color: var(--wss-white, #ffffff);
+}
+
+.wss-cta-bg-img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(100%) contrast(1.05);
+  transform: scale(1.02);
+  transition: transform 12s ease;
+}
+
+.wss-cta-section:hover .wss-cta-bg-img {
+  transform: scale(1.06);
+}
+
+.wss-cta-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(19, 18, 16, 0.75);
+}
+
+.wss-cta-wrap {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+.wss-cta-card {
+  padding: 80px 60px;
+  border: 1px solid var(--wss-line, rgba(0, 0, 0, 0.12));
+  background: var(--wss-white, #ffffff);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04);
+}
+
+.wss-cta-section.wss-on-dark .wss-cta-card,
+.wss-cta-section.wss-cta--image .wss-cta-card {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+.wss-cta-inner {
+  margin: 0 auto;
+}
+
+/* Layout Modes */
+.wss-cta-layout--center .wss-cta-inner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wss-cta-layout--center .wss-cta-desc {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wss-cta-layout--center .wss-cta-btns {
+  justify-content: center;
+}
+
+.wss-cta-layout--center .wss-cta-contact-bar {
+  justify-content: center;
+}
+
+.wss-cta-layout--left .wss-cta-inner {
+  text-align: left;
+}
+
+.wss-cta-layout--split .wss-cta-inner {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 60px;
+  align-items: center;
+  text-align: left;
+}
+
+.wss-cta-layout--split .wss-cta-actions-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Typography */
+.wss-cta-eyebrow {
+  display: inline-block;
+  margin-bottom: 16px;
+  letter-spacing: 0.28em;
+}
+
+.wss-cta-heading {
+  font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+  font-size: clamp(28px, 4.2vw, 56px);
+  font-weight: var(--wss-weight-primary, 700);
+  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  margin: 0 0 20px;
+}
+
+.wss-cta-desc {
+  font-family: var(--wss-font-text, 'Work Sans', sans-serif);
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.8;
+  color: var(--wss-ink-soft, #3a362e);
+  margin: 0 0 36px;
+  max-width: 760px;
+}
+
+.wss-on-dark .wss-cta-desc,
+.wss-cta--image .wss-cta-desc {
+  color: rgba(250, 248, 244, 0.85);
+}
+
+.wss-cta-btns {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Contact Badges Bar */
+.wss-cta-contact-bar {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--wss-line, rgba(0, 0, 0, 0.08));
+  width: 100%;
+}
+
+.wss-on-dark .wss-cta-contact-bar,
+.wss-cta--image .wss-cta-contact-bar {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.wss-cta-badge-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.wss-cta-badge-item:hover {
+  opacity: 0.8;
+}
+
+.wss-cta-badge-item svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  flex-shrink: 0;
+}
+
+@media (max-width: 991px) {
+  .wss-cta-layout--split .wss-cta-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .wss-cta-card {
+    padding: 60px 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .wss-cta-card {
+    padding: 44px 20px;
+  }
+  .wss-cta-btns {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .wss-cta-btns a {
+    justify-content: center;
+    text-align: center;
+  }
+  .wss-cta-contact-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
