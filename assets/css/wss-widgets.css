@@ -4203,37 +4203,6 @@ body.elementor-editor-active .wss-mask > span {
   }
 }
 
-/* =========================================================
-   Header Sticky / Scroll Modifiers
-   ========================================================= */
-.wss-header--sticky {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 300;
-  transition: transform .5s cubic-bezier(.16, .84, .44, 1), background .4s, padding .4s;
-}
-
-.wss-header--solid {
-  background: rgba(250, 248, 244, .92) !important;
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid var(--wss-line, #e6e1d6) !important;
-  padding-top: 14px !important;
-  padding-bottom: 14px !important;
-}
-
-.wss-header--hidden {
-  transform: translateY(-120%);
-}
-
-.wss-header--on-hero .wss-logo {
-  color: var(--wss-white, #fff);
-}
-
-.wss-header--on-hero .wss-burger {
-  color: var(--wss-white, #fff);
-}
 
 /* =========================================================
    Luxury Component Widgets
