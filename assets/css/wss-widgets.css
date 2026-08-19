@@ -6528,7 +6528,7 @@ body.elementor-editor-active .wss-mask > span {
   border: 1px solid var(--wss-line, rgba(0, 0, 0, 0.08));
   border-radius: 4px;
   cursor: pointer;
-  transition: transform .5s cubic-bezier(.16, .84, .44, 1), box-shadow .5s cubic-bezier(.16, .84, .44, 1), border-color .35s ease;
+  transition: box-shadow .4s ease, border-color .35s ease;
   text-decoration: none;
   user-select: none;
   outline: none;
@@ -6536,31 +6536,40 @@ body.elementor-editor-active .wss-mask > span {
 
 .wss-team-card:hover,
 .wss-team-card:focus-visible {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
-  border-color: var(--wss-ink, #1a1812);
+  transform: none !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+  border-color: var(--wss-line, rgba(0, 0, 0, 0.08)) !important;
 }
 
 /* Photo */
 .wss-team-photo-wrap {
   position: relative;
   overflow: hidden;
-  height: 380px;
-  background: #eae6df;
+  width: 100% !important;
+  height: 390px;
+  aspect-ratio: 3 / 3.9;
+  background: var(--wss-charcoal, #131210);
+  display: block;
+  flex-shrink: 0;
 }
 
+.wss-scope .wss-team-photo,
 .wss-team-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: top center !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
   filter: grayscale(15%) contrast(1.04);
   transition: transform 1.2s cubic-bezier(.16, .84, .44, 1), filter .6s ease;
 }
 
 .wss-team-card:hover .wss-team-photo {
-  transform: scale(1.05);
+  transform: scale(1.06) !important;
   filter: grayscale(0%) contrast(1.06);
 }
 
@@ -6718,7 +6727,7 @@ body.elementor-editor-active .wss-mask > span {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(19, 18, 16, 0.55);
+  background: rgba(19, 18, 16, 0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   opacity: 0;
@@ -6762,41 +6771,79 @@ body.wss-modal-open {
   transform: scale(1) translateY(0);
 }
 
-/* Close Button (Exact styling from About Video Modal) */
-.wss-team-modal .wss-modal-close {
-  position: absolute;
-  top: 30px;
-  right: 40px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--wss-white, #ffffff);
-  border-radius: 50%;
-  width: 54px;
-  height: 54px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background .4s ease, border-color .4s ease, transform .5s cubic-bezier(.16, .84, .44, 1), color .4s ease;
-  z-index: 100;
-  outline: none;
-  padding: 0;
+/* Floating Screen-Level Close Button (Exact styling from About Video Modal) */
+.wss-team-modal .wss-modal-close.wss-team-modal-close {
+  position: fixed !important;
+  top: 32px !important;
+  right: 40px !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  color: #ffffff !important;
+  border-radius: 50% !important;
+  width: 52px !important;
+  height: 52px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: background .4s ease, border-color .4s ease, transform .5s cubic-bezier(.16, .84, .44, 1), color .4s ease !important;
+  z-index: 999999999 !important;
+  outline: none !important;
+  padding: 0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
 }
 
-.wss-team-modal .wss-modal-close:hover {
-  background: var(--wss-white, #ffffff);
-  color: var(--wss-ink, #1a1812);
-  border-color: var(--wss-white, #ffffff);
-  transform: scale(1.1) rotate(90deg);
+.wss-team-modal .wss-modal-close.wss-team-modal-close:hover {
+  background: #ffffff !important;
+  color: #1a1812 !important;
+  border-color: #ffffff !important;
+  transform: scale(1.1) rotate(90deg) !important;
 }
 
-.wss-team-modal .wss-modal-close svg {
-  width: 22px;
-  height: 22px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
+.wss-team-modal .wss-modal-close.wss-team-modal-close svg {
+  width: 22px !important;
+  height: 22px !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.8 !important;
   transition: stroke .4s ease;
+}
+
+/* In-Dialog Close Button */
+.wss-team-modal-inner-close {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  border: 1px solid var(--wss-line, rgba(0, 0, 0, 0.12)) !important;
+  background: #ffffff !important;
+  color: var(--wss-ink, #1a1812) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  z-index: 50 !important;
+  transition: all .35s ease !important;
+  outline: none !important;
+  padding: 0 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+}
+
+.wss-team-modal-inner-close:hover {
+  background: var(--wss-ink, #1a1812) !important;
+  color: #ffffff !important;
+  border-color: var(--wss-ink, #1a1812) !important;
+  transform: scale(1.08) rotate(90deg) !important;
+}
+
+.wss-team-modal-inner-close svg {
+  width: 15px !important;
+  height: 15px !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 2 !important;
 }
 
 /* Modal Content Grid */
@@ -6830,14 +6877,16 @@ body.wss-modal-open {
   border-radius: 4px;
   margin-bottom: 24px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  background: var(--wss-charcoal, #131210);
 }
 
 .wss-team-modal-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  object-fit: cover !important;
+  object-position: top center !important;
+  display: block !important;
 }
 
 .wss-team-modal-direct {
@@ -7034,11 +7083,16 @@ body.wss-modal-open {
     padding: 16px;
   }
 
-  .wss-team-modal .wss-modal-close {
-    top: 16px;
-    right: 16px;
-    width: 44px;
-    height: 44px;
+  .wss-team-modal .wss-modal-close.wss-team-modal-close {
+    top: 14px !important;
+    right: 14px !important;
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .wss-team-modal .wss-modal-close.wss-team-modal-close svg {
+    width: 18px !important;
+    height: 18px !important;
   }
 
   .wss-team-modal-dialog {

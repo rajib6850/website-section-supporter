@@ -1100,8 +1100,14 @@ class WSS_Team_Widget extends Widget_Base {
 							<div id="<?php echo esc_attr( $modal_id ); ?>" class="wss-team-modal" aria-hidden="true" role="dialog" aria-modal="true">
 								<div class="wss-team-modal-overlay" tabindex="-1"></div>
 								
+								<!-- Top Right Floating Screen Close Button -->
+								<button class="wss-modal-close wss-team-modal-close" aria-label="<?php esc_attr_e( 'Close profile modal', 'website-section-supporter' ); ?>" type="button">
+									<svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+								</button>
+								
 								<div class="wss-team-modal-dialog">
-									<button class="wss-modal-close wss-team-modal-close" aria-label="<?php esc_attr_e( 'Close profile modal', 'website-section-supporter' ); ?>" type="button">
+									<!-- In-Dialog Close Button -->
+									<button class="wss-team-modal-inner-close wss-modal-close" aria-label="<?php esc_attr_e( 'Close profile modal', 'website-section-supporter' ); ?>" type="button">
 										<svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
 									</button>
 
