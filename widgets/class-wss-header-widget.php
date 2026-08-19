@@ -831,6 +831,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'selector' => '{{WRAPPER}} .wss-header.wss-header--solid, {{WRAPPER}} .wss-header.wss-is-sticky',
 			)
 		);
+		$this->add_control(
 			'heading_sticky_logo',
 			array(
 				'label'     => __( 'Sticky Logo Colors', 'website-section-supporter' ),
