@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Website Section Supporter
  * Plugin URI:         https://digitizegrowth.com/
- * Description:        Adds a set of ready-made, editable Elementor section & component widgets (Header, Hero, Stats, About, Triptych, Notable Sales, Testimonial, Lifestyles, Newsletter, Blog, Footer, Title, Button, Image, Text) so you can build a full luxury-style home page block by block. Built by Digitize Growth — Luxury Real Estate Website Design, from $1,499. https://digitizegrowth.com/
+ * Description:        Adds a set of ready-made, editable Elementor section & component widgets (Header, Hero, Stats, About, Triptych, Notable Sales, Testimonial, Lifestyles, Newsletter, Blog, Footer, Title, Button, Image, Text, Scroll Indicator) so you can build a full luxury-style home page block by block. Built by Digitize Growth — Luxury Real Estate Website Design, from $1,499. https://digitizegrowth.com/
  * Version:             1.3.0
  * Requires at least:   6.0
  * Requires PHP:        7.4

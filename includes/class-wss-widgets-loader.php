@@ -47,8 +47,9 @@ class WSS_Widgets_Loader {
 			// Component Widgets (Building Blocks)
 			'class-wss-title-widget.php'           => 'WSS_Title_Widget',
 			'class-wss-button-widget.php'          => 'WSS_Button_Widget',
-			'class-wss-image-widget.php'           => 'WSS_Image_Widget',
-			'class-wss-text-widget.php'            => 'WSS_Text_Widget',
+			'class-wss-image-widget.php'            => 'WSS_Image_Widget',
+			'class-wss-text-widget.php'             => 'WSS_Text_Widget',
+			'class-wss-scroll-indicator-widget.php' => 'WSS_Scroll_Indicator_Widget',
 		);
 
 		foreach ( $widget_files as $file => $class_name ) {

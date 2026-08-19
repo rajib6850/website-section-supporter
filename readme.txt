@@ -29,6 +29,7 @@ home page — block by block, section by section:
 * WSS — Luxury Button (pill sweep, underline slide, solid, glass, dual buttons)
 * WSS — Luxury Image & Media (curtain wipe reveal, aspect ratios, badges, video lightbox)
 * WSS — Luxury Text & Editorial (editorial drop cap, columns, quote marks, scroll rise)
+* WSS — Luxury Scroll Indicator (8 luxury presets, scroll actions, live percentage progress, auto-hide)
 
 Every piece of text, image, link and repeater item is editable directly from the Elementor
 editor — nothing is hard-coded. Drop the widgets onto any page, in any order, and rearrange

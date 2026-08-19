@@ -628,6 +628,130 @@
 
 		initContactParallax();
 
+		/* ─── 10. Luxury Scroll Indicator Engine ─────────────────── */
+		function initScrollIndicators() {
+			var indicators = document.querySelectorAll( "[data-wss-scroll-indicator]" );
+			if ( ! indicators.length ) return;
+
+			function updateScrollIndicators() {
+				var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+				var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+				var progress = docHeight > 0 ? Math.min( Math.max( scrollY / docHeight, 0 ), 1 ) : 0;
+				var percentInt = Math.round( progress * 100 );
+
+				indicators.forEach( function ( wrap ) {
+					// 1. Auto-hide check
+					if ( wrap.getAttribute( "data-autohide" ) === "yes" ) {
+						var thresh = parseInt( wrap.getAttribute( "data-autohide-thresh" ), 10 ) || 120;
+						if ( scrollY > thresh ) {
+							wrap.classList.add( "wss-is-hidden" );
+						} else {
+							wrap.classList.remove( "wss-is-hidden" );
+						}
+					}
+
+					// 2. Reveal after scroll check (Back to top)
+					if ( wrap.getAttribute( "data-reveal" ) === "yes" ) {
+						var revThresh = parseInt( wrap.getAttribute( "data-reveal-thresh" ), 10 ) || 400;
+						if ( scrollY > revThresh ) {
+							wrap.classList.remove( "wss-is-hidden" );
+						} else {
+							wrap.classList.add( "wss-is-hidden" );
+						}
+					}
+
+					// 3. Progress preset updates
+					var progressBar = wrap.querySelector( ".wss-scroll-progress-bar" );
+					if ( progressBar ) {
+						var totalDash = 276.46; // 2 * PI * 44
+						var offset = totalDash * ( 1 - progress );
+						progressBar.style.strokeDashoffset = offset;
+					}
+
+					var progressVal = wrap.querySelector( ".wss-scroll-progress-val" );
+					if ( progressVal ) {
+						progressVal.textContent = percentInt + "%";
+					}
+
+					var linearFill = wrap.querySelector( ".wss-scroll-progress-linear-fill" );
+					if ( linearFill ) {
+						linearFill.style.width = percentInt + "%";
+					}
+				} );
+			}
+
+			// Scroll event listener (throttled with requestAnimationFrame)
+			var ticking = false;
+			window.addEventListener( "scroll", function () {
+				if ( ! ticking ) {
+					window.requestAnimationFrame( function () {
+						updateScrollIndicators();
+						ticking = false;
+					} );
+					ticking = true;
+				}
+			}, { passive: true } );
+
+			// Click handler
+			indicators.forEach( function ( wrap ) {
+				if ( wrap._scrollBound ) return;
+				wrap._scrollBound = true;
+
+				var btn = wrap.querySelector( ".wss-scroll-indicator" );
+				if ( ! btn ) return;
+
+				btn.addEventListener( "click", function ( e ) {
+					var action = wrap.getAttribute( "data-action" );
+					if ( action === "none" || action === "link" ) return;
+
+					e.preventDefault();
+					var offsetY = parseInt( wrap.getAttribute( "data-offset-y" ), 10 ) || 0;
+
+					if ( action === "back_to_top" ) {
+						window.scrollTo( { top: 0, behavior: "smooth" } );
+					} else if ( action === "scroll_100vh" ) {
+						window.scrollBy( { top: window.innerHeight, behavior: "smooth" } );
+					} else if ( action === "scroll_amount" ) {
+						var px = parseInt( wrap.getAttribute( "data-scroll-px" ), 10 ) || 750;
+						window.scrollBy( { top: px, behavior: "smooth" } );
+					} else if ( action === "target_id" ) {
+						var targetSel = wrap.getAttribute( "data-target-id" );
+						if ( targetSel ) {
+							var targetEl = document.querySelector( targetSel );
+							if ( targetEl ) {
+								var rect = targetEl.getBoundingClientRect();
+								var absTop = rect.top + window.pageYOffset + offsetY;
+								window.scrollTo( { top: absTop, behavior: "smooth" } );
+							}
+						}
+					} else if ( action === "next_section" ) {
+						// Look for parent section / container
+						var parentSection = wrap.closest( "section, .elementor-section, .elementor-element-section, .e-con, .e-container, header, .wss-scope" );
+						var nextEl = null;
+						if ( parentSection ) {
+							nextEl = parentSection.nextElementSibling;
+							while ( nextEl && ( nextEl.tagName === "SCRIPT" || nextEl.tagName === "STYLE" || nextEl.offsetHeight === 0 ) ) {
+								nextEl = nextEl.nextElementSibling;
+							}
+						}
+
+						if ( nextEl ) {
+							var rect = nextEl.getBoundingClientRect();
+							var absTop = rect.top + window.pageYOffset + offsetY;
+							window.scrollTo( { top: absTop, behavior: "smooth" } );
+						} else {
+							// Fallback: scroll down 1 screen
+							window.scrollBy( { top: window.innerHeight * 0.85, behavior: "smooth" } );
+						}
+					}
+				} );
+			} );
+
+			updateScrollIndicators();
+		}
+
+		initScrollIndicators();
+
 		/* Elementor editor live preview re-init */
 		if ( window.elementorFrontend && window.elementorFrontend.hooks ) {
 			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_about.default", function () {
@@ -638,6 +762,9 @@
 			} );
 			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_contact.default", function () {
 				initContactParallax();
+			} );
+			window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_scroll_indicator.default", function () {
+				initScrollIndicators();
 			} );
 		}
 

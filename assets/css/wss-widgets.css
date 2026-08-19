@@ -27,6 +27,10 @@
   --wss-weight-secondary: var(--e-global-typography-secondary-font-weight, 400);
   --wss-weight-text: var(--e-global-typography-text-font-weight, 300);
   --wss-weight-accent: var(--e-global-typography-accent-font-weight, 400);
+
+  --wss-size-text: var(--e-global-typography-text-font-size, inherit);
+  --wss-line-height-text: var(--e-global-typography-text-line-height, 1.85);
+  --wss-letter-spacing-text: var(--e-global-typography-text-letter-spacing, 0.01em);
 }
 
 .wss-scope {
@@ -1631,19 +1635,19 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   background: rgba(255, 255, 255, 0.05);
   color: var(--wss-white, #faf8f4);
   border: 1px solid rgba(250, 248, 244, 0.45);
-  border-radius: 40px !important;
+  border-radius: 40px;
   font-family: var(--wss-font-accent, var(--wss-font-primary, inherit));
   font-weight: var(--wss-weight-accent, var(--wss-weight-primary, 500));
   font-size: 9.5px;
   letter-spacing: .22em;
   text-transform: uppercase;
-  padding: 13px 24px !important;
+  padding: 13px 24px;
   cursor: pointer !important;
   white-space: nowrap !important;
   position: relative !important;
   overflow: hidden !important;
   z-index: 1 !important;
-  box-shadow: none !important;
+  box-shadow: none;
   outline: none !important;
   transition: color .4s ease, border-color .4s ease, transform .4s cubic-bezier(.16, .84, .44, 1), box-shadow .4s ease, background .4s ease !important;
 }
@@ -1656,6 +1660,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   width: 100% !important;
   height: 100% !important;
   background: var(--wss-white, #faf8f4);
+  border-radius: inherit;
   z-index: -1 !important;
   transform: scaleX(0) !important;
   transform-origin: right !important;
@@ -1751,7 +1756,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    padding: 14px 20px !important;
+    padding: 14px 20px;
     box-sizing: border-box !important;
   }
 }
@@ -1849,7 +1854,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    padding: 14px 20px !important;
+    padding: 14px 20px;
     font-size: 10px !important;
     letter-spacing: 0.2em !important;
     box-sizing: border-box !important;
@@ -1904,7 +1909,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   .wss-scope .wss-omni-submit-btn.wss-btn-pill,
   .wss-scope button.wss-omni-submit-btn.wss-btn-pill,
   .wss-omni-submit-btn.wss-btn-pill {
-    padding: 13px 16px !important;
+    padding: 13px 16px;
     font-size: 9.5px !important;
   }
 }
@@ -4557,10 +4562,10 @@ body.elementor-editor-active .wss-mask > span {
 
 .wss-text-content {
   font-family: var(--wss-font-text);
-  font-size: 16px;
-  line-height: 1.85;
+  font-size: var(--wss-size-text, var(--e-global-typography-text-font-size, inherit));
+  line-height: var(--wss-line-height-text, var(--e-global-typography-text-line-height, 1.85));
   color: var(--wss-ink-soft, #555048);
-  letter-spacing: 0.01em;
+  letter-spacing: var(--wss-letter-spacing-text, var(--e-global-typography-text-letter-spacing, 0.01em));
   font-weight: var(--wss-weight-text);
 }
 
@@ -5707,4 +5712,530 @@ body.elementor-editor-active .wss-mask > span {
   .wss-card-title {
     font-size: 14px;
   }
+}
+
+/* =========================================================
+   Luxury Scroll Indicator Component Widget (.wss-scroll-indicator)
+   ========================================================= */
+
+.wss-scroll-indicator-wrap {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+}
+
+/* Positioning modes */
+.wss-scroll-indicator-wrap.wss-pos-inline {
+  position: relative;
+  width: 100%;
+}
+
+.wss-scroll-indicator-wrap.wss-pos-absolute {
+  position: absolute;
+  pointer-events: auto;
+}
+
+.wss-scroll-indicator-wrap.wss-pos-fixed {
+  position: fixed;
+  pointer-events: auto;
+}
+
+/* Pinned corner placements */
+.wss-scroll-indicator-wrap.wss-pin-bottom_center {
+  bottom: var(--wss-scroll-offset-y, 32px);
+  left: 50%;
+  transform: translateX(-50%) translateX(var(--wss-scroll-offset-x, 0px));
+}
+
+.wss-scroll-indicator-wrap.wss-pin-bottom_left {
+  bottom: var(--wss-scroll-offset-y, 32px);
+  left: max(5vw, var(--wss-scroll-offset-x, 32px));
+}
+
+.wss-scroll-indicator-wrap.wss-pin-bottom_right {
+  bottom: var(--wss-scroll-offset-y, 32px);
+  right: max(5vw, var(--wss-scroll-offset-x, 32px));
+}
+
+.wss-scroll-indicator-wrap.wss-pin-middle_right {
+  top: 50%;
+  right: var(--wss-scroll-offset-x, 32px);
+  transform: translateY(-50%) translateY(var(--wss-scroll-offset-y, 0px));
+}
+
+.wss-scroll-indicator-wrap.wss-pin-middle_left {
+  top: 50%;
+  left: var(--wss-scroll-offset-x, 32px);
+  transform: translateY(-50%) translateY(var(--wss-scroll-offset-y, 0px));
+}
+
+/* Auto-hide / Reveal states */
+.wss-scroll-indicator-wrap.wss-is-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(14px) scale(0.96) !important;
+}
+
+.wss-scroll-indicator-wrap.wss-pin-bottom_center.wss-is-hidden {
+  transform: translateX(-50%) translateX(var(--wss-scroll-offset-x, 0px)) translateY(14px) scale(0.96) !important;
+}
+
+.wss-scroll-indicator-wrap.wss-pin-middle_right.wss-is-hidden,
+.wss-scroll-indicator-wrap.wss-pin-middle_left.wss-is-hidden {
+  transform: translateY(-50%) translateY(var(--wss-scroll-offset-y, 0px)) translateY(14px) scale(0.96) !important;
+}
+
+/* Base button reset & layout */
+.wss-scroll-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: var(--wss-white, #faf8f4);
+  text-decoration: none;
+  font-family: var(--wss-font-accent, var(--wss-font-primary, inherit));
+  outline: none !important;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: transform 0.4s cubic-bezier(.16, .84, .44, 1), opacity 0.3s ease, color 0.3s ease;
+}
+
+.wss-scroll-indicator.wss-hover-lift:hover {
+  transform: translateY(-3px);
+}
+
+.wss-scroll-indicator span.wss-scroll-label {
+  display: inline-block;
+  font-size: 9.5px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: var(--wss-weight-accent, 500);
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.wss-scroll-indicator span.wss-scroll-sublabel {
+  display: block;
+  font-size: 8px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-top: 3px;
+  font-weight: 400;
+  color: inherit;
+}
+
+.wss-scroll-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Preset 1: Architectural Horizontal Line */
+.wss-preset-line_horizontal {
+  flex-direction: row;
+}
+
+.wss-scroll-line-h {
+  position: relative;
+  width: 54px;
+  height: 1px;
+  background-color: var(--wss-line-on-dark, rgba(250, 248, 244, 0.2));
+  overflow: hidden;
+  display: block;
+  flex-shrink: 0;
+  border-radius: 1px;
+}
+
+.wss-has-anim .wss-scroll-line-h::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--wss-white, #faf8f4);
+  animation: wssScrollLine 2.2s cubic-bezier(.16, .84, .44, 1) infinite;
+}
+
+/* Preset 2: Editorial Vertical Line */
+.wss-preset-line_vertical {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.wss-scroll-line-v {
+  position: relative;
+  width: 1px;
+  height: 54px;
+  background-color: var(--wss-line-on-dark, rgba(250, 248, 244, 0.2));
+  overflow: hidden;
+  display: block;
+  flex-shrink: 0;
+  border-radius: 1px;
+}
+
+.wss-has-anim .wss-scroll-line-v::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--wss-white, #faf8f4);
+  animation: wssScrollVertical 2.2s cubic-bezier(.16, .84, .44, 1) infinite;
+}
+
+.wss-vertical-text {
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+@keyframes wssScrollVertical {
+  0% {
+    top: -100%;
+  }
+  50% {
+    top: 0;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+/* Preset 3: Minimalist Mouse / Trackpad Pill */
+.wss-preset-mouse_capsule {
+  flex-direction: column;
+  align-items: center;
+}
+
+.wss-scroll-mouse {
+  width: 24px;
+  height: 40px;
+  border: 1.5px solid rgba(250, 248, 244, 0.35);
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.35s ease, background 0.35s ease;
+  box-sizing: border-box;
+}
+
+.wss-scroll-mouse-wheel {
+  width: 3px;
+  height: 7px;
+  background-color: var(--wss-white, #faf8f4);
+  border-radius: 2px;
+  position: absolute;
+  top: 8px;
+}
+
+.wss-has-anim .wss-scroll-mouse-wheel {
+  animation: wssMouseWheel 2s cubic-bezier(.16, .84, .44, 1) infinite;
+}
+
+@keyframes wssMouseWheel {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+/* Preset 4: Minimalist Cascading Chevrons */
+.wss-preset-chevrons_cascade {
+  flex-direction: column;
+  align-items: center;
+}
+
+.wss-scroll-chevrons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.wss-scroll-chevron {
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid rgba(250, 248, 244, 0.55);
+  border-bottom: 1.5px solid rgba(250, 248, 244, 0.55);
+  transform: rotate(45deg);
+  display: block;
+}
+
+.wss-has-anim .wss-scroll-chevron {
+  animation: wssChevronCascade 2s infinite ease-in-out;
+}
+
+.wss-has-anim .wss-scroll-chevron.wss-ch-1 {
+  animation-delay: 0s;
+}
+
+.wss-has-anim .wss-scroll-chevron.wss-ch-2 {
+  animation-delay: 0.25s;
+}
+
+.wss-has-anim .wss-scroll-chevron.wss-ch-3 {
+  animation-delay: 0.5s;
+}
+
+@keyframes wssChevronCascade {
+  0% {
+    opacity: 0.15;
+    transform: rotate(45deg) translate(-2px, -2px);
+  }
+  50% {
+    opacity: 1;
+    transform: rotate(45deg) translate(0px, 0px);
+  }
+  100% {
+    opacity: 0.15;
+    transform: rotate(45deg) translate(2px, 2px);
+  }
+}
+
+/* Preset 5: Cinematic Rotating Circular Badge */
+.wss-preset-circle_spinner {
+  flex-direction: column;
+  align-items: center;
+}
+
+.wss-scroll-circle-wrap {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.35s ease;
+}
+
+.wss-scroll-circle-rotating {
+  width: 100%;
+  height: 100%;
+}
+
+.wss-has-anim .wss-scroll-circle-rotating {
+  animation: wssCircleRotate 14s linear infinite;
+}
+
+.wss-scroll-circle-text {
+  font-family: var(--wss-font-accent, inherit);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  fill: rgba(250, 248, 244, 0.7);
+  font-weight: 500;
+}
+
+.wss-scroll-circle-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.wss-center-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--wss-white, #faf8f4);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes wssCircleRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Preset 6: Luxury Glassmorphic Pill Capsule */
+.wss-preset-magnetic_button .wss-scroll-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(250, 248, 244, 0.24);
+  color: var(--wss-white, #faf8f4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transition: all 0.35s ease;
+}
+
+.wss-preset-magnetic_button:hover .wss-scroll-pill-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(250, 248, 244, 0.65);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Preset 7: Sonar Radar Pulse Beacon */
+.wss-preset-pulse_dot {
+  flex-direction: column;
+  align-items: center;
+}
+
+.wss-scroll-pulse-wrap {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wss-scroll-pulse-dot-center {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--wss-white, #faf8f4);
+  box-shadow: 0 0 14px var(--wss-white, #faf8f4);
+  z-index: 2;
+}
+
+.wss-scroll-pulse-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(250, 248, 244, 0.6);
+  box-sizing: border-box;
+  opacity: 0;
+}
+
+.wss-has-anim .wss-scroll-pulse-ring.wss-pr-1 {
+  animation: wssRadarPulse 2.4s cubic-bezier(.16, .84, .44, 1) infinite;
+}
+
+.wss-has-anim .wss-scroll-pulse-ring.wss-pr-2 {
+  animation: wssRadarPulse 2.4s cubic-bezier(.16, .84, .44, 1) infinite;
+  animation-delay: 1.2s;
+}
+
+@keyframes wssRadarPulse {
+  0% {
+    transform: scale(0.2);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Preset 8: Live Page Scroll Progress Ring / Bar */
+.wss-preset-scroll_progress {
+  flex-direction: column;
+  align-items: center;
+}
+
+.wss-scroll-progress-radial {
+  position: relative;
+}
+
+.wss-scroll-progress-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.wss-scroll-progress-track {
+  fill: none;
+  stroke: rgba(250, 248, 244, 0.15);
+  stroke-width: 3;
+}
+
+.wss-scroll-progress-bar {
+  fill: none;
+  stroke: var(--wss-white, #faf8f4);
+  stroke-width: 3;
+  stroke-dasharray: 276.46;
+  stroke-dashoffset: 276.46;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.wss-scroll-progress-val {
+  font-family: var(--wss-font-accent, inherit);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--wss-white, #faf8f4);
+}
+
+.wss-scroll-progress-linear {
+  width: 130px;
+  height: 2px;
+  background: rgba(250, 248, 244, 0.18);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.wss-scroll-progress-linear-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--wss-white, #faf8f4);
+  transition: width 0.1s linear;
+}
+
+/* Icon / Arrow Styles */
+.wss-scroll-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  transition: transform 0.35s cubic-bezier(.16, .84, .44, 1);
+}
+
+.wss-scroll-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 1.5;
+  stroke: currentColor;
+  fill: none;
+}
+
+.wss-scroll-indicator:hover .wss-scroll-icon {
+  transform: translateY(3px);
 }

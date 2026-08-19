@@ -893,16 +893,24 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'      => __( 'Padding', 'website-section-supporter' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em' ),
-				'selectors'  => array( '{{WRAPPER}} .wss-omni-submit-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-submit-btn, {{WRAPPER}} .wss-omni-submit-btn, {{WRAPPER}} button.wss-omni-submit-btn, {{WRAPPER}} .wss-omni-submit-btn.wss-btn-pill' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
 			)
 		);
-		$this->add_control(
+		$this->add_responsive_control(
 			'btn_border_radius',
 			array(
-				'label'     => __( 'Border Radius', 'website-section-supporter' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
-				'selectors' => array( '{{WRAPPER}} .wss-omni-submit-btn' => 'border-radius: {{SIZE}}{{UNIT}};' ),
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'em' ),
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 100 ),
+					'%'  => array( 'min' => 0, 'max' => 50 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-scope .wss-omni-submit-btn, {{WRAPPER}} .wss-omni-submit-btn, {{WRAPPER}} button.wss-omni-submit-btn, {{WRAPPER}} .wss-omni-submit-btn.wss-btn-pill, {{WRAPPER}} .wss-omni-submit-btn::before' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
 			)
 		);
 		$this->add_responsive_control(
