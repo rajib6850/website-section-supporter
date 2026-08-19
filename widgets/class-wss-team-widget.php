@@ -1106,10 +1106,6 @@ class WSS_Team_Widget extends Widget_Base {
 								</button>
 								
 								<div class="wss-team-modal-dialog">
-									<!-- In-Dialog Close Button -->
-									<button class="wss-team-modal-inner-close wss-modal-close" aria-label="<?php esc_attr_e( 'Close profile modal', 'website-section-supporter' ); ?>" type="button">
-										<svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
-									</button>
 
 									<div class="wss-team-modal-content">
 										<!-- Left Column: Portrait & Quick Contact Info -->
