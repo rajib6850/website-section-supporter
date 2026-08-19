@@ -369,30 +369,87 @@
 
 /* Transparent (overlaps hero) */
 .wss-header.wss-header--on-hero {
-  background: transparent;
-  border-bottom: 1px solid transparent;
+  background: transparent !important;
+  border-bottom: 1px solid transparent !important;
 }
 
-/* Light Static (absolute with bg) */
-.wss-header.wss-header--light-static {
-  background: var(--wss-ivory);
-  border-bottom: 1px solid var(--wss-line);
+/* Position relative for static / fallback headers */
+.wss-header.wss-header--relative:not(.wss-header--solid):not(.wss-is-sticky) {
+  position: relative !important;
+}
+
+/* ================= STATIC LIGHT HEADER (Fallback & Static) ================= */
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) {
+  background: var(--wss-ivory, #FAF8F4);
+  border-bottom: 1px solid var(--wss-line, #E5E0D8);
   padding: 16px 0;
 }
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo,
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo-bold {
+  color: var(--wss-ink, #1a1812) !important;
+}
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo-light {
+  color: var(--wss-taupe, #8C827A) !important;
+}
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a,
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a {
+  color: var(--wss-ink, #1a1812) !important;
+}
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover,
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a:hover {
+  color: var(--wss-taupe-deep, #5c554e) !important;
+}
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links .menu-item-has-children > a::after {
+  border-right-color: var(--wss-ink, #1a1812) !important;
+  border-bottom-color: var(--wss-ink, #1a1812) !important;
+}
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger {
+  color: var(--wss-ink, #1a1812) !important;
+}
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger .wss-bar {
+  background: var(--wss-ink, #1a1812) !important;
+  background-color: var(--wss-ink, #1a1812) !important;
+}
+.wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta {
+  color: var(--wss-ink, #1a1812) !important;
+  border-color: var(--wss-ink, #1a1812) !important;
+}
 
-/* Dark Static (absolute with bg) */
-.wss-header.wss-header--dark-static {
-  background: var(--wss-charcoal);
-  border-bottom: 1px solid var(--wss-line-on-dark);
+/* ================= STATIC DARK HEADER (Fallback & Static) ================= */
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) {
+  background: var(--wss-charcoal, #1a1812);
+  border-bottom: 1px solid var(--wss-line-on-dark, rgba(255, 255, 255, 0.12));
   padding: 16px 0;
 }
-
-.wss-header.wss-header--dark-static .wss-logo {
-  color: var(--wss-white);
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo,
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo-bold {
+  color: var(--wss-white, #ffffff) !important;
 }
-
-.wss-header.wss-header--dark-static .wss-burger {
-  color: var(--wss-white);
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo-light {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a,
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a {
+  color: var(--wss-white, #ffffff) !important;
+}
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover,
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a:hover {
+  color: var(--wss-taupe, #C4B5A5) !important;
+}
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links .menu-item-has-children > a::after {
+  border-right-color: var(--wss-white, #ffffff) !important;
+  border-bottom-color: var(--wss-white, #ffffff) !important;
+}
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger {
+  color: var(--wss-white, #ffffff) !important;
+}
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger .wss-bar {
+  background: var(--wss-white, #ffffff) !important;
+  background-color: var(--wss-white, #ffffff) !important;
+}
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta {
+  color: var(--wss-white, #ffffff) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 /* Sticky Solid (added by JS when scrolling down past top) */

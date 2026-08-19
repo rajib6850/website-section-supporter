@@ -170,6 +170,22 @@ class WSS_Header_Widget extends Widget_Base {
 				),
 			)
 		);
+		$this->add_control(
+			'transparent_fallback_position',
+			array(
+				'label'     => __( 'Fallback Header Position', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'relative',
+				'options'   => array(
+					'relative' => __( 'Normal Flow (Pushes Page Content Down)', 'website-section-supporter' ),
+					'absolute' => __( 'Overlaps Page Top (Absolute)', 'website-section-supporter' ),
+				),
+				'condition' => array(
+					'header_style'          => 'transparent',
+					'transparent_condition' => array( 'include', 'exclude' ),
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		/* ================= STICKY HEADER SETTINGS ================= */
@@ -772,6 +788,127 @@ class WSS_Header_Widget extends Widget_Base {
 		);
 		$this->end_controls_section();
 
+		/* ================= STYLE: FALLBACK HEADER (NON-TRANSPARENT PAGES) ================= */
+		$this->start_controls_section(
+			'style_fallback_header',
+			array(
+				'label'     => __( 'Fallback Header (Non-Transparent Pages)', 'website-section-supporter' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array(
+					'header_style'          => 'transparent',
+					'transparent_condition' => array( 'include', 'exclude' ),
+				),
+			)
+		);
+		$this->add_control(
+			'fallback_bar_bg',
+			array(
+				'label'     => __( 'Custom Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky), {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky)' => 'background: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'fallback_border_color',
+			array(
+				'label'     => __( 'Bottom Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky), {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky)' => 'border-bottom-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'fallback_logo_color',
+			array(
+				'label'     => __( 'Logo Bold Part Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo, {{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo-bold, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo-bold' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'fallback_logo_light_color',
+			array(
+				'label'     => __( 'Logo Light Part Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo-light, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-logo-light' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'fallback_nav_color',
+			array(
+				'label'     => __( 'Menu Links Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_inline_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a, {{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'fallback_nav_hover_color',
+			array(
+				'label'     => __( 'Menu Links Hover Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_inline_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a:hover, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links > li > a:hover, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-inline-menu-links a:hover' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'fallback_burger_color',
+			array(
+				'label'     => __( 'Hamburger Text & Lines Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_popup_menu' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger'                   => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger .wss-bar, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger .wss-bar' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'fallback_cta_color',
+			array(
+				'label'     => __( 'CTA Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_cta' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'fallback_cta_bg',
+			array(
+				'label'     => __( 'CTA Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_cta' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta' => 'background: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'fallback_cta_border_color',
+			array(
+				'label'     => __( 'CTA Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array( 'show_cta' => 'yes' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-header.wss-header--light-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta, {{WRAPPER}} .wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-header-cta' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->end_controls_section();
+
 		/* ================= STYLE: STICKY HEADER (ON SCROLL) ================= */
 		$this->start_controls_section(
 			'style_sticky_header',
@@ -1075,7 +1212,7 @@ class WSS_Header_Widget extends Widget_Base {
 			$is_edit_mode = \Elementor\Plugin::$instance->editor->is_edit_mode();
 		}
 
-		if ( 'transparent' === $style && ! $is_edit_mode ) {
+		if ( 'transparent' === $style ) {
 			$cond = ! empty( $s['transparent_condition'] ) ? $s['transparent_condition'] : 'all';
 			if ( 'all' !== $cond ) {
 				$selected_pages = ! empty( $s['transparent_selected_pages'] ) ? (array) $s['transparent_selected_pages'] : array();
@@ -1086,6 +1223,11 @@ class WSS_Header_Widget extends Widget_Base {
 				$selected_pages = array_filter( array_map( 'strval', $selected_pages ) );
 
 				$is_match = false;
+
+				// Determine current visited/queried post ID
+				$queried_id = get_queried_object_id();
+				$the_id     = function_exists( 'get_the_ID' ) ? get_the_ID() : 0;
+				$current_id = $queried_id ? (string) $queried_id : (string) $the_id;
 
 				// 1. Check front page / home page
 				$is_front = is_front_page() || ( is_home() && ! is_paged() );
@@ -1102,23 +1244,21 @@ class WSS_Header_Widget extends Widget_Base {
 				}
 
 				// 3. Check current queried object ID (covers Pages, Posts, CPTs, HFE headers)
-				$queried_id = (string) get_queried_object_id();
-				if ( $queried_id && in_array( $queried_id, $selected_pages, true ) ) {
+				if ( ! empty( $current_id ) && in_array( $current_id, $selected_pages, true ) ) {
 					$is_match = true;
 				}
 
 				// 4. Fallback check for standard get_the_ID()
-				$the_id = (string) get_the_ID();
-				if ( $the_id && in_array( $the_id, $selected_pages, true ) ) {
+				if ( ! empty( $the_id ) && in_array( (string) $the_id, $selected_pages, true ) ) {
 					$is_match = true;
 				}
 
 				$fallback = ! empty( $s['transparent_fallback_style'] ) ? $s['transparent_fallback_style'] : 'light';
 
-				if ( 'include' === $cond && ! $is_match ) {
-					$style = $fallback;
-				} elseif ( 'exclude' === $cond && $is_match ) {
-					$style = $fallback;
+				if ( 'include' === $cond ) {
+					$style = $is_match ? 'transparent' : $fallback;
+				} elseif ( 'exclude' === $cond ) {
+					$style = $is_match ? $fallback : 'transparent';
 				}
 			}
 		}
@@ -1136,6 +1276,12 @@ class WSS_Header_Widget extends Widget_Base {
 		} else {
 			$header_class .= ' wss-header--light-static';
 		}
+
+		$fallback_pos = $s['transparent_fallback_position'] ?? 'relative';
+		if ( 'transparent' !== $style && 'absolute' !== $fallback_pos ) {
+			$header_class .= ' wss-header--relative';
+		}
+
 		$is_full_width = ! empty( $s['container_width_type'] ) && 'full_width' === $s['container_width_type'];
 		$container_class = $is_full_width ? 'wss-header-inner wss-header-full' : 'wss-container wss-header-inner';
 
