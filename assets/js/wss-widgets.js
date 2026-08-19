@@ -70,11 +70,67 @@
 				track.scrollBy( { left: next ? amount : -amount, behavior: "smooth" } );
 			}
 		}
+
+		/* Team Slider nav buttons */
+		var teamNext = e.target.closest( ".wss-team-next" );
+		var teamPrev = e.target.closest( ".wss-team-prev" );
+		if ( teamNext || teamPrev ) {
+			var teamWrap  = ( teamNext || teamPrev ).closest( ".wss-team-slider-wrap" );
+			var teamContainer = teamWrap ? teamWrap.querySelector( ".wss-team-track-container" ) : null;
+			var teamTrack = teamWrap ? teamWrap.querySelector( ".wss-team-track" ) : null;
+			if ( teamContainer && teamTrack ) {
+				var teamCard = teamTrack.querySelector( ".wss-team-card" );
+				var teamGap  = parseFloat( window.getComputedStyle( teamTrack ).gap ) || 30;
+				var scrollAmount = teamCard ? ( teamCard.offsetWidth + teamGap ) : ( teamContainer.clientWidth * 0.85 );
+				teamContainer.scrollBy( { left: teamNext ? scrollAmount : -scrollAmount, behavior: "smooth" } );
+			}
+		}
+
+		/* Team Profile Modal: Open Trigger */
+		var modalTrigger = e.target.closest( "[data-modal-target]" );
+		if ( modalTrigger ) {
+			// Don't trigger if user clicked directly on telephone or email links inside card footer
+			if ( e.target.closest( ".wss-team-icon-link" ) ) {
+				return;
+			}
+			var targetSelector = modalTrigger.getAttribute( "data-modal-target" );
+			if ( targetSelector ) {
+				var targetModal = document.querySelector( targetSelector );
+				if ( targetModal ) {
+					e.preventDefault();
+					targetModal.classList.add( "wss-modal-active" );
+					document.body.classList.add( "wss-modal-open" );
+				}
+			}
+		}
+
+		/* Team Profile Modal: Close Trigger (Close Button or Overlay) */
+		var modalClose = e.target.closest( ".wss-team-modal-close" );
+		var modalOverlay = e.target.closest( ".wss-team-modal-overlay" );
+		if ( modalClose || modalOverlay ) {
+			var openModal = ( modalClose || modalOverlay ).closest( ".wss-team-modal" );
+			if ( openModal ) {
+				e.preventDefault();
+				openModal.classList.remove( "wss-modal-active" );
+				if ( ! document.querySelector( ".wss-team-modal.wss-modal-active" ) ) {
+					document.body.classList.remove( "wss-modal-open" );
+				}
+			}
+		}
 	} );
 
 	document.addEventListener( "keydown", function ( e ) {
-		if ( e.key === "Escape" && document.body.classList.contains( "wss-menu-open" ) ) {
-			document.body.classList.remove( "wss-menu-open" );
+		if ( e.key === "Escape" ) {
+			if ( document.body.classList.contains( "wss-menu-open" ) ) {
+				document.body.classList.remove( "wss-menu-open" );
+			}
+			var activeModals = document.querySelectorAll( ".wss-team-modal.wss-modal-active" );
+			if ( activeModals.length ) {
+				activeModals.forEach( function ( m ) {
+					m.classList.remove( "wss-modal-active" );
+				} );
+				document.body.classList.remove( "wss-modal-open" );
+			}
 		}
 	} );
 
@@ -800,7 +856,96 @@
 			updateScrollIndicators();
 		}
 
-		initScrollIndicators();
+		/* ─── 8. Team Slider & Interactive Engine ─────────── */
+		function initTeamWidgets() {
+			var sliders = document.querySelectorAll( ".wss-team-slider-wrap" );
+			sliders.forEach( function ( wrap ) {
+				var container = wrap.querySelector( ".wss-team-track-container" );
+				var track     = wrap.querySelector( ".wss-team-track" );
+				var dotsWrap  = wrap.querySelector( ".wss-team-dots" );
+				if ( ! container || ! track ) return;
+
+				var cards = track.querySelectorAll( ".wss-team-card" );
+				if ( ! cards.length ) return;
+
+				// Generate dots if dots container exists
+				if ( dotsWrap ) {
+					dotsWrap.innerHTML = "";
+					cards.forEach( function ( card, i ) {
+						var dot = document.createElement( "button" );
+						dot.type = "button";
+						dot.className = "wss-team-dot" + ( i === 0 ? " wss-dot-active" : "" );
+						dot.setAttribute( "aria-label", "Go to advisor slide " + ( i + 1 ) );
+						dot.addEventListener( "click", function () {
+							var gap = parseFloat( window.getComputedStyle( track ).gap ) || 30;
+							var scrollTarget = i * ( card.offsetWidth + gap );
+							container.scrollTo( { left: scrollTarget, behavior: "smooth" } );
+						} );
+						dotsWrap.appendChild( dot );
+					} );
+
+					// Update active dot on scroll
+					var scrollTimeout;
+					container.addEventListener( "scroll", function () {
+						clearTimeout( scrollTimeout );
+						scrollTimeout = setTimeout( function () {
+							var card = cards[0];
+							var gap = parseFloat( window.getComputedStyle( track ).gap ) || 30;
+							var cardWidth = card ? ( card.offsetWidth + gap ) : 1;
+							var activeIndex = Math.round( container.scrollLeft / cardWidth );
+							var dots = dotsWrap.querySelectorAll( ".wss-team-dot" );
+							dots.forEach( function ( d, idx ) {
+								if ( idx === activeIndex ) {
+									d.classList.add( "wss-dot-active" );
+								} else {
+									d.classList.remove( "wss-dot-active" );
+								}
+							} );
+						}, 50 );
+					}, { passive: true } );
+				}
+
+				// Autoplay
+				var isAutoplay = wrap.getAttribute( "data-autoplay" ) === "true";
+				var speed      = parseInt( wrap.getAttribute( "data-speed" ), 10 ) || 4500;
+				var loop       = wrap.getAttribute( "data-loop" ) === "true";
+				var autoplayTimer = null;
+
+				function startAutoplay() {
+					if ( ! isAutoplay || autoplayTimer ) return;
+					autoplayTimer = setInterval( function () {
+						var card = cards[0];
+						var gap = parseFloat( window.getComputedStyle( track ).gap ) || 30;
+						var cardWidth = card ? ( card.offsetWidth + gap ) : 300;
+						var maxScroll = container.scrollWidth - container.clientWidth;
+						if ( container.scrollLeft >= maxScroll - 10 ) {
+							if ( loop ) {
+								container.scrollTo( { left: 0, behavior: "smooth" } );
+							}
+						} else {
+							container.scrollBy( { left: cardWidth, behavior: "smooth" } );
+						}
+					}, speed );
+				}
+
+				function stopAutoplay() {
+					if ( autoplayTimer ) {
+						clearInterval( autoplayTimer );
+						autoplayTimer = null;
+					}
+				}
+
+				if ( isAutoplay ) {
+					startAutoplay();
+					wrap.addEventListener( "mouseenter", stopAutoplay );
+					wrap.addEventListener( "mouseleave", startAutoplay );
+					wrap.addEventListener( "touchstart", stopAutoplay, { passive: true } );
+					wrap.addEventListener( "touchend", startAutoplay, { passive: true } );
+				}
+			} );
+		}
+
+		initTeamWidgets();
 
 		/* Elementor editor live preview re-init */
 		function bindElementorHooks() {
@@ -819,6 +964,9 @@
 				} );
 				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_header.default", function () {
 					initHeaderSticky();
+				} );
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_team.default", function () {
+					initTeamWidgets();
 				} );
 			}
 		}
