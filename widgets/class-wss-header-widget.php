@@ -446,7 +446,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Background Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header:not(.wss-header--on-hero):not(.wss-header--solid):not(.wss-is-sticky)' => 'background: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header:not(.wss-header--on-hero)' => 'background: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -456,7 +456,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Bottom Border Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-header:not(.wss-header--on-hero):not(.wss-header--solid):not(.wss-is-sticky)' => 'border-bottom-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-header:not(.wss-header--on-hero)' => 'border-bottom-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -467,7 +467,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%', 'vw' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-header:not(.wss-header--solid):not(.wss-is-sticky)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-header' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
 		);

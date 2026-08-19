@@ -461,11 +461,16 @@
   right: 0;
   width: 100%;
   z-index: 99999;
-  background: rgba(250, 248, 244, .95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 16px 0;
   border-bottom: 1px solid var(--wss-line);
+}
+
+/* Default sticky background fallback (only when no background is set) */
+.wss-header.wss-header--solid:not(.wss-header--light-static):not(.wss-header--dark-static),
+.wss-header.wss-is-sticky:not(.wss-header--light-static):not(.wss-header--dark-static) {
+  background: rgba(250, 248, 244, .95);
 }
 
 .wss-header.wss-header--solid .wss-logo,
