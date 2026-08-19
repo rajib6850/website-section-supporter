@@ -7,6 +7,7 @@ use Elementor\Repeater;
 use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
+use Elementor\Group_Control_Box_Shadow;
 
 class WSS_Header_Widget extends Widget_Base {
 
