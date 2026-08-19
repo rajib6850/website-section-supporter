@@ -721,44 +721,56 @@ body.admin-bar #wss-menu {
   }
 }
 
-/* ---------- Burger Button (exact match to HTML design) ---------- */
-.wss-burger {
-  display: flex !important;
+/* ---------- Burger Button (Reset theme default button styles) ---------- */
+.wss-burger,
+button.wss-burger,
+.wss-header button.wss-burger,
+.wss-scope button.wss-burger {
+  display: inline-flex !important;
   align-items: center !important;
   gap: 12px !important;
-  background: none;
-  background-color: transparent;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  outline: none;
-  cursor: pointer;
-  font-family: var(--wss-font-accent, var(--wss-font-primary, inherit));
-  font-weight: var(--wss-weight-accent, var(--wss-weight-primary, 500));
-  font-size: 11px;
-  letter-spacing: .28em;
-  text-transform: uppercase;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  cursor: pointer !important;
+  font-family: var(--wss-font-accent, var(--wss-font-primary, inherit)) !important;
+  font-weight: var(--wss-weight-accent, var(--wss-weight-primary, 500)) !important;
+  font-size: 11px !important;
+  letter-spacing: .28em !important;
+  text-transform: uppercase !important;
   color: var(--wss-ink);
-  padding: 0;
-  margin: 0;
-  text-align: left;
-  line-height: 1;
-  appearance: none;
-  -webkit-appearance: none;
+  padding: 0 !important;
+  margin: 0 !important;
+  text-align: left !important;
+  line-height: 1 !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
   transition: color .3s, background .3s, border-color .3s;
 }
 
+.wss-burger:hover,
+button.wss-burger:hover,
 .wss-burger:focus,
-.wss-burger:active {
-  box-shadow: none;
-  outline: none;
+button.wss-burger:focus,
+.wss-burger:active,
+button.wss-burger:active {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
-.wss-header.wss-header--on-hero:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger {
+.wss-header.wss-header--on-hero:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger,
+.wss-header.wss-header--on-hero:not(.wss-header--solid):not(.wss-is-sticky) button.wss-burger {
   color: var(--wss-white);
 }
 
-.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger {
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) .wss-burger,
+.wss-header.wss-header--dark-static:not(.wss-header--solid):not(.wss-is-sticky) button.wss-burger {
   color: var(--wss-white);
 }
 
