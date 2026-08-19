@@ -10,7 +10,7 @@ use Elementor\Group_Control_Background;
 class WSS_Lifestyles_Widget extends Widget_Base {
 
 	public function get_name() { return 'wss_lifestyles'; }
-	public function get_title() { return __( 'WSS — Lifestyles / Neighborhoods Grid', 'website-section-supporter' ); }
+	public function get_title() { return __( 'WSS — Neighborhoods', 'website-section-supporter' ); }
 	public function get_icon() { return 'eicon-gallery-grid'; }
 	public function get_categories() { return array( 'website-section-supporter' ); }
 	public function get_keywords() { return array( 'neighborhoods', 'lifestyles', 'locations', 'grid' ); }
@@ -19,10 +19,21 @@ class WSS_Lifestyles_Widget extends Widget_Base {
 
 		/* ================= CONTENT ================= */
 		$this->start_controls_section( 'section_head', array( 'label' => __( 'Heading', 'website-section-supporter' ) ) );
-		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Lifestyles In', 'website-section-supporter' ) ) );
-		$this->add_control( 'heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Southern California', 'website-section-supporter' ) ) );
-		$this->add_control( 'link_text', array( 'label' => __( 'Top-right Link Text', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'View More Communities', 'website-section-supporter' ) ) );
-		$this->add_control( 'link_url', array( 'label' => __( 'Top-right Link URL', 'website-section-supporter' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#' ) ) );
+		$this->add_control(
+			'show_heading',
+			array(
+				'label'        => __( 'Show Heading', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'website-section-supporter' ),
+				'label_off'    => __( 'No', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Lifestyles In', 'website-section-supporter' ), 'condition' => array( 'show_heading' => 'yes' ) ) );
+		$this->add_control( 'heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Southern California', 'website-section-supporter' ), 'condition' => array( 'show_heading' => 'yes' ) ) );
+		$this->add_control( 'link_text', array( 'label' => __( 'Top-right Link Text', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'View More Communities', 'website-section-supporter' ), 'condition' => array( 'show_heading' => 'yes' ) ) );
+		$this->add_control( 'link_url', array( 'label' => __( 'Top-right Link URL', 'website-section-supporter' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#' ), 'condition' => array( 'show_heading' => 'yes' ) ) );
 		$this->end_controls_section();
 
 		$this->start_controls_section( 'section_items', array( 'label' => __( 'Locations', 'website-section-supporter' ) ) );
@@ -130,6 +141,7 @@ class WSS_Lifestyles_Widget extends Widget_Base {
 		<div class="wss-scope">
 			<section class="wss-pad">
 				<div class="wss-container">
+					<?php if ( 'yes' === $s['show_heading'] ) : ?>
 					<div class="wss-lg-head wss-reveal">
 						<div>
 							<span class="wss-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
@@ -139,6 +151,7 @@ class WSS_Lifestyles_Widget extends Widget_Base {
 							<a class="wss-btn-line" href="<?php echo esc_url( $s['link_url']['url'] ?: '#' ); ?>"<?php echo ! empty( $s['link_url']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html( $s['link_text'] ); ?> <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
 						<?php endif; ?>
 					</div>
+					<?php endif; ?>
 					<div class="wss-lg-grid">
 						<?php foreach ( $s['items'] as $item ) :
 							$has_link = ! empty( $item['link']['url'] );
