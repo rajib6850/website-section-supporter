@@ -240,44 +240,69 @@ final class Website_Section_Supporter {
 			}
 		}
 
-		// Sanitize Form Fields
-		$address   = isset( $_POST['wss_address'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_address'] ) ) : '';
-		$unit      = isset( $_POST['wss_unit'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_unit'] ) ) : '';
-		$city      = isset( $_POST['wss_city'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_city'] ) ) : '';
-		$state     = isset( $_POST['wss_state'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_state'] ) ) : 'Florida (FL)';
-		$zip       = isset( $_POST['wss_zip'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_zip'] ) ) : '';
-		$category  = isset( $_POST['wss_category'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_category'] ) ) : '';
-		$beds      = isset( $_POST['wss_beds'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_beds'] ) ) : '';
-		$baths     = isset( $_POST['wss_baths'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_baths'] ) ) : '';
-		$sqft      = isset( $_POST['wss_sqft'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_sqft'] ) ) : '';
-		$amenities = isset( $_POST['wss_amenities'] ) && is_array( $_POST['wss_amenities'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['wss_amenities'] ) ) : array();
-		$timeline  = isset( $_POST['wss_timeline'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_timeline'] ) ) : '';
-		$name      = isset( $_POST['wss_name'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_name'] ) ) : '';
-		$email     = isset( $_POST['wss_email'] ) ? sanitize_email( wp_unslash( $_POST['wss_email'] ) ) : '';
-		$phone     = isset( $_POST['wss_phone'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_phone'] ) ) : '';
-		$delivery  = isset( $_POST['wss_delivery'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_delivery'] ) ) : '';
-		$notes     = isset( $_POST['wss_notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['wss_notes'] ) ) : '';
+		// Collect Form Builder Fields
+		$submitted_fields = array();
+		$client_name  = '';
+		$client_email = '';
+		$client_phone = '';
+		$address_val  = '';
 
-		if ( empty( $address ) || empty( $city ) || empty( $name ) || empty( $email ) ) {
-			wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'website-section-supporter' ) ) );
+		if ( isset( $_POST['wss_fields'] ) && is_array( $_POST['wss_fields'] ) ) {
+			foreach ( $_POST['wss_fields'] as $raw_label => $raw_value ) {
+				$label = sanitize_text_field( wp_unslash( $raw_label ) );
+				if ( is_array( $raw_value ) ) {
+					$val_clean = implode( ', ', array_map( 'sanitize_text_field', wp_unslash( $raw_value ) ) );
+				} else {
+					$val_clean = sanitize_textarea_field( wp_unslash( $raw_value ) );
+				}
+				$submitted_fields[ $label ] = $val_clean;
+
+				// Auto-detect key fields
+				$lower_label = strtolower( $label );
+				if ( strpos( $lower_label, 'email' ) !== false && empty( $client_email ) && is_email( $val_clean ) ) {
+					$client_email = $val_clean;
+				}
+				if ( ( strpos( $lower_label, 'name' ) !== false || strpos( $lower_label, 'client' ) !== false ) && empty( $client_name ) ) {
+					$client_name = $val_clean;
+				}
+				if ( ( strpos( $lower_label, 'phone' ) !== false || strpos( $lower_label, 'tel' ) !== false ) && empty( $client_phone ) ) {
+					$client_phone = $val_clean;
+				}
+				if ( ( strpos( $lower_label, 'address' ) !== false || strpos( $lower_label, 'property' ) !== false ) && empty( $address_val ) ) {
+					$address_val = $val_clean;
+				}
+			}
 		}
 
-		$amenities_text = ! empty( $amenities ) ? implode( ', ', $amenities ) : __( 'None specified', 'website-section-supporter' );
+		// Fallback detection from standard post keys
+		if ( empty( $client_name ) && isset( $_POST['wss_name'] ) ) $client_name = sanitize_text_field( wp_unslash( $_POST['wss_name'] ) );
+		if ( empty( $client_email ) && isset( $_POST['wss_email'] ) ) $client_email = sanitize_email( wp_unslash( $_POST['wss_email'] ) );
+		if ( empty( $client_phone ) && isset( $_POST['wss_phone'] ) ) $client_phone = sanitize_text_field( wp_unslash( $_POST['wss_phone'] ) );
+		if ( empty( $address_val ) && isset( $_POST['wss_address'] ) ) $address_val = sanitize_text_field( wp_unslash( $_POST['wss_address'] ) );
+
+		if ( empty( $client_name ) ) $client_name = 'Prospective Client';
+		if ( empty( $address_val ) ) $address_val = 'Property Valuation Inquiry';
 
 		// 1. Admin Notification Email
 		$admin_to      = isset( $_POST['admin_email_to'] ) && ! empty( $_POST['admin_email_to'] ) ? sanitize_email( wp_unslash( $_POST['admin_email_to'] ) ) : get_option( 'admin_email' );
-		$admin_subject = isset( $_POST['admin_email_subject'] ) && ! empty( $_POST['admin_email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['admin_email_subject'] ) ) : 'New Property Valuation Request: {{address}} ({{name}})';
+		$admin_subject = isset( $_POST['admin_email_subject'] ) && ! empty( $_POST['admin_email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['admin_email_subject'] ) ) : 'New Property Valuation Request from {{Full Name}}';
 
+		// Replace tokens
+		foreach ( $submitted_fields as $lbl => $val ) {
+			$admin_subject = str_replace( '{{' . $lbl . '}}', $val, $admin_subject );
+		}
 		$admin_subject = str_replace(
-			array( '{{name}}', '{{address}}', '{{city}}', '{{zip}}', '{{category}}', '{{timeline}}', '{{email}}', '{{phone}}', '{{delivery}}' ),
-			array( $name, $address, $city, $zip, $category, $timeline, $email, $phone, $delivery ),
+			array( '{{name}}', '{{address}}', '{{email}}', '{{phone}}' ),
+			array( $client_name, $address_val, $client_email, $client_phone ),
 			$admin_subject
 		);
 
 		$admin_headers = array(
 			'Content-Type: text/html; charset=UTF-8',
-			'Reply-To: ' . $name . ' <' . $email . '>',
 		);
+		if ( ! empty( $client_email ) ) {
+			$admin_headers[] = 'Reply-To: ' . $client_name . ' <' . $client_email . '>';
+		}
 
 		$admin_body  = "<div style='font-family: Arial, sans-serif; max-width: 640px; color: #1a1812; line-height: 1.6; padding: 28px; border: 1px solid #e2dfda; background-color: #fdfdfc;'>";
 		$admin_body .= "<div style='border-bottom: 2px solid #0d0d0d; padding-bottom: 12px; margin-bottom: 20px;'>";
@@ -285,43 +310,35 @@ final class Website_Section_Supporter {
 		$admin_body .= "<p style='color: #777777; font-size: 12px; margin: 4px 0 0; text-transform: uppercase; letter-spacing: 0.1em;'>VP Signature Group Advisory Portal</p>";
 		$admin_body .= "</div>";
 
-		$admin_body .= "<h3 style='color: #0d0d0d; font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em; margin: 16px 0 8px; border-bottom: 1px solid #e2dfda; padding-bottom: 4px;'>1. Property Location & Details</h3>";
 		$admin_body .= "<table style='width: 100%; border-collapse: collapse; font-size: 14px;'>";
-		$admin_body .= "<tr><td style='padding: 6px 0; width: 38%; color: #666;'><strong>Address:</strong></td><td style='padding: 6px 0; color: #0d0d0d; font-weight: bold;'>" . esc_html( $address ) . ( ! empty( $unit ) ? ' (' . esc_html( $unit ) . ')' : '' ) . "</td></tr>";
-		$admin_body .= "<tr><td style='padding: 6px 0; color: #666;'><strong>City / State / ZIP:</strong></td><td style='padding: 6px 0; color: #0d0d0d;'>" . esc_html( $city ) . ", " . esc_html( $state ) . " " . esc_html( $zip ) . "</td></tr>";
-		$admin_body .= "<tr><td style='padding: 6px 0; color: #666;'><strong>Property Category:</strong></td><td style='padding: 6px 0; color: #0d0d0d;'>" . esc_html( $category ) . "</td></tr>";
-		$admin_body .= "<tr><td style='padding: 6px 0; color: #666;'><strong>Specs (Beds / Baths / SqFt):</strong></td><td style='padding: 6px 0; color: #0d0d0d;'>" . esc_html( $beds ) . " Beds / " . esc_html( $baths ) . " Baths" . ( ! empty( $sqft ) ? " / " . esc_html( $sqft ) : "" ) . "</td></tr>";
-		$admin_body .= "<tr><td style='padding: 6px 0; color: #666;'><strong>Luxury Amenities:</strong></td><td style='padding: 6px 0; color: #0d0d0d;'>" . esc_html( $amenities_text ) . "</td></tr>";
-		$admin_body .= "<tr><td style='padding: 6px 0; color: #666;'><strong>Selling Horizon:</strong></td><td style='padding: 6px 0; color: #0d0d0d; font-weight: bold;'>" . esc_html( $timeline ) . "</td></tr>";
-		$admin_body .= "</table>";
-
-		$admin_body .= "<h3 style='color: #0d0d0d; font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em; margin: 24px 0 8px; border-bottom: 1px solid #e2dfda; padding-bottom: 4px;'>2. Client & Delivery Information</h3>";
-		$admin_body .= "<table style='width: 100%; border-collapse: collapse; font-size: 14px;'>";
-		$admin_body .= "<tr><td style='padding: 6px 0; width: 38%; color: #666;'><strong>Client Name:</strong></td><td style='padding: 6px 0; color: #0d0d0d; font-weight: bold;'>" . esc_html( $name ) . "</td></tr>";
-		$admin_body .= "<tr><td style='padding: 6px 0; color: #666;'><strong>Email Address:</strong></td><td style='padding: 6px 0;'><a href='mailto:" . esc_attr( $email ) . "' style='color: #0d0d0d; text-decoration: underline;'>" . esc_html( $email ) . "</a></td></tr>";
-		$admin_body .= "<tr><td style='padding: 6px 0; color: #666;'><strong>Phone Number:</strong></td><td style='padding: 6px 0; color: #0d0d0d;'>" . esc_html( $phone ) . "</td></tr>";
-		$admin_body .= "<tr><td style='padding: 6px 0; color: #666;'><strong>Delivery Preference:</strong></td><td style='padding: 6px 0; color: #0d0d0d; font-weight: bold;'>" . esc_html( $delivery ) . "</td></tr>";
-		if ( ! empty( $notes ) ) {
-			$admin_body .= "<tr><td style='padding: 6px 0; color: #666; vertical-align: top;'><strong>Special Notes / Upgrades:</strong></td><td style='padding: 6px 0; color: #0d0d0d;'>" . nl2br( esc_html( $notes ) ) . "</td></tr>";
+		foreach ( $submitted_fields as $f_label => $f_value ) {
+			$admin_body .= "<tr style='border-bottom: 1px solid #eeeeee;'>";
+			$admin_body .= "<td style='padding: 10px 0; width: 36%; color: #666666; vertical-align: top;'><strong>" . esc_html( $f_label ) . ":</strong></td>";
+			$admin_body .= "<td style='padding: 10px 0; color: #0d0d0d; font-weight: 500;'>" . nl2br( esc_html( $f_value ) ) . "</td>";
+			$admin_body .= "</tr>";
 		}
 		$admin_body .= "</table>";
 
 		$admin_body .= "<div style='margin-top: 30px; padding-top: 14px; border-top: 1px solid #e2dfda; font-size: 11px; color: #888888; text-align: center;'>";
-		$admin_body .= "Sent securely via Website Section Supporter (WSS) Property Valuation Engine";
+		$admin_body .= "Sent securely via Website Section Supporter (WSS) Form Builder Engine";
 		$admin_body .= "</div></div>";
 
 		wp_mail( $admin_to, $admin_subject, $admin_body, $admin_headers );
 
 		// 2. Client Auto-Responder Confirmation Email
 		$enable_autoresponder = isset( $_POST['enable_client_autoresponder'] ) && 'yes' === $_POST['enable_client_autoresponder'];
-		if ( $enable_autoresponder && ! empty( $email ) ) {
+		if ( $enable_autoresponder && ! empty( $client_email ) ) {
 			$sender_name  = isset( $_POST['client_sender_name'] ) && ! empty( $_POST['client_sender_name'] ) ? sanitize_text_field( wp_unslash( $_POST['client_sender_name'] ) ) : 'Victoria Price | VP Signature Group';
 			$sender_email = isset( $_POST['client_sender_email'] ) && ! empty( $_POST['client_sender_email'] ) ? sanitize_email( wp_unslash( $_POST['client_sender_email'] ) ) : ( ! empty( $admin_to ) ? $admin_to : get_option( 'admin_email' ) );
-			$user_subject = isset( $_POST['client_email_subject'] ) && ! empty( $_POST['client_email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['client_email_subject'] ) ) : 'Property Valuation Request Confirmed: {{address}}';
+			$user_subject = isset( $_POST['client_email_subject'] ) && ! empty( $_POST['client_email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['client_email_subject'] ) ) : 'Property Valuation Request Confirmed | VP Signature Group';
 
+			// Token replacements
+			foreach ( $submitted_fields as $lbl => $val ) {
+				$user_subject = str_replace( '{{' . $lbl . '}}', $val, $user_subject );
+			}
 			$user_subject = str_replace(
-				array( '{{name}}', '{{address}}', '{{city}}' ),
-				array( $name, $address, $city ),
+				array( '{{name}}', '{{address}}' ),
+				array( $client_name, $address_val ),
 				$user_subject
 			);
 
@@ -333,15 +350,15 @@ final class Website_Section_Supporter {
 
 			$user_msg  = "<div style='font-family: Arial, sans-serif; max-width: 600px; color: #1a1812; line-height: 1.7; padding: 30px; border: 1px solid #e2dfda; background-color: #ffffff;'>";
 			$user_msg .= "<h2 style='color: #0d0d0d; font-size: 18px; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 2px solid #0d0d0d; padding-bottom: 10px; margin-top: 0;'>Property Valuation Request Confirmed</h2>";
-			$user_msg .= "<p>Dear " . esc_html( $name ) . ",</p>";
-			$user_msg .= "<p>Thank you for trusting <strong>VP Signature Group</strong> with the valuation of your residence at <strong>" . esc_html( $address ) . "</strong>.</p>";
+			$user_msg .= "<p>Dear " . esc_html( $client_name ) . ",</p>";
+			$user_msg .= "<p>Thank you for trusting <strong>VP Signature Group</strong> with the valuation of your residence.</p>";
 			$user_msg .= "<p>Unlike automated online estimates, Victoria Price and our analytics team are personally conducting a comprehensive sub-market comparative analysis, factoring in recent comparable sales, pending transactions, and current high-net-worth buyer demand across Central Florida.</p>";
-			$user_msg .= "<p>Your customized property dossier will be delivered according to your requested preference (<strong>" . esc_html( $delivery ) . "</strong>) within 24 to 48 business hours.</p>";
+			$user_msg .= "<p>Your customized property dossier will be delivered within 24 to 48 business hours.</p>";
 			$user_msg .= "<p style='margin-top: 24px;'>Warm regards,</p>";
 			$user_msg .= "<p><strong>Victoria Price</strong><br><span style='font-size: 12px; color: #777;'>Founder & Principal Advisor<br>VP Signature Group | Central Florida Luxury Real Estate<br>Direct: +1 (407) 584-7494<br>Email: admin@vpsignature.com</span></p>";
 			$user_msg .= "</div>";
 
-			wp_mail( $email, $user_subject, $user_msg, $user_headers );
+			wp_mail( $client_email, $user_subject, $user_msg, $user_headers );
 		}
 
 		wp_send_json_success( array(

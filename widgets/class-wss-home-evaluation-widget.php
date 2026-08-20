@@ -18,7 +18,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'WSS — Home Evaluation & Property Valuation', 'website-section-supporter' );
+		return __( 'WSS — Home Evaluation & Property Valuation (Form Builder)', 'website-section-supporter' );
 	}
 
 	public function get_icon() {
@@ -30,7 +30,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'home evaluation', 'property valuation', 'cma', 'appraisal', 'real estate', 'form', 'luxury', 'recaptcha', 'vpsignature' );
+		return array( 'home evaluation', 'property valuation', 'form builder', 'cma', 'appraisal', 'multi-step', 'recaptcha', 'vpsignature' );
 	}
 
 	protected function register_controls() {
@@ -103,150 +103,346 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		/* ================= CONTENT: STEP 1 - LOCATION ================= */
+		/* ================= CONTENT: FORM FIELDS (REPEATER BUILDER) ================= */
 		$this->start_controls_section(
-			'section_content_step1',
+			'section_form_fields',
 			array(
-				'label' => __( 'Step 1: Property Location & Type', 'website-section-supporter' ),
+				'label' => __( 'Form Fields Builder (Elementor Pro Style)', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
-		$this->add_control(
-			'step1_tab_label',
+		$repeater = new Repeater();
+
+		$repeater->add_control(
+			'field_type',
 			array(
-				'label'   => __( 'Step 1 Tab Label', 'website-section-supporter' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Property Location', 'website-section-supporter' ),
+				'label'   => __( 'Type', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'text',
+				'options' => array(
+					'step'     => __( '--- Step / Page Break ---', 'website-section-supporter' ),
+					'text'     => __( 'Text', 'website-section-supporter' ),
+					'email'    => __( 'Email', 'website-section-supporter' ),
+					'tel'      => __( 'Tel / Phone', 'website-section-supporter' ),
+					'textarea' => __( 'Textarea (Multi-line)', 'website-section-supporter' ),
+					'select'   => __( 'Select Dropdown', 'website-section-supporter' ),
+					'checkbox' => __( 'Checkbox (Amenities Pills)', 'website-section-supporter' ),
+					'radio'    => __( 'Radio Buttons', 'website-section-supporter' ),
+					'number'   => __( 'Number', 'website-section-supporter' ),
+					'html'     => __( 'Custom HTML / Divider', 'website-section-supporter' ),
+				),
 			)
 		);
 
-		$this->add_control(
-			'address_label',
+		$repeater->add_control(
+			'step_phase',
 			array(
-				'label'   => __( 'Address Field Label', 'website-section-supporter' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Property Street Address *', 'website-section-supporter' ),
+				'label'       => __( 'Step Phase Tag', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => 'PHASE 01',
+				'placeholder' => 'e.g. PHASE 01',
+				'condition'   => array( 'field_type' => 'step' ),
 			)
 		);
 
-		$this->add_control(
-			'address_placeholder',
+		$repeater->add_control(
+			'field_label',
 			array(
-				'label'   => __( 'Address Field Placeholder', 'website-section-supporter' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'e.g. 4820 Isleworth Country Club Dr', 'website-section-supporter' ),
+				'label'       => __( 'Label / Step Title', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Property Street Address', 'website-section-supporter' ),
+				'placeholder' => __( 'Field Label or Step Name', 'website-section-supporter' ),
 			)
 		);
 
-		$this->add_control(
-			'city_placeholder',
+		$repeater->add_control(
+			'placeholder',
 			array(
-				'label'   => __( 'City / Community Placeholder', 'website-section-supporter' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'e.g. Windermere, Winter Park, Orlando', 'website-section-supporter' ),
+				'label'       => __( 'Placeholder', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => __( 'Enter placeholder text', 'website-section-supporter' ),
+				'conditions'  => array(
+					'terms' => array(
+						array(
+							'name'     => 'field_type',
+							'operator' => '!in',
+							'value'    => array( 'step', 'checkbox', 'radio', 'html' ),
+						),
+					),
+				),
 			)
 		);
 
-		$this->add_control(
-			'default_state',
+		$repeater->add_control(
+			'required',
 			array(
-				'label'   => __( 'Default State Value', 'website-section-supporter' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Florida (FL)',
+				'label'        => __( 'Required Field', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'no',
+				'return_value' => 'yes',
+				'conditions'   => array(
+					'terms' => array(
+						array(
+							'name'     => 'field_type',
+							'operator' => '!in',
+							'value'    => array( 'step', 'html' ),
+						),
+					),
+				),
 			)
 		);
 
-		$this->add_control(
-			'zip_placeholder',
+		$repeater->add_control(
+			'column_width',
 			array(
-				'label'   => __( 'ZIP Code Placeholder', 'website-section-supporter' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'e.g. 34786', 'website-section-supporter' ),
+				'label'      => __( 'Column Width', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SELECT,
+				'default'    => '100',
+				'options'    => array(
+					'100' => '100%',
+					'75'  => '75%',
+					'66'  => '66%',
+					'50'  => '50% (2 per row)',
+					'33'  => '33% (3 per row)',
+					'25'  => '25% (4 per row)',
+				),
+				'conditions' => array(
+					'terms' => array(
+						array(
+							'name'     => 'field_type',
+							'operator' => '!in',
+							'value'    => array( 'step' ),
+						),
+					),
+				),
 			)
 		);
 
-		$this->add_control(
-			'categories_list',
+		$repeater->add_control(
+			'field_options',
 			array(
-				'label'       => __( 'Property Categories (One per line)', 'website-section-supporter' ),
+				'label'       => __( 'Options (One per line)', 'website-section-supporter' ),
 				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => "Single-Family Luxury Residence\nLakefront / Waterfront Estate\nPenthouse / High-Rise Condominium\nEquestrian & Acreage Estate\nGolf & Country Club Property\nCustom / New Construction Build",
-				'description' => __( 'Enter each category option on a new line.', 'website-section-supporter' ),
+				'default'     => "Option 1\nOption 2\nOption 3",
+				'description' => __( 'Enter each option on a new line.', 'website-section-supporter' ),
 				'rows'        => 6,
+				'conditions'  => array(
+					'terms' => array(
+						array(
+							'name'     => 'field_type',
+							'operator' => 'in',
+							'value'    => array( 'select', 'checkbox', 'radio' ),
+						),
+					),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'default_value',
+			array(
+				'label'       => __( 'Default Value', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'conditions'  => array(
+					'terms' => array(
+						array(
+							'name'     => 'field_type',
+							'operator' => '!in',
+							'value'    => array( 'step', 'html' ),
+						),
+					),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'raw_html',
+			array(
+				'label'       => __( 'HTML Content', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'default'     => '',
+				'rows'        => 4,
+				'condition'   => array( 'field_type' => 'html' ),
+			)
+		);
+
+		$this->add_control(
+			'form_fields',
+			array(
+				'label'       => __( 'Form Fields & Steps', 'website-section-supporter' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'title_field' => '{{{ field_type.toUpperCase() }}}: {{{ field_label }}} ({{{ column_width }}}%)',
+				'default'     => array(
+					// STEP 1
+					array(
+						'field_type'   => 'step',
+						'step_phase'   => 'PHASE 01',
+						'field_label'  => __( 'Property Location', 'website-section-supporter' ),
+					),
+					array(
+						'field_type'   => 'text',
+						'field_label'  => __( 'Property Street Address', 'website-section-supporter' ),
+						'placeholder'  => 'e.g. 4820 Isleworth Country Club Dr',
+						'required'     => 'yes',
+						'column_width' => '100',
+					),
+					array(
+						'field_type'   => 'text',
+						'field_label'  => __( 'Unit / Suite', 'website-section-supporter' ),
+						'placeholder'  => 'e.g. Penthouse 4B',
+						'required'     => 'no',
+						'column_width' => '50',
+					),
+					array(
+						'field_type'   => 'text',
+						'field_label'  => __( 'City / Community', 'website-section-supporter' ),
+						'placeholder'  => 'e.g. Windermere, Winter Park, Orlando',
+						'required'     => 'yes',
+						'column_width' => '50',
+					),
+					array(
+						'field_type'    => 'text',
+						'field_label'   => __( 'State', 'website-section-supporter' ),
+						'default_value' => 'Florida (FL)',
+						'required'      => 'no',
+						'column_width'  => '50',
+					),
+					array(
+						'field_type'   => 'text',
+						'field_label'  => __( 'ZIP / Postal Code', 'website-section-supporter' ),
+						'placeholder'  => 'e.g. 34786',
+						'required'     => 'yes',
+						'column_width' => '50',
+					),
+					array(
+						'field_type'    => 'select',
+						'field_label'   => __( 'Property Category', 'website-section-supporter' ),
+						'placeholder'   => __( 'Select Property Type...', 'website-section-supporter' ),
+						'field_options' => "Single-Family Luxury Residence\nLakefront / Waterfront Estate\nPenthouse / High-Rise Condominium\nEquestrian & Acreage Estate\nGolf & Country Club Property\nCustom / New Construction Build",
+						'required'      => 'yes',
+						'column_width'  => '100',
+					),
+
+					// STEP 2
+					array(
+						'field_type'   => 'step',
+						'step_phase'   => 'PHASE 02',
+						'field_label'  => __( 'Specs & Amenities', 'website-section-supporter' ),
+					),
+					array(
+						'field_type'    => 'select',
+						'field_label'   => __( 'Bedrooms', 'website-section-supporter' ),
+						'field_options' => "3 Bedrooms\n4 Bedrooms\n5 Bedrooms\n6+ Bedrooms",
+						'default_value' => '4 Bedrooms',
+						'required'      => 'no',
+						'column_width'  => '33',
+					),
+					array(
+						'field_type'    => 'select',
+						'field_label'   => __( 'Bathrooms', 'website-section-supporter' ),
+						'field_options' => "3 Baths\n4 Baths\n5 Baths\n6+ Baths",
+						'default_value' => '4 Baths',
+						'required'      => 'no',
+						'column_width'  => '33',
+					),
+					array(
+						'field_type'   => 'text',
+						'field_label'  => __( 'Approx. Sq. Footage', 'website-section-supporter' ),
+						'placeholder'  => 'e.g. 5,400 sq ft',
+						'required'     => 'no',
+						'column_width' => '33',
+					),
+					array(
+						'field_type'    => 'checkbox',
+						'field_label'   => __( 'Key Luxury Amenities & Features (Select All That Apply)', 'website-section-supporter' ),
+						'field_options' => "Private Boat Dock\nResort Pool & Lanai\n24/7 Gated Security\nGuest House / Casita\nCustom Wine Cellar\nRecent Remodel / Upgrade\nSmart Home Automation\nEquestrian Stables",
+						'required'      => 'no',
+						'column_width'  => '100',
+					),
+					array(
+						'field_type'    => 'select',
+						'field_label'   => __( 'Selling Horizon / Timeline', 'website-section-supporter' ),
+						'field_options' => "Planning to Sell (Next 30–60 Days)\nExploring Options (1–3 Months)\nLong-Term Strategy (6–12 Months)\nJust Curious / Annual Equity Checkup\nEstate Planning / Refinance",
+						'default_value' => 'Planning to Sell (Next 30–60 Days)',
+						'required'      => 'yes',
+						'column_width'  => '100',
+					),
+
+					// STEP 3
+					array(
+						'field_type'   => 'step',
+						'step_phase'   => 'PHASE 03',
+						'field_label'  => __( 'Contact & Delivery', 'website-section-supporter' ),
+					),
+					array(
+						'field_type'   => 'text',
+						'field_label'  => __( 'Full Name', 'website-section-supporter' ),
+						'placeholder'  => 'Victoria Sterling',
+						'required'     => 'yes',
+						'column_width' => '50',
+					),
+					array(
+						'field_type'   => 'email',
+						'field_label'  => __( 'Email Address', 'website-section-supporter' ),
+						'placeholder'  => 'sterling@private.com',
+						'required'     => 'yes',
+						'column_width' => '50',
+					),
+					array(
+						'field_type'   => 'tel',
+						'field_label'  => __( 'Direct Phone Number', 'website-section-supporter' ),
+						'placeholder'  => '+1 (407) 000-0000',
+						'required'     => 'yes',
+						'column_width' => '50',
+					),
+					array(
+						'field_type'    => 'select',
+						'field_label'   => __( 'Preferred Delivery Method', 'website-section-supporter' ),
+						'field_options' => "Digital PDF Market Dossier via Email\nConfidential Phone Review with Victoria Price\nPrivate In-Person Walkthrough",
+						'required'      => 'yes',
+						'column_width'  => '50',
+					),
+					array(
+						'field_type'   => 'textarea',
+						'field_label'  => __( 'Special Architectural Notes / Recent Capital Improvements', 'website-section-supporter' ),
+						'placeholder'  => 'e.g. New tile roof in 2024, Sub-Zero appliances, Lutron smart lighting system...',
+						'required'     => 'no',
+						'column_width' => '100',
+					),
+				),
 			)
 		);
 
 		$this->end_controls_section();
 
-		/* ================= CONTENT: STEP 2 - SPECS & AMENITIES ================= */
+		/* ================= CONTENT: BUTTONS & LABELS ================= */
 		$this->start_controls_section(
-			'section_content_step2',
+			'section_form_buttons',
 			array(
-				'label' => __( 'Step 2: Specs, Amenities & Timeline', 'website-section-supporter' ),
+				'label' => __( 'Buttons & Navigation Labels', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
 
 		$this->add_control(
-			'step2_tab_label',
+			'next_btn_text',
 			array(
-				'label'   => __( 'Step 2 Tab Label', 'website-section-supporter' ),
+				'label'   => __( 'Next Step Button Text', 'website-section-supporter' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Specs & Amenities', 'website-section-supporter' ),
+				'default' => __( 'Continue', 'website-section-supporter' ),
 			)
 		);
 
 		$this->add_control(
-			'amenities_list',
+			'prev_btn_text',
 			array(
-				'label'       => __( 'Luxury Amenities Checkboxes (One per line)', 'website-section-supporter' ),
-				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => "Private Boat Dock\nResort Pool & Lanai\n24/7 Gated Security\nGuest House / Casita\nCustom Wine Cellar\nRecent Remodel / Upgrade\nSmart Home Automation\nEquestrian Stables",
-				'description' => __( 'Enter each luxury amenity pill option on a new line.', 'website-section-supporter' ),
-				'rows'        => 8,
-			)
-		);
-
-		$this->add_control(
-			'timeline_options',
-			array(
-				'label'       => __( 'Selling Timeline Options (One per line)', 'website-section-supporter' ),
-				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => "Planning to Sell (Next 30–60 Days)\nExploring Options (1–3 Months)\nLong-Term Strategy (6–12 Months)\nJust Curious / Annual Equity Checkup\nEstate Planning / Refinance",
-				'description' => __( 'Enter each timeline option on a new line.', 'website-section-supporter' ),
-				'rows'        => 5,
-			)
-		);
-
-		$this->end_controls_section();
-
-		/* ================= CONTENT: STEP 3 - CONTACT & DELIVERY ================= */
-		$this->start_controls_section(
-			'section_content_step3',
-			array(
-				'label' => __( 'Step 3: Contact & Delivery Method', 'website-section-supporter' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			)
-		);
-
-		$this->add_control(
-			'step3_tab_label',
-			array(
-				'label'   => __( 'Step 3 Tab Label', 'website-section-supporter' ),
+				'label'   => __( 'Previous Step Button Text', 'website-section-supporter' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Contact & Delivery', 'website-section-supporter' ),
-			)
-		);
-
-		$this->add_control(
-			'delivery_methods',
-			array(
-				'label'       => __( 'Delivery Methods (One per line)', 'website-section-supporter' ),
-				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => "Digital PDF Market Dossier via Email\nConfidential Phone Review with Victoria Price\nPrivate In-Person Walkthrough",
-				'description' => __( 'Enter each delivery preference option on a new line.', 'website-section-supporter' ),
-				'rows'        => 3,
+				'default' => __( 'Back', 'website-section-supporter' ),
 			)
 		);
 
@@ -358,8 +554,8 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Email Subject', 'website-section-supporter' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'New Property Valuation Request: {{address}} ({{name}})', 'website-section-supporter' ),
-				'description' => __( 'Available Tokens: {{name}}, {{address}}, {{city}}, {{zip}}, {{category}}, {{timeline}}, {{email}}, {{phone}}, {{delivery}}', 'website-section-supporter' ),
+				'default'     => __( 'New Property Valuation Request from {{Full Name}}', 'website-section-supporter' ),
+				'description' => __( 'Tokens: Any field label in double braces e.g. {{Full Name}}, {{Property Street Address}}, {{Email Address}}', 'website-section-supporter' ),
 			)
 		);
 
@@ -409,7 +605,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Client Email Subject', 'website-section-supporter' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Property Valuation Request Confirmed: {{address}}', 'website-section-supporter' ),
+				'default'     => __( 'Property Valuation Request Confirmed | VP Signature Group', 'website-section-supporter' ),
 				'condition'   => array( 'enable_client_autoresponder' => 'yes' ),
 			)
 		);
@@ -656,7 +852,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 				'label'     => __( 'Button Background Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn' => 'background-color: {{VALUE}}; border-color: {{VALUE}};',
+					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn' => 'background-color: {{VALUE}}; border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -667,8 +863,8 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 				'label'     => __( 'Button Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .wss-home-eval-submit-btn svg' => 'stroke: {{VALUE}};',
+					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .wss-home-eval-submit-btn svg, {{WRAPPER}} .wss-home-eval-next-btn svg' => 'stroke: {{VALUE}};',
 				),
 			)
 		);
@@ -679,7 +875,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 				'label'     => __( 'Button Hover Background', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn:hover' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -690,8 +886,8 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 				'label'     => __( 'Button Hover Text Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn:hover' => 'color: {{VALUE}}; border-color: {{VALUE}};',
-					'{{WRAPPER}} .wss-home-eval-submit-btn:hover svg' => 'stroke: {{VALUE}};',
+					'{{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover' => 'color: {{VALUE}}; border-color: {{VALUE}};',
+					'{{WRAPPER}} .wss-home-eval-submit-btn:hover svg, {{WRAPPER}} .wss-home-eval-next-btn:hover svg' => 'stroke: {{VALUE}};',
 				),
 			)
 		);
@@ -700,7 +896,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'btn_typography',
-				'selector' => '{{WRAPPER}} .wss-home-eval-submit-btn',
+				'selector' => '{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn',
 			)
 		);
 
@@ -726,11 +922,28 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 		$site_key         = ! empty( $s['recaptcha_site_key'] ) ? $s['recaptcha_site_key'] : '';
 		$secret_key       = ! empty( $s['recaptcha_secret_key'] ) ? $s['recaptcha_secret_key'] : '';
 
-		// Parse Line Options
-		$categories = array_filter( array_map( 'trim', explode( "\n", $s['categories_list'] ?? '' ) ) );
-		$amenities  = array_filter( array_map( 'trim', explode( "\n", $s['amenities_list'] ?? '' ) ) );
-		$timelines  = array_filter( array_map( 'trim', explode( "\n", $s['timeline_options'] ?? '' ) ) );
-		$deliveries = array_filter( array_map( 'trim', explode( "\n", $s['delivery_methods'] ?? '' ) ) );
+		$fields = ! empty( $s['form_fields'] ) ? $s['form_fields'] : array();
+
+		// Separate into steps if step fields exist
+		$has_steps = false;
+		$steps     = array();
+		$current_step = 1;
+
+		foreach ( $fields as $item ) {
+			if ( 'step' === $item['field_type'] ) {
+				$has_steps = true;
+				$steps[] = array(
+					'step_num'   => count( $steps ) + 1,
+					'step_phase' => ! empty( $item['step_phase'] ) ? $item['step_phase'] : sprintf( 'PHASE %02d', count( $steps ) + 1 ),
+					'step_name'  => ! empty( $item['field_label'] ) ? $item['field_label'] : sprintf( 'Step %d', count( $steps ) + 1 ),
+				);
+			}
+		}
+
+		$total_steps = count( $steps );
+		if ( $total_steps === 0 ) {
+			$total_steps = 1;
+		}
 		?>
 		<div class="wss-scope">
 			<section class="wss-home-eval-section <?php echo esc_attr( $preset_class ); ?>" data-wss-widget="wss-home-evaluation">
@@ -758,32 +971,20 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 					<!-- Form Box Container -->
 					<div class="wss-home-eval-box wss-reveal wss-r1">
 						
-						<!-- Step Tabs Progress Navigation -->
-						<div class="wss-home-eval-steps-nav">
-							<button class="wss-home-eval-step-tab active" data-step="1" type="button">
-								<span class="wss-step-num">01</span>
-								<span class="wss-step-details">
-									<span class="wss-step-phase"><?php _e( 'PHASE 01', 'website-section-supporter' ); ?></span>
-									<span class="wss-step-name"><?php echo esc_html( $s['step1_tab_label'] ?? __( 'Property Location', 'website-section-supporter' ) ); ?></span>
-								</span>
-							</button>
-
-							<button class="wss-home-eval-step-tab" data-step="2" type="button">
-								<span class="wss-step-num">02</span>
-								<span class="wss-step-details">
-									<span class="wss-step-phase"><?php _e( 'PHASE 02', 'website-section-supporter' ); ?></span>
-									<span class="wss-step-name"><?php echo esc_html( $s['step2_tab_label'] ?? __( 'Specs & Amenities', 'website-section-supporter' ) ); ?></span>
-								</span>
-							</button>
-
-							<button class="wss-home-eval-step-tab" data-step="3" type="button">
-								<span class="wss-step-num">03</span>
-								<span class="wss-step-details">
-									<span class="wss-step-phase"><?php _e( 'PHASE 03', 'website-section-supporter' ); ?></span>
-									<span class="wss-step-name"><?php echo esc_html( $s['step3_tab_label'] ?? __( 'Contact & Delivery', 'website-section-supporter' ) ); ?></span>
-								</span>
-							</button>
-						</div>
+						<!-- Step Tabs Progress Navigation (Rendered if multi-step) -->
+						<?php if ( $has_steps && $total_steps > 1 ) : ?>
+							<div class="wss-home-eval-steps-nav">
+								<?php foreach ( $steps as $idx => $st ) : ?>
+									<button class="wss-home-eval-step-tab <?php echo ( 0 === $idx ) ? 'active' : ''; ?>" data-step="<?php echo esc_attr( $st['step_num'] ); ?>" type="button">
+										<span class="wss-step-num"><?php echo sprintf( '%02d', $st['step_num'] ); ?></span>
+										<span class="wss-step-details">
+											<span class="wss-step-phase"><?php echo esc_html( $st['step_phase'] ); ?></span>
+											<span class="wss-step-name"><?php echo esc_html( $st['step_name'] ); ?></span>
+										</span>
+									</button>
+								<?php endforeach; ?>
+							</div>
+						<?php endif; ?>
 
 						<!-- Master Form -->
 						<form class="wss-home-eval-form" method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
@@ -800,152 +1001,140 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 							<input type="hidden" name="client_email_subject" value="<?php echo esc_attr( $s['client_email_subject'] ?? '' ); ?>">
 							<input type="hidden" name="recaptcha_secret" value="<?php echo esc_attr( $secret_key ); ?>">
 
-							<!-- STEP 1: PROPERTY LOCATION & CATEGORY -->
-							<div class="wss-home-eval-step-pane active" data-step-pane="1">
-								
-								<div class="wss-form-group">
-									<label class="wss-field-label"><?php echo esc_html( $s['address_label'] ?? __( 'Property Street Address *', 'website-section-supporter' ) ); ?></label>
-									<input type="text" name="wss_address" class="wss-home-eval-input" placeholder="<?php echo esc_attr( $s['address_placeholder'] ); ?>" required>
-								</div>
+							<?php
+							$step_index = 0;
+							$in_step = false;
 
-								<div class="wss-form-row">
-									<div>
-										<label class="wss-field-label"><?php _e( 'Unit / Suite (Optional)', 'website-section-supporter' ); ?></label>
-										<input type="text" name="wss_unit" class="wss-home-eval-input" placeholder="<?php esc_attr_e( 'e.g. Penthouse 4B', 'website-section-supporter' ); ?>">
-									</div>
-									<div>
-										<label class="wss-field-label"><?php _e( 'City / Community *', 'website-section-supporter' ); ?></label>
-										<input type="text" name="wss_city" class="wss-home-eval-input" placeholder="<?php echo esc_attr( $s['city_placeholder'] ); ?>" required>
-									</div>
-								</div>
+							foreach ( $fields as $f_idx => $field ) :
+								$type     = ! empty( $field['field_type'] ) ? $field['field_type'] : 'text';
+								$label    = ! empty( $field['field_label'] ) ? $field['field_label'] : '';
+								$pl       = ! empty( $field['placeholder'] ) ? $field['placeholder'] : '';
+								$req      = ! empty( $field['required'] ) && 'yes' === $field['required'];
+								$col      = ! empty( $field['column_width'] ) ? $field['column_width'] : '100';
+								$def      = ! empty( $field['default_value'] ) ? $field['default_value'] : '';
+								$f_id     = ! empty( $field['_id'] ) ? $field['_id'] : 'f_' . $f_idx;
+								$raw_opts = ! empty( $field['field_options'] ) ? array_filter( array_map( 'trim', explode( "\n", $field['field_options'] ) ) ) : array();
 
-								<div class="wss-form-row">
-									<div>
-										<label class="wss-field-label"><?php _e( 'State', 'website-section-supporter' ); ?></label>
-										<input type="text" name="wss_state" class="wss-home-eval-input" value="<?php echo esc_attr( $s['default_state'] ); ?>" readonly>
-									</div>
-									<div>
-										<label class="wss-field-label"><?php _e( 'ZIP / Postal Code *', 'website-section-supporter' ); ?></label>
-										<input type="text" name="wss_zip" class="wss-home-eval-input" placeholder="<?php echo esc_attr( $s['zip_placeholder'] ); ?>" required>
-									</div>
-								</div>
+								if ( 'step' === $type ) :
+									// Close previous step pane if open
+									if ( $in_step ) :
+										?>
+											</div><!-- /.wss-form-grid-wrap -->
+											<div class="wss-btn-nav-row">
+												<?php if ( $step_index > 1 ) : ?>
+													<button type="button" class="wss-btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>">← <?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'website-section-supporter' ) ); ?></button>
+												<?php else : ?>
+													<div></div>
+												<?php endif; ?>
+												
+												<button type="button" class="wss-btn-pill wss-home-eval-next-btn" data-next="<?php echo esc_attr( $step_index + 1 ); ?>">
+													<span><?php echo esc_html( $s['next_btn_text'] ?? __( 'Continue', 'website-section-supporter' ) ); ?></span>
+													<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+												</button>
+											</div>
+										</div><!-- /.wss-home-eval-step-pane -->
+										<?php
+									endif;
 
-								<div class="wss-form-group">
-									<label class="wss-field-label"><?php _e( 'Property Category *', 'website-section-supporter' ); ?></label>
-									<select name="wss_category" class="wss-home-eval-input wss-home-eval-select" required>
-										<option value="" disabled selected><?php _e( 'Select Property Type...', 'website-section-supporter' ); ?></option>
-										<?php foreach ( $categories as $cat ) : ?>
-											<option value="<?php echo esc_attr( $cat ); ?>"><?php echo esc_html( $cat ); ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
+									$step_index++;
+									$in_step = true;
+									$is_active = ( 1 === $step_index );
+									?>
+									<div class="wss-home-eval-step-pane <?php echo $is_active ? 'active' : ''; ?>" data-step-pane="<?php echo esc_attr( $step_index ); ?>" style="<?php echo $is_active ? '' : 'display:none;'; ?>">
+										<div class="wss-form-grid-wrap">
+									<?php
+									continue;
+								endif;
 
-								<div class="wss-btn-nav-row">
-									<div></div>
-									<button type="button" class="wss-btn-pill wss-home-eval-next-btn" data-next="2">
-										<span><?php _e( 'Continue: Specs & Amenities', 'website-section-supporter' ); ?></span>
-										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-									</button>
-								</div>
+								if ( ! $in_step ) {
+									// In case no step field was added at the very beginning
+									$step_index = 1;
+									$in_step = true;
+									?>
+									<div class="wss-home-eval-step-pane active" data-step-pane="1">
+										<div class="wss-form-grid-wrap">
+									<?php
+								}
+								?>
 
-							</div>
+								<div class="wss-form-col wss-col-<?php echo esc_attr( $col ); ?> elementor-repeater-item-<?php echo esc_attr( $f_id ); ?>">
+									
+									<?php if ( ! empty( $label ) && 'html' !== $type && 'checkbox' !== $type ) : ?>
+										<label class="wss-field-label" for="wss_in_<?php echo esc_attr( $f_id ); ?>">
+											<?php echo esc_html( $label ); ?> <?php if ( $req ) echo '<span class="wss-req">*</span>'; ?>
+										</label>
+									<?php endif; ?>
 
-							<!-- STEP 2: SPECS, AMENITIES & TIMELINE -->
-							<div class="wss-home-eval-step-pane" data-step-pane="2" style="display: none;">
-								
-								<div class="wss-form-row-3">
-									<div>
-										<label class="wss-field-label"><?php _e( 'Bedrooms', 'website-section-supporter' ); ?></label>
-										<select name="wss_beds" class="wss-home-eval-input wss-home-eval-select">
-											<option value="3">3 Bedrooms</option>
-											<option value="4" selected>4 Bedrooms</option>
-											<option value="5">5 Bedrooms</option>
-											<option value="6+">6+ Bedrooms</option>
-										</select>
-									</div>
-									<div>
-										<label class="wss-field-label"><?php _e( 'Bathrooms', 'website-section-supporter' ); ?></label>
-										<select name="wss_baths" class="wss-home-eval-input wss-home-eval-select">
-											<option value="3">3 Baths</option>
-											<option value="4" selected>4 Baths</option>
-											<option value="5">5 Baths</option>
-											<option value="6+">6+ Baths</option>
-										</select>
-									</div>
-									<div>
-										<label class="wss-field-label"><?php _e( 'Approx. Sq. Footage', 'website-section-supporter' ); ?></label>
-										<input type="text" name="wss_sqft" class="wss-home-eval-input" placeholder="<?php esc_attr_e( 'e.g. 5,400 sq ft', 'website-section-supporter' ); ?>">
-									</div>
-								</div>
+									<?php if ( 'text' === $type ) : ?>
+										<input type="text" id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="wss-home-eval-input" placeholder="<?php echo esc_attr( $pl ); ?>" value="<?php echo esc_attr( $def ); ?>" <?php echo $req ? 'required' : ''; ?>>
 
-								<div class="wss-form-group">
-									<label class="wss-field-label"><?php _e( 'Key Luxury Amenities & Features (Select All That Apply)', 'website-section-supporter' ); ?></label>
-									<div class="wss-amenity-grid">
-										<?php foreach ( $amenities as $amenity ) : ?>
-											<label class="wss-home-eval-amenity-box">
-												<input type="checkbox" name="wss_amenities[]" value="<?php echo esc_attr( $amenity ); ?>">
-												<span class="wss-home-eval-amenity-label"><?php echo esc_html( $amenity ); ?></span>
-											</label>
-										<?php endforeach; ?>
-									</div>
-								</div>
+									<?php elseif ( 'email' === $type ) : ?>
+										<input type="email" id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="wss-home-eval-input" placeholder="<?php echo esc_attr( $pl ); ?>" value="<?php echo esc_attr( $def ); ?>" <?php echo $req ? 'required' : ''; ?>>
 
-								<div class="wss-form-group">
-									<label class="wss-field-label"><?php _e( 'Selling Horizon / Timeline *', 'website-section-supporter' ); ?></label>
-									<select name="wss_timeline" class="wss-home-eval-input wss-home-eval-select" required>
-										<?php foreach ( $timelines as $t_idx => $timeline ) : ?>
-											<option value="<?php echo esc_attr( $timeline ); ?>" <?php echo ( 0 === $t_idx ) ? 'selected' : ''; ?>>
-												<?php echo esc_html( $timeline ); ?>
-											</option>
-										<?php endforeach; ?>
-									</select>
-								</div>
+									<?php elseif ( 'tel' === $type ) : ?>
+										<input type="tel" id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="wss-home-eval-input" placeholder="<?php echo esc_attr( $pl ); ?>" value="<?php echo esc_attr( $def ); ?>" <?php echo $req ? 'required' : ''; ?>>
 
-								<div class="wss-btn-nav-row">
-									<button type="button" class="wss-btn-back" data-prev="1">← <?php _e( 'Back to Location', 'website-section-supporter' ); ?></button>
-									<button type="button" class="wss-btn-pill wss-home-eval-next-btn" data-next="3">
-										<span><?php _e( 'Continue: Contact & Delivery', 'website-section-supporter' ); ?></span>
-										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-									</button>
-								</div>
+									<?php elseif ( 'number' === $type ) : ?>
+										<input type="number" id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="wss-home-eval-input" placeholder="<?php echo esc_attr( $pl ); ?>" value="<?php echo esc_attr( $def ); ?>" <?php echo $req ? 'required' : ''; ?>>
 
-							</div>
+									<?php elseif ( 'textarea' === $type ) : ?>
+										<textarea id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="wss-home-eval-input" rows="3" placeholder="<?php echo esc_attr( $pl ); ?>" <?php echo $req ? 'required' : ''; ?>><?php echo esc_textarea( $def ); ?></textarea>
 
-							<!-- STEP 3: CONTACT & DELIVERY -->
-							<div class="wss-home-eval-step-pane" data-step-pane="3" style="display: none;">
-								
-								<div class="wss-form-row">
-									<div>
-										<label class="wss-field-label"><?php _e( 'Full Name *', 'website-section-supporter' ); ?></label>
-										<input type="text" name="wss_name" class="wss-home-eval-input" placeholder="<?php esc_attr_e( 'Victoria Sterling', 'website-section-supporter' ); ?>" required>
-									</div>
-									<div>
-										<label class="wss-field-label"><?php _e( 'Email Address *', 'website-section-supporter' ); ?></label>
-										<input type="email" name="wss_email" class="wss-home-eval-input" placeholder="<?php esc_attr_e( 'sterling@private.com', 'website-section-supporter' ); ?>" required>
-									</div>
-								</div>
-
-								<div class="wss-form-row">
-									<div>
-										<label class="wss-field-label"><?php _e( 'Direct Phone Number *', 'website-section-supporter' ); ?></label>
-										<input type="tel" name="wss_phone" class="wss-home-eval-input" placeholder="<?php esc_attr_e( '+1 (407) 000-0000', 'website-section-supporter' ); ?>" required>
-									</div>
-									<div>
-										<label class="wss-field-label"><?php _e( 'Preferred Delivery Method *', 'website-section-supporter' ); ?></label>
-										<select name="wss_delivery" class="wss-home-eval-input wss-home-eval-select" required>
-											<?php foreach ( $deliveries as $del ) : ?>
-												<option value="<?php echo esc_attr( $del ); ?>"><?php echo esc_html( $del ); ?></option>
+									<?php elseif ( 'select' === $type ) : ?>
+										<select id="wss_in_<?php echo esc_attr( $f_id ); ?>" name="wss_fields[<?php echo esc_attr( $label ); ?>]" class="wss-home-eval-input wss-home-eval-select" <?php echo $req ? 'required' : ''; ?>>
+											<?php if ( ! empty( $pl ) ) : ?>
+												<option value="" disabled <?php echo empty( $def ) ? 'selected' : ''; ?>><?php echo esc_html( $pl ); ?></option>
+											<?php endif; ?>
+											<?php foreach ( $raw_opts as $opt ) : ?>
+												<option value="<?php echo esc_attr( $opt ); ?>" <?php echo ( $opt === $def ) ? 'selected' : ''; ?>><?php echo esc_html( $opt ); ?></option>
 											<?php endforeach; ?>
 										</select>
-									</div>
+
+									<?php elseif ( 'checkbox' === $type ) : ?>
+										<?php if ( ! empty( $label ) ) : ?>
+											<label class="wss-field-label">
+												<?php echo esc_html( $label ); ?> <?php if ( $req ) echo '<span class="wss-req">*</span>'; ?>
+											</label>
+										<?php endif; ?>
+										<div class="wss-amenity-grid">
+											<?php foreach ( $raw_opts as $opt ) : ?>
+												<label class="wss-home-eval-amenity-box">
+													<input type="checkbox" name="wss_fields[<?php echo esc_attr( $label ); ?>][]" value="<?php echo esc_attr( $opt ); ?>">
+													<span class="wss-home-eval-amenity-label"><?php echo esc_html( $opt ); ?></span>
+												</label>
+											<?php endforeach; ?>
+										</div>
+
+									<?php elseif ( 'radio' === $type ) : ?>
+										<?php if ( ! empty( $label ) ) : ?>
+											<label class="wss-field-label">
+												<?php echo esc_html( $label ); ?> <?php if ( $req ) echo '<span class="wss-req">*</span>'; ?>
+											</label>
+										<?php endif; ?>
+										<div class="wss-amenity-grid">
+											<?php foreach ( $raw_opts as $opt ) : ?>
+												<label class="wss-home-eval-amenity-box">
+													<input type="radio" name="wss_fields[<?php echo esc_attr( $label ); ?>]" value="<?php echo esc_attr( $opt ); ?>" <?php echo ( $opt === $def ) ? 'checked' : ''; ?>>
+													<span class="wss-home-eval-amenity-label"><?php echo esc_html( $opt ); ?></span>
+												</label>
+											<?php endforeach; ?>
+										</div>
+
+									<?php elseif ( 'html' === $type ) : ?>
+										<div class="wss-custom-html-block">
+											<?php echo wp_kses_post( $field['raw_html'] ?? '' ); ?>
+										</div>
+
+									<?php endif; ?>
+
 								</div>
 
-								<div class="wss-form-group">
-									<label class="wss-field-label"><?php _e( 'Special Architectural Notes / Recent Capital Improvements (Optional)', 'website-section-supporter' ); ?></label>
-									<textarea name="wss_notes" class="wss-home-eval-input" rows="3" placeholder="<?php esc_attr_e( 'e.g. New tile roof in 2024, Sub-Zero appliances, Lutron smart lighting system...', 'website-section-supporter' ); ?>"></textarea>
-								</div>
+							<?php endforeach; ?>
 
-								<!-- Google reCAPTCHA v2 Checkbox UI -->
+							<?php if ( $in_step ) : ?>
+								</div><!-- /.wss-form-grid-wrap -->
+
+								<!-- Google reCAPTCHA v2 Checkbox UI on Final Step -->
 								<?php if ( $enable_recaptcha && 'v2' === $recaptcha_v ) : ?>
 									<div class="wss-form-row wss-recaptcha-wrap" style="margin: 16px 0;">
 										<div class="g-recaptcha" data-sitekey="<?php echo esc_attr( $site_key ); ?>"></div>
@@ -967,7 +1156,12 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 								<?php endif; ?>
 
 								<div class="wss-btn-nav-row">
-									<button type="button" class="wss-btn-back" data-prev="2">← <?php _e( 'Back to Amenities', 'website-section-supporter' ); ?></button>
+									<?php if ( $step_index > 1 ) : ?>
+										<button type="button" class="wss-btn-back" data-prev="<?php echo esc_attr( $step_index - 1 ); ?>">← <?php echo esc_html( $s['prev_btn_text'] ?? __( 'Back', 'website-section-supporter' ) ); ?></button>
+									<?php else : ?>
+										<div></div>
+									<?php endif; ?>
+
 									<button type="submit" class="wss-btn-pill wss-home-eval-submit-btn">
 										<span><?php echo esc_html( $s['submit_btn_text'] ?? __( 'Request Confidential Valuation', 'website-section-supporter' ) ); ?></span>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -981,7 +1175,8 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 									</div>
 								<?php endif; ?>
 
-							</div>
+								</div><!-- /.wss-home-eval-step-pane -->
+							<?php endif; ?>
 
 						</form>
 

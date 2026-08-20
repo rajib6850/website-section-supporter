@@ -10193,23 +10193,30 @@ button.wss-buyer-guide-submit-btn:hover svg {
   color: inherit;
 }
 
-/* Form Layout */
-.wss-form-group {
-  margin-bottom: 24px;
+/* Form Builder Flex Grid & Columns */
+.wss-form-grid-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 20px;
+  width: 100%;
 }
 
-.wss-form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 24px;
+.wss-form-col {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
-.wss-form-row-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 24px;
+.wss-col-100 { width: 100%; }
+.wss-col-75  { width: calc(75% - 5px); }
+.wss-col-66  { width: calc(66.66% - 7px); }
+.wss-col-50  { width: calc(50% - 10px); }
+.wss-col-33  { width: calc(33.33% - 13.33px); }
+.wss-col-25  { width: calc(25% - 15px); }
+
+.wss-req {
+  color: #e03131;
+  font-weight: 700;
 }
 
 .wss-field-label {
@@ -10483,7 +10490,9 @@ button.wss-buyer-guide-submit-btn:hover svg {
     padding: 10px 12px;
   }
   .wss-form-row,
-  .wss-form-row-3 {
+  .wss-form-row-3,
+  .wss-form-col {
+    width: 100% !important;
     grid-template-columns: 1fr;
     gap: 16px;
     margin-bottom: 16px;
