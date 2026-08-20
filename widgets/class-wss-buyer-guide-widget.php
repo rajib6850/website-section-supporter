@@ -464,59 +464,6 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		/* ================= CONTENT: SPAM PROTECTION ================= */
-		$this->start_controls_section(
-			'section_content_spam',
-			array(
-				'label' => __( 'Google reCAPTCHA Security', 'website-section-supporter' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			)
-		);
-
-		$this->add_control(
-			'enable_recaptcha',
-			array(
-				'label'        => __( 'Enable Google reCAPTCHA', 'website-section-supporter' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'no',
-				'return_value' => 'yes',
-			)
-		);
-
-		$this->add_control(
-			'recaptcha_version',
-			array(
-				'label'     => __( 'reCAPTCHA Version', 'website-section-supporter' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'v3',
-				'options'   => array(
-					'v3' => __( 'v3 (Invisible / Score-based)', 'website-section-supporter' ),
-					'v2' => __( 'v2 Checkbox ("I am not a robot")', 'website-section-supporter' ),
-				),
-				'condition' => array( 'enable_recaptcha' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'recaptcha_site_key',
-			array(
-				'label'     => __( 'Site Key', 'website-section-supporter' ),
-				'type'      => Controls_Manager::TEXT,
-				'condition' => array( 'enable_recaptcha' => 'yes' ),
-			)
-		);
-
-		$this->add_control(
-			'recaptcha_secret_key',
-			array(
-				'label'     => __( 'Secret Key', 'website-section-supporter' ),
-				'type'      => Controls_Manager::TEXT,
-				'condition' => array( 'enable_recaptcha' => 'yes' ),
-			)
-		);
-
-		$this->end_controls_section();
-
 		/* ================= STYLE: CONTAINER & LAYOUT ================= */
 		$this->start_controls_section(
 			'style_container_layout',
