@@ -7682,9 +7682,10 @@ body.wss-modal-open {
 
 .wss-buyer-hero-actions {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
+  flex-direction: row;
+  align-items: center;
+  gap: 26px;
+  flex-wrap: wrap;
   max-width: 100%;
   margin-top: 32px;
   box-sizing: border-box;
@@ -7695,7 +7696,6 @@ body.wss-modal-open {
   align-items: center;
   width: fit-content;
   max-width: fit-content;
-  align-self: flex-start;
   flex-grow: 0;
   flex-shrink: 0;
   box-sizing: border-box;
