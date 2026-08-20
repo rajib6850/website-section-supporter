@@ -373,12 +373,18 @@
 								scrollObserver.unobserve( entry.target );
 							}
 						} );
-					}, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" } );
+					}, { threshold: 0.01, rootMargin: "0px 0px 80px 0px" } );
 				}
 
 				reveals.forEach( function ( el ) {
 					if ( ! el.classList.contains( "wss-is-visible" ) ) {
-						scrollObserver.observe( el );
+						// If element is already in current viewport on load, reveal immediately
+						var rect = el.getBoundingClientRect();
+						if ( rect.top < ( window.innerHeight || document.documentElement.clientHeight ) && rect.bottom > 0 ) {
+							el.classList.add( "wss-is-visible" );
+						} else {
+							scrollObserver.observe( el );
+						}
 					}
 				} );
 			} else {

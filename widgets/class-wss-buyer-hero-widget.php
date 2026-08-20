@@ -908,8 +908,11 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 
 		$tag = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h1';
 
-		$show_btn1 = ! empty( $s['show_btn1'] ) && 'yes' === $s['show_btn1'] && ! empty( $s['btn1_text'] );
-		$show_btn2 = ! empty( $s['show_btn2'] ) && 'yes' === $s['show_btn2'] && ! empty( $s['btn2_text'] );
+		$btn1_text = ! empty( $s['btn1_text'] ) ? $s['btn1_text'] : __( 'Search Properties', 'website-section-supporter' );
+		$btn2_text = ! empty( $s['btn2_text'] ) ? $s['btn2_text'] : __( 'Download Buyer\'s Guide', 'website-section-supporter' );
+
+		$show_btn1 = ( ! isset( $s['show_btn1'] ) || 'yes' === $s['show_btn1'] ) && ! empty( $btn1_text );
+		$show_btn2 = ( ! isset( $s['show_btn2'] ) || 'yes' === $s['show_btn2'] ) && ! empty( $btn2_text );
 
 		$btn1_style = ! empty( $s['btn1_style'] ) ? 'wss-btn-' . $s['btn1_style'] : 'wss-btn-pill';
 		$btn2_style = ! empty( $s['btn2_style'] ) ? 'wss-btn-' . $s['btn2_style'] : 'wss-btn-line';
@@ -966,7 +969,7 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 										<a class="<?php echo esc_attr( $btn1_style ); ?> wss-buyer-hero-btn-primary" 
 											href="<?php echo esc_url( $s['btn1_link']['url'] ?: '#' ); ?>"
 											<?php echo ! empty( $s['btn1_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
-											<span><?php echo esc_html( $s['btn1_text'] ); ?></span>
+											<span><?php echo esc_html( $btn1_text ); ?></span>
 											<?php if ( ! empty( $btn1_icon_html ) ) echo $btn1_icon_html; ?>
 										</a>
 									<?php endif; ?>
@@ -975,7 +978,7 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 										<a class="<?php echo esc_attr( $btn2_style ); ?> wss-buyer-hero-btn-secondary" 
 											href="<?php echo esc_url( $s['btn2_link']['url'] ?: '#' ); ?>"
 											<?php echo ! empty( $s['btn2_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
-											<span><?php echo esc_html( $s['btn2_text'] ); ?></span>
+											<span><?php echo esc_html( $btn2_text ); ?></span>
 											<?php if ( ! empty( $btn2_icon_html ) ) echo $btn2_icon_html; ?>
 										</a>
 									<?php endif; ?>

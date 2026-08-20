@@ -7676,11 +7676,32 @@ body.wss-modal-open {
   font-weight: var(--wss-weight-accent, 700);
   position: relative;
   overflow: hidden;
+  color: var(--wss-ink, #0d0d0d);
+  border-color: var(--wss-ink, #0d0d0d);
 }
 
 .wss-buyer-hero-btn-secondary {
   font-family: var(--wss-font-accent);
   font-weight: var(--wss-weight-accent, 700);
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-buyer-hero--dark .wss-buyer-hero-btn-primary {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.wss-buyer-hero--dark .wss-buyer-hero-btn-primary:hover {
+  color: #0d0d0d !important;
+  border-color: #ffffff !important;
+}
+
+.wss-buyer-hero--dark .wss-buyer-hero-btn-primary::before {
+  background: #ffffff !important;
+}
+
+.wss-buyer-hero--dark .wss-buyer-hero-btn-secondary {
+  color: #ffffff !important;
 }
 
 .wss-buyer-hero-media-wrap {
