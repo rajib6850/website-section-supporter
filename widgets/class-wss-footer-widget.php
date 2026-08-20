@@ -281,6 +281,36 @@ class WSS_Footer_Widget extends Widget_Base {
 			'style_brand',
 			array( 'label' => __( 'Brand', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
+		$this->add_responsive_control(
+			'brand_logo_width',
+			array(
+				'label'      => __( 'Logo Width', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 20, 'max' => 600, 'step' => 1 ),
+					'%'  => array( 'min' => 10, 'max' => 100 ),
+					'vw' => array( 'min' => 5, 'max' => 50 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-foot-logo-img, {{WRAPPER}} .wss-foot-brand .wss-logo img' => 'width: {{SIZE}}{{UNIT}} !important; max-width: 100%;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'brand_logo_max_height',
+			array(
+				'label'      => __( 'Logo Max Height (px)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 15, 'max' => 250, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-foot-logo-img, {{WRAPPER}} .wss-foot-brand .wss-logo img' => 'max-height: {{SIZE}}{{UNIT}} !important; height: auto !important;',
+				),
+			)
+		);
 		$this->add_control( 'brand_logo_color', array( 'label' => __( 'Logo Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-foot-brand .wss-logo' => 'color: {{VALUE}};' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'brand_logo_typography', 'selector' => '{{WRAPPER}} .wss-foot-brand .wss-logo' ) );
 		$this->add_control( 'tagline_color', array( 'label' => __( 'Tagline Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-foot-brand p' => 'color: {{VALUE}};' ) ) );

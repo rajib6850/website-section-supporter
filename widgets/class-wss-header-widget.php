@@ -74,6 +74,39 @@ class WSS_Header_Widget extends Widget_Base {
 				'condition' => array( 'logo_type' => 'image' ),
 			)
 		);
+		$this->add_responsive_control(
+			'logo_image_width',
+			array(
+				'label'      => __( 'Logo Width', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 20, 'max' => 600, 'step' => 1 ),
+					'%'  => array( 'min' => 10, 'max' => 100 ),
+					'vw' => array( 'min' => 5, 'max' => 50 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-logo img, {{WRAPPER}} .wss-logo .wss-logo-normal img' => 'width: {{SIZE}}{{UNIT}} !important; max-width: 100%;',
+				),
+				'condition'  => array( 'logo_type' => 'image' ),
+			)
+		);
+		$this->add_responsive_control(
+			'logo_image_max_height',
+			array(
+				'label'      => __( 'Logo Max Height (px)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 15, 'max' => 250, 'step' => 1 ),
+				),
+				'default'    => array( 'size' => 40, 'unit' => 'px' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-logo img, {{WRAPPER}} .wss-logo .wss-logo-normal img' => 'max-height: {{SIZE}}{{UNIT}} !important; height: auto !important;',
+				),
+				'condition'  => array( 'logo_type' => 'image' ),
+			)
+		);
 		$this->add_control(
 			'logo_bold',
 			array(
@@ -269,6 +302,45 @@ class WSS_Header_Widget extends Widget_Base {
 				),
 			)
 		);
+		$this->add_responsive_control(
+			'sticky_logo_image_width',
+			array(
+				'label'      => __( 'Sticky Logo Width', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 20, 'max' => 600, 'step' => 1 ),
+					'%'  => array( 'min' => 10, 'max' => 100 ),
+					'vw' => array( 'min' => 5, 'max' => 50 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-logo .wss-logo-sticky img' => 'width: {{SIZE}}{{UNIT}} !important; max-width: 100%;',
+				),
+				'condition'  => array(
+					'enable_sticky'    => 'yes',
+					'sticky_logo_type' => 'custom_image',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'sticky_logo_image_max_height',
+			array(
+				'label'      => __( 'Sticky Logo Max Height (px)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 15, 'max' => 250, 'step' => 1 ),
+				),
+				'default'    => array( 'size' => 40, 'unit' => 'px' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-logo .wss-logo-sticky img' => 'max-height: {{SIZE}}{{UNIT}} !important; height: auto !important;',
+				),
+				'condition'  => array(
+					'enable_sticky'    => 'yes',
+					'sticky_logo_type' => 'custom_image',
+				),
+			)
+		);
 		$this->add_control(
 			'sticky_logo_bold',
 			array(
@@ -403,6 +475,45 @@ class WSS_Header_Widget extends Widget_Base {
 				'label'     => __( 'Popup Logo Image', 'website-section-supporter' ),
 				'type'      => Controls_Manager::MEDIA,
 				'condition' => array(
+					'show_popup_menu' => 'yes',
+					'popup_logo_type' => 'custom_image',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'popup_logo_image_width',
+			array(
+				'label'      => __( 'Popup Logo Width', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 20, 'max' => 600, 'step' => 1 ),
+					'%'  => array( 'min' => 10, 'max' => 100 ),
+					'vw' => array( 'min' => 5, 'max' => 50 ),
+				),
+				'selectors'  => array(
+					'body #wss-menu .wss-menu-logo img' => 'width: {{SIZE}}{{UNIT}} !important; max-width: 100%;',
+				),
+				'condition'  => array(
+					'show_popup_menu' => 'yes',
+					'popup_logo_type' => 'custom_image',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'popup_logo_image_max_height',
+			array(
+				'label'      => __( 'Popup Logo Max Height (px)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 15, 'max' => 250, 'step' => 1 ),
+				),
+				'default'    => array( 'size' => 32, 'unit' => 'px' ),
+				'selectors'  => array(
+					'body #wss-menu .wss-menu-logo img' => 'max-height: {{SIZE}}{{UNIT}} !important; height: auto !important;',
+				),
+				'condition'  => array(
 					'show_popup_menu' => 'yes',
 					'popup_logo_type' => 'custom_image',
 				),
@@ -552,6 +663,69 @@ class WSS_Header_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'style_logo',
 			array( 'label' => __( 'Logo', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
+		);
+		$this->add_control(
+			'heading_style_logo_image',
+			array(
+				'label' => __( 'Image Logo Size', 'website-section-supporter' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+		$this->add_responsive_control(
+			'logo_width',
+			array(
+				'label'      => __( 'Logo Width', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 20, 'max' => 600, 'step' => 1 ),
+					'%'  => array( 'min' => 10, 'max' => 100 ),
+					'vw' => array( 'min' => 5, 'max' => 50 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-logo img, {{WRAPPER}} .wss-logo .wss-logo-normal img' => 'width: {{SIZE}}{{UNIT}} !important; max-width: 100%;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'logo_max_height',
+			array(
+				'label'      => __( 'Logo Max Height (px)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 15, 'max' => 250, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-logo img, {{WRAPPER}} .wss-logo .wss-logo-normal img' => 'max-height: {{SIZE}}{{UNIT}} !important; height: auto !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'logo_object_fit',
+			array(
+				'label'     => __( 'Object Fit', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'contain',
+				'options'   => array(
+					'contain'    => __( 'Contain', 'website-section-supporter' ),
+					'cover'      => __( 'Cover', 'website-section-supporter' ),
+					'fill'       => __( 'Fill', 'website-section-supporter' ),
+					'none'       => __( 'None', 'website-section-supporter' ),
+					'scale-down' => __( 'Scale Down', 'website-section-supporter' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-logo img' => 'object-fit: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'heading_style_logo_text',
+			array(
+				'label'     => __( 'Text Logo Colors & Typography', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
 		);
 		$this->add_control(
 			'logo_color',
@@ -1099,9 +1273,39 @@ class WSS_Header_Widget extends Widget_Base {
 		$this->add_control(
 			'heading_sticky_logo',
 			array(
-				'label'     => __( 'Sticky Logo Colors', 'website-section-supporter' ),
+				'label'     => __( 'Sticky Logo (Image Size & Colors)', 'website-section-supporter' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
+			)
+		);
+		$this->add_responsive_control(
+			'sticky_logo_width',
+			array(
+				'label'      => __( 'Sticky Logo Width', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 20, 'max' => 600, 'step' => 1 ),
+					'%'  => array( 'min' => 10, 'max' => 100 ),
+					'vw' => array( 'min' => 5, 'max' => 50 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-logo img, {{WRAPPER}} .wss-header.wss-is-sticky .wss-logo img, {{WRAPPER}} .wss-logo-sticky img' => 'width: {{SIZE}}{{UNIT}} !important; max-width: 100%;',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'sticky_logo_max_height',
+			array(
+				'label'      => __( 'Sticky Logo Max Height (px)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array( 'min' => 15, 'max' => 250, 'step' => 1 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-header.wss-header--solid .wss-logo img, {{WRAPPER}} .wss-header.wss-is-sticky .wss-logo img, {{WRAPPER}} .wss-logo-sticky img' => 'max-height: {{SIZE}}{{UNIT}} !important; height: auto !important;',
+				),
 			)
 		);
 		$this->add_control(
