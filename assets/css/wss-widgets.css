@@ -8244,8 +8244,7 @@ body.wss-modal-open {
 /* Two-Line Milestone Deliverable Footer */
 .wss-buyer-roadmap-milestone {
   margin-top: auto;
-  padding-top: 18px;
-  border-top: 1px solid var(--wss-line, #e2dfda);
+  padding-top: 6px;
   display: flex;
   flex-direction: column;
   gap: 5px;

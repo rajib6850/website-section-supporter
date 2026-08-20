@@ -162,57 +162,8 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 			array(
 				'label'       => __( 'Card Content (TinyMCE / Rich Text & Lists)', 'website-section-supporter' ),
 				'type'        => Controls_Manager::WYSIWYG,
-				'default'     => __( 'We clarify your lifestyle vision, tax considerations, architectural aesthetics, and timeline while establishing a tailored acquisition criteria profile.', 'website-section-supporter' ),
+				'default'     => "<p>We clarify your lifestyle vision, tax considerations, architectural aesthetics, and timeline while establishing a tailored acquisition criteria profile.</p><hr><div class=\"wss-buyer-roadmap-milestone\"><div class=\"wss-buyer-roadmap-milestone-top\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polyline points=\"20 6 9 17 4 12\"></polyline></svg><span class=\"wss-buyer-roadmap-milestone-label\">DELIVERABLE</span></div><div class=\"wss-buyer-roadmap-milestone-val\">Acquisition Blueprint</div></div>",
 				'rows'        => 6,
-			)
-		);
-
-		$repeater->add_control(
-			'show_milestone',
-			array(
-				'label'        => __( 'Display Milestone / Deliverable Footer', 'website-section-supporter' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
-				'return_value' => 'yes',
-				'separator'    => 'before',
-			)
-		);
-
-		$repeater->add_control(
-			'milestone_label',
-			array(
-				'label'       => __( 'Milestone Label (Line 1)', 'website-section-supporter' ),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Deliverable', 'website-section-supporter' ),
-				'placeholder' => __( 'e.g. Deliverable', 'website-section-supporter' ),
-				'condition'   => array( 'show_milestone' => 'yes' ),
-			)
-		);
-
-		$repeater->add_control(
-			'milestone_text',
-			array(
-				'label'       => __( 'Milestone Deliverable Name (Line 2)', 'website-section-supporter' ),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Acquisition Blueprint', 'website-section-supporter' ),
-				'placeholder' => __( 'e.g. Acquisition Blueprint', 'website-section-supporter' ),
-				'condition'   => array( 'show_milestone' => 'yes' ),
-			)
-		);
-
-		$repeater->add_control(
-			'milestone_icon',
-			array(
-				'label'     => __( 'Milestone Icon', 'website-section-supporter' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'check',
-				'options'   => array(
-					'check' => __( 'Checkmark', 'website-section-supporter' ),
-					'arrow' => __( 'Arrow Right', 'website-section-supporter' ),
-					'star'  => __( 'Star', 'website-section-supporter' ),
-					'none'  => __( 'None', 'website-section-supporter' ),
-				),
-				'condition' => array( 'show_milestone' => 'yes' ),
 			)
 		);
 
@@ -228,37 +179,25 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 						'phase_badge'      => __( 'Phase 01', 'website-section-supporter' ),
 						'watermark_number' => '01',
 						'title'            => __( 'Consultation & Alignment', 'website-section-supporter' ),
-						'description'      => __( 'We clarify your lifestyle vision, tax considerations, architectural aesthetics, and timeline while establishing a tailored acquisition criteria profile.', 'website-section-supporter' ),
-						'milestone_label'  => __( 'Deliverable', 'website-section-supporter' ),
-						'milestone_text'   => __( 'Acquisition Blueprint', 'website-section-supporter' ),
-						'milestone_icon'   => 'check',
+						'description'      => "<p>We clarify your lifestyle vision, tax considerations, architectural aesthetics, and timeline while establishing a tailored acquisition criteria profile.</p><hr><div class=\"wss-buyer-roadmap-milestone\"><div class=\"wss-buyer-roadmap-milestone-top\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polyline points=\"20 6 9 17 4 12\"></polyline></svg><span class=\"wss-buyer-roadmap-milestone-label\">DELIVERABLE</span></div><div class=\"wss-buyer-roadmap-milestone-val\">Acquisition Blueprint</div></div>",
 					),
 					array(
 						'phase_badge'      => __( 'Phase 02', 'website-section-supporter' ),
 						'watermark_number' => '02',
 						'title'            => __( 'Curated Discovery', 'website-section-supporter' ),
-						'description'      => __( 'Beyond public MLS inventory, we unlock discreet off-market opportunities, provide micro-market valuation metrics, and conduct private previews.', 'website-section-supporter' ),
-						'milestone_label'  => __( 'Deliverable', 'website-section-supporter' ),
-						'milestone_text'   => __( 'Private Dossier & Tours', 'website-section-supporter' ),
-						'milestone_icon'   => 'check',
+						'description'      => "<p>Beyond public MLS inventory, we unlock discreet off-market opportunities, provide micro-market valuation metrics, and conduct private previews.</p><hr><div class=\"wss-buyer-roadmap-milestone\"><div class=\"wss-buyer-roadmap-milestone-top\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polyline points=\"20 6 9 17 4 12\"></polyline></svg><span class=\"wss-buyer-roadmap-milestone-label\">DELIVERABLE</span></div><div class=\"wss-buyer-roadmap-milestone-val\">Private Dossier &amp; Tours</div></div>",
 					),
 					array(
 						'phase_badge'      => __( 'Phase 03', 'website-section-supporter' ),
 						'watermark_number' => '03',
 						'title'            => __( 'Strategic Negotiation', 'website-section-supporter' ),
-						'description'      => __( 'Leveraging deep commercial and residential acumen, we craft disciplined offers that protect capital, optimize inspection terms, and secure the asset.', 'website-section-supporter' ),
-						'milestone_label'  => __( 'Deliverable', 'website-section-supporter' ),
-						'milestone_text'   => __( 'Protected Contract Structuring', 'website-section-supporter' ),
-						'milestone_icon'   => 'check',
+						'description'      => "<p>Leveraging deep commercial and residential acumen, we craft disciplined offers that protect capital, optimize inspection terms, and secure the asset.</p><hr><div class=\"wss-buyer-roadmap-milestone\"><div class=\"wss-buyer-roadmap-milestone-top\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polyline points=\"20 6 9 17 4 12\"></polyline></svg><span class=\"wss-buyer-roadmap-milestone-label\">DELIVERABLE</span></div><div class=\"wss-buyer-roadmap-milestone-val\">Protected Contract Structuring</div></div>",
 					),
 					array(
 						'phase_badge'      => __( 'Phase 04', 'website-section-supporter' ),
 						'watermark_number' => '04',
 						'title'            => __( 'Closing & Handover', 'website-section-supporter' ),
-						'description'      => __( 'Complete escrow oversight, title audit, contractor recommendations, and concierge onboarding to ensure a frictionless transition into your new home.', 'website-section-supporter' ),
-						'milestone_label'  => __( 'Deliverable', 'website-section-supporter' ),
-						'milestone_text'   => __( 'White-Glove Key Exchange', 'website-section-supporter' ),
-						'milestone_icon'   => 'check',
+						'description'      => "<p>Complete escrow oversight, title audit, contractor recommendations, and concierge onboarding to ensure a frictionless transition into your new home.</p><hr><div class=\"wss-buyer-roadmap-milestone\"><div class=\"wss-buyer-roadmap-milestone-top\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polyline points=\"20 6 9 17 4 12\"></polyline></svg><span class=\"wss-buyer-roadmap-milestone-label\">DELIVERABLE</span></div><div class=\"wss-buyer-roadmap-milestone-val\">White-Glove Key Exchange</div></div>",
 					),
 				),
 			)
@@ -879,19 +818,6 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 		$this->end_controls_section();
 	}
 
-	private function render_milestone_icon( $key ) {
-		switch ( $key ) {
-			case 'check':
-				return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-			case 'arrow':
-				return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
-			case 'star':
-				return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
-			default:
-				return '';
-		}
-	}
-
 	protected function render() {
 		$s = $this->get_settings_for_display();
 
@@ -944,31 +870,7 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 					<?php if ( ! empty( $phases ) ) : ?>
 						<div class="wss-buyer-roadmap-grid">
 							<?php foreach ( $phases as $idx => $item ) : 
-								$icon_html = ! empty( $item['milestone_icon'] ) && 'none' !== $item['milestone_icon'] ? $this->render_milestone_icon( $item['milestone_icon'] ) : '';
-								$stagger   = $enable_reveal ? 'wss-reveal ' . $delays[ $idx % 4 ] : '';
-
-								// 2-line milestone formatting
-								$m_label = ! empty( $item['milestone_label'] ) ? $item['milestone_label'] : '';
-								$m_val   = ! empty( $item['milestone_text'] ) ? $item['milestone_text'] : '';
-
-								// Always strip any leading "Deliverable:" or "Milestone:" prefix from $m_val
-								if ( preg_match( '/^(deliverable|milestone)\s*:\s*/i', $m_val ) ) {
-									$m_val = preg_replace( '/^(deliverable|milestone)\s*:\s*/i', '', $m_val );
-									if ( empty( $m_label ) ) {
-										$m_label = __( 'Deliverable', 'website-section-supporter' );
-									}
-								} elseif ( empty( $m_label ) && strpos( $m_val, ':' ) !== false ) {
-									$parts   = explode( ':', $m_val, 2 );
-									$m_label = trim( $parts[0] );
-									$m_val   = trim( $parts[1] );
-								}
-
-								if ( empty( $m_label ) && ! empty( $m_val ) ) {
-									$m_label = __( 'Deliverable', 'website-section-supporter' );
-								}
-
-								$m_label = rtrim( trim( $m_label ), ':' );
-								$m_val   = trim( $m_val );
+								$stagger = $enable_reveal ? 'wss-reveal ' . $delays[ $idx % 4 ] : '';
 							?>
 								<div class="wss-buyer-roadmap-card <?php echo esc_attr( $stagger ); ?> elementor-repeater-item-<?php echo esc_attr( $item['_id'] ); ?>">
 									
@@ -992,19 +894,6 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 											<div class="wss-buyer-roadmap-card-desc"><?php echo wp_kses_post( $item['description'] ); ?></div>
 										<?php endif; ?>
 									</div>
-
-									<?php 
-									$show_milestone = ( ! isset( $item['show_milestone'] ) || 'yes' === $item['show_milestone'] );
-									if ( $show_milestone && ( ! empty( $m_val ) || ! empty( $m_label ) ) ) : 
-									?>
-										<div class="wss-buyer-roadmap-milestone">
-											<div class="wss-buyer-roadmap-milestone-top">
-												<?php if ( ! empty( $icon_html ) ) echo $icon_html; ?>
-												<span class="wss-buyer-roadmap-milestone-label"><?php echo esc_html( $m_label ); ?></span>
-											</div>
-											<div class="wss-buyer-roadmap-milestone-val"><?php echo esc_html( $m_val ); ?></div>
-										</div>
-									<?php endif; ?>
 
 								</div>
 							<?php endforeach; ?>
