@@ -291,7 +291,24 @@ final class Website_Section_Supporter {
 		if ( empty( $address_val ) ) $address_val = 'Property Valuation Inquiry';
 
 		// 1. Admin Notification Email
-		$admin_to      = isset( $_POST['admin_email_to'] ) && ! empty( $_POST['admin_email_to'] ) ? sanitize_email( wp_unslash( $_POST['admin_email_to'] ) ) : get_option( 'admin_email' );
+		$raw_admin_to = isset( $_POST['admin_email_to'] ) ? wp_unslash( $_POST['admin_email_to'] ) : '';
+		$admin_recipients = array();
+		if ( ! empty( $raw_admin_to ) ) {
+			$split_emails = explode( ',', $raw_admin_to );
+			foreach ( $split_emails as $em ) {
+				$clean_em = sanitize_email( trim( $em ) );
+				if ( ! empty( $clean_em ) && is_email( $clean_em ) ) {
+					$admin_recipients[] = $clean_em;
+				}
+			}
+		}
+		if ( empty( $admin_recipients ) ) {
+			$default_admin = get_option( 'admin_email' );
+			if ( is_email( $default_admin ) ) {
+				$admin_recipients[] = $default_admin;
+			}
+		}
+
 		$admin_subject = isset( $_POST['admin_email_subject'] ) && ! empty( $_POST['admin_email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['admin_email_subject'] ) ) : 'New Property Valuation Request from {{Full Name}}';
 
 		// Replace tokens
@@ -304,11 +321,17 @@ final class Website_Section_Supporter {
 			$admin_subject
 		);
 
+		// Reliable Sender info for From: header so SMTP authenticates properly
+		$site_name    = get_bloginfo( 'name' );
+		$sender_name  = isset( $_POST['client_sender_name'] ) && ! empty( $_POST['client_sender_name'] ) ? sanitize_text_field( wp_unslash( $_POST['client_sender_name'] ) ) : ( ! empty( $site_name ) ? $site_name : 'VP Signature Group' );
+		$sender_email = isset( $_POST['client_sender_email'] ) && ! empty( $_POST['client_sender_email'] ) ? sanitize_email( wp_unslash( $_POST['client_sender_email'] ) ) : ( ! empty( $admin_recipients[0] ) ? $admin_recipients[0] : get_option( 'admin_email' ) );
+
 		$admin_headers = array(
 			'Content-Type: text/html; charset=UTF-8',
+			'From: ' . $sender_name . ' <' . $sender_email . '>',
 		);
-		if ( ! empty( $client_email ) ) {
-			$admin_headers[] = 'Reply-To: ' . $client_name . ' <' . $client_email . '>';
+		if ( ! empty( $client_email ) && is_email( $client_email ) ) {
+			$admin_headers[] = 'Reply-To: ' . ( ! empty( $client_name ) ? $client_name : $client_email ) . ' <' . $client_email . '>';
 		}
 
 		$admin_body  = "<div style='font-family: Arial, sans-serif; max-width: 640px; color: #1a1812; line-height: 1.6; padding: 28px; border: 1px solid #e2dfda; background-color: #fdfdfc;'>";
@@ -330,13 +353,13 @@ final class Website_Section_Supporter {
 		$admin_body .= "Sent securely via Website Section Supporter (WSS) Form Builder Engine";
 		$admin_body .= "</div></div>";
 
-		wp_mail( $admin_to, $admin_subject, $admin_body, $admin_headers );
+		foreach ( $admin_recipients as $recipient ) {
+			wp_mail( $recipient, $admin_subject, $admin_body, $admin_headers );
+		}
 
 		// 2. Client Auto-Responder Confirmation Email
 		$enable_autoresponder = isset( $_POST['enable_client_autoresponder'] ) && 'yes' === $_POST['enable_client_autoresponder'];
 		if ( $enable_autoresponder && ! empty( $client_email ) ) {
-			$sender_name  = isset( $_POST['client_sender_name'] ) && ! empty( $_POST['client_sender_name'] ) ? sanitize_text_field( wp_unslash( $_POST['client_sender_name'] ) ) : 'Victoria Price | VP Signature Group';
-			$sender_email = isset( $_POST['client_sender_email'] ) && ! empty( $_POST['client_sender_email'] ) ? sanitize_email( wp_unslash( $_POST['client_sender_email'] ) ) : ( ! empty( $admin_to ) ? $admin_to : get_option( 'admin_email' ) );
 			$user_subject = isset( $_POST['client_email_subject'] ) && ! empty( $_POST['client_email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['client_email_subject'] ) ) : 'Property Valuation Request Confirmed | VP Signature Group';
 
 			// Token replacements
@@ -366,6 +389,20 @@ final class Website_Section_Supporter {
 			$user_msg .= "</div>";
 
 			wp_mail( $client_email, $user_subject, $user_msg, $user_headers );
+		}
+
+		// 3. Record in Elementor Pro Submissions (if available)
+		if ( class_exists( '\ElementorPro\Plugin' ) ) {
+			$submission_data = array(
+				'post_id' => isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0,
+				'form_id' => 'wss_home_evaluation',
+				'fields'  => $submitted_fields,
+				'meta'    => array(
+					'remote_ip'  => $_SERVER['REMOTE_ADDR'] ?? '',
+					'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? '',
+				),
+			);
+			do_action( 'elementor_pro/forms/new_record', $submission_data );
 		}
 
 		wp_send_json_success( array(
