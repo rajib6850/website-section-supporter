@@ -942,9 +942,10 @@ body.wss-menu-open #wss-menu .wss-menu-right {
 }
 
 #wss-menu .wss-menu-logo img {
-  height: 28px;
+  max-height: 40px;
   width: auto;
   object-fit: contain;
+  display: block;
 }
 
 @media(max-width:820px) {

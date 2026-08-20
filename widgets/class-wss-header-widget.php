@@ -492,7 +492,7 @@ class WSS_Header_Widget extends Widget_Base {
 					'vw' => array( 'min' => 5, 'max' => 50 ),
 				),
 				'selectors'  => array(
-					'body #wss-menu .wss-menu-logo img' => 'width: {{SIZE}}{{UNIT}} !important; max-width: 100%;',
+					'{{WRAPPER}} #wss-menu .wss-menu-logo img, body #wss-menu .wss-menu-logo img' => 'width: {{SIZE}}{{UNIT}} !important; max-width: 100%;',
 				),
 				'condition'  => array(
 					'show_popup_menu' => 'yes',
@@ -503,7 +503,7 @@ class WSS_Header_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'popup_logo_image_max_height',
 			array(
-				'label'      => __( 'Popup Logo Max Height (px)', 'website-section-supporter' ),
+				'label'      => __( 'Popup Logo Height (px)', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
 				'range'      => array(
@@ -511,7 +511,7 @@ class WSS_Header_Widget extends Widget_Base {
 				),
 				'default'    => array( 'size' => 32, 'unit' => 'px' ),
 				'selectors'  => array(
-					'body #wss-menu .wss-menu-logo img' => 'max-height: {{SIZE}}{{UNIT}} !important; height: auto !important;',
+					'{{WRAPPER}} #wss-menu .wss-menu-logo img, body #wss-menu .wss-menu-logo img' => 'height: {{SIZE}}{{UNIT}} !important; max-height: {{SIZE}}{{UNIT}} !important; width: auto !important;',
 				),
 				'condition'  => array(
 					'show_popup_menu' => 'yes',
@@ -909,15 +909,30 @@ class WSS_Header_Widget extends Widget_Base {
 			)
 		);
 		$this->add_responsive_control(
+			'popup_logo_width',
+			array(
+				'label'      => __( 'Logo Width', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'vw' ),
+				'range'      => array(
+					'px' => array( 'min' => 20, 'max' => 600, 'step' => 1 ),
+					'%'  => array( 'min' => 10, 'max' => 100 ),
+					'vw' => array( 'min' => 5, 'max' => 50 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} #wss-menu .wss-menu-logo img, body #wss-menu .wss-menu-logo img' => 'width: {{SIZE}}{{UNIT}} !important; max-width: 100%;',
+				),
+			)
+		);
+		$this->add_responsive_control(
 			'popup_logo_max_height',
 			array(
-				'label'      => __( 'Logo Max Height (px)', 'website-section-supporter' ),
+				'label'      => __( 'Logo Height (px)', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px' ),
-				'range'      => array( 'px' => array( 'min' => 15, 'max' => 150 ) ),
-				'default'    => array( 'size' => 32, 'unit' => 'px' ),
+				'range'      => array( 'px' => array( 'min' => 15, 'max' => 250, 'step' => 1 ) ),
 				'selectors'  => array(
-					'body #wss-menu .wss-menu-logo img' => 'max-height: {{SIZE}}{{UNIT}} !important; height: auto !important;',
+					'{{WRAPPER}} #wss-menu .wss-menu-logo img, body #wss-menu .wss-menu-logo img' => 'height: {{SIZE}}{{UNIT}} !important; max-height: {{SIZE}}{{UNIT}} !important; width: auto !important;',
 				),
 			)
 		);

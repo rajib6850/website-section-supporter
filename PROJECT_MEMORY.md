@@ -117,8 +117,8 @@ To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global 
 | `e134637` | **Luxury UI & Zero-Pink Overrides** | Added trust badges, step progress bar, interactive amenity cards, and strict black/white button styling. |
 | `f1a2d40` | **HTML Files Moved to Backup** | Moved `buyer-resources.html`, `evaluation.html`, and `sell.html` to `backup -design` folder. |
 | `b850ee0` | **Persistent Memory System** | Created `PROJECT_MEMORY.md` to continuously maintain project state. |
-| `83d0316` | **Header Popup Logo & Opacity Fix** | Removed global logo opacity for crisp rendering, added full Popup Menu Logo controls (type, custom media/text, max-height, colors), and shortened all header Elementor control sections. |
-| *Current* | **Comprehensive Logo Size Controls** | Added responsive Logo Width, Max-Height, and Object Fit controls across Default Logo, Sticky Logo, Popup Menu Logo, and Footer Brand Logo in both Content and Style tabs. |
+| `8624d30` | **Comprehensive Logo Size Controls** | Added responsive Logo Width, Max-Height, and Object Fit controls across Default Logo, Sticky Logo, Popup Menu Logo, and Footer Brand Logo in both Content and Style tabs. |
+| *Current* | **Popup Menu Logo Height Fix** | Removed hardcoded CSS height 28px on `#wss-menu .wss-menu-logo img` and updated Elementor selectors to directly drive live responsive height & max-height. |
 
 ---
 
