@@ -1080,7 +1080,7 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 					<div class="wss-buyer-guide-wrapper">
 						
 						<!-- Left: Guide Overview & Value Checklist -->
-						<div class="wss-buyer-guide-left <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>">
+						<div class="wss-buyer-guide-left">
 							<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
 								<span class="wss-buyer-guide-eyebrow <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 							<?php endif; ?>

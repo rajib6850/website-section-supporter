@@ -895,7 +895,7 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 				<div class="wss-container" style="position: relative; z-index: 3;">
 					
 					<!-- Header -->
-					<div class="wss-buyer-roadmap-head <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>">
+					<div class="wss-buyer-roadmap-head">
 						<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
 							<span class="wss-buyer-roadmap-eyebrow <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 						<?php endif; ?>

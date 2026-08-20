@@ -943,7 +943,7 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 					<div class="wss-buyer-hero-grid">
 						
 						<!-- Left: Text & Actions -->
-						<div class="wss-buyer-hero-content <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>">
+						<div class="wss-buyer-hero-content">
 							<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
 								<span class="wss-buyer-hero-eyebrow <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 							<?php endif; ?>

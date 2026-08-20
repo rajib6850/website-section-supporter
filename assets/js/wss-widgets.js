@@ -349,31 +349,46 @@
 			} );
 		}
 
-		/* ─── 5. Scroll-reveal via IntersectionObserver ─────── */
-		var isEditor = document.body.classList.contains( "elementor-editor-active" ) || document.querySelector( ".elementor-editor-active" );
-		if ( isEditor ) {
-			document.querySelectorAll( ".wss-reveal, .wss-img-reveal" ).forEach( function ( el ) {
-				el.classList.add( "wss-is-visible" );
-			} );
-		} else if ( "IntersectionObserver" in window ) {
-			var io = new IntersectionObserver( function ( entries ) {
-				entries.forEach( function ( entry ) {
-					if ( entry.isIntersecting ) {
-						entry.target.classList.add( "wss-is-visible" );
-						io.unobserve( entry.target );
+		/* ─── 5. Scroll-reveal via IntersectionObserver (Viewport Enter) ─────── */
+		var scrollObserver = null;
+		function initScrollReveal( rootEl ) {
+			var isEditor = document.body.classList.contains( "elementor-editor-active" ) || document.querySelector( ".elementor-editor-active" );
+			var targetScope = rootEl || document;
+			var reveals = targetScope.querySelectorAll( ".wss-reveal, .wss-img-reveal" );
+			if ( ! reveals.length ) return;
+
+			if ( isEditor ) {
+				reveals.forEach( function ( el ) {
+					el.classList.add( "wss-is-visible" );
+				} );
+				return;
+			}
+
+			if ( "IntersectionObserver" in window ) {
+				if ( ! scrollObserver ) {
+					scrollObserver = new IntersectionObserver( function ( entries ) {
+						entries.forEach( function ( entry ) {
+							if ( entry.isIntersecting ) {
+								entry.target.classList.add( "wss-is-visible" );
+								scrollObserver.unobserve( entry.target );
+							}
+						} );
+					}, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" } );
+				}
+
+				reveals.forEach( function ( el ) {
+					if ( ! el.classList.contains( "wss-is-visible" ) ) {
+						scrollObserver.observe( el );
 					}
 				} );
-			}, { threshold: 0.15 } );
-
-			document.querySelectorAll( ".wss-reveal, .wss-img-reveal" ).forEach( function ( el ) {
-				io.observe( el );
-			} );
-		} else {
-			/* Fallback for old browsers — just show everything */
-			document.querySelectorAll( ".wss-reveal, .wss-img-reveal" ).forEach( function ( el ) {
-				el.classList.add( "wss-is-visible" );
-			} );
+			} else {
+				reveals.forEach( function ( el ) {
+					el.classList.add( "wss-is-visible" );
+				} );
+			}
 		}
+
+		initScrollReveal();
 
 		/* ─── 6. Header: luxury sticky / smart scroll ─────────────── */
 		function initHeaderSticky() {
@@ -1042,30 +1057,24 @@
 				} );
 				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_team.default", function ( $scope ) {
 					initTeamWidgets();
-					if ( window.IntersectionObserver ) {
-						var teamReveals = $scope[0] ? $scope[0].querySelectorAll( ".wss-reveal, .wss-img-reveal" ) : [];
-						teamReveals.forEach( function ( el ) {
-							el.classList.add( "wss-is-visible" );
-						} );
+					if ( $scope && $scope[0] ) {
+						initScrollReveal( $scope[0] );
 					}
 				} );
 				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_buyer_hero.default", function ( $scope ) {
-					var reveals = $scope[0] ? $scope[0].querySelectorAll( ".wss-reveal, .wss-img-reveal" ) : [];
-					reveals.forEach( function ( el ) {
-						el.classList.add( "wss-is-visible" );
-					} );
+					if ( $scope && $scope[0] ) {
+						initScrollReveal( $scope[0] );
+					}
 				} );
 				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_buyer_roadmap.default", function ( $scope ) {
-					var reveals = $scope[0] ? $scope[0].querySelectorAll( ".wss-reveal, .wss-img-reveal" ) : [];
-					reveals.forEach( function ( el ) {
-						el.classList.add( "wss-is-visible" );
-					} );
+					if ( $scope && $scope[0] ) {
+						initScrollReveal( $scope[0] );
+					}
 				} );
 				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_buyer_guide.default", function ( $scope ) {
-					var reveals = $scope[0] ? $scope[0].querySelectorAll( ".wss-reveal, .wss-img-reveal" ) : [];
-					reveals.forEach( function ( el ) {
-						el.classList.add( "wss-is-visible" );
-					} );
+					if ( $scope && $scope[0] ) {
+						initScrollReveal( $scope[0] );
+					}
 				} );
 			}
 		}
