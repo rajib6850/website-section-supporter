@@ -9,6 +9,8 @@ use Elementor\Repeater;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
+use Elementor\Group_Control_Background;
+use Elementor\Group_Control_Image_Size;
 
 class WSS_Buyer_Guide_Widget extends Widget_Base {
 
