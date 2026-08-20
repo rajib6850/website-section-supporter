@@ -564,13 +564,8 @@ body.admin-bar #wss-menu {
   display: block;
 }
 
-.wss-header.wss-header--on-hero .wss-logo {
-  color: var(--wss-white);
-}
-
 .wss-logo span {
   font-weight: var(--wss-weight-text, 400);
-  opacity: .5;
 }
 
 /* ---------- Inline Menu (Desktop) ---------- */
@@ -944,7 +939,6 @@ body.wss-menu-open #wss-menu .wss-menu-right {
 
 #wss-menu .wss-menu-logo span {
   font-weight: var(--wss-weight-text, 300);
-  opacity: .75;
 }
 
 #wss-menu .wss-menu-logo img {

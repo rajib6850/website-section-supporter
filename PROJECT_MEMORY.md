@@ -117,8 +117,8 @@ To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global 
 | `e134637` | **Luxury UI & Zero-Pink Overrides** | Added trust badges, step progress bar, interactive amenity cards, and strict black/white button styling. |
 | `f1a2d40` | **HTML Files Moved to Backup** | Moved `buyer-resources.html`, `evaluation.html`, and `sell.html` to `backup -design` folder. |
 | `b850ee0` | **Persistent Memory System** | Created `PROJECT_MEMORY.md` to continuously maintain project state. |
-| `973ab28` | **AJAX Resilience & Button Swipe Hover** | Added `wp_localize_script` for `admin-ajax.php`, safe JSON/text response parsing, caching fallback for nonces, and unified the signature swipe pseudo-element hover effect across all buttons. |
-| *Current* | **Admin Recipient Email Dispatch Fix** | Fixed `From:` header for SMTP authentication, added multi-recipient comma-separated parsing, and hooked into Elementor Pro Submissions logging. |
+| `a08153b` | **Admin Recipient Email Dispatch Fix** | Fixed `From:` header for SMTP authentication, added multi-recipient comma-separated parsing, and hooked into Elementor Pro Submissions logging. |
+| *Current* | **Header Popup Logo & Opacity Fix** | Removed global logo opacity for crisp rendering, added full Popup Menu Logo controls (type, custom media/text, max-height, colors), and shortened all header Elementor control sections. |
 
 ---
 

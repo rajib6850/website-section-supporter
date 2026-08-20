@@ -188,10 +188,10 @@ class WSS_Header_Widget extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/* ================= STICKY HEADER SETTINGS ================= */
+		/* ================= STICKY HEADER ================= */
 		$this->start_controls_section(
 			'section_sticky_settings',
-			array( 'label' => __( 'Sticky Header Settings', 'website-section-supporter' ) )
+			array( 'label' => __( 'Sticky Header', 'website-section-supporter' ) )
 		);
 		$this->add_control(
 			'enable_sticky',
@@ -351,7 +351,7 @@ class WSS_Header_Widget extends Widget_Base {
 		/* ================= POPUP MENU ================= */
 		$this->start_controls_section(
 			'section_popup_menu',
-			array( 'label' => __( 'Popup Menu (Hamburger)', 'website-section-supporter' ) )
+			array( 'label' => __( 'Popup Menu', 'website-section-supporter' ) )
 		);
 		$this->add_control(
 			'show_popup_menu',
@@ -371,6 +371,80 @@ class WSS_Header_Widget extends Widget_Base {
 				'condition' => array( 'show_popup_menu' => 'yes' ),
 			)
 		);
+
+		// Popup Menu Logo Option
+		$this->add_control(
+			'heading_popup_logo',
+			array(
+				'label'     => __( 'Popup Menu Logo', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'show_popup_menu' => 'yes' ),
+			)
+		);
+		$this->add_control(
+			'popup_logo_type',
+			array(
+				'label'     => __( 'Logo Option', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'same',
+				'options'   => array(
+					'same'         => __( 'Same Logo as Header', 'website-section-supporter' ),
+					'custom_image' => __( 'Custom Image Logo', 'website-section-supporter' ),
+					'custom_text'  => __( 'Custom Text Logo', 'website-section-supporter' ),
+					'hide'         => __( 'Hide Logo in Popup', 'website-section-supporter' ),
+				),
+				'condition' => array( 'show_popup_menu' => 'yes' ),
+			)
+		);
+		$this->add_control(
+			'popup_logo_image',
+			array(
+				'label'     => __( 'Popup Logo Image', 'website-section-supporter' ),
+				'type'      => Controls_Manager::MEDIA,
+				'condition' => array(
+					'show_popup_menu' => 'yes',
+					'popup_logo_type' => 'custom_image',
+				),
+			)
+		);
+		$this->add_control(
+			'popup_logo_bold',
+			array(
+				'label'     => __( 'Logo — Bold Part', 'website-section-supporter' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => __( 'NOIR', 'website-section-supporter' ),
+				'condition' => array(
+					'show_popup_menu' => 'yes',
+					'popup_logo_type' => 'custom_text',
+				),
+			)
+		);
+		$this->add_control(
+			'popup_logo_light',
+			array(
+				'label'     => __( 'Logo — Light Part', 'website-section-supporter' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => __( 'ESTATES', 'website-section-supporter' ),
+				'condition' => array(
+					'show_popup_menu' => 'yes',
+					'popup_logo_type' => 'custom_text',
+				),
+			)
+		);
+		$this->add_control(
+			'popup_logo_link',
+			array(
+				'label'     => __( 'Popup Logo Link', 'website-section-supporter' ),
+				'type'      => Controls_Manager::URL,
+				'default'   => array( 'url' => '#' ),
+				'condition' => array(
+					'show_popup_menu' => 'yes',
+					'popup_logo_type!' => 'hide',
+				),
+			)
+		);
+
 		$this->add_control(
 			'menu_bg_image',
 			array(
@@ -378,6 +452,7 @@ class WSS_Header_Widget extends Widget_Base {
 				'type'      => Controls_Manager::MEDIA,
 				'default'   => array( 'url' => 'https://picsum.photos/seed/noirmenu/900/1300' ),
 				'condition' => array( 'show_popup_menu' => 'yes' ),
+				'separator' => 'before',
 			)
 		);
 		$this->add_control(
@@ -393,7 +468,7 @@ class WSS_Header_Widget extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_cta',
-			array( 'label' => __( 'Button (optional)', 'website-section-supporter' ) )
+			array( 'label' => __( 'Button', 'website-section-supporter' ) )
 		);
 		$this->add_control( 'show_cta', array( 'label' => __( 'Show Button', 'website-section-supporter' ), 'type' => Controls_Manager::SWITCHER, 'default' => '' ) );
 		$this->add_control( 'cta_text', array( 'label' => __( 'Button Text', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Book a Call', 'website-section-supporter' ), 'condition' => array( 'show_cta' => 'yes' ) ) );
@@ -403,7 +478,7 @@ class WSS_Header_Widget extends Widget_Base {
 		/* ================= STYLE: BAR ================= */
 		$this->start_controls_section(
 			'style_bar',
-			array( 'label' => __( 'Header Bar & Container', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
+			array( 'label' => __( 'Header Bar', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
 		$this->add_control(
 			'container_width_type',
@@ -504,10 +579,10 @@ class WSS_Header_Widget extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/* ================= STYLE: INLINE MENU ITEMS ================= */
+		/* ================= STYLE: MENU ITEMS ================= */
 		$this->start_controls_section(
 			'style_nav',
-			array( 'label' => __( 'Inline Menu Items', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'show_inline_menu' => 'yes' ) )
+			array( 'label' => __( 'Menu Items', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'show_inline_menu' => 'yes' ) )
 		);
 		$this->add_control(
 			'nav_color',
@@ -555,10 +630,10 @@ class WSS_Header_Widget extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/* ================= STYLE: DROPDOWN SUB-MENU ================= */
+		/* ================= STYLE: DROPDOWN MENU ================= */
 		$this->start_controls_section(
 			'style_dropdown',
-			array( 'label' => __( 'Dropdown Sub-Menu', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'show_inline_menu' => 'yes' ) )
+			array( 'label' => __( 'Dropdown Menu', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'show_inline_menu' => 'yes' ) )
 		);
 		$this->add_control(
 			'dropdown_bg',
@@ -614,10 +689,10 @@ class WSS_Header_Widget extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/* ================= STYLE: HAMBURGER BUTTON ================= */
+		/* ================= STYLE: HAMBURGER ================= */
 		$this->start_controls_section(
 			'style_burger',
-			array( 'label' => __( 'Hamburger Button', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'show_popup_menu' => 'yes' ) )
+			array( 'label' => __( 'Hamburger', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'show_popup_menu' => 'yes' ) )
 		);
 		$this->add_control(
 			'burger_color',
@@ -647,10 +722,63 @@ class WSS_Header_Widget extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/* ================= STYLE: POPUP FULLSCREEN MENU ================= */
+		/* ================= STYLE: POPUP MENU ================= */
 		$this->start_controls_section(
 			'style_popup_menu',
-			array( 'label' => __( 'Popup Fullscreen Menu', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'show_popup_menu' => 'yes' ) )
+			array( 'label' => __( 'Popup Menu', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'show_popup_menu' => 'yes' ) )
+		);
+		$this->add_control(
+			'heading_style_popup_logo',
+			array(
+				'label' => __( 'Popup Logo Style', 'website-section-supporter' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+		$this->add_responsive_control(
+			'popup_logo_max_height',
+			array(
+				'label'      => __( 'Logo Max Height (px)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array( 'px' => array( 'min' => 15, 'max' => 150 ) ),
+				'default'    => array( 'size' => 32, 'unit' => 'px' ),
+				'selectors'  => array(
+					'body #wss-menu .wss-menu-logo img' => 'max-height: {{SIZE}}{{UNIT}} !important; height: auto !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'popup_logo_color',
+			array(
+				'label'     => __( 'Logo Bold Part Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'body #wss-menu .wss-menu-logo, body #wss-menu .wss-menu-logo .wss-logo-bold' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'popup_logo_light_color',
+			array(
+				'label'     => __( 'Logo Light Part Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'body #wss-menu .wss-menu-logo .wss-logo-light' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array( 'name' => 'popup_logo_typography', 'selector' => 'body #wss-menu .wss-menu-logo' )
+		);
+
+		$this->add_control(
+			'heading_style_popup_panel',
+			array(
+				'label'     => __( 'Panel & Menu Links', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
 		);
 		$this->add_control(
 			'popup_bg_color',
@@ -788,11 +916,11 @@ class WSS_Header_Widget extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/* ================= STYLE: FALLBACK HEADER (NON-TRANSPARENT PAGES) ================= */
+		/* ================= STYLE: FALLBACK HEADER ================= */
 		$this->start_controls_section(
 			'style_fallback_header',
 			array(
-				'label'     => __( 'Fallback Header (Non-Transparent Pages)', 'website-section-supporter' ),
+				'label'     => __( 'Fallback Header', 'website-section-supporter' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
 					'header_style'          => 'transparent',
@@ -909,11 +1037,11 @@ class WSS_Header_Widget extends Widget_Base {
 		);
 		$this->end_controls_section();
 
-		/* ================= STYLE: STICKY HEADER (ON SCROLL) ================= */
+		/* ================= STYLE: STICKY HEADER ================= */
 		$this->start_controls_section(
 			'style_sticky_header',
 			array(
-				'label'     => __( 'Sticky Header (On Scroll)', 'website-section-supporter' ),
+				'label'     => __( 'Sticky Header', 'website-section-supporter' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array( 'enable_sticky' => 'yes' ),
 			)
@@ -1418,13 +1546,27 @@ class WSS_Header_Widget extends Widget_Base {
 					</div>
 					<div class="wss-menu-right">
 						<div class="wss-menu-header">
-							<a class="wss-menu-logo" href="<?php echo esc_url( $s['logo_link']['url'] ?: '#' ); ?>">
-								<?php if ( 'image' === $s['logo_type'] && ! empty( $s['logo_image']['url'] ) ) : ?>
-									<img src="<?php echo esc_url( $s['logo_image']['url'] ); ?>" alt="Logo">
-								<?php else : ?>
-									<span class="wss-logo-bold"><?php echo esc_html( $s['logo_bold'] ); ?></span> <span class="wss-logo-light"><?php echo esc_html( $s['logo_light'] ); ?></span>
-								<?php endif; ?>
-							</a>
+							<?php
+							$p_logo_type = ! empty( $s['popup_logo_type'] ) ? $s['popup_logo_type'] : 'same';
+							$p_logo_url  = ! empty( $s['popup_logo_link']['url'] ) ? $s['popup_logo_link']['url'] : ( $s['logo_link']['url'] ?: '#' );
+
+							if ( 'hide' !== $p_logo_type ) :
+								?>
+								<a class="wss-menu-logo" href="<?php echo esc_url( $p_logo_url ); ?>">
+									<?php if ( 'custom_image' === $p_logo_type && ! empty( $s['popup_logo_image']['url'] ) ) : ?>
+										<img src="<?php echo esc_url( $s['popup_logo_image']['url'] ); ?>" alt="Popup Logo">
+									<?php elseif ( 'custom_text' === $p_logo_type ) : ?>
+										<span class="wss-logo-bold"><?php echo esc_html( $s['popup_logo_bold'] ?? 'NOIR' ); ?></span> <span class="wss-logo-light"><?php echo esc_html( $s['popup_logo_light'] ?? 'ESTATES' ); ?></span>
+									<?php else : // 'same' ?>
+										<?php if ( 'image' === $s['logo_type'] && ! empty( $s['logo_image']['url'] ) ) : ?>
+											<img src="<?php echo esc_url( $s['logo_image']['url'] ); ?>" alt="Logo">
+										<?php else : ?>
+											<span class="wss-logo-bold"><?php echo esc_html( $s['logo_bold'] ); ?></span> <span class="wss-logo-light"><?php echo esc_html( $s['logo_light'] ); ?></span>
+										<?php endif; ?>
+									<?php endif; ?>
+								</a>
+							<?php endif; ?>
+
 							<button class="wss-menu-close" id="wss-closeBtn" type="button" aria-label="Close menu">
 								<span>Close Menu</span><span class="wss-menu-x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
 							</button>
