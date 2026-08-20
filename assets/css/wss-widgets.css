@@ -7237,12 +7237,22 @@ body.wss-modal-open {
   z-index: 1;
   background-size: cover;
   background-position: center;
-  transform: scale(1.02);
+  background-repeat: no-repeat;
   transition: transform 12s ease;
 }
 
-.wss-cta-section:hover .wss-cta-bg-img {
+.wss-cta-bg-img:not(.wss-cta-bg-fixed) {
+  transform: scale(1.02);
+}
+
+.wss-cta-section:hover .wss-cta-bg-img:not(.wss-cta-bg-fixed) {
   transform: scale(1.06);
+}
+
+.wss-cta-bg-img.wss-cta-bg-fixed {
+  background-attachment: fixed !important;
+  background-size: cover !important;
+  transform: none !important;
 }
 
 .wss-cta-bg-overlay {
@@ -7356,6 +7366,40 @@ body.wss-modal-open {
   gap: 18px;
   flex-wrap: wrap;
   align-items: center;
+}
+
+.wss-cta-btn-primary,
+.wss-cta-btn-secondary {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.wss-cta-btn-primary > *,
+.wss-cta-btn-secondary > * {
+  position: relative;
+  z-index: 2;
+}
+
+.wss-cta-btn-primary::before,
+.wss-cta-btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--wss-btn-hover-bg, var(--wss-ink));
+  z-index: 0;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.wss-cta-btn-primary:hover::before,
+.wss-cta-btn-secondary:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 /* Contact Badges Bar */
