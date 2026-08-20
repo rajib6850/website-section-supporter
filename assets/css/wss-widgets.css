@@ -7887,13 +7887,13 @@ body.wss-modal-open {
 
 .wss-buyer-roadmap-card-title {
   font-family: var(--wss-font-primary);
-  font-size: 16px;
+  font-size: 16.5px;
   font-weight: var(--wss-weight-primary, 700);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  line-height: 1.55;
+  letter-spacing: 0.05em;
+  line-height: 1.68;
   color: var(--wss-ink, #0d0d0d);
-  margin: 0 0 18px;
+  margin: 0 0 20px;
   word-break: break-word;
   overflow-wrap: break-word;
 }
@@ -8166,7 +8166,8 @@ body.wss-modal-open {
 }
 
 .wss-buyer-guide-select {
-  color: #cccccc;
+  color: #ffffff;
+  background-color: #161616;
   appearance: none;
   -webkit-appearance: none;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -8174,6 +8175,39 @@ body.wss-modal-open {
   background-position: right 18px center;
   background-size: 14px;
   cursor: pointer;
+}
+
+.wss-buyer-guide-select option {
+  background-color: #1f1f1f !important;
+  color: #ffffff !important;
+  padding: 12px 16px !important;
+}
+
+.wss-buyer-guide-select option:disabled {
+  color: #777777 !important;
+  background-color: #191919 !important;
+}
+
+.wss-buyer-guide-select option:checked,
+.wss-buyer-guide-select option:hover {
+  background-color: #2c2c2c !important;
+  color: #ffffff !important;
+}
+
+.wss-buyer-guide--light .wss-buyer-guide-select {
+  color: #0d0d0d;
+  background-color: #f8f8f7;
+  border-color: #e2dfda;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d0d0d' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+.wss-buyer-guide--light .wss-buyer-guide-select option {
+  background-color: #ffffff !important;
+  color: #0d0d0d !important;
+}
+
+.wss-buyer-guide--light .wss-buyer-guide-select option:disabled {
+  color: #888888 !important;
 }
 
 /* Bulletproof isolated Submit Button */

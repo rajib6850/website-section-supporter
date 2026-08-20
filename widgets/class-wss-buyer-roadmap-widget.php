@@ -924,15 +924,24 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 								$m_label = ! empty( $item['milestone_label'] ) ? $item['milestone_label'] : '';
 								$m_val   = ! empty( $item['milestone_text'] ) ? $item['milestone_text'] : '';
 
-								// Fallback: If milestone_label is empty and milestone_text contains a colon, split gracefully
-								if ( empty( $m_label ) && strpos( $m_val, ':' ) !== false ) {
-									$parts = explode( ':', $m_val, 2 );
+								// Always strip any leading "Deliverable:" or "Milestone:" prefix from $m_val
+								if ( preg_match( '/^(deliverable|milestone)\s*:\s*/i', $m_val ) ) {
+									$m_val = preg_replace( '/^(deliverable|milestone)\s*:\s*/i', '', $m_val );
+									if ( empty( $m_label ) ) {
+										$m_label = __( 'Deliverable', 'website-section-supporter' );
+									}
+								} elseif ( empty( $m_label ) && strpos( $m_val, ':' ) !== false ) {
+									$parts   = explode( ':', $m_val, 2 );
 									$m_label = trim( $parts[0] );
 									$m_val   = trim( $parts[1] );
 								}
+
 								if ( empty( $m_label ) && ! empty( $m_val ) ) {
 									$m_label = __( 'Deliverable', 'website-section-supporter' );
 								}
+
+								$m_label = rtrim( trim( $m_label ), ':' );
+								$m_val   = trim( $m_val );
 							?>
 								<div class="wss-buyer-roadmap-card <?php echo esc_attr( $stagger ); ?> elementor-repeater-item-<?php echo esc_attr( $item['_id'] ); ?>">
 									
