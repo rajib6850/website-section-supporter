@@ -334,7 +334,7 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Secondary Button Icon', 'website-section-supporter' ),
 				'type'      => Controls_Manager::SELECT,
-				'default'   => 'download',
+				'default'   => 'arrow',
 				'options'   => array(
 					'none'     => __( 'None', 'website-section-supporter' ),
 					'arrow'    => __( 'Arrow Right', 'website-section-supporter' ),
