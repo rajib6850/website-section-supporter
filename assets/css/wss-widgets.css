@@ -7516,6 +7516,9 @@ body.wss-modal-open {
 .wss-buyer-hero-section {
   position: relative;
   background: var(--wss-white, #ffffff);
+  overflow: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .wss-buyer-hero-grid {
@@ -7523,6 +7526,12 @@ body.wss-modal-open {
   grid-template-columns: 1.05fr 0.95fr;
   gap: 64px;
   align-items: center;
+  max-width: 100%;
+}
+
+.wss-buyer-hero-content {
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .wss-buyer-hero-eyebrow {
@@ -7548,13 +7557,15 @@ body.wss-modal-open {
 
 .wss-buyer-hero-heading {
   font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
-  font-size: clamp(32px, 4.2vw, 58px);
+  font-size: clamp(24px, 3.8vw, 54px);
   font-weight: var(--wss-weight-primary, 700);
   text-transform: uppercase;
-  line-height: 1.12;
+  line-height: 1.15;
   letter-spacing: 0.02em;
   color: var(--wss-ink, #0d0d0d);
   margin: 0 0 24px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .wss-buyer-hero-desc {
@@ -7564,6 +7575,8 @@ body.wss-modal-open {
   color: var(--wss-ink-soft, #555555);
   margin: 0 0 36px;
   max-width: 680px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .wss-buyer-hero-actions {
@@ -7571,6 +7584,7 @@ body.wss-modal-open {
   gap: 18px;
   flex-wrap: wrap;
   align-items: center;
+  max-width: 100%;
 }
 
 .wss-buyer-hero-btn-primary {
@@ -7580,6 +7594,7 @@ body.wss-modal-open {
 
 .wss-buyer-hero-media-wrap {
   position: relative;
+  max-width: 100%;
 }
 
 .wss-buyer-hero-media-frame {
@@ -7588,6 +7603,7 @@ body.wss-modal-open {
   border: 1px solid var(--wss-line, #e2dfda);
   background: var(--wss-ivory, #e8e6e1);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+  max-width: 100%;
 }
 
 .wss-buyer-hero-img {
@@ -7612,6 +7628,7 @@ body.wss-modal-open {
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
   z-index: 2;
+  box-sizing: border-box;
 }
 
 .wss-buyer-hero-badge-title {
@@ -7637,6 +7654,8 @@ body.wss-modal-open {
 .wss-buyer-roadmap-section {
   position: relative;
   background: var(--wss-ivory, #f8f8f7);
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .wss-buyer-roadmap-head {
@@ -7667,13 +7686,15 @@ body.wss-modal-open {
 
 .wss-buyer-roadmap-heading {
   font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
-  font-size: clamp(24px, 3.2vw, 42px);
+  font-size: clamp(22px, 3.2vw, 42px);
   font-weight: var(--wss-weight-primary, 700);
   text-transform: uppercase;
   line-height: 1.16;
   letter-spacing: 0.02em;
   color: var(--wss-ink, #0d0d0d);
   margin: 0 0 18px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .wss-buyer-roadmap-desc {
@@ -7682,6 +7703,8 @@ body.wss-modal-open {
   line-height: 1.8;
   color: var(--wss-ink-soft, #555555);
   margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .wss-buyer-roadmap-grid {
@@ -7699,6 +7722,7 @@ body.wss-modal-open {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-sizing: border-box;
   transition: all 0.4s cubic-bezier(0.16, 0.84, 0.44, 1);
 }
 
@@ -7768,6 +7792,8 @@ body.wss-modal-open {
   line-height: 1.35;
   color: var(--wss-ink, #0d0d0d);
   margin: 0 0 12px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .wss-buyer-roadmap-card-desc {
@@ -7776,6 +7802,8 @@ body.wss-modal-open {
   line-height: 1.8;
   color: var(--wss-ink-soft, #555555);
   margin: 0 0 24px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .wss-buyer-roadmap-milestone {
@@ -7789,6 +7817,7 @@ body.wss-modal-open {
   display: flex;
   align-items: center;
   gap: 8px;
+  word-break: break-word;
 }
 
 .wss-buyer-roadmap-milestone svg {
@@ -7805,6 +7834,8 @@ body.wss-modal-open {
   position: relative;
   background: var(--wss-charcoal, #0d0d0d);
   color: var(--wss-white, #ffffff);
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .wss-buyer-guide-wrapper {
@@ -7817,6 +7848,8 @@ body.wss-modal-open {
   align-items: center;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
   position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .wss-buyer-guide-eyebrow {
@@ -7842,13 +7875,15 @@ body.wss-modal-open {
 
 .wss-buyer-guide-heading {
   font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
-  font-size: clamp(24px, 3.2vw, 42px);
+  font-size: clamp(22px, 3.2vw, 42px);
   font-weight: var(--wss-weight-primary, 700);
   text-transform: uppercase;
   line-height: 1.16;
   letter-spacing: 0.02em;
   color: var(--wss-white, #ffffff);
   margin: 0 0 20px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .wss-buyer-guide-desc {
@@ -7857,6 +7892,8 @@ body.wss-modal-open {
   line-height: 1.85;
   color: rgba(255, 255, 255, 0.8);
   margin: 0 0 32px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .wss-buyer-guide-checklist {
@@ -7873,6 +7910,7 @@ body.wss-modal-open {
   font-size: 14.5px;
   color: rgba(255, 255, 255, 0.88);
   line-height: 1.6;
+  word-break: break-word;
 }
 
 .wss-buyer-guide-check-item svg {
@@ -7888,6 +7926,8 @@ body.wss-modal-open {
   border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 44px 36px;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .wss-buyer-guide-form-badge {
@@ -7908,6 +7948,7 @@ body.wss-modal-open {
   color: #ffffff;
   text-transform: uppercase;
   margin: 0 0 22px;
+  word-break: break-word;
 }
 
 .wss-buyer-guide-input {
@@ -7921,6 +7962,7 @@ body.wss-modal-open {
   outline: none;
   margin-bottom: 14px;
   box-sizing: border-box;
+  max-width: 100%;
   transition: all 0.3s ease;
 }
 
@@ -7948,6 +7990,8 @@ body.wss-modal-open {
   justify-content: center;
   margin-top: 8px;
   cursor: pointer;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .wss-buyer-guide-success-state {
@@ -7956,6 +8000,7 @@ body.wss-modal-open {
   padding: 24px;
   text-align: center;
   margin-top: 18px;
+  box-sizing: border-box;
 }
 
 .wss-buyer-guide-success-state svg {
@@ -7982,6 +8027,7 @@ body.wss-modal-open {
   color: #ffffff;
   font-size: 12px;
   text-decoration: underline;
+  word-break: break-word;
 }
 
 .wss-buyer-guide-privacy-note {
@@ -7995,6 +8041,11 @@ body.wss-modal-open {
    RESPONSIVE BREAKPOINTS (1024px, 768px, 480px)
    ========================================================= */
 @media (max-width: 1024px) {
+  .wss-buyer-hero-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
   .wss-buyer-roadmap-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -8002,43 +8053,143 @@ body.wss-modal-open {
 
   .wss-buyer-guide-wrapper {
     grid-template-columns: 1fr;
-    gap: 50px;
-    padding: 50px 40px;
+    gap: 40px;
+    padding: 50px 36px;
   }
 }
 
 @media (max-width: 768px) {
+  .wss-buyer-hero-section {
+    padding: 50px 0 !important;
+  }
+
+  .wss-buyer-roadmap-section {
+    padding: 60px 0 !important;
+  }
+
+  .wss-buyer-guide-section {
+    padding: 60px 0 !important;
+  }
+
   .wss-buyer-hero-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
   }
 
-  .wss-buyer-hero-img {
-    height: 400px;
+  .wss-buyer-hero-eyebrow {
+    font-size: 9.5px !important;
+    letter-spacing: 0.2em !important;
+    margin-bottom: 14px !important;
   }
 
-  .wss-buyer-hero-badge {
-    position: static;
-    margin-top: 12px;
-    box-shadow: none;
+  .wss-buyer-hero-heading {
+    font-size: clamp(20px, 5.4vw, 30px) !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0.01em !important;
+    margin-bottom: 18px !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
   }
 
-  .wss-buyer-roadmap-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .wss-buyer-guide-wrapper {
-    padding: 40px 24px;
+  .wss-buyer-hero-desc {
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+    margin-bottom: 26px !important;
   }
 
   .wss-buyer-hero-actions {
     flex-direction: column;
     align-items: stretch;
+    width: 100%;
+    gap: 12px;
   }
 
   .wss-buyer-hero-actions a {
     justify-content: center;
     text-align: center;
     width: 100%;
+    box-sizing: border-box;
+    padding: 13px 20px !important;
+    font-size: 9.5px !important;
+    letter-spacing: 0.16em !important;
+  }
+
+  .wss-buyer-hero-img {
+    height: 340px !important;
+  }
+
+  .wss-buyer-hero-badge {
+    position: static;
+    margin-top: 14px;
+    box-shadow: none;
+    padding: 16px 20px;
+    width: 100%;
+  }
+
+  .wss-buyer-hero-badge-title {
+    font-size: 10px;
+  }
+
+  .wss-buyer-hero-badge-sub {
+    font-size: 11.5px;
+  }
+
+  .wss-buyer-roadmap-head {
+    margin-bottom: 32px;
+  }
+
+  .wss-buyer-roadmap-heading {
+    font-size: clamp(19px, 5.2vw, 28px) !important;
+    line-height: 1.25 !important;
+    margin-bottom: 14px !important;
+  }
+
+  .wss-buyer-roadmap-desc {
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+  }
+
+  .wss-buyer-roadmap-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .wss-buyer-roadmap-card {
+    padding: 34px 22px 28px !important;
+  }
+
+  .wss-buyer-roadmap-watermark {
+    font-size: 40px !important;
+    top: 10px;
+    right: 14px;
+  }
+
+  .wss-buyer-guide-wrapper {
+    padding: 36px 18px !important;
+    gap: 36px;
+  }
+
+  .wss-buyer-guide-heading {
+    font-size: clamp(19px, 5.2vw, 28px) !important;
+    line-height: 1.25 !important;
+  }
+
+  .wss-buyer-guide-desc {
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+    margin-bottom: 20px !important;
+  }
+
+  .wss-buyer-guide-check-item {
+    font-size: 13.5px !important;
+    gap: 10px;
+  }
+
+  .wss-buyer-guide-form-box {
+    padding: 30px 18px !important;
+  }
+
+  .wss-buyer-guide-form-title {
+    font-size: 16px !important;
   }
 }
