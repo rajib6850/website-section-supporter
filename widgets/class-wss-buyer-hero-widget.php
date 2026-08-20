@@ -964,7 +964,7 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 							<?php endif; ?>
 
 							<?php if ( $show_btn1 || $show_btn2 ) : ?>
-								<div class="wss-buyer-hero-actions <?php echo $enable_reveal ? 'wss-reveal wss-r3' : ''; ?>">
+								<div class="wss-buyer-hero-actions">
 									<?php if ( $show_btn1 ) : ?>
 										<a class="<?php echo esc_attr( $btn1_style ); ?> wss-buyer-hero-btn-primary" 
 											href="<?php echo esc_url( $s['btn1_link']['url'] ?: '#' ); ?>"
