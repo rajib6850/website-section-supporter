@@ -56,6 +56,16 @@ class WSS_Footer_Widget extends Widget_Base {
 		) );
 		$this->add_control( 'logo_bold', array( 'label' => __( 'Logo — Bold Part', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'NOIR', 'website-section-supporter' ), 'condition' => array( 'show_brand' => 'yes', 'logo_type' => 'text' ) ) );
 		$this->add_control( 'logo_light', array( 'label' => __( 'Logo — Light Part', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'ESTATES', 'website-section-supporter' ), 'condition' => array( 'show_brand' => 'yes', 'logo_type' => 'text' ) ) );
+		$this->add_control(
+			'logo_link',
+			array(
+				'label'       => __( 'Logo Link', 'website-section-supporter' ),
+				'type'        => Controls_Manager::URL,
+				'default'     => array( 'url' => '#' ),
+				'condition'   => array( 'show_brand' => 'yes' ),
+				'placeholder' => __( 'https://your-link.com', 'website-section-supporter' ),
+			)
+		);
 		$this->add_control( 'tagline', array( 'label' => __( 'Tagline', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'A Private Global Advisory', 'website-section-supporter' ), 'condition' => array( 'show_brand' => 'yes' ) ) );
 		$this->end_controls_section();
 
@@ -535,13 +545,26 @@ class WSS_Footer_Widget extends Widget_Base {
 				<div class="wss-container">
 					<?php if ( 'yes' === $s['show_brand'] || 'yes' === $s['show_contact'] ) : ?>
 					<div class="wss-foot-top">
-						<?php if ( 'yes' === $s['show_brand'] ) : ?>
+						<?php if ( 'yes' === $s['show_brand'] ) : 
+							$logo_url      = ! empty( $s['logo_link']['url'] ) ? $s['logo_link']['url'] : '';
+							$logo_target   = ! empty( $s['logo_link']['is_external'] ) ? ' target="_blank"' : '';
+							$logo_nofollow = ! empty( $s['logo_link']['nofollow'] ) ? ' rel="nofollow"' : ( ! empty( $s['logo_link']['is_external'] ) ? ' rel="noopener"' : '' );
+						?>
 							<div class="wss-foot-brand">
+								<?php if ( ! empty( $logo_url ) ) : ?>
+									<a href="<?php echo esc_url( $logo_url ); ?>" class="wss-foot-brand-link"<?php echo $logo_target; ?><?php echo $logo_nofollow; ?>>
+								<?php endif; ?>
+
 								<?php if ( 'image' === $s['logo_type'] && ! empty( $s['logo_image']['url'] ) ) : ?>
 									<img src="<?php echo esc_url( $s['logo_image']['url'] ); ?>" alt="Logo" class="wss-foot-logo-img">
 								<?php else : ?>
 									<div class="wss-logo"><?php echo esc_html( $s['logo_bold'] ); ?> <span><?php echo esc_html( $s['logo_light'] ); ?></span></div>
 								<?php endif; ?>
+
+								<?php if ( ! empty( $logo_url ) ) : ?>
+									</a>
+								<?php endif; ?>
+
 								<?php if ( ! empty( $s['tagline'] ) ) : ?>
 									<p><?php echo esc_html( $s['tagline'] ); ?></p>
 								<?php endif; ?>

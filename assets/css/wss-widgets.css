@@ -3711,6 +3711,18 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   padding-bottom: 50px;
 }
 
+.wss-foot-brand-link {
+  text-decoration: none !important;
+  display: inline-block;
+  color: inherit !important;
+  transition: opacity 0.3s ease;
+}
+
+.wss-foot-brand-link:hover {
+  text-decoration: none !important;
+  opacity: 0.8;
+}
+
 .wss-foot-brand .wss-logo {
   margin-bottom: 10px;
   display: block;
