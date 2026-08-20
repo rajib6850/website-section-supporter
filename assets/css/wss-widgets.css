@@ -10470,26 +10470,96 @@ button.wss-buyer-guide-submit-btn:hover svg {
   .wss-home-eval-section {
     padding: 70px 0 !important;
   }
+  .wss-home-eval-box {
+    padding: 34px 24px !important;
+  }
   .wss-home-eval-steps-nav {
     grid-template-columns: 1fr;
     gap: 10px;
+    margin-bottom: 32px;
+    padding-bottom: 18px;
+  }
+  .wss-home-eval-step-tab {
+    padding: 10px 12px;
   }
   .wss-form-row,
   .wss-form-row-3 {
     grid-template-columns: 1fr;
     gap: 16px;
+    margin-bottom: 16px;
   }
   .wss-amenity-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
   .wss-btn-nav-row {
     flex-direction: column-reverse;
     gap: 16px;
     align-items: stretch;
+    margin-top: 28px;
+    padding-top: 20px;
   }
   .wss-home-eval-submit-btn,
   .wss-home-eval-next-btn {
-    width: 100%;
-    justify-content: center;
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 16px 24px !important;
+  }
+  .wss-btn-back {
+    text-align: center;
+    padding: 6px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .wss-home-eval-section {
+    padding: 48px 0 !important;
+  }
+  .wss-home-eval-header {
+    margin-bottom: 36px;
+  }
+  .wss-home-eval-eyebrow {
+    font-size: 9px !important;
+    letter-spacing: 0.2em !important;
+    margin-bottom: 14px;
+  }
+  .wss-home-eval-title {
+    font-size: clamp(20px, 6.2vw, 26px) !important;
+    margin-bottom: 14px;
+  }
+  .wss-home-eval-desc {
+    font-size: 13.5px !important;
+    line-height: 1.7 !important;
+  }
+  .wss-home-eval-box {
+    padding: 24px 16px !important;
+  }
+  .wss-home-eval-input {
+    padding: 14px 16px !important;
+    font-size: 13.5px !important;
+  }
+  .wss-step-num {
+    width: 24px;
+    height: 24px;
+    font-size: 9px;
+  }
+  .wss-step-name {
+    font-size: 10.5px;
+  }
+  .wss-home-eval-amenity-box {
+    padding: 12px 14px;
+  }
+  .wss-home-eval-amenity-label {
+    font-size: 12.5px;
+  }
+  .wss-success-icon-badge {
+    width: 50px;
+    height: 50px;
+  }
+  .wss-success-title {
+    font-size: 19px !important;
+  }
+  .wss-success-desc {
+    font-size: 14px !important;
   }
 }
