@@ -783,26 +783,7 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 
 		$this->start_controls_tab(
 			'tab_btn2_hover',
-			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
-		);
-
-		$this->add_control(
-			'btn2_hover_text_color',
-			array(
-				'label'     => __( 'Hover Text / Icon Color', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#777777',
-				'selectors' => array(
-					'{{WRAPPER}} .wss-buyer-hero-btn-secondary:hover' => 'color: {{VALUE}} !important; opacity: 0.7;',
-					'{{WRAPPER}} .wss-buyer-hero-btn-secondary:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
-				),
-			)
-		);
-
-					'{{WRAPPER}} .wss-buyer-hero-btn-secondary svg' => 'stroke: {{VALUE}} !important;',
-				),
-				'condition' => array( 'show_btn2' => 'yes' ),
-			)
+			array( 'label' => __( 'Hover', 'website-section-supporter' ), 'condition' => array( 'show_btn2' => 'yes' ) )
 		);
 
 		$this->add_control(
@@ -818,6 +799,9 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 				'condition' => array( 'show_btn2' => 'yes' ),
 			)
 		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 

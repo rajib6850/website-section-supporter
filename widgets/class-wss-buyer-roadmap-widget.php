@@ -391,10 +391,6 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 				),
 			)
 		);
-					'{{WRAPPER}} .wss-buyer-roadmap-section' => 'background-color: {{VALUE}};',
-				),
-			)
-		);
 
 		$this->add_responsive_control(
 			'grid_columns',
