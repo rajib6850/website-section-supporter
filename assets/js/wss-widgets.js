@@ -249,6 +249,70 @@
 					statusMsg.style.border = "1px solid rgba(229, 62, 62, 0.3)";
 				}
 			} );
+			return;
+		}
+
+		// C. Buyer Guide & Lead Magnet Form
+		var guideForm = e.target.closest( ".wss-buyer-guide-form" );
+		if ( guideForm ) {
+			e.preventDefault();
+			var guideBtn = guideForm.querySelector( "button[type='submit'], .wss-buyer-guide-submit-btn" );
+			var formBox = guideForm.closest( ".wss-buyer-guide-form-box" );
+			var successBox = formBox ? formBox.querySelector( ".wss-buyer-guide-success-state" ) : null;
+			var originalBtnHtml = guideBtn ? guideBtn.innerHTML : "<span>Download Guide</span>";
+			var autoDownload = guideForm.getAttribute( "data-auto-download" ) === "yes";
+			var pdfUrl = guideForm.getAttribute( "data-pdf-url" ) || "";
+
+			if ( guideBtn ) {
+				guideBtn.disabled = true;
+				guideBtn.innerHTML = "<span>SENDING...</span>";
+			}
+
+			var guideFormData = new FormData( guideForm );
+
+			fetch( guideForm.getAttribute( "action" ), {
+				method: "POST",
+				body: guideFormData
+			} )
+			.then( function( response ) { return response.json(); } )
+			.then( function( data ) {
+				if ( guideBtn ) {
+					guideBtn.disabled = false;
+					guideBtn.innerHTML = originalBtnHtml;
+				}
+
+				if ( data.success ) {
+					guideForm.style.display = "none";
+					if ( successBox ) {
+						successBox.style.display = "block";
+						var pTag = successBox.querySelector( "p" );
+						if ( pTag && data.data && data.data.message ) {
+							pTag.textContent = data.data.message;
+						}
+					}
+					var resolvedPdfUrl = ( data.data && data.data.pdf_url ) ? data.data.pdf_url : pdfUrl;
+					if ( autoDownload && resolvedPdfUrl ) {
+						var tempLink = document.createElement( "a" );
+						tempLink.href = resolvedPdfUrl;
+						tempLink.setAttribute( "download", "" );
+						tempLink.setAttribute( "target", "_blank" );
+						document.body.appendChild( tempLink );
+						tempLink.click();
+						document.body.removeChild( tempLink );
+					}
+				} else {
+					var errorMsg = data.data && data.data.message ? data.data.message : "Error submitting form. Please try again.";
+					alert( errorMsg );
+				}
+			} )
+			.catch( function( error ) {
+				if ( guideBtn ) {
+					guideBtn.disabled = false;
+					guideBtn.innerHTML = originalBtnHtml;
+				}
+				alert( "A network error occurred. Please try again." );
+			} );
+			return;
 		}
 	} );
 

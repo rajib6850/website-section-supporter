@@ -7509,3 +7509,536 @@ body.wss-modal-open {
     word-break: break-all;
   }
 }
+
+/* =========================================================
+   WSS — BUYER OVERVIEW HERO WIDGET
+   ========================================================= */
+.wss-buyer-hero-section {
+  position: relative;
+  background: var(--wss-white, #ffffff);
+}
+
+.wss-buyer-hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.wss-buyer-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--wss-font-accent, 'Syncopate', sans-serif);
+  font-size: 10.5px;
+  font-weight: var(--wss-weight-accent, 700);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--wss-grey, #777777);
+  margin-bottom: 22px;
+}
+
+.wss-buyer-hero-eyebrow::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.wss-buyer-hero-heading {
+  font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+  font-size: clamp(32px, 4.2vw, 58px);
+  font-weight: var(--wss-weight-primary, 700);
+  text-transform: uppercase;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  color: var(--wss-ink, #0d0d0d);
+  margin: 0 0 24px;
+}
+
+.wss-buyer-hero-desc {
+  font-family: var(--wss-font-text, 'Work Sans', sans-serif);
+  font-size: clamp(15.5px, 1.2vw, 18px);
+  line-height: 1.85;
+  color: var(--wss-ink-soft, #555555);
+  margin: 0 0 36px;
+  max-width: 680px;
+}
+
+.wss-buyer-hero-actions {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.wss-buyer-hero-btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.wss-buyer-hero-media-wrap {
+  position: relative;
+}
+
+.wss-buyer-hero-media-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--wss-line, #e2dfda);
+  background: var(--wss-ivory, #e8e6e1);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+}
+
+.wss-buyer-hero-img {
+  width: 100%;
+  height: 560px;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.2s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.wss-buyer-hero-media-frame:hover .wss-buyer-hero-img {
+  transform: scale(1.03);
+}
+
+.wss-buyer-hero-badge {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  background: var(--wss-charcoal, #0d0d0d);
+  color: var(--wss-white, #ffffff);
+  padding: 22px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+.wss-buyer-hero-badge-title {
+  font-family: var(--wss-font-accent, 'Syncopate', sans-serif);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.wss-buyer-hero-badge-sub {
+  margin: 0;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.04em;
+}
+
+/* =========================================================
+   WSS — STRATEGIC BUYER ROADMAP WIDGET
+   ========================================================= */
+.wss-buyer-roadmap-section {
+  position: relative;
+  background: var(--wss-ivory, #f8f8f7);
+}
+
+.wss-buyer-roadmap-head {
+  max-width: 820px;
+  margin-bottom: 48px;
+}
+
+.wss-buyer-roadmap-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--wss-font-accent, 'Syncopate', sans-serif);
+  font-size: 10px;
+  font-weight: var(--wss-weight-accent, 700);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--wss-grey, #777777);
+  margin-bottom: 18px;
+}
+
+.wss-buyer-roadmap-eyebrow::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.wss-buyer-roadmap-heading {
+  font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+  font-size: clamp(24px, 3.2vw, 42px);
+  font-weight: var(--wss-weight-primary, 700);
+  text-transform: uppercase;
+  line-height: 1.16;
+  letter-spacing: 0.02em;
+  color: var(--wss-ink, #0d0d0d);
+  margin: 0 0 18px;
+}
+
+.wss-buyer-roadmap-desc {
+  font-family: var(--wss-font-text, 'Work Sans', sans-serif);
+  font-size: clamp(15px, 1.15vw, 17.5px);
+  line-height: 1.8;
+  color: var(--wss-ink-soft, #555555);
+  margin: 0;
+}
+
+.wss-buyer-roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.wss-buyer-roadmap-card {
+  background: var(--wss-white, #ffffff);
+  border: 1px solid var(--wss-line, #e2dfda);
+  padding: 44px 30px 34px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.4s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.wss-buyer-roadmap-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--wss-ink, #0d0d0d);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.wss-buyer-roadmap-card:hover {
+  border-color: var(--wss-ink, #0d0d0d);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.07);
+}
+
+.wss-buyer-roadmap-card:hover::before {
+  transform: scaleX(1);
+}
+
+.wss-buyer-roadmap-watermark {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+  font-size: 52px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.04);
+  line-height: 1;
+  pointer-events: none;
+  transition: color 0.4s ease;
+}
+
+.wss-buyer-roadmap-card:hover .wss-buyer-roadmap-watermark {
+  color: rgba(0, 0, 0, 0.08);
+}
+
+.wss-buyer-roadmap-phase-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--wss-ivory, #f8f8f7);
+  border: 1px solid var(--wss-line, #e2dfda);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-family: var(--wss-font-accent, 'Syncopate', sans-serif);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wss-ink, #0d0d0d);
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.wss-buyer-roadmap-card-title {
+  font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+  font-size: 16px;
+  font-weight: var(--wss-weight-primary, 700);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  color: var(--wss-ink, #0d0d0d);
+  margin: 0 0 12px;
+}
+
+.wss-buyer-roadmap-card-desc {
+  font-family: var(--wss-font-text, 'Work Sans', sans-serif);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--wss-ink-soft, #555555);
+  margin: 0 0 24px;
+}
+
+.wss-buyer-roadmap-milestone {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--wss-line, #e2dfda);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--wss-ink, #0d0d0d);
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wss-buyer-roadmap-milestone svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   WSS — BUYER GUIDE & LEAD MAGNET WIDGET
+   ========================================================= */
+.wss-buyer-guide-section {
+  position: relative;
+  background: var(--wss-charcoal, #0d0d0d);
+  color: var(--wss-white, #ffffff);
+}
+
+.wss-buyer-guide-wrapper {
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 80px 70px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 70px;
+  align-items: center;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.wss-buyer-guide-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--wss-font-accent, 'Syncopate', sans-serif);
+  font-size: 10px;
+  font-weight: var(--wss-weight-accent, 700);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #999999;
+  margin-bottom: 20px;
+}
+
+.wss-buyer-guide-eyebrow::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.wss-buyer-guide-heading {
+  font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+  font-size: clamp(24px, 3.2vw, 42px);
+  font-weight: var(--wss-weight-primary, 700);
+  text-transform: uppercase;
+  line-height: 1.16;
+  letter-spacing: 0.02em;
+  color: var(--wss-white, #ffffff);
+  margin: 0 0 20px;
+}
+
+.wss-buyer-guide-desc {
+  font-family: var(--wss-font-text, 'Work Sans', sans-serif);
+  font-size: clamp(15px, 1.15vw, 17.5px);
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 32px;
+}
+
+.wss-buyer-guide-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 28px 0 0;
+}
+
+.wss-buyer-guide-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.6;
+}
+
+.wss-buyer-guide-check-item svg {
+  width: 18px;
+  height: 18px;
+  stroke: #ffffff;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.wss-buyer-guide-form-box {
+  background: #1c1c1c;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 44px 36px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+.wss-buyer-guide-form-badge {
+  font-family: var(--wss-font-accent, 'Syncopate', sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #ffffff;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.wss-buyer-guide-form-title {
+  font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+  font-size: 18px;
+  font-weight: var(--wss-weight-primary, 700);
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0 0 22px;
+}
+
+.wss-buyer-guide-input {
+  width: 100%;
+  padding: 15px 18px;
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-family: var(--wss-font-text, 'Work Sans', sans-serif);
+  font-size: 13.5px;
+  outline: none;
+  margin-bottom: 14px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.wss-buyer-guide-input:focus {
+  border-color: #ffffff;
+  background: #202020;
+}
+
+.wss-buyer-guide-input::placeholder {
+  color: #666666;
+}
+
+.wss-buyer-guide-select {
+  color: #cccccc;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 14px;
+}
+
+.wss-buyer-guide-submit-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.wss-buyer-guide-success-state {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid #ffffff;
+  padding: 24px;
+  text-align: center;
+  margin-top: 18px;
+}
+
+.wss-buyer-guide-success-state svg {
+  width: 26px;
+  height: 26px;
+  margin-bottom: 8px;
+}
+
+.wss-buyer-guide-success-state h4 {
+  font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+  font-size: 13px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+}
+
+.wss-buyer-guide-success-state p {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 12px;
+}
+
+.wss-buyer-guide-instant-link {
+  color: #ffffff;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.wss-buyer-guide-privacy-note {
+  font-size: 11px;
+  color: #777777;
+  margin: 16px 0 0;
+  text-align: center;
+}
+
+/* =========================================================
+   RESPONSIVE BREAKPOINTS (1024px, 768px, 480px)
+   ========================================================= */
+@media (max-width: 1024px) {
+  .wss-buyer-roadmap-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .wss-buyer-guide-wrapper {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    padding: 50px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wss-buyer-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .wss-buyer-hero-img {
+    height: 400px;
+  }
+
+  .wss-buyer-hero-badge {
+    position: static;
+    margin-top: 12px;
+    box-shadow: none;
+  }
+
+  .wss-buyer-roadmap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wss-buyer-guide-wrapper {
+    padding: 40px 24px;
+  }
+
+  .wss-buyer-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .wss-buyer-hero-actions a {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+}

@@ -45,6 +45,9 @@ class WSS_Widgets_Loader {
 			'class-wss-blog-widget.php'            => 'WSS_Blog_Widget',
 			'class-wss-team-widget.php'            => 'WSS_Team_Widget',
 			'class-wss-cta-widget.php'             => 'WSS_CTA_Widget',
+			'class-wss-buyer-hero-widget.php'      => 'WSS_Buyer_Hero_Widget',
+			'class-wss-buyer-roadmap-widget.php'   => 'WSS_Buyer_Roadmap_Widget',
+			'class-wss-buyer-guide-widget.php'     => 'WSS_Buyer_Guide_Widget',
 			'class-wss-footer-widget.php'          => 'WSS_Footer_Widget',
 			// Component Widgets (Building Blocks)
 			'class-wss-title-widget.php'           => 'WSS_Title_Widget',

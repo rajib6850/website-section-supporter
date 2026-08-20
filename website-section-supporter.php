@@ -74,6 +74,138 @@ final class Website_Section_Supporter {
 		// Contact Section AJAX handlers
 		add_action( 'wp_ajax_wss_contact_submit', array( $this, 'handle_contact_submit' ) );
 		add_action( 'wp_ajax_nopriv_wss_contact_submit', array( $this, 'handle_contact_submit' ) );
+
+		// Buyer Guide & Lead Magnet AJAX handlers
+		add_action( 'wp_ajax_wss_buyer_guide_submit', array( $this, 'handle_buyer_guide_submit' ) );
+		add_action( 'wp_ajax_nopriv_wss_buyer_guide_submit', array( $this, 'handle_buyer_guide_submit' ) );
+	}
+
+	public function handle_buyer_guide_submit() {
+		// Nonce verification
+		if ( ! isset( $_POST['wss_guide_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wss_guide_nonce'] ) ), 'wss_buyer_guide_nonce' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Security check failed. Please refresh and try again.', 'website-section-supporter' ) ) );
+		}
+
+		// Google reCAPTCHA Verification (v2 / v3)
+		$recaptcha_response = isset( $_POST['g-recaptcha-response'] ) ? sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) ) : '';
+		$secret_key         = isset( $_POST['recaptcha_secret'] ) ? sanitize_text_field( wp_unslash( $_POST['recaptcha_secret'] ) ) : '';
+		
+		if ( ! empty( $secret_key ) && ! empty( $recaptcha_response ) ) {
+			$verify_url = 'https://www.google.com/recaptcha/api/siteverify';
+			$response   = wp_remote_post( $verify_url, array(
+				'body' => array(
+					'secret'   => $secret_key,
+					'response' => $recaptcha_response,
+					'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+				),
+			) );
+
+			if ( ! is_wp_error( $response ) ) {
+				$result = json_decode( wp_remote_retrieve_body( $response ), true );
+				if ( empty( $result['success'] ) ) {
+					wp_send_json_error( array( 'message' => __( 'reCAPTCHA verification failed. Please try again.', 'website-section-supporter' ) ) );
+				}
+			}
+		}
+
+		$name     = isset( $_POST['wss_name'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_name'] ) ) : '';
+		$email    = isset( $_POST['wss_email'] ) ? sanitize_email( wp_unslash( $_POST['wss_email'] ) ) : '';
+		$phone    = isset( $_POST['wss_phone'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_phone'] ) ) : '';
+		$timeline = isset( $_POST['wss_timeline'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_timeline'] ) ) : '';
+
+		if ( empty( $name ) || empty( $email ) ) {
+			wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'website-section-supporter' ) ) );
+		}
+
+		// PDF File & Attachment Resolution
+		$pdf_id  = isset( $_POST['pdf_attachment_id'] ) ? absint( $_POST['pdf_attachment_id'] ) : 0;
+		$pdf_url = isset( $_POST['pdf_attachment_url'] ) ? esc_url_raw( wp_unslash( $_POST['pdf_attachment_url'] ) ) : '';
+
+		$attachments = array();
+		if ( $pdf_id > 0 ) {
+			$file_path = get_attached_file( $pdf_id );
+			if ( $file_path && file_exists( $file_path ) ) {
+				$attachments[] = $file_path;
+			}
+		} elseif ( ! empty( $pdf_url ) ) {
+			$upload_dir = wp_upload_dir();
+			if ( strpos( $pdf_url, $upload_dir['baseurl'] ) !== false ) {
+				$rel_path = str_replace( $upload_dir['baseurl'], $upload_dir['basedir'], $pdf_url );
+				if ( file_exists( $rel_path ) ) {
+					$attachments[] = $rel_path;
+				}
+			}
+		}
+
+		// 1. Admin Notification Email
+		$admin_to      = isset( $_POST['admin_email_to'] ) && ! empty( $_POST['admin_email_to'] ) ? sanitize_email( wp_unslash( $_POST['admin_email_to'] ) ) : get_option( 'admin_email' );
+		$admin_subject = isset( $_POST['admin_email_subject'] ) && ! empty( $_POST['admin_email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['admin_email_subject'] ) ) : 'New Buyer Blueprint Download: {{name}}';
+
+		$admin_subject = str_replace(
+			array( '{{name}}', '{{email}}', '{{phone}}', '{{timeline}}' ),
+			array( $name, $email, $phone, $timeline ),
+			$admin_subject
+		);
+
+		$admin_headers = array(
+			'Content-Type: text/html; charset=UTF-8',
+			'Reply-To: ' . $name . ' <' . $email . '>',
+		);
+
+		$admin_body  = "<div style='font-family: Arial, sans-serif; max-width: 600px; color: #1a1812; line-height: 1.6; padding: 24px; border: 1px solid #e2dfda;'>";
+		$admin_body .= "<h2 style='color: #0d0d0d; border-bottom: 2px solid #0d0d0d; padding-bottom: 8px; font-size: 18px; text-transform: uppercase;'>New Buyer Blueprint Download Request</h2>";
+		$admin_body .= "<p><strong>Name:</strong> " . esc_html( $name ) . "</p>";
+		$admin_body .= "<p><strong>Email:</strong> " . esc_html( $email ) . "</p>";
+		if ( ! empty( $phone ) ) {
+			$admin_body .= "<p><strong>Phone:</strong> " . esc_html( $phone ) . "</p>";
+		}
+		if ( ! empty( $timeline ) ) {
+			$admin_body .= "<p><strong>Timeline:</strong> " . esc_html( $timeline ) . "</p>";
+		}
+		$admin_body .= "<hr style='border: none; border-top: 1px solid #e2dfda; margin: 20px 0;'>";
+		$admin_body .= "<p style='font-size: 11px; color: #888888;'>Sent via VP Signature Group Website Section Supporter</p>";
+		$admin_body .= "</div>";
+
+		wp_mail( $admin_to, $admin_subject, $admin_body, $admin_headers );
+
+		// 2. User Auto-Responder Email (with PDF attached)
+		$enable_autoresponder = isset( $_POST['enable_autoresponder'] ) && 'yes' === $_POST['enable_autoresponder'];
+		if ( $enable_autoresponder ) {
+			$sender_name  = isset( $_POST['user_sender_name'] ) && ! empty( $_POST['user_sender_name'] ) ? sanitize_text_field( wp_unslash( $_POST['user_sender_name'] ) ) : get_bloginfo( 'name' );
+			$sender_email = isset( $_POST['user_sender_email'] ) && ! empty( $_POST['user_sender_email'] ) ? sanitize_email( wp_unslash( $_POST['user_sender_email'] ) ) : get_option( 'admin_email' );
+			$user_subject = isset( $_POST['user_email_subject'] ) && ! empty( $_POST['user_email_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['user_email_subject'] ) ) : "Your Central Florida Luxury Buyer's Blueprint (PDF Attached)";
+
+			$user_subject = str_replace( array( '{{name}}', '{{email}}' ), array( $name, $email ), $user_subject );
+
+			$user_headers = array(
+				'Content-Type: text/html; charset=UTF-8',
+				'From: ' . $sender_name . ' <' . $sender_email . '>',
+				'Reply-To: ' . $sender_name . ' <' . $sender_email . '>',
+			);
+
+			$user_msg  = "<div style='font-family: Arial, sans-serif; max-width: 600px; color: #1a1812; line-height: 1.6; padding: 24px; border: 1px solid #e2dfda;'>";
+			$user_msg .= "<h2 style='color: #0d0d0d; border-bottom: 2px solid #0d0d0d; padding-bottom: 8px; font-size: 18px; text-transform: uppercase;'>Your Complimentary Buyer's Blueprint</h2>";
+			$user_msg .= "<p>Dear " . esc_html( $name ) . ",</p>";
+			$user_msg .= "<p>Thank you for requesting <strong>The Central Florida Luxury Buyer's Blueprint</strong>. Please find your exclusive copy attached to this email.</p>";
+			if ( ! empty( $pdf_url ) ) {
+				$user_msg .= "<p style='margin: 20px 0;'><a href='" . esc_url( $pdf_url ) . "' style='background: #0d0d0d; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block; font-weight: bold; font-size: 13px;'>Download Buyer Blueprint (PDF)</a></p>";
+			}
+			$user_msg .= "<p>Whether you are exploring private lakefront enclaves in Windermere, historic estates in Winter Park, or golf residences in Lake Nona, our team is here to guide your search with discretion and strategic insight.</p>";
+			$user_msg .= "<p>Warm regards,<br><strong>Victoria Price | Broker - Owner</strong><br>VP Signature Group<br>+1 (407) 584-7494<br><a href='mailto:admin@vpsignature.com'>admin@vpsignature.com</a></p>";
+			$user_msg .= "<hr style='border: none; border-top: 1px solid #e2dfda; margin: 20px 0;'>";
+			$user_msg .= "<p style='font-size: 11px; color: #888888;'>VP Signature Group • 300 S Orange Ave, Orlando, FL 32801 • FL License: BK3403615</p>";
+			$user_msg .= "</div>";
+
+			$attach_pdf = isset( $_POST['attach_pdf'] ) && 'yes' === $_POST['attach_pdf'];
+			$user_attachments = $attach_pdf ? $attachments : array();
+
+			wp_mail( $email, $user_subject, $user_msg, $user_headers, $user_attachments );
+		}
+
+		wp_send_json_success( array(
+			'message' => __( 'Thank you! Your complimentary Buyer Blueprint has been sent to your email and is ready for download.', 'website-section-supporter' ),
+			'pdf_url' => $pdf_url,
+		) );
 	}
 
 	public function handle_contact_submit() {
