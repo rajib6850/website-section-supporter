@@ -1057,9 +1057,7 @@ class WSS_CTA_Widget extends Widget_Base {
 				'label'     => __( 'Hover Background Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-cta-btn-secondary::before, {{WRAPPER}} .wss-cta-btn-secondary:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-btn-line.wss-cta-btn-secondary::after, {{WRAPPER}} .wss-btn-line.wss-cta-btn-secondary:hover::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-cta-btn-secondary' => '--wss-btn-hover-bg: {{VALUE}};',
+					'{{WRAPPER}} .wss-cta-btn-secondary:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);

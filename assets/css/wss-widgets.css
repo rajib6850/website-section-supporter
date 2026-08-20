@@ -7368,21 +7368,19 @@ body.wss-modal-open {
   align-items: center;
 }
 
-.wss-cta-btn-primary,
-.wss-cta-btn-secondary {
+/* Primary Button Curtain Sweep Animation */
+.wss-cta-btn-primary.wss-btn-pill {
   position: relative;
   overflow: hidden;
   z-index: 1;
 }
 
-.wss-cta-btn-primary > *,
-.wss-cta-btn-secondary > * {
+.wss-cta-btn-primary.wss-btn-pill > * {
   position: relative;
   z-index: 2;
 }
 
-.wss-cta-btn-primary::before,
-.wss-cta-btn-secondary::before {
+.wss-cta-btn-primary.wss-btn-pill::before {
   content: '';
   position: absolute;
   top: 0;
@@ -7396,8 +7394,7 @@ body.wss-modal-open {
   transition: transform 0.5s cubic-bezier(0.16, 0.84, 0.44, 1);
 }
 
-.wss-cta-btn-primary:hover::before,
-.wss-cta-btn-secondary:hover::before {
+.wss-cta-btn-primary.wss-btn-pill:hover::before {
   transform: scaleX(1);
   transform-origin: left;
 }
