@@ -776,19 +776,6 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 		);
 
 		$this->add_responsive_control(
-			'form_title_spacing',
-			array(
-				'label'      => __( 'Title Bottom Spacing (Title-to-Form Gap)', 'website-section-supporter' ),
-				'type'       => Controls_Manager::SLIDER,
-				'range'      => array( 'px' => array( 'min' => 10, 'max' => 80 ) ),
-				'default'    => array( 'unit' => 'px', 'size' => 28 ),
-				'selectors'  => array(
-					'{{WRAPPER}} .wss-buyer-guide-form-title' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
 			'form_badge_spacing',
 			array(
 				'label'      => __( 'Badge Bottom Spacing', 'website-section-supporter' ),
@@ -797,6 +784,44 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 				'default'    => array( 'unit' => 'px', 'size' => 12 ),
 				'selectors'  => array(
 					'{{WRAPPER}} .wss-buyer-guide-form-badge' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'form_badge_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-guide-form-badge',
+			)
+		);
+
+		$this->add_control(
+			'heading_form_title_typography',
+			array(
+				'label'     => __( 'Form Title Typography', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'form_title_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-guide-form-title',
+			)
+		);
+
+		$this->add_responsive_control(
+			'form_title_spacing',
+			array(
+				'label'      => __( 'Title Bottom Spacing (Title-to-Form Gap)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 10, 'max' => 80 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 28 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-guide-form-title' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);

@@ -7610,8 +7610,10 @@ body.wss-modal-open {
 
 .wss-buyer-hero-desc {
   font-family: var(--wss-font-text);
-  font-size: clamp(15.5px, 1.2vw, 18px);
-  line-height: 1.85;
+  font-size: var(--wss-size-text, clamp(15.5px, 1.2vw, 18px));
+  font-weight: var(--wss-weight-text, 400);
+  line-height: var(--wss-line-height-text, 1.85);
+  letter-spacing: var(--wss-letter-spacing-text, 0.01em);
   color: var(--wss-ink-soft, #555555);
   margin: 0 0 36px;
   max-width: 680px;
@@ -7628,8 +7630,15 @@ body.wss-modal-open {
 }
 
 .wss-buyer-hero-btn-primary {
+  font-family: var(--wss-font-accent);
+  font-weight: var(--wss-weight-accent, 700);
   position: relative;
   overflow: hidden;
+}
+
+.wss-buyer-hero-btn-secondary {
+  font-family: var(--wss-font-accent);
+  font-weight: var(--wss-weight-accent, 700);
 }
 
 .wss-buyer-hero-media-wrap {
@@ -7683,6 +7692,8 @@ body.wss-modal-open {
 
 .wss-buyer-hero-badge-sub {
   margin: 0;
+  font-family: var(--wss-font-text);
+  font-weight: var(--wss-weight-text, 400);
   font-size: 12.5px;
   color: rgba(255, 255, 255, 0.7);
   letter-spacing: 0.04em;
@@ -7801,8 +7812,10 @@ body.wss-modal-open {
 
 .wss-buyer-roadmap-desc {
   font-family: var(--wss-font-text);
-  font-size: clamp(15px, 1.15vw, 17.5px);
-  line-height: 1.8;
+  font-size: var(--wss-size-text, clamp(15px, 1.15vw, 17.5px));
+  font-weight: var(--wss-weight-text, 400);
+  line-height: var(--wss-line-height-text, 1.8);
+  letter-spacing: var(--wss-letter-spacing-text, 0.01em);
   color: var(--wss-ink-soft, #555555);
   margin: 0;
   word-break: break-word;
@@ -7900,8 +7913,10 @@ body.wss-modal-open {
 
 .wss-buyer-roadmap-card-desc {
   font-family: var(--wss-font-text);
-  font-size: 14px;
-  line-height: 1.85;
+  font-size: var(--wss-size-text, 14px);
+  font-weight: var(--wss-weight-text, 400);
+  line-height: var(--wss-line-height-text, 1.85);
+  letter-spacing: var(--wss-letter-spacing-text, 0.01em);
   color: var(--wss-ink-soft, #555555);
   margin: 0 0 26px;
   word-break: break-word;
@@ -8067,8 +8082,10 @@ body.wss-modal-open {
 
 .wss-buyer-guide-desc {
   font-family: var(--wss-font-text);
-  font-size: clamp(15px, 1.15vw, 17.5px);
-  line-height: 1.85;
+  font-size: var(--wss-size-text, clamp(15px, 1.15vw, 17.5px));
+  font-weight: var(--wss-weight-text, 400);
+  line-height: var(--wss-line-height-text, 1.85);
+  letter-spacing: var(--wss-letter-spacing-text, 0.01em);
   color: rgba(255, 255, 255, 0.8);
   margin: 0 0 32px;
   word-break: break-word;
@@ -8086,9 +8103,12 @@ body.wss-modal-open {
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  font-size: 14.5px;
+  font-family: var(--wss-font-text);
+  font-weight: var(--wss-weight-text, 400);
+  font-size: var(--wss-size-text, 14.5px);
+  line-height: var(--wss-line-height-text, 1.6);
+  letter-spacing: var(--wss-letter-spacing-text, 0.01em);
   color: rgba(255, 255, 255, 0.88);
-  line-height: 1.6;
   word-break: break-word;
 }
 
@@ -8148,6 +8168,7 @@ body.wss-modal-open {
   border-radius: 2px;
   color: #ffffff;
   font-family: var(--wss-font-text);
+  font-weight: var(--wss-weight-text, 400);
   font-size: 14px;
   outline: none;
   box-sizing: border-box;
@@ -8181,6 +8202,7 @@ body.wss-modal-open {
   background-color: #1f1f1f !important;
   color: #ffffff !important;
   padding: 12px 16px !important;
+  font-family: var(--wss-font-text);
 }
 
 .wss-buyer-guide-select option:disabled {

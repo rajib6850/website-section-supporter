@@ -658,6 +658,14 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'btn1_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-hero-btn-primary',
+			)
+		);
+
 		$this->start_controls_tabs( 'tabs_btn1_style' );
 
 		$this->start_controls_tab(
@@ -757,6 +765,14 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Secondary Button', 'website-section-supporter' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'btn2_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-hero-btn-secondary',
 			)
 		);
 
