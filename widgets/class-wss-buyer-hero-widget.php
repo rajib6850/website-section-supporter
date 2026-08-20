@@ -91,6 +91,17 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'enable_reveal',
+			array(
+				'label'        => __( 'Enable Scroll Reveal Animation', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'separator'    => 'before',
+			)
+		);
+
 		$this->end_controls_section();
 
 		/* ================= CONTENT: ACTION BUTTONS ================= */
@@ -784,6 +795,7 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 		$btn2_icon_html = ! empty( $s['btn2_icon'] ) && 'none' !== $s['btn2_icon'] ? $this->render_icon( $s['btn2_icon'] ) : '';
 
 		$image_url = ! empty( $s['hero_image']['url'] ) ? $s['hero_image']['url'] : '';
+		$enable_reveal = ! empty( $s['enable_reveal'] ) && 'yes' === $s['enable_reveal'];
 		?>
 		<div class="wss-scope">
 			<section class="wss-buyer-hero-section wss-pad" data-wss-widget="wss-buyer-hero">
@@ -791,25 +803,25 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 					<div class="wss-buyer-hero-grid">
 						
 						<!-- Left: Text & Actions -->
-						<div class="wss-buyer-hero-content">
+						<div class="wss-buyer-hero-content <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>">
 							<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
-								<span class="wss-buyer-hero-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
+								<span class="wss-buyer-hero-eyebrow <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 							<?php endif; ?>
 
 							<?php if ( ! empty( $s['heading'] ) ) : ?>
-								<<?php echo esc_attr( $tag ); ?> class="wss-buyer-hero-heading">
-									<?php echo nl2br( esc_html( $s['heading'] ) ); ?>
+								<<?php echo esc_attr( $tag ); ?> class="wss-buyer-hero-heading <?php echo $enable_reveal ? 'wss-reveal wss-r1' : ''; ?>">
+									<span class="wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span>
 								</<?php echo esc_attr( $tag ); ?>>
 							<?php endif; ?>
 
 							<?php if ( ! empty( $s['description'] ) ) : ?>
-								<p class="wss-buyer-hero-desc">
+								<p class="wss-buyer-hero-desc <?php echo $enable_reveal ? 'wss-reveal wss-r2' : ''; ?>">
 									<?php echo nl2br( esc_html( $s['description'] ) ); ?>
 								</p>
 							<?php endif; ?>
 
 							<?php if ( $show_btn1 || $show_btn2 ) : ?>
-								<div class="wss-buyer-hero-actions">
+								<div class="wss-buyer-hero-actions <?php echo $enable_reveal ? 'wss-reveal wss-r3' : ''; ?>">
 									<?php if ( $show_btn1 ) : ?>
 										<a class="<?php echo esc_attr( $btn1_style ); ?> wss-buyer-hero-btn-primary" 
 											href="<?php echo esc_url( $s['btn1_link']['url'] ?: '#' ); ?>"
@@ -833,15 +845,15 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 
 						<!-- Right: Architectural Media Frame -->
 						<?php if ( ! empty( $image_url ) ) : ?>
-							<div class="wss-buyer-hero-media-wrap">
-								<div class="wss-buyer-hero-media-frame">
+							<div class="wss-buyer-hero-media-wrap <?php echo $enable_reveal ? 'wss-reveal wss-r2' : ''; ?>">
+								<div class="wss-buyer-hero-media-frame <?php echo $enable_reveal ? 'wss-img-reveal' : ''; ?>">
 									<img src="<?php echo esc_url( $image_url ); ?>" 
 										alt="<?php echo esc_attr( $s['heading'] ); ?>" 
 										class="wss-buyer-hero-img">
 								</div>
 
 								<?php if ( ! empty( $s['show_badge'] ) && 'yes' === $s['show_badge'] ) : ?>
-									<div class="wss-buyer-hero-badge">
+									<div class="wss-buyer-hero-badge <?php echo $enable_reveal ? 'wss-reveal wss-r3' : ''; ?>">
 										<?php if ( ! empty( $s['badge_title'] ) ) : ?>
 											<span class="wss-buyer-hero-badge-title"><?php echo esc_html( $s['badge_title'] ); ?></span>
 										<?php endif; ?>

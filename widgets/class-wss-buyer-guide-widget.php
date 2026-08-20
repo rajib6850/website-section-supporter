@@ -135,6 +135,17 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'enable_reveal',
+			array(
+				'label'        => __( 'Enable Scroll Reveal Animation', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'separator'    => 'before',
+			)
+		);
+
 		$this->end_controls_section();
 
 		/* ================= CONTENT: RIGHT FORM ================= */
@@ -808,6 +819,8 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 		$recaptcha_v      = ! empty( $s['recaptcha_version'] ) ? $s['recaptcha_version'] : 'v3';
 		$site_key         = ! empty( $s['recaptcha_site_key'] ) ? $s['recaptcha_site_key'] : '';
 		$secret_key       = ! empty( $s['recaptcha_secret_key'] ) ? $s['recaptcha_secret_key'] : '';
+		$enable_reveal = ! empty( $s['enable_reveal'] ) && 'yes' === $s['enable_reveal'];
+		$delays        = array( 'wss-r1', 'wss-r2', 'wss-r3', 'wss-r4' );
 		?>
 		<div class="wss-scope">
 			<section class="wss-buyer-guide-section wss-pad wss-on-dark" data-wss-widget="wss-buyer-guide">
@@ -816,27 +829,29 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 					<div class="wss-buyer-guide-wrapper">
 						
 						<!-- Left: Guide Overview & Value Checklist -->
-						<div class="wss-buyer-guide-left">
+						<div class="wss-buyer-guide-left <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>">
 							<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
-								<span class="wss-buyer-guide-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
+								<span class="wss-buyer-guide-eyebrow <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 							<?php endif; ?>
 
 							<?php if ( ! empty( $s['heading'] ) ) : ?>
-								<<?php echo esc_attr( $tag ); ?> class="wss-buyer-guide-heading">
-									<?php echo nl2br( esc_html( $s['heading'] ) ); ?>
+								<<?php echo esc_attr( $tag ); ?> class="wss-buyer-guide-heading <?php echo $enable_reveal ? 'wss-reveal wss-r1' : ''; ?>">
+									<span class="wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span>
 								</<?php echo esc_attr( $tag ); ?>>
 							<?php endif; ?>
 
 							<?php if ( ! empty( $s['description'] ) ) : ?>
-								<p class="wss-buyer-guide-desc">
+								<p class="wss-buyer-guide-desc <?php echo $enable_reveal ? 'wss-reveal wss-r2' : ''; ?>">
 									<?php echo nl2br( esc_html( $s['description'] ) ); ?>
 								</p>
 							<?php endif; ?>
 
 							<?php if ( ! empty( $checklist ) ) : ?>
-								<div class="wss-buyer-guide-checklist">
-									<?php foreach ( $checklist as $item ) : ?>
-										<div class="wss-buyer-guide-check-item">
+								<div class="wss-buyer-guide-checklist <?php echo $enable_reveal ? 'wss-reveal wss-r3' : ''; ?>">
+									<?php foreach ( $checklist as $c_idx => $item ) : 
+										$c_stagger = $enable_reveal ? 'wss-reveal ' . $delays[ $c_idx % 4 ] : '';
+									?>
+										<div class="wss-buyer-guide-check-item <?php echo esc_attr( $c_stagger ); ?>">
 											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
 											<span>
 												<?php if ( ! empty( $item['bold_prefix'] ) ) : ?>
@@ -851,7 +866,7 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 						</div>
 
 						<!-- Right: High-Converting Lead Capture Form -->
-						<div class="wss-buyer-guide-right">
+						<div class="wss-buyer-guide-right <?php echo $enable_reveal ? 'wss-reveal wss-r2' : ''; ?>">
 							<div class="wss-buyer-guide-form-box">
 								
 								<?php if ( ! empty( $s['form_badge'] ) ) : ?>

@@ -91,6 +91,17 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'enable_reveal',
+			array(
+				'label'        => __( 'Enable Scroll Reveal Animation', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'separator'    => 'before',
+			)
+		);
+
 		$this->end_controls_section();
 
 		/* ================= CONTENT: ROADMAP PHASES ================= */
@@ -728,25 +739,27 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 
 		$tag = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2';
 		$phases = ! empty( $s['phases_list'] ) ? $s['phases_list'] : array();
+		$enable_reveal = ! empty( $s['enable_reveal'] ) && 'yes' === $s['enable_reveal'];
+		$delays        = array( 'wss-r1', 'wss-r2', 'wss-r3', 'wss-r4' );
 		?>
 		<div class="wss-scope">
 			<section class="wss-buyer-roadmap-section wss-pad" data-wss-widget="wss-buyer-roadmap">
 				<div class="wss-container">
 					
 					<!-- Header -->
-					<div class="wss-buyer-roadmap-head">
+					<div class="wss-buyer-roadmap-head <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>">
 						<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
-							<span class="wss-buyer-roadmap-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
+							<span class="wss-buyer-roadmap-eyebrow <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 						<?php endif; ?>
 
 						<?php if ( ! empty( $s['heading'] ) ) : ?>
-							<<?php echo esc_attr( $tag ); ?> class="wss-buyer-roadmap-heading">
-								<?php echo nl2br( esc_html( $s['heading'] ) ); ?>
+							<<?php echo esc_attr( $tag ); ?> class="wss-buyer-roadmap-heading <?php echo $enable_reveal ? 'wss-reveal wss-r1' : ''; ?>">
+								<span class="wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span>
 							</<?php echo esc_attr( $tag ); ?>>
 						<?php endif; ?>
 
 						<?php if ( ! empty( $s['description'] ) ) : ?>
-							<p class="wss-buyer-roadmap-desc">
+							<p class="wss-buyer-roadmap-desc <?php echo $enable_reveal ? 'wss-reveal wss-r2' : ''; ?>">
 								<?php echo nl2br( esc_html( $s['description'] ) ); ?>
 							</p>
 						<?php endif; ?>
@@ -755,10 +768,11 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 					<!-- Phases Grid -->
 					<?php if ( ! empty( $phases ) ) : ?>
 						<div class="wss-buyer-roadmap-grid">
-							<?php foreach ( $phases as $item ) : 
+							<?php foreach ( $phases as $idx => $item ) : 
 								$icon_html = ! empty( $item['milestone_icon'] ) && 'none' !== $item['milestone_icon'] ? $this->render_milestone_icon( $item['milestone_icon'] ) : '';
+								$stagger   = $enable_reveal ? 'wss-reveal ' . $delays[ $idx % 4 ] : '';
 							?>
-								<div class="wss-buyer-roadmap-card elementor-repeater-item-<?php echo esc_attr( $item['_id'] ); ?>">
+								<div class="wss-buyer-roadmap-card <?php echo esc_attr( $stagger ); ?> elementor-repeater-item-<?php echo esc_attr( $item['_id'] ); ?>">
 									
 									<?php if ( ! empty( $item['watermark_number'] ) ) : ?>
 										<span class="wss-buyer-roadmap-watermark"><?php echo esc_html( $item['watermark_number'] ); ?></span>

@@ -1049,6 +1049,24 @@
 						} );
 					}
 				} );
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_buyer_hero.default", function ( $scope ) {
+					var reveals = $scope[0] ? $scope[0].querySelectorAll( ".wss-reveal, .wss-img-reveal" ) : [];
+					reveals.forEach( function ( el ) {
+						el.classList.add( "wss-is-visible" );
+					} );
+				} );
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_buyer_roadmap.default", function ( $scope ) {
+					var reveals = $scope[0] ? $scope[0].querySelectorAll( ".wss-reveal, .wss-img-reveal" ) : [];
+					reveals.forEach( function ( el ) {
+						el.classList.add( "wss-is-visible" );
+					} );
+				} );
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_buyer_guide.default", function ( $scope ) {
+					var reveals = $scope[0] ? $scope[0].querySelectorAll( ".wss-reveal, .wss-img-reveal" ) : [];
+					reveals.forEach( function ( el ) {
+						el.classList.add( "wss-is-visible" );
+					} );
+				} );
 			}
 		}
 
