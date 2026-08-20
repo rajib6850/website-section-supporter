@@ -41,22 +41,24 @@ website-section-supporter/
 ## 🏛️ 2. Comprehensive Elementor Widget Catalog
 
 ### 1. `WSS_Home_Evaluation_Widget` (`wss_home_evaluation`)
+- **Title in Elementor**: `WSS — Home Evaluation`
 - **File**: `widgets/class-wss-home-evaluation-widget.php`
 - **Purpose**: High-converting, 3-step luxury Home Evaluation & Property Valuation form with custom Form Builder capabilities.
-- **Key Features**:
-  - **Form Builder Repeater**: Add, remove, reorder fields, custom column widths (`100%`, `50%`, `33%`, `25%`, `66%`, `75%`), field types (Text, Email, Tel, Number, Textarea, Select, Checkbox, Radio, Step Break, HTML).
-  - **Trust Badges**: 3 header micro-pills (`100% Confidential & Off-Market`, `Human Econometric Analysis`, `Complimentary 24-48h Delivery`).
-  - **Interactive Amenity Cards**: Custom square badge with animated SVG tickmarks (turns black `#0d0d0d` on check).
-  - **Step Progress Bar**: Sleek 3px progress track filling smoothly as steps advance.
-  - **Spam Protection**: Google reCAPTCHA v2 Checkbox & v3 Invisible support.
-  - **AJAX & Email Engine**: Nonce verified (`wss_home_evaluation_nonce`), generates luxury HTML email tables, replaces `{{field_name}}` tokens, and delivers client autoresponder with Victoria Price signature.
+- **Elementor Control Sections**:
+  - `Header` (Eyebrow, Heading, HTML Tag, Description, Scroll Reveal)
+  - `Form Fields` (Repeater Form Builder with multi-step breaks, custom column widths)
+  - `Buttons` (Next, Back, Submit labels, Privacy note)
+  - `reCAPTCHA` (v2 Checkbox, v3 Invisible)
+  - `Email Settings` (Admin Notification & Client Auto-Responder)
+  - `Container` (Theme preset, Padding, Max Width)
+  - `Typography` (Eyebrow, Heading, Description styling)
+  - `Inputs & Pills` (Input background, text color, border colors)
+  - `Button` (Submit/Next button background, text color, hover background, typography)
 
 ### 2. `WSS_Buyer_Roadmap_Widget` (`wss_buyer_roadmap`)
 - **File**: `widgets/class-wss-buyer-roadmap-widget.php`
 - **Purpose**: Interactive 6-milestone luxury home buying roadmap with phase accordions, key milestones, and downloadable buyer strategy.
-- **Key Features**:
-  - **TinyMCE WYSIWYG Description**: Milestone deliverable content is placed inside the rich-text editor beneath `<hr>`.
-  - **Backward Compatibility Engine**: Automatic fallback in `render()` so older saved Elementor data without `<hr>` still outputs the deliverable line seamlessly without data loss.
+- **Key Features**: TinyMCE WYSIWYG description with deliverable under `<hr>` and backward-compatibility render fallback.
 
 ### 3. `WSS_Seller_Why_Widget` (`wss_seller_why`)
 - **File**: `widgets/class-wss-seller-why-widget.php`
@@ -88,8 +90,9 @@ website-section-supporter/
 
 To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global accent colors) from overriding our ultra-luxury noir aesthetic:
 1. **Buttons**:
+   - Clean, solid architectural pill buttons with zero glass or pseudo-element glitching.
    - Normal: `background-color: #0d0d0d !important; color: #ffffff !important; border: 1px solid #0d0d0d !important; border-radius: 40px !important;`
-   - Hover: `background-color: #ffffff !important; color: #0d0d0d !important; border-color: #0d0d0d !important;`
+   - Hover: `background-color: #ffffff !important; color: #0d0d0d !important; border-color: #0d0d0d !important; transform: translateY(-2px);`
    - Dark Theme: `background-color: #ffffff !important; color: #0d0d0d !important;`
 2. **Inputs**:
    - Normal: `background: #faf9f7 !important; border: 1px solid #ded9d0 !important; color: #0d0d0d !important;`
@@ -113,7 +116,8 @@ To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global 
 | `d9d8bc7` | **Elementor Pro Form Builder Engine** | Rebuilt Home Evaluation widget as a full Repeater-driven Form Builder with custom column widths. |
 | `e134637` | **Luxury UI & Zero-Pink Overrides** | Added trust badges, step progress bar, interactive amenity cards, and strict black/white button styling. |
 | `f1a2d40` | **HTML Files Moved to Backup** | Moved `buyer-resources.html`, `evaluation.html`, and `sell.html` to `backup -design` folder. |
-| *Current* | **Persistent Memory System** | Created `PROJECT_MEMORY.md` to continuously maintain project state. |
+| `b850ee0` | **Persistent Memory System** | Created `PROJECT_MEMORY.md` to continuously maintain project state. |
+| *Current* | **Concise Labels & Button Fix** | Shortened widget title (`WSS — Home Evaluation`), streamlined control section names, and eliminated button glass effect artifact. |
 
 ---
 

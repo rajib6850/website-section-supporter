@@ -18,7 +18,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'WSS — Home Evaluation & Property Valuation (Form Builder)', 'website-section-supporter' );
+		return __( 'WSS — Home Evaluation', 'website-section-supporter' );
 	}
 
 	public function get_icon() {
@@ -30,16 +30,16 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'home evaluation', 'property valuation', 'form builder', 'cma', 'appraisal', 'multi-step', 'recaptcha', 'vpsignature' );
+		return array( 'home evaluation', 'property valuation', 'form', 'cma', 'valuation', 'multi-step', 'vpsignature' );
 	}
 
 	protected function register_controls() {
 
-		/* ================= CONTENT: SECTION HEADER ================= */
+		/* ================= CONTENT: HEADER ================= */
 		$this->start_controls_section(
 			'section_content_header',
 			array(
-				'label' => __( 'Section Header & Narrative', 'website-section-supporter' ),
+				'label' => __( 'Header', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -103,11 +103,11 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		/* ================= CONTENT: FORM FIELDS (REPEATER BUILDER) ================= */
+		/* ================= CONTENT: FORM FIELDS ================= */
 		$this->start_controls_section(
 			'section_form_fields',
 			array(
-				'label' => __( 'Form Fields Builder (Elementor Pro Style)', 'website-section-supporter' ),
+				'label' => __( 'Form Fields', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -419,11 +419,11 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		/* ================= CONTENT: BUTTONS & LABELS ================= */
+		/* ================= CONTENT: BUTTONS ================= */
 		$this->start_controls_section(
 			'section_form_buttons',
 			array(
-				'label' => __( 'Buttons & Navigation Labels', 'website-section-supporter' ),
+				'label' => __( 'Buttons', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -466,11 +466,11 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		/* ================= CONTENT: RECAPTCHA SETTINGS ================= */
+		/* ================= CONTENT: RECAPTCHA ================= */
 		$this->start_controls_section(
 			'section_content_recaptcha',
 			array(
-				'label' => __( 'Google reCAPTCHA (Spam Protection)', 'website-section-supporter' ),
+				'label' => __( 'reCAPTCHA', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -521,11 +521,11 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		/* ================= CONTENT: EMAIL & AUTO-RESPONDER ================= */
+		/* ================= CONTENT: EMAIL ================= */
 		$this->start_controls_section(
 			'section_content_email',
 			array(
-				'label' => __( 'Email & Auto-Responder Settings', 'website-section-supporter' ),
+				'label' => __( 'Email Settings', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -650,11 +650,11 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		/* ================= STYLE: THEME PRESET & CONTAINER ================= */
+		/* ================= STYLE: CONTAINER ================= */
 		$this->start_controls_section(
 			'section_style_theme',
 			array(
-				'label' => __( 'Theme Preset & Container', 'website-section-supporter' ),
+				'label' => __( 'Container', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -718,7 +718,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'section_style_typography',
 			array(
-				'label' => __( 'Typography & Colors', 'website-section-supporter' ),
+				'label' => __( 'Typography', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -782,11 +782,11 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		/* ================= STYLE: INPUTS & AMENITIES ================= */
+		/* ================= STYLE: INPUTS & PILLS ================= */
 		$this->start_controls_section(
 			'section_style_inputs',
 			array(
-				'label' => __( 'Form Inputs & Amenity Pills', 'website-section-supporter' ),
+				'label' => __( 'Inputs & Pills', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -837,11 +837,11 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		/* ================= STYLE: SUBMIT BUTTON ================= */
+		/* ================= STYLE: BUTTON ================= */
 		$this->start_controls_section(
 			'section_style_button',
 			array(
-				'label' => __( 'Submit Button', 'website-section-supporter' ),
+				'label' => __( 'Button', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -1038,7 +1038,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 													<div></div>
 												<?php endif; ?>
 												
-												<button type="button" class="wss-btn-pill wss-home-eval-next-btn" data-next="<?php echo esc_attr( $step_index + 1 ); ?>">
+												<button type="button" class="wss-home-eval-next-btn" data-next="<?php echo esc_attr( $step_index + 1 ); ?>">
 													<span><?php echo esc_html( $s['next_btn_text'] ?? __( 'Continue', 'website-section-supporter' ) ); ?></span>
 													<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 												</button>
@@ -1179,7 +1179,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 										<div></div>
 									<?php endif; ?>
 
-									<button type="submit" class="wss-btn-pill wss-home-eval-submit-btn">
+									<button type="submit" class="wss-home-eval-submit-btn">
 										<span><?php echo esc_html( $s['submit_btn_text'] ?? __( 'Request Confidential Valuation', 'website-section-supporter' ) ); ?></span>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 									</button>
@@ -1204,7 +1204,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 							</div>
 							<h3 class="wss-success-title"><?php echo esc_html( $s['success_title'] ?? __( 'Valuation Request Received', 'website-section-supporter' ) ); ?></h3>
 							<p class="wss-success-desc"><?php echo nl2br( esc_html( $s['success_message'] ?? __( 'Thank you. Victoria Price and our analytics team have initiated your sub-market comparative study. Your confidential property dossier is being assembled.', 'website-section-supporter' ) ) ); ?></p>
-							<button type="button" class="wss-btn-pill wss-home-eval-reset-btn">
+							<button type="button" class="wss-home-eval-reset-btn">
 								<span><?php echo esc_html( $s['reset_btn_text'] ?? __( 'Submit Another Property', 'website-section-supporter' ) ); ?></span>
 							</button>
 						</div>

@@ -10577,16 +10577,9 @@ textarea.wss-home-eval-input:focus {
   text-decoration: underline !important;
 }
 
-.wss-home-eval--dark .wss-btn-back:hover {
-  color: #ffffff !important;
-}
-
 .wss-home-eval-submit-btn,
 .wss-home-eval-next-btn,
-.wss-home-eval-reset-btn,
-button.wss-home-eval-submit-btn,
-button.wss-home-eval-next-btn,
-button.wss-home-eval-reset-btn {
+.wss-home-eval-reset-btn {
   background-color: #0d0d0d !important;
   color: #ffffff !important;
   border: 1px solid #0d0d0d !important;
@@ -10602,29 +10595,29 @@ button.wss-home-eval-reset-btn {
   align-items: center !important;
   justify-content: center !important;
   gap: 12px !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.3s ease !important;
   text-decoration: none !important;
   outline: none !important;
+  position: relative !important;
 }
 
 .wss-home-eval-submit-btn svg,
 .wss-home-eval-next-btn svg,
 .wss-home-eval-reset-btn svg {
   stroke: #ffffff !important;
+  width: 12px !important;
+  height: 12px !important;
   transition: transform 0.3s ease !important;
 }
 
 .wss-home-eval-submit-btn:hover,
 .wss-home-eval-next-btn:hover,
-.wss-home-eval-reset-btn:hover,
-button.wss-home-eval-submit-btn:hover,
-button.wss-home-eval-next-btn:hover,
-button.wss-home-eval-reset-btn:hover {
+.wss-home-eval-reset-btn:hover {
   background-color: #ffffff !important;
   color: #0d0d0d !important;
   border-color: #0d0d0d !important;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16) !important;
   transform: translateY(-2px) !important;
 }
 
@@ -10632,20 +10625,17 @@ button.wss-home-eval-reset-btn:hover {
 .wss-home-eval-next-btn:hover svg,
 .wss-home-eval-reset-btn:hover svg {
   stroke: #0d0d0d !important;
-  transform: translateX(3px) !important;
+  transform: translateX(4px) !important;
 }
 
 /* Dark Theme Buttons */
 .wss-home-eval--dark .wss-home-eval-submit-btn,
 .wss-home-eval--dark .wss-home-eval-next-btn,
-.wss-home-eval--dark .wss-home-eval-reset-btn,
-.wss-home-eval--dark button.wss-home-eval-submit-btn,
-.wss-home-eval--dark button.wss-home-eval-next-btn,
-.wss-home-eval--dark button.wss-home-eval-reset-btn {
+.wss-home-eval--dark .wss-home-eval-reset-btn {
   background-color: #ffffff !important;
   color: #0d0d0d !important;
   border-color: #ffffff !important;
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.1) !important;
 }
 
 .wss-home-eval--dark .wss-home-eval-submit-btn svg,
@@ -10657,16 +10647,17 @@ button.wss-home-eval-reset-btn:hover {
 .wss-home-eval--dark .wss-home-eval-submit-btn:hover,
 .wss-home-eval--dark .wss-home-eval-next-btn:hover,
 .wss-home-eval--dark .wss-home-eval-reset-btn:hover {
-  background-color: #1a1a1a !important;
+  background-color: #161616 !important;
   color: #ffffff !important;
-  border-color: rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
 }
 
 .wss-home-eval--dark .wss-home-eval-submit-btn:hover svg,
 .wss-home-eval--dark .wss-home-eval-next-btn:hover svg,
 .wss-home-eval--dark .wss-home-eval-reset-btn:hover svg {
   stroke: #ffffff !important;
+  transform: translateX(4px) !important;
 }
 
 /* Loading Spinner */
