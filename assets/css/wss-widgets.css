@@ -8960,3 +8960,961 @@ button.wss-buyer-guide-submit-btn:hover svg {
     font-size: 15px !important;
   }
 }
+
+/* ==========================================================================
+   25. WSS SELLER ADVANTAGES & VALUE (WHY US)
+   ========================================================================== */
+.wss-seller-why-section {
+  position: relative;
+  background: #0d0d0d;
+  color: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.wss-seller-why--dark {
+  background: #0a0a0a;
+  color: #ffffff;
+}
+
+.wss-seller-why--light {
+  background: #faf8f5;
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-why--taupe {
+  background: #edeae4;
+  color: #1a1815;
+}
+
+/* Header: Split Layout on Desktop */
+.wss-seller-why-head {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 60px;
+  align-items: flex-end;
+  margin-bottom: 70px;
+  box-sizing: border-box;
+}
+
+.wss-seller-why-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--wss-font-accent);
+  font-size: 10.5px;
+  font-weight: var(--wss-weight-accent, 700);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 20px;
+}
+
+.wss-seller-why--light .wss-seller-why-eyebrow {
+  color: #777777;
+}
+
+.wss-seller-why-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+.wss-seller-why-heading {
+  font-family: var(--wss-font-primary);
+  font-size: clamp(26px, 3.8vw, 48px);
+  font-weight: var(--wss-weight-primary, 700);
+  text-transform: uppercase;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.wss-seller-why--light .wss-seller-why-heading {
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-why-heading .wss-mask {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.wss-seller-why-heading .wss-mask > span {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  box-sizing: border-box;
+}
+
+.wss-seller-why-desc {
+  font-family: var(--wss-font-text);
+  font-size: var(--wss-size-text, clamp(14.5px, 1.1vw, 17px));
+  font-weight: var(--wss-weight-text, 400);
+  line-height: var(--wss-line-height-text, 1.85);
+  letter-spacing: var(--wss-letter-spacing-text, 0.01em);
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.wss-seller-why--light .wss-seller-why-desc {
+  color: #555555;
+}
+
+/* Strategic Pillars Grid */
+.wss-seller-why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-bottom: 60px;
+  box-sizing: border-box;
+}
+
+.wss-seller-why-card {
+  display: flex;
+  flex-direction: column;
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+  transition: transform 0.5s cubic-bezier(0.16, 0.84, 0.44, 1), border-color 0.4s ease, box-shadow 0.5s ease;
+  position: relative;
+}
+
+.wss-seller-why--light .wss-seller-why-card {
+  background: #ffffff;
+  border-color: #e5e2dc;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.04);
+}
+
+.wss-seller-why-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+.wss-seller-why--light .wss-seller-why-card:hover {
+  border-color: #0d0d0d;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Media */
+.wss-seller-why-card-media {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  background: #000000;
+  box-sizing: border-box;
+}
+
+.wss-seller-why-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.06);
+  transition: transform 1.2s cubic-bezier(0.16, 0.84, 0.44, 1), filter 0.8s ease;
+}
+
+.wss-seller-why-card:hover .wss-seller-why-card-media img {
+  transform: scale(1.08);
+}
+
+.wss-seller-why-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.7) 100%);
+  pointer-events: none;
+}
+
+.wss-seller-why--light .wss-seller-why-card-overlay {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+.wss-seller-why-watermark {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-family: var(--wss-font-accent);
+  font-size: 32px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  z-index: 2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Card Body */
+.wss-seller-why-card-body {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  box-sizing: border-box;
+}
+
+.wss-seller-why-card-badge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  font-family: var(--wss-font-accent);
+  font-size: 10px;
+  font-weight: var(--wss-weight-accent, 700);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 18px;
+}
+
+.wss-seller-why--light .wss-seller-why-card-badge {
+  background: rgba(13, 13, 13, 0.05);
+  border-color: rgba(13, 13, 13, 0.15);
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-why-card-title {
+  font-family: var(--wss-font-primary);
+  font-size: clamp(17px, 1.4vw, 22px);
+  font-weight: var(--wss-weight-primary, 700);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.25;
+  color: #ffffff;
+  margin: 0 0 14px;
+}
+
+.wss-seller-why--light .wss-seller-why-card-title {
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-why-card-desc {
+  font-family: var(--wss-font-text);
+  font-size: var(--wss-size-text, 14.5px);
+  font-weight: var(--wss-weight-text, 400);
+  line-height: var(--wss-line-height-text, 1.75);
+  letter-spacing: var(--wss-letter-spacing-text, 0.01em);
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 20px;
+  flex: 1 1 auto;
+}
+
+.wss-seller-why--light .wss-seller-why-card-desc {
+  color: #555555;
+}
+
+.wss-seller-why-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--wss-font-accent);
+  font-size: 10.5px;
+  font-weight: var(--wss-weight-accent, 600);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-top: auto;
+  transition: gap 0.3s ease, color 0.3s ease;
+}
+
+.wss-seller-why--light .wss-seller-why-card-link {
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-why-card-link svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  transition: transform 0.4s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.wss-seller-why-card:hover .wss-seller-why-card-link {
+  gap: 14px;
+}
+
+.wss-seller-why-card:hover .wss-seller-why-card-link svg {
+  transform: translateX(4px);
+}
+
+/* Bottom Trust Strip */
+.wss-seller-why-trust-strip {
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 44px 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.wss-seller-why--light .wss-seller-why-trust-strip {
+  background: #ffffff;
+  border-color: #e5e2dc;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.05);
+}
+
+.wss-seller-why-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+.wss-seller-why-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wss-seller-why-stat-val {
+  font-family: var(--wss-font-primary);
+  font-size: clamp(24px, 2.5vw, 36px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.wss-seller-why--light .wss-seller-why-stat-val {
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-why-stat-lbl {
+  font-family: var(--wss-font-accent);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.4;
+}
+
+.wss-seller-why--light .wss-seller-why-stat-lbl {
+  color: #777777;
+}
+
+.wss-seller-why-quote-box {
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
+  padding-left: 36px;
+  box-sizing: border-box;
+}
+
+.wss-seller-why--light .wss-seller-why-quote-box {
+  border-left-color: #e5e2dc;
+}
+
+.wss-seller-why-quote {
+  font-family: var(--wss-font-text);
+  font-size: 14.5px;
+  font-style: italic;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 12px;
+}
+
+.wss-seller-why--light .wss-seller-why-quote {
+  color: #333333;
+}
+
+.wss-seller-why-author {
+  font-family: var(--wss-font-accent);
+  font-size: 9.5px;
+  font-weight: var(--wss-weight-accent, 700);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  display: block;
+}
+
+.wss-seller-why--light .wss-seller-why-author {
+  color: #777777;
+}
+
+/* ==========================================================================
+   26. WSS SELLER HOME VALUATION & ADVISORY SHOWCASE
+   ========================================================================== */
+.wss-seller-valuation-section {
+  position: relative;
+  background: #0d0d0d;
+  color: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.wss-seller-valuation--dark {
+  background: #0a0a0a;
+  color: #ffffff;
+}
+
+.wss-seller-valuation--light {
+  background: #f7f5f0;
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-valuation--taupe {
+  background: #edeae4;
+  color: #1a1815;
+}
+
+.wss-seller-valuation-wrapper {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 70px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.wss-seller-valuation-left,
+.wss-seller-valuation-right {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.wss-seller-valuation-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--wss-font-accent);
+  font-size: 10.5px;
+  font-weight: var(--wss-weight-accent, 700);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 20px;
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-eyebrow {
+  color: #777777;
+}
+
+.wss-seller-valuation-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+.wss-seller-valuation-heading {
+  font-family: var(--wss-font-primary);
+  font-size: clamp(26px, 3.8vw, 48px);
+  font-weight: var(--wss-weight-primary, 700);
+  text-transform: uppercase;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  margin: 0 0 24px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-heading {
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-valuation-heading .wss-mask {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.wss-seller-valuation-heading .wss-mask > span {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  box-sizing: border-box;
+}
+
+.wss-seller-valuation-desc {
+  font-family: var(--wss-font-text);
+  font-size: var(--wss-size-text, clamp(15px, 1.15vw, 17.5px));
+  font-weight: var(--wss-weight-text, 400);
+  line-height: var(--wss-line-height-text, 1.85);
+  letter-spacing: var(--wss-letter-spacing-text, 0.01em);
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 32px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-desc {
+  color: #555555;
+}
+
+/* Strategic Value Bullets */
+.wss-seller-valuation-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 38px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.wss-seller-valuation-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-family: var(--wss-font-text);
+  font-weight: var(--wss-weight-text, 400);
+  font-size: var(--wss-size-text, 14.5px);
+  line-height: var(--wss-line-height-text, 1.6);
+  letter-spacing: var(--wss-letter-spacing-text, 0.01em);
+  color: rgba(255, 255, 255, 0.88);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-bullet-item {
+  color: #222222;
+}
+
+.wss-seller-valuation-bullet-item svg {
+  width: 18px;
+  height: 18px;
+  stroke: #ffffff;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-bullet-item svg {
+  stroke: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-valuation-bullet-item span {
+  flex: 1 1 0%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  box-sizing: border-box;
+}
+
+/* Actions: Side-by-side on desktop, stacked on mobile */
+.wss-seller-valuation-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 26px;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin-top: 28px;
+  box-sizing: border-box;
+}
+
+.wss-seller-valuation-actions a {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: fit-content;
+  flex-grow: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.wss-seller-valuation-btn-primary.wss-btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 34px;
+  min-height: 48px;
+  line-height: 1.2;
+  border-radius: 40px;
+  font-family: var(--wss-font-accent);
+  font-size: 10.5px;
+  font-weight: var(--wss-weight-accent, 600);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  width: fit-content;
+  max-width: fit-content;
+  box-sizing: border-box;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-btn-primary.wss-btn-pill {
+  color: var(--wss-ink, #0d0d0d);
+  border-color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-valuation-btn-primary.wss-btn-pill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-btn-primary.wss-btn-pill::before {
+  background: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-valuation-btn-primary.wss-btn-pill:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.wss-seller-valuation-btn-primary.wss-btn-pill:hover {
+  color: #0d0d0d;
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-btn-primary.wss-btn-pill:hover {
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+.wss-seller-valuation-btn-secondary.wss-btn-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0 10px;
+  min-height: 48px;
+  line-height: 1.2;
+  font-family: var(--wss-font-accent);
+  font-size: 11px;
+  font-weight: var(--wss-weight-accent, 600);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  width: fit-content !important;
+  max-width: fit-content !important;
+  position: relative;
+  border-bottom: none;
+  color: #ffffff;
+  box-sizing: border-box;
+  transition: opacity 0.4s ease, gap 0.4s ease;
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-btn-secondary.wss-btn-line {
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-valuation-btn-secondary.wss-btn-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 8px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform-origin: right;
+  transform: scaleX(1);
+  transition: transform 0.5s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.wss-seller-valuation-btn-secondary.wss-btn-line:hover {
+  opacity: 0.85;
+  gap: 18px;
+}
+
+.wss-seller-valuation-btn-secondary.wss-btn-line:hover::after {
+  transform-origin: left;
+  transform: scaleX(0.4);
+}
+
+.wss-seller-valuation-actions a svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  transition: transform 0.4s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.wss-seller-valuation-actions a:hover svg {
+  transform: translateX(5px);
+}
+
+/* Right Media Frame & Floating Badge */
+.wss-seller-valuation-media-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.wss-seller-valuation-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #1a1a1a;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-frame {
+  border-color: #e5e2dc;
+  background: #eae7e1;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+}
+
+.wss-seller-valuation-img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.08);
+  transition: transform 1.4s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.wss-seller-valuation-frame:hover .wss-seller-valuation-img {
+  transform: scale(1.04);
+}
+
+.wss-seller-valuation-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.75) 100%);
+  pointer-events: none;
+}
+
+.wss-seller-valuation-badge {
+  position: absolute;
+  bottom: -24px;
+  left: -24px;
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 24px 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  z-index: 5;
+  box-sizing: border-box;
+  max-width: 340px;
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-badge {
+  background: #ffffff;
+  border-color: #e2dfda;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+.wss-seller-valuation-badge-tag {
+  font-family: var(--wss-font-accent);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-badge-tag {
+  color: #777777;
+}
+
+.wss-seller-valuation-badge-title {
+  font-family: var(--wss-font-primary);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-badge-title {
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-seller-valuation-badge-sub {
+  font-family: var(--wss-font-text);
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.4;
+}
+
+.wss-seller-valuation--light .wss-seller-valuation-badge-sub {
+  color: #555555;
+}
+
+/* ==========================================================================
+   RESPONSIVE OVERRIDES: WSS SELLER WHY & VALUATION
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .wss-seller-why-head {
+    gap: 40px;
+  }
+  .wss-seller-valuation-wrapper {
+    gap: 50px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .wss-seller-why-head {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 44px;
+  }
+
+  .wss-seller-why-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .wss-seller-why-trust-strip {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 36px 30px;
+  }
+
+  .wss-seller-why-quote-box {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-left: 0;
+    padding-top: 24px;
+  }
+
+  .wss-seller-valuation-wrapper {
+    grid-template-columns: 1fr;
+    gap: 46px;
+  }
+
+  .wss-seller-valuation-img {
+    height: 400px;
+  }
+
+  .wss-seller-valuation-badge {
+    position: static;
+    margin-top: 18px;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .wss-seller-why-section,
+  .wss-seller-valuation-section {
+    padding: 56px 0 !important;
+  }
+
+  .wss-seller-why-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .wss-seller-why-card-media {
+    height: 220px;
+  }
+
+  .wss-seller-why-card-body {
+    padding: 26px 20px;
+  }
+
+  .wss-seller-why-stats-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .wss-seller-valuation-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .wss-seller-valuation-btn-primary.wss-btn-pill {
+    display: inline-flex !important;
+    width: fit-content !important;
+    max-width: fit-content !important;
+    align-self: flex-start !important;
+    padding: 14px 28px !important;
+    font-size: 10px !important;
+    letter-spacing: 0.2em !important;
+  }
+
+  .wss-seller-valuation-btn-secondary.wss-btn-line {
+    display: inline-flex !important;
+    width: fit-content !important;
+    max-width: fit-content !important;
+    align-self: flex-start !important;
+    font-size: 10.5px !important;
+    letter-spacing: 0.22em !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .wss-seller-why-section,
+  .wss-seller-valuation-section {
+    padding: 44px 0 !important;
+  }
+
+  .wss-seller-why-eyebrow,
+  .wss-seller-valuation-eyebrow {
+    font-size: 9px !important;
+    letter-spacing: 0.18em !important;
+    margin-bottom: 12px !important;
+  }
+
+  .wss-seller-why-heading,
+  .wss-seller-valuation-heading {
+    font-size: clamp(18px, 6vw, 24px) !important;
+    line-height: 1.22 !important;
+    margin-bottom: 14px !important;
+  }
+
+  .wss-seller-why-desc,
+  .wss-seller-valuation-desc {
+    font-size: 13.5px !important;
+    line-height: 1.7 !important;
+  }
+
+  .wss-seller-valuation-bullet-item {
+    font-size: 13px !important;
+    gap: 10px !important;
+  }
+
+  .wss-seller-valuation-bullet-item svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .wss-seller-why-watermark {
+    font-size: 24px !important;
+    top: 12px !important;
+    right: 14px !important;
+  }
+}

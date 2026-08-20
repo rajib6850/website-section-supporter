@@ -1082,6 +1082,16 @@
 						initScrollReveal( $scope[0] );
 					}
 				} );
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_seller_why.default", function ( $scope ) {
+					if ( $scope && $scope[0] ) {
+						initScrollReveal( $scope[0] );
+					}
+				} );
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_seller_valuation.default", function ( $scope ) {
+					if ( $scope && $scope[0] ) {
+						initScrollReveal( $scope[0] );
+					}
+				} );
 			}
 		}
 
