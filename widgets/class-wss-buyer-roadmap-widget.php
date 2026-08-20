@@ -285,11 +285,137 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		/* ================= STYLE: SECTION HEADER ================= */
+		$this->start_controls_section(
+			'style_section_header',
+			array(
+				'label' => __( 'Section Header Typography', 'website-section-supporter' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		// Section Eyebrow
+		$this->add_control(
+			'heading_style_sec_eyebrow',
+			array(
+				'label' => __( 'Eyebrow', 'website-section-supporter' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_control(
+			'eyebrow_color',
+			array(
+				'label'     => __( 'Eyebrow Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#777777',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-eyebrow' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'eyebrow_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-roadmap-eyebrow',
+			)
+		);
+
+		$this->add_responsive_control(
+			'eyebrow_spacing',
+			array(
+				'label'      => __( 'Eyebrow Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 18 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-eyebrow' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// Section Main Heading
+		$this->add_control(
+			'heading_style_sec_heading',
+			array(
+				'label'     => __( 'Main Heading', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'heading_color',
+			array(
+				'label'     => __( 'Heading Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#0d0d0d',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-heading' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'heading_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-roadmap-heading',
+			)
+		);
+
+		$this->add_responsive_control(
+			'heading_spacing',
+			array(
+				'label'      => __( 'Heading Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 18 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-heading' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// Section Description
+		$this->add_control(
+			'heading_style_sec_desc',
+			array(
+				'label'     => __( 'Lead Description', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'desc_color',
+			array(
+				'label'     => __( 'Description Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#555555',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-desc' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'desc_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-roadmap-desc',
+			)
+		);
+
+		$this->end_controls_section();
+
 		/* ================= STYLE: CARD STYLING ================= */
 		$this->start_controls_section(
 			'style_card_settings',
 			array(
-				'label' => __( 'Phase Card Style', 'website-section-supporter' ),
+				'label' => __( 'Phase Card Style & Typography', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -442,6 +568,27 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'phase_pill_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-roadmap-phase-pill',
+			)
+		);
+
+		$this->add_responsive_control(
+			'phase_pill_spacing',
+			array(
+				'label'      => __( 'Pill Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 40 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 20 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-phase-pill' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		// Phase Title & Desc
 		$this->add_control(
 			'heading_style_phase_text',
@@ -472,6 +619,19 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'phase_title_spacing',
+			array(
+				'label'      => __( 'Title Bottom Spacing (Heading-to-Text)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 18 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-card-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		$this->add_control(
 			'phase_desc_color',
 			array(
@@ -489,6 +649,19 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 			array(
 				'name'     => 'phase_desc_typography',
 				'selector' => '{{WRAPPER}} .wss-buyer-roadmap-card-desc',
+			)
+		);
+
+		$this->add_responsive_control(
+			'phase_desc_spacing',
+			array(
+				'label'      => __( 'Description Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 26 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-card-desc' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
 			)
 		);
 
@@ -511,6 +684,14 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wss-buyer-roadmap-milestone' => 'color: {{VALUE}};',
 				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'milestone_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-roadmap-milestone',
 			)
 		);
 

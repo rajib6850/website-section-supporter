@@ -372,6 +372,19 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'eyebrow_spacing',
+			array(
+				'label'      => __( 'Eyebrow Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 22 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-hero-eyebrow' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		// Heading
 		$this->add_control(
 			'heading_style_heading',
@@ -402,6 +415,19 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'heading_spacing',
+			array(
+				'label'      => __( 'Heading Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 24 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-hero-heading' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		// Description
 		$this->add_control(
 			'heading_style_desc',
@@ -429,6 +455,69 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 			array(
 				'name'     => 'desc_typography',
 				'selector' => '{{WRAPPER}} .wss-buyer-hero-desc',
+			)
+		);
+
+		$this->add_responsive_control(
+			'desc_spacing',
+			array(
+				'label'      => __( 'Description Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 36 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-hero-desc' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// Location Badge Typography
+		$this->add_control(
+			'heading_style_badge_typo',
+			array(
+				'label'     => __( 'Floating Location Badge', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'badge_title_color',
+			array(
+				'label'     => __( 'Badge Title Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-hero-badge-title' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'badge_title_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-hero-badge-title',
+			)
+		);
+
+		$this->add_control(
+			'badge_sub_color',
+			array(
+				'label'     => __( 'Badge Subtitle Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.7)',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-hero-badge-sub' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'badge_sub_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-hero-badge-sub',
 			)
 		);
 

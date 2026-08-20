@@ -570,6 +570,27 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'eyebrow_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-guide-eyebrow',
+			)
+		);
+
+		$this->add_responsive_control(
+			'eyebrow_spacing',
+			array(
+				'label'      => __( 'Eyebrow Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 20 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-guide-eyebrow' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		$this->add_control(
 			'heading_color',
 			array(
@@ -590,6 +611,19 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'heading_spacing',
+			array(
+				'label'      => __( 'Heading Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 20 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-guide-heading' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		$this->add_control(
 			'desc_color',
 			array(
@@ -598,6 +632,70 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 				'default'   => 'rgba(255, 255, 255, 0.8)',
 				'selectors' => array(
 					'{{WRAPPER}} .wss-buyer-guide-desc' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'desc_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-guide-desc',
+			)
+		);
+
+		$this->add_responsive_control(
+			'desc_spacing',
+			array(
+				'label'      => __( 'Description Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 32 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-guide-desc' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		// Checklist Typography
+		$this->add_control(
+			'heading_style_checklist',
+			array(
+				'label'     => __( 'Checklist Items', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'checklist_color',
+			array(
+				'label'     => __( 'Checklist Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.88)',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-guide-check-item' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'checklist_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-guide-check-item',
+			)
+		);
+
+		$this->add_responsive_control(
+			'checklist_spacing',
+			array(
+				'label'      => __( 'Checklist Item Gap', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 4, 'max' => 40 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 16 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-guide-checklist' => 'gap: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
