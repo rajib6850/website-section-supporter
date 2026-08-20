@@ -8261,7 +8261,18 @@ body.wss-modal-open {
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
   position: relative;
   box-sizing: border-box;
+  width: 100%;
   max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.wss-buyer-guide-left,
+.wss-buyer-guide-right {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .wss-buyer-guide-eyebrow {
@@ -8332,6 +8343,9 @@ body.wss-modal-open {
   flex-direction: column;
   gap: 16px;
   margin: 28px 0 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .wss-buyer-guide-check-item {
@@ -8344,7 +8358,19 @@ body.wss-modal-open {
   line-height: var(--wss-line-height-text, 1.6);
   letter-spacing: var(--wss-letter-spacing-text, 0.01em);
   color: rgba(255, 255, 255, 0.88);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.wss-buyer-guide-check-item span {
+  flex: 1 1 0%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
   word-break: break-word;
+  box-sizing: border-box;
 }
 
 .wss-buyer-guide-check-item svg {
@@ -8362,8 +8388,11 @@ body.wss-modal-open {
   padding: 46px 40px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
+  width: 100%;
   max-width: 100%;
+  min-width: 0;
   position: relative;
+  overflow: hidden;
 }
 
 .wss-buyer-guide-form-badge {
@@ -8786,8 +8815,21 @@ button.wss-buyer-guide-submit-btn:hover svg {
   }
 
   .wss-buyer-guide-wrapper {
-    padding: 36px 18px !important;
-    gap: 36px;
+    grid-template-columns: 1fr !important;
+    padding: 32px 18px !important;
+    gap: 32px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    border-radius: 4px;
+  }
+
+  .wss-buyer-guide-left,
+  .wss-buyer-guide-right {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
   }
 
   .wss-buyer-guide-heading {
@@ -8805,13 +8847,38 @@ button.wss-buyer-guide-submit-btn:hover svg {
     margin-bottom: 20px;
   }
 
+  .wss-buyer-guide-checklist {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
   .wss-buyer-guide-check-item {
+    display: flex !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
     font-size: 13.5px;
-    gap: 10px;
+    gap: 12px;
+    box-sizing: border-box !important;
+  }
+
+  .wss-buyer-guide-check-item span {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    box-sizing: border-box !important;
   }
 
   .wss-buyer-guide-form-box {
-    padding: 30px 18px !important;
+    padding: 28px 18px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    border-radius: 4px;
   }
 
   .wss-buyer-guide-form-title {
@@ -8846,6 +8913,11 @@ button.wss-buyer-guide-submit-btn:hover svg {
     margin-bottom: 12px !important;
   }
 
+  .wss-buyer-guide-wrapper {
+    padding: 26px 14px !important;
+    gap: 26px !important;
+  }
+
   .wss-buyer-guide-heading {
     font-size: clamp(17px, 5.6vw, 22px) !important;
     line-height: 1.24 !important;
@@ -8868,8 +8940,18 @@ button.wss-buyer-guide-submit-btn:hover svg {
     font-size: 13px !important;
   }
 
+  .wss-buyer-guide-check-item {
+    font-size: 13px !important;
+    gap: 10px !important;
+  }
+
+  .wss-buyer-guide-check-item svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
   .wss-buyer-guide-form-box {
-    padding: 24px 14px !important;
+    padding: 22px 14px !important;
   }
 
   .wss-buyer-guide-form-title {
