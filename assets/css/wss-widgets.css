@@ -7811,8 +7811,12 @@ body.wss-modal-open {
   transition: transform 0.4s cubic-bezier(0.16, 0.84, 0.44, 1);
 }
 
-.wss-buyer-hero-actions a:hover svg {
+.wss-buyer-hero-actions a.wss-btn-pill:hover svg {
   transform: translateX(5px);
+}
+
+.wss-buyer-hero-actions a.wss-btn-line:hover svg {
+  transform: translateY(3px);
 }
 
 .wss-buyer-hero--dark .wss-buyer-hero-actions a.wss-btn-pill {
