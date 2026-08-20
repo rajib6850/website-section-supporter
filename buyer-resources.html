@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Buyer Resources & Guide | VP Signature Group | Central Florida Luxury Real Estate</title>
+	<meta name="description" content="Strategic buying representation and exclusive Central Florida Buyer's Guide. Discover premier residences in Orlando, Winter Park, Windermere, and Lake Nona with VP Signature Group.">
+
+	<!-- Google Fonts matching the plugin's typography stack -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Work+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+	<!-- Core Plugin Stylesheet -->
+	<link rel="stylesheet" href="assets/css/wss-widgets.css">
+
+	<style>
+		/* =========================================================
+		   Pure Monochrome (Black & White) Luxury Styling
+		   ========================================================= */
+		:root {
+			--bw-black: #0d0d0d;
+			--bw-charcoal: #141414;
+			--bw-white: #ffffff;
+			--bw-offwhite: #f8f8f7;
+			--bw-light: #f1f0ee;
+			--bw-border: #e0deda;
+			--bw-border-dark: rgba(255, 255, 255, 0.12);
+			--bw-text-muted: #666666;
+			--bw-text-light: #999999;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: var(--bw-offwhite);
+			color: var(--bw-black);
+			font-family: var(--wss-font-text, 'Work Sans', sans-serif);
+			-webkit-font-smoothing: antialiased;
+		}
+
+		/* Black & White Image Treatment */
+		.bw-image {
+			filter: grayscale(100%) contrast(1.08);
+			transition: filter 0.6s ease, transform 0.8s var(--wss-ease);
+		}
+
+		.bw-image:hover {
+			filter: grayscale(80%) contrast(1.05);
+			transform: scale(1.03);
+		}
+
+		/* Pure B&W Buttons */
+		.bw-btn-black {
+			display: inline-flex;
+			align-items: center;
+			gap: 12px;
+			background: var(--bw-black);
+			color: var(--bw-white) !important;
+			border: 1px solid var(--bw-black);
+			border-radius: 40px;
+			padding: 15px 32px;
+			font-family: var(--wss-font-accent, 'Syncopate', sans-serif);
+			font-size: 10px;
+			letter-spacing: 0.22em;
+			text-transform: uppercase;
+			font-weight: 600;
+			text-decoration: none;
+			transition: all 0.4s var(--wss-ease);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.bw-btn-black:hover {
+			background: var(--bw-white);
+			color: var(--bw-black) !important;
+			border-color: var(--bw-black);
+			transform: translateY(-2px);
+			box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+		}
+
+		.bw-btn-white {
+			display: inline-flex;
+			align-items: center;
+			gap: 12px;
+			background: var(--bw-white);
+			color: var(--bw-black) !important;
+			border: 1px solid var(--bw-white);
+			border-radius: 40px;
+			padding: 15px 32px;
+			font-family: var(--wss-font-accent, 'Syncopate', sans-serif);
+			font-size: 10px;
+			letter-spacing: 0.22em;
+			text-transform: uppercase;
+			font-weight: 600;
+			text-decoration: none;
+			transition: all 0.4s var(--wss-ease);
+		}
+
+		.bw-btn-white:hover {
+			background: transparent;
+			color: var(--bw-white) !important;
+			border-color: var(--bw-white);
+			transform: translateY(-2px);
+		}
+
+		.bw-btn-outline {
+			display: inline-flex;
+			align-items: center;
+			gap: 12px;
+			background: transparent;
+			color: var(--bw-black) !important;
+			border: 1px solid var(--bw-black);
+			border-radius: 40px;
+			padding: 15px 32px;
+			font-family: var(--wss-font-accent, 'Syncopate', sans-serif);
+			font-size: 10px;
+			letter-spacing: 0.22em;
+			text-transform: uppercase;
+			font-weight: 600;
+			text-decoration: none;
+			transition: all 0.4s var(--wss-ease);
+		}
+
+		.bw-btn-outline:hover {
+			background: var(--bw-black);
+			color: var(--bw-white) !important;
+			transform: translateY(-2px);
+			box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+		}
+
+		.bw-btn-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			background: none;
+			border: none;
+			color: var(--bw-black);
+			font-family: var(--wss-font-accent, 'Syncopate', sans-serif);
+			font-size: 10px;
+			letter-spacing: 0.22em;
+			text-transform: uppercase;
+			font-weight: 600;
+			text-decoration: none;
+			padding-bottom: 4px;
+			border-bottom: 1px solid var(--bw-black);
+			transition: all 0.3s ease;
+		}
+
+		.bw-btn-link:hover {
+			opacity: 0.7;
+			gap: 16px;
+		}
+
+		/* Header Styling */
+		.bw-header {
+			position: sticky;
+			top: 0;
+			left: 0;
+			width: 100%;
+			background: rgba(255, 255, 255, 0.96);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			border-bottom: 1px solid var(--bw-border);
+			z-index: 1000;
+			transition: all 0.3s ease;
+		}
+
+		.bw-header-inner {
+			max-width: 1380px;
+			margin: 0 auto;
+			padding: 22px 30px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.bw-brand-logo {
+			font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+			font-size: 14px;
+			font-weight: 700;
+			letter-spacing: 0.28em;
+			text-transform: uppercase;
+			color: var(--bw-black);
+			text-decoration: none;
+		}
+
+		.bw-nav {
+			display: flex;
+			align-items: center;
+			gap: 36px;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.bw-nav a {
+			font-family: var(--wss-font-text, 'Work Sans', sans-serif);
+			font-size: 12px;
+			font-weight: 600;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: var(--bw-black);
+			text-decoration: none;
+			transition: opacity 0.3s ease;
+		}
+
+		.bw-nav a:hover,
+		.bw-nav a.active {
+			opacity: 0.5;
+		}
+
+		/* Section Containers */
+		.bw-section {
+			padding: 120px 0;
+			position: relative;
+		}
+
+		.bw-section-dark {
+			background-color: var(--bw-black);
+			color: var(--bw-white);
+		}
+
+		.bw-section-light {
+			background-color: var(--bw-white);
+			color: var(--bw-black);
+		}
+
+		.bw-section-offwhite {
+			background-color: var(--bw-offwhite);
+			color: var(--bw-black);
+		}
+
+		.bw-container {
+			max-width: 1280px;
+			margin: 0 auto;
+			padding: 0 30px;
+			box-sizing: border-box;
+		}
+
+		.bw-container-sm {
+			max-width: 980px;
+			margin: 0 auto;
+			padding: 0 30px;
+			box-sizing: border-box;
+		}
+
+		/* Typography Tokens */
+		.bw-eyebrow {
+			display: inline-block;
+			font-family: var(--wss-font-accent, 'Syncopate', sans-serif);
+			font-size: 10.5px;
+			font-weight: 700;
+			letter-spacing: 0.28em;
+			text-transform: uppercase;
+			margin-bottom: 20px;
+		}
+
+		.bw-eyebrow-dark {
+			color: #888888;
+		}
+
+		.bw-eyebrow-light {
+			color: #888888;
+		}
+
+		.bw-heading-xl {
+			font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+			font-size: clamp(34px, 4.8vw, 64px);
+			font-weight: 700;
+			text-transform: uppercase;
+			line-height: 1.12;
+			letter-spacing: 0.02em;
+			margin: 0 0 28px;
+		}
+
+		.bw-heading-lg {
+			font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+			font-size: clamp(26px, 3.4vw, 44px);
+			font-weight: 700;
+			text-transform: uppercase;
+			line-height: 1.18;
+			letter-spacing: 0.02em;
+			margin: 0 0 24px;
+		}
+
+		.bw-heading-md {
+			font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+			font-size: 18px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			line-height: 1.35;
+			margin: 0 0 14px;
+		}
+
+		.bw-lead {
+			font-family: var(--wss-font-text, 'Work Sans', sans-serif);
+			font-size: clamp(16px, 1.25vw, 19px);
+			line-height: 1.8;
+			color: var(--bw-text-muted);
+			margin: 0 0 36px;
+			max-width: 720px;
+		}
+
+		.bw-lead-dark {
+			color: rgba(255, 255, 255, 0.78);
+		}
+
+		/* Grid & Layouts */
+		.bw-grid-2 {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 60px;
+			align-items: center;
+		}
+
+		.bw-grid-3 {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 30px;
+		}
+
+		.bw-grid-4 {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 24px;
+		}
+
+		/* Cards */
+		.bw-card {
+			background: var(--bw-white);
+			border: 1px solid var(--bw-border);
+			padding: 44px 36px;
+			box-sizing: border-box;
+			transition: all 0.4s ease;
+			display: flex;
+			flex-direction: column;
+			position: relative;
+		}
+
+		.bw-card:hover {
+			border-color: var(--bw-black);
+			transform: translateY(-4px);
+			box-shadow: 0 16px 36px rgba(0, 0, 0, 0.05);
+		}
+
+		.bw-card-number {
+			font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+			font-size: 13px;
+			font-weight: 700;
+			letter-spacing: 0.2em;
+			color: #999999;
+			margin-bottom: 24px;
+		}
+
+		.bw-card p {
+			font-size: 14.5px;
+			line-height: 1.75;
+			color: var(--bw-text-muted);
+			margin: 0;
+		}
+
+		/* Search Filter Pills */
+		.bw-filter-pills {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+			margin: 32px 0 44px;
+		}
+
+		.bw-filter-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			background: var(--bw-white);
+			border: 1px solid var(--bw-border);
+			padding: 12px 22px;
+			border-radius: 30px;
+			font-size: 11.5px;
+			font-weight: 600;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: var(--bw-black);
+			text-decoration: none;
+			transition: all 0.3s ease;
+		}
+
+		.bw-filter-pill:hover {
+			border-color: var(--bw-black);
+			background: var(--bw-black);
+			color: var(--bw-white);
+			transform: translateY(-2px);
+		}
+
+		/* Lead Magnet Card (The Blueprint) */
+		.bw-guide-box {
+			background: var(--bw-charcoal);
+			border: 1px solid var(--bw-border-dark);
+			padding: 70px 60px;
+			display: grid;
+			grid-template-columns: 1fr 1.05fr;
+			gap: 60px;
+			align-items: center;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.bw-guide-mockup {
+			position: relative;
+			text-align: center;
+		}
+
+		.bw-guide-cover {
+			width: 100%;
+			max-width: 360px;
+			height: 480px;
+			background: #1e1e1e;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+			padding: 40px 30px;
+			box-sizing: border-box;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			text-align: left;
+			margin: 0 auto;
+			position: relative;
+		}
+
+		.bw-guide-cover::after {
+			content: '';
+			position: absolute;
+			left: 14px;
+			top: 0;
+			bottom: 0;
+			width: 2px;
+			background: rgba(255, 255, 255, 0.15);
+		}
+
+		.bw-checklist-item {
+			display: flex;
+			align-items: flex-start;
+			gap: 14px;
+			margin-bottom: 16px;
+			font-size: 14px;
+			color: rgba(255, 255, 255, 0.85);
+			line-height: 1.6;
+		}
+
+		.bw-checklist-item svg {
+			width: 18px;
+			height: 18px;
+			stroke: #ffffff;
+			flex-shrink: 0;
+			margin-top: 2px;
+		}
+
+		/* Form Styling */
+		.bw-form-group {
+			margin-bottom: 18px;
+		}
+
+		.bw-form-input,
+		.bw-form-select,
+		.bw-form-textarea {
+			width: 100%;
+			padding: 16px 20px;
+			background: #1a1a1a;
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			color: #ffffff;
+			font-family: var(--wss-font-text, 'Work Sans', sans-serif);
+			font-size: 13.5px;
+			box-sizing: border-box;
+			border-radius: 0;
+			outline: none;
+			transition: border-color 0.3s ease, background-color 0.3s ease;
+		}
+
+		.bw-form-input:focus,
+		.bw-form-select:focus,
+		.bw-form-textarea:focus {
+			border-color: #ffffff;
+			background: #222222;
+		}
+
+		.bw-form-input::placeholder,
+		.bw-form-textarea::placeholder {
+			color: #777777;
+		}
+
+		/* Footer */
+		.bw-footer {
+			background: var(--bw-black);
+			color: #999999;
+			padding: 90px 0 40px;
+			border-top: 1px solid var(--bw-border-dark);
+			font-size: 13px;
+		}
+
+		.bw-footer-top {
+			display: grid;
+			grid-template-columns: 2fr 1fr 1fr 1.5fr;
+			gap: 50px;
+			margin-bottom: 70px;
+		}
+
+		.bw-footer-brand {
+			font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+			font-size: 15px;
+			font-weight: 700;
+			letter-spacing: 0.26em;
+			color: var(--bw-white);
+			text-transform: uppercase;
+			margin-bottom: 20px;
+		}
+
+		.bw-footer-col h4 {
+			font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: 0.22em;
+			color: var(--bw-white);
+			text-transform: uppercase;
+			margin: 0 0 20px;
+		}
+
+		.bw-footer-links {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.bw-footer-links li {
+			margin-bottom: 12px;
+		}
+
+		.bw-footer-links a {
+			color: #888888;
+			text-decoration: none;
+			transition: color 0.3s ease;
+		}
+
+		.bw-footer-links a:hover {
+			color: #ffffff;
+		}
+
+		.bw-footer-bottom {
+			border-top: 1px solid var(--bw-border-dark);
+			padding-top: 36px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 20px;
+			font-size: 11.5px;
+		}
+
+		/* Responsive */
+		@media (max-width: 1024px) {
+			.bw-grid-3 {
+				grid-template-columns: 1fr 1fr;
+			}
+			.bw-grid-4 {
+				grid-template-columns: 1fr 1fr;
+			}
+			.bw-guide-box {
+				grid-template-columns: 1fr;
+				gap: 40px;
+				padding: 50px 36px;
+			}
+			.bw-footer-top {
+				grid-template-columns: 1fr 1fr;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.bw-grid-2,
+			.bw-grid-3,
+			.bw-grid-4 {
+				grid-template-columns: 1fr;
+			}
+			.bw-nav {
+				display: none;
+			}
+			.bw-section {
+				padding: 80px 0;
+			}
+			.bw-footer-top {
+				grid-template-columns: 1fr;
+				gap: 36px;
+			}
+			.bw-guide-cover {
+				height: 380px;
+			}
+		}
+	</style>
+</head>
+<body class="wss-scope">
+
+	<!-- =================================================================
+	     HEADER
+	     ================================================================= -->
+	<header class="bw-header">
+		<div class="bw-header-inner">
+			<a href="index.html" class="bw-brand-logo">VP Signature Group</a>
+
+			<nav>
+				<ul class="bw-nav">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="buy.html" class="active">Buy</a></li>
+					<li><a href="sell.html">Sell</a></li>
+					<li><a href="#properties">Properties</a></li>
+					<li><a href="#guide">Buyer Guide</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</nav>
+
+			<a href="#guide" class="bw-btn-black" style="padding: 11px 24px; font-size: 9px;">Get Buyer Guide</a>
+		</div>
+	</header>
+
+	<main>
+
+		<!-- =================================================================
+		     SECTION 01: BUYING OVERVIEW (HERO)
+		     ================================================================= -->
+		<section class="bw-section bw-section-light" style="padding-top: 100px;">
+			<div class="bw-container">
+				<div class="bw-grid-2">
+					
+					<div class="wss-reveal">
+						<span class="bw-eyebrow bw-eyebrow-light">01 // BUYING OVERVIEW</span>
+						<h1 class="bw-heading-xl">Boutique Representation. Strategic Acquisition.</h1>
+						<p class="bw-lead">
+							Acquiring luxury real estate in Central Florida demands deeper market insight than public MLS portals provide. VP Signature Group provides strategic buyer advocacy, discreet off-market access, and personalized representation tailored to your lifestyle and financial goals.
+						</p>
+
+						<div style="display: flex; gap: 18px; flex-wrap: wrap; align-items: center;">
+							<a href="#properties" class="bw-btn-black">
+								<span>Search Inventory</span>
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+							</a>
+							<a href="#guide" class="bw-btn-outline">
+								<span>Download Buyer's Guide</span>
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+							</a>
+						</div>
+					</div>
+
+					<div class="wss-reveal wss-r2" style="position: relative;">
+						<div style="position: relative; overflow: hidden; border: 1px solid var(--bw-border);">
+							<img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80" 
+								alt="Luxury Central Florida Residence" 
+								class="bw-image" 
+								style="width: 100%; height: 540px; object-fit: cover; display: block;">
+						</div>
+						<div style="position: absolute; bottom: -20px; left: -20px; background: var(--bw-black); color: var(--bw-white); padding: 24px 30px; border: 1px solid var(--bw-border-dark);">
+							<span style="font-family: var(--wss-font-primary, 'Syncopate'); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;">Central Florida Focus</span>
+							<p style="margin: 6px 0 0; font-size: 13px; color: #888888;">Orlando • Winter Park • Windermere • Lake Nona</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- =================================================================
+		     SECTION 02: PROPERTY DISCOVERY & FAST INVENTORY ACCESS
+		     ================================================================= -->
+		<section id="properties" class="bw-section bw-section-offwhite">
+			<div class="bw-container">
+				
+				<div class="wss-reveal" style="text-align: center; max-width: 820px; margin: 0 auto 50px;">
+					<span class="bw-eyebrow bw-eyebrow-light">02 // PROPERTY DISCOVERY</span>
+					<h2 class="bw-heading-lg">Explore Central Florida Curated Inventory</h2>
+					<p class="bw-lead" style="margin-left: auto; margin-right: auto;">
+						Immediate access to active residences, private lakefront enclaves, golf course estates, and resort-area investment properties throughout our core markets.
+					</p>
+
+					<!-- Fast Filter Pills -->
+					<div class="bw-filter-pills" style="justify-content: center;">
+						<a href="#properties" class="bw-filter-pill">Winter Park Luxury</a>
+						<a href="#properties" class="bw-filter-pill">Windermere Lakefront</a>
+						<a href="#properties" class="bw-filter-pill">Lake Nona Golf & Estate</a>
+						<a href="#properties" class="bw-filter-pill">Dr. Phillips / Bay Hill</a>
+						<a href="#properties" class="bw-filter-pill">Resort & Vacation Investments</a>
+					</div>
+				</div>
+
+				<!-- Property Cards Grid -->
+				<div class="bw-grid-3">
+					
+					<div class="bw-card wss-reveal wss-r1">
+						<div style="overflow: hidden; margin: -44px -36px 28px; position: relative;">
+							<img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80" alt="Lakefront Estate" class="bw-image" style="width: 100%; height: 260px; object-fit: cover; display: block;">
+							<span style="position: absolute; top: 16px; left: 16px; background: var(--bw-black); color: var(--bw-white); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; padding: 6px 12px; text-transform: uppercase;">Waterfront</span>
+						</div>
+						<span class="bw-card-number">WINDERMERE, FL</span>
+						<h3 class="bw-heading-md">Butler Chain Lakefront Estate</h3>
+						<p>Private gated residence featuring custom boathouse, panoramic water views, and resort pool terrace.</p>
+						<div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--bw-border); display: flex; justify-content: space-between; align-items: center;">
+							<span style="font-family: var(--wss-font-primary, 'Syncopate'); font-size: 13px; font-weight: 700;">$3,850,000</span>
+							<a href="#contact" class="bw-btn-link">Inquire</a>
+						</div>
+					</div>
+
+					<div class="bw-card wss-reveal wss-r2">
+						<div style="overflow: hidden; margin: -44px -36px 28px; position: relative;">
+							<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Modern Winter Park Residence" class="bw-image" style="width: 100%; height: 260px; object-fit: cover; display: block;">
+							<span style="position: absolute; top: 16px; left: 16px; background: var(--bw-black); color: var(--bw-white); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; padding: 6px 12px; text-transform: uppercase;">Architectural</span>
+						</div>
+						<span class="bw-card-number">WINTER PARK, FL</span>
+						<h3 class="bw-heading-md">Via Tuscany Modern Villa</h3>
+						<p>Contemporary architectural marvel steps from Park Avenue, offering sleek minimalism and lush private grounds.</p>
+						<div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--bw-border); display: flex; justify-content: space-between; align-items: center;">
+							<span style="font-family: var(--wss-font-primary, 'Syncopate'); font-size: 13px; font-weight: 700;">$2,795,000</span>
+							<a href="#contact" class="bw-btn-link">Inquire</a>
+						</div>
+					</div>
+
+					<div class="bw-card wss-reveal wss-r3">
+						<div style="overflow: hidden; margin: -44px -36px 28px; position: relative;">
+							<img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="Lake Nona Golf Residence" class="bw-image" style="width: 100%; height: 260px; object-fit: cover; display: block;">
+							<span style="position: absolute; top: 16px; left: 16px; background: var(--bw-black); color: var(--bw-white); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; padding: 6px 12px; text-transform: uppercase;">Golf Club</span>
+						</div>
+						<span class="bw-card-number">LAKE NONA, FL</span>
+						<h3 class="bw-heading-md">Lake Nona Golf & Country Club</h3>
+						<p>Championship course frontage featuring expansive indoor-outdoor entertaining, wine cellar, and guest suite.</p>
+						<div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--bw-border); display: flex; justify-content: space-between; align-items: center;">
+							<span style="font-family: var(--wss-font-primary, 'Syncopate'); font-size: 13px; font-weight: 700;">$4,250,000</span>
+							<a href="#contact" class="bw-btn-link">Inquire</a>
+						</div>
+					</div>
+
+				</div>
+
+				<div style="text-align: center; margin-top: 50px;">
+					<a href="#contact" class="bw-btn-outline">
+						<span>Launch Full Property Search</span>
+						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+					</a>
+				</div>
+
+			</div>
+		</section>
+
+		<!-- =================================================================
+		     SECTION 03: THE STRATEGIC BUYING PROCESS
+		     ================================================================= -->
+		<section class="bw-section bw-section-light">
+			<div class="bw-container">
+				
+				<div class="wss-reveal" style="max-width: 800px; margin-bottom: 70px;">
+					<span class="bw-eyebrow bw-eyebrow-light">03 // STRATEGIC BUYER ROADMAP</span>
+					<h2 class="bw-heading-lg">A Clear, Disciplined Acquisition Framework</h2>
+					<p class="bw-lead">
+						Purchasing a luxury property involves complex variables—valuation dynamics, title nuances, HOA/country club bylaws, and contract terms. We structure every purchase as a strategic business project.
+					</p>
+				</div>
+
+				<div class="bw-grid-4">
+					
+					<div class="bw-card wss-reveal wss-r1">
+						<span class="bw-card-number">PHASE 01</span>
+						<h3 class="bw-heading-md">Consultation & Alignment</h3>
+						<p>We define your lifestyle vision, architectural preferences, tax considerations, and timeline while scouting upcoming off-market opportunities.</p>
+					</div>
+
+					<div class="bw-card wss-reveal wss-r2">
+						<span class="bw-card-number">PHASE 02</span>
+						<h3 class="bw-heading-md">Curated Discovery</h3>
+						<p>Beyond public listings, we provide rigorous comparative market data, neighborhood development intelligence, and private viewings.</p>
+					</div>
+
+					<div class="bw-card wss-reveal wss-r3">
+						<span class="bw-card-number">PHASE 03</span>
+						<h3 class="bw-heading-md">Strategic Negotiation</h3>
+						<p>We structure disciplined offers designed to protect your capital, optimize inspection terms, and secure the asset under favorable terms.</p>
+					</div>
+
+					<div class="bw-card wss-reveal wss-r4">
+						<span class="bw-card-number">PHASE 04</span>
+						<h3 class="bw-heading-md">Closing & Transition</h3>
+						<p>White-glove coordination from title review and escrow management to post-closing utility onboarding and contractor referrals.</p>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+
+		<!-- =================================================================
+		     SECTION 04: BUYER RESOURCE / DOWNLOADABLE LEAD MAGNET
+		     ================================================================= -->
+		<section id="guide" class="bw-section bw-section-dark">
+			<div class="bw-container">
+				
+				<div class="bw-guide-box wss-reveal">
+					
+					<!-- Left: Guide Overview & What's Inside -->
+					<div>
+						<span class="bw-eyebrow bw-eyebrow-dark">04 // EXCLUSIVE BUYER RESOURCE</span>
+						<h2 class="bw-heading-lg" style="color: #ffffff;">The Central Florida Luxury Buyer's Blueprint</h2>
+						<p class="bw-lead bw-lead-dark">
+							A comprehensive, confidential guide curated by Victoria Price for buyers seeking primary residences, lakefront retreats, or vacation rental investments in Orlando and Central Florida.
+						</p>
+
+						<div style="margin: 32px 0 40px;">
+							<div class="bw-checklist-item">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+								<span><strong>Off-Market Sourcing:</strong> How to uncover discreet luxury listings before they hit public channels.</span>
+							</div>
+							<div class="bw-checklist-item">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+								<span><strong>Submarket Breakdown:</strong> Price per sq. ft, HOA dynamics, and school rankings in Winter Park, Windermere & Lake Nona.</span>
+							</div>
+							<div class="bw-checklist-item">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+								<span><strong>Due Diligence Checklist:</strong> Florida homestead exemptions, water rights, dock permits, and inspection safeguards.</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Right: Interactive Lead Capture Form -->
+					<div class="bw-guide-mockup">
+						<div style="background: #181818; border: 1px solid rgba(255, 255, 255, 0.15); padding: 44px 36px; text-align: left;">
+							<span style="font-family: var(--wss-font-primary, 'Syncopate'); font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #ffffff; display: block; margin-bottom: 8px;">Instant Download</span>
+							<h3 style="font-family: var(--wss-font-primary, 'Syncopate'); font-size: 18px; font-weight: 700; color: #ffffff; text-transform: uppercase; margin: 0 0 22px;">Receive The 2026 Guide</h3>
+
+							<form id="buyerGuideForm" onsubmit="event.preventDefault(); handleGuideSubmit();">
+								<div class="bw-form-group">
+									<input type="text" id="guideName" class="bw-form-input" placeholder="Your Full Name *" required>
+								</div>
+								<div class="bw-form-group">
+									<input type="email" id="guideEmail" class="bw-form-input" placeholder="Your Email Address *" required>
+								</div>
+								<div class="bw-form-group">
+									<input type="tel" id="guidePhone" class="bw-form-input" placeholder="Phone Number (Optional)">
+								</div>
+								<div class="bw-form-group">
+									<select id="guideTimeline" class="bw-form-select" style="color: #cccccc;">
+										<option value="" disabled selected>Buying Horizon / Timeline</option>
+										<option value="immediate">Immediate (Next 30–60 Days)</option>
+										<option value="3-6months">3 to 6 Months</option>
+										<option value="6-12months">6 to 12 Months</option>
+										<option value="researching">Just Researching Market</option>
+									</select>
+								</div>
+								<button type="submit" class="bw-btn-white" style="width: 100%; justify-content: center; margin-top: 10px;">
+									<span>Download Guide (PDF)</span>
+									<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+								</button>
+							</form>
+
+							<div id="guideSuccessMsg" style="display: none; background: rgba(255, 255, 255, 0.08); border: 1px solid #ffffff; padding: 20px; margin-top: 20px; text-align: center;">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" style="margin-bottom: 8px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+								<h4 style="font-family: var(--wss-font-primary, 'Syncopate'); font-size: 13px; color: #ffffff; margin: 0 0 6px; text-transform: uppercase;">Guide On Its Way</h4>
+								<p style="font-size: 12.5px; color: rgba(255, 255, 255, 0.8); margin: 0;">Thank you! Your complimentary Buyer Blueprint has been sent to your email and is downloading now.</p>
+							</div>
+
+							<p style="font-size: 11px; color: #666666; margin: 16px 0 0; text-align: center;">Strict confidentiality guaranteed. We never distribute your personal information.</p>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+
+		<!-- =================================================================
+		     SECTION 05: CONTACT CTA (BUYER STRATEGY SESSION)
+		     ================================================================= -->
+		<section id="contact" class="bw-section bw-section-offwhite">
+			<div class="bw-container">
+				
+				<div class="bw-grid-2">
+					
+					<div class="wss-reveal">
+						<span class="bw-eyebrow bw-eyebrow-light">05 // BEGIN YOUR SEARCH</span>
+						<h2 class="bw-heading-lg">Schedule A Private Buyer Consultation</h2>
+						<p class="bw-lead">
+							Ready to discuss your acquisition parameters, target neighborhoods, or investment strategy? Connect directly with Victoria Price for a confidential conversation.
+						</p>
+
+						<div style="margin-top: 36px;">
+							<div style="margin-bottom: 18px; display: flex; align-items: center; gap: 14px;">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+								<a href="tel:+14075847494" style="color: var(--bw-black); text-decoration: none; font-weight: 600; font-size: 15px;">+1 (407) 584-7494</a>
+							</div>
+							<div style="margin-bottom: 18px; display: flex; align-items: center; gap: 14px;">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+								<a href="mailto:admin@vpsignature.com" style="color: var(--bw-black); text-decoration: none; font-weight: 600; font-size: 15px;">admin@vpsignature.com</a>
+							</div>
+							<div style="display: flex; align-items: center; gap: 14px;">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+								<span style="font-size: 14.5px; color: #555555;">300 S Orange Ave, Orlando, FL, 32801-3314</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Direct Contact Form -->
+					<div class="bw-card wss-reveal wss-r2" style="padding: 44px;">
+						<h3 class="bw-heading-md" style="margin-bottom: 20px;">Send Buyer Inquiry</h3>
+						<form onsubmit="event.preventDefault(); alert('Thank you! Your buyer inquiry has been received. Victoria Price will be in touch shortly.');">
+							<div style="margin-bottom: 16px;">
+								<input type="text" placeholder="Your Name *" class="bw-form-input" style="background: var(--bw-white); border-color: var(--bw-border); color: var(--bw-black);" required>
+							</div>
+							<div style="margin-bottom: 16px;">
+								<input type="email" placeholder="Your Email *" class="bw-form-input" style="background: var(--bw-white); border-color: var(--bw-border); color: var(--bw-black);" required>
+							</div>
+							<div style="margin-bottom: 16px;">
+								<input type="tel" placeholder="Your Phone Number" class="bw-form-input" style="background: var(--bw-white); border-color: var(--bw-border); color: var(--bw-black);">
+							</div>
+							<div style="margin-bottom: 16px;">
+								<textarea rows="3" placeholder="Desired neighborhoods, price point, or specific requirements..." class="bw-form-textarea" style="background: var(--bw-white); border-color: var(--bw-border); color: var(--bw-black);"></textarea>
+							</div>
+							<button type="submit" class="bw-btn-black" style="width: 100%; justify-content: center;">
+								<span>Request Strategy Call</span>
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+							</button>
+						</form>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+
+	</main>
+
+	<!-- =================================================================
+	     FOOTER
+	     ================================================================= -->
+	<footer class="bw-footer">
+		<div class="bw-container">
+			
+			<div class="bw-footer-top">
+				<div>
+					<div class="bw-footer-brand">VP Signature Group</div>
+					<p style="line-height: 1.8; color: #888888; max-width: 380px;">
+						Boutique representation for buying, selling and investing in Orlando and throughout Central Florida. Led by Victoria Price, Broker - Owner.
+					</p>
+				</div>
+
+				<div class="bw-footer-col">
+					<h4>Navigation</h4>
+					<ul class="bw-footer-links">
+						<li><a href="index.html">Home</a></li>
+						<li><a href="buy.html">Buying Overview</a></li>
+						<li><a href="sell.html">Selling Strategy</a></li>
+						<li><a href="#properties">Properties</a></li>
+						<li><a href="#guide">Buyer Blueprint</a></li>
+					</ul>
+				</div>
+
+				<div class="bw-footer-col">
+					<h4>Communities</h4>
+					<ul class="bw-footer-links">
+						<li><a href="#properties">Winter Park</a></li>
+						<li><a href="#properties">Windermere</a></li>
+						<li><a href="#properties">Lake Nona</a></li>
+						<li><a href="#properties">Dr. Phillips</a></li>
+						<li><a href="#properties">Winter Garden</a></li>
+					</ul>
+				</div>
+
+				<div class="bw-footer-col">
+					<h4>Direct Contact</h4>
+					<ul class="bw-footer-links">
+						<li><a href="tel:+14075847494">+1 (407) 584-7494</a></li>
+						<li><a href="mailto:admin@vpsignature.com">admin@vpsignature.com</a></li>
+						<li style="color: #666666; margin-top: 10px;">300 S Orange Ave, Orlando, FL 32801</li>
+						<li style="color: #666666;">FL License: BK3403615</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="bw-footer-bottom">
+				<div>
+					© 2026 VP Signature Group. All Rights Reserved. Equal Housing Opportunity.
+				</div>
+				<div style="display: flex; gap: 24px;">
+					<a href="#" style="color: #777777; text-decoration: none;">Privacy Policy</a>
+					<a href="#" style="color: #777777; text-decoration: none;">Terms of Service</a>
+					<a href="#" style="color: #777777; text-decoration: none;">Fair Housing</a>
+					<a href="#" style="color: #777777; text-decoration: none;">Accessibility</a>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+
+	<!-- Interactive Script -->
+	<script>
+		// Reveal on scroll
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('wss-in');
+				}
+			});
+		}, { threshold: 0.1 });
+
+		document.querySelectorAll('.wss-reveal').forEach(el => observer.observe(el));
+
+		// Lead Magnet Download Handler
+		function handleGuideSubmit() {
+			const form = document.getElementById('buyerGuideForm');
+			const successMsg = document.getElementById('guideSuccessMsg');
+			
+			form.style.display = 'none';
+			successMsg.style.display = 'block';
+
+			// Trigger mock download
+			setTimeout(() => {
+				alert('Download initiated: VP_Signature_Group_Buyer_Blueprint_2026.pdf');
+			}, 600);
+		}
+	</script>
+
+</body>
+</html>
