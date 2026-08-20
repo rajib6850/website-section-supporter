@@ -966,6 +966,12 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 								<?php echo nl2br( esc_html( $s['description'] ) ); ?>
 							</p>
 						<?php endif; ?>
+
+						<div class="wss-home-eval-trust-pills">
+							<span class="wss-trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <?php _e( '100% Confidential & Off-Market', 'website-section-supporter' ); ?></span>
+							<span class="wss-trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> <?php _e( 'Human Econometric Analysis', 'website-section-supporter' ); ?></span>
+							<span class="wss-trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <?php _e( 'Complimentary 24-48h Delivery', 'website-section-supporter' ); ?></span>
+						</div>
 					</div>
 
 					<!-- Form Box Container -->
@@ -973,16 +979,21 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 						
 						<!-- Step Tabs Progress Navigation (Rendered if multi-step) -->
 						<?php if ( $has_steps && $total_steps > 1 ) : ?>
-							<div class="wss-home-eval-steps-nav">
-								<?php foreach ( $steps as $idx => $st ) : ?>
-									<button class="wss-home-eval-step-tab <?php echo ( 0 === $idx ) ? 'active' : ''; ?>" data-step="<?php echo esc_attr( $st['step_num'] ); ?>" type="button">
-										<span class="wss-step-num"><?php echo sprintf( '%02d', $st['step_num'] ); ?></span>
-										<span class="wss-step-details">
-											<span class="wss-step-phase"><?php echo esc_html( $st['step_phase'] ); ?></span>
-											<span class="wss-step-name"><?php echo esc_html( $st['step_name'] ); ?></span>
-										</span>
-									</button>
-								<?php endforeach; ?>
+							<div class="wss-home-eval-steps-wrapper">
+								<div class="wss-home-eval-steps-nav">
+									<?php foreach ( $steps as $idx => $st ) : ?>
+										<button class="wss-home-eval-step-tab <?php echo ( 0 === $idx ) ? 'active' : ''; ?>" data-step="<?php echo esc_attr( $st['step_num'] ); ?>" type="button">
+											<span class="wss-step-num"><?php echo sprintf( '%02d', $st['step_num'] ); ?></span>
+											<span class="wss-step-details">
+												<span class="wss-step-phase"><?php echo esc_html( $st['step_phase'] ); ?></span>
+												<span class="wss-step-name"><?php echo esc_html( $st['step_name'] ); ?></span>
+											</span>
+										</button>
+									<?php endforeach; ?>
+								</div>
+								<div class="wss-home-eval-progress-track">
+									<div class="wss-home-eval-progress-fill" style="width: <?php echo esc_attr( round( 100 / $total_steps, 2 ) ); ?>%;"></div>
+								</div>
 							</div>
 						<?php endif; ?>
 
@@ -1059,7 +1070,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 
 								<div class="wss-form-col wss-col-<?php echo esc_attr( $col ); ?> elementor-repeater-item-<?php echo esc_attr( $f_id ); ?>">
 									
-									<?php if ( ! empty( $label ) && 'html' !== $type && 'checkbox' !== $type ) : ?>
+									<?php if ( ! empty( $label ) && 'html' !== $type && 'checkbox' !== $type && 'radio' !== $type ) : ?>
 										<label class="wss-field-label" for="wss_in_<?php echo esc_attr( $f_id ); ?>">
 											<?php echo esc_html( $label ); ?> <?php if ( $req ) echo '<span class="wss-req">*</span>'; ?>
 										</label>
@@ -1100,6 +1111,9 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 											<?php foreach ( $raw_opts as $opt ) : ?>
 												<label class="wss-home-eval-amenity-box">
 													<input type="checkbox" name="wss_fields[<?php echo esc_attr( $label ); ?>][]" value="<?php echo esc_attr( $opt ); ?>">
+													<span class="wss-custom-check">
+														<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+													</span>
 													<span class="wss-home-eval-amenity-label"><?php echo esc_html( $opt ); ?></span>
 												</label>
 											<?php endforeach; ?>
@@ -1115,6 +1129,9 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 											<?php foreach ( $raw_opts as $opt ) : ?>
 												<label class="wss-home-eval-amenity-box">
 													<input type="radio" name="wss_fields[<?php echo esc_attr( $label ); ?>]" value="<?php echo esc_attr( $opt ); ?>" <?php echo ( $opt === $def ) ? 'checked' : ''; ?>>
+													<span class="wss-custom-check wss-custom-check--radio">
+														<span class="wss-radio-dot"></span>
+													</span>
 													<span class="wss-home-eval-amenity-label"><?php echo esc_html( $opt ); ?></span>
 												</label>
 											<?php endforeach; ?>

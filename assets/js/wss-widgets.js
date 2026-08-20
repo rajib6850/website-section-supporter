@@ -1057,6 +1057,7 @@
 				var panes = section.querySelectorAll( '.wss-home-eval-step-pane' );
 				var successBox = section.querySelector( '.wss-home-eval-success-state' );
 				var resetBtn = section.querySelector( '.wss-home-eval-reset-btn' );
+				var progressFill = section.querySelector( '.wss-home-eval-progress-fill' );
 
 				function goToStep( targetStep ) {
 					// Update tabs
@@ -1069,6 +1070,12 @@
 						}
 					} );
 
+					// Update progress bar
+					if ( progressFill && tabs.length > 0 ) {
+						var percent = ( targetStep / tabs.length ) * 100;
+						progressFill.style.width = percent + '%';
+					}
+
 					// Update panes with smooth transition
 					panes.forEach( function ( pane ) {
 						var paneNum = parseInt( pane.getAttribute( 'data-step-pane' ), 10 );
@@ -1077,7 +1084,7 @@
 							pane.style.opacity = '0';
 							pane.style.transform = 'translateY(12px)';
 							setTimeout( function () {
-								pane.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+								pane.style.transition = 'opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
 								pane.style.opacity = '1';
 								pane.style.transform = 'translateY(0)';
 								pane.classList.add( 'active' );
@@ -1147,6 +1154,28 @@
 						var prevStep = parseInt( btn.getAttribute( 'data-prev' ), 10 );
 						goToStep( prevStep );
 					} );
+				} );
+
+				// Amenity Box Click & Checked State Sync
+				var amenityBoxes = section.querySelectorAll( '.wss-home-eval-amenity-box' );
+				amenityBoxes.forEach( function ( box ) {
+					var input = box.querySelector( 'input' );
+					if ( ! input ) return;
+
+					function syncBox() {
+						if ( input.type === 'radio' ) {
+							var group = section.querySelectorAll( 'input[name="' + input.name + '"]' );
+							group.forEach( function ( r ) {
+								var p = r.closest( '.wss-home-eval-amenity-box' );
+								if ( p ) p.classList.toggle( 'is-checked', r.checked );
+							} );
+						} else {
+							box.classList.toggle( 'is-checked', input.checked );
+						}
+					}
+
+					input.addEventListener( 'change', syncBox );
+					syncBox();
 				} );
 
 				// Clear input error on typing
@@ -1221,6 +1250,10 @@
 						if ( form ) {
 							form.reset();
 							form.style.display = 'block';
+							// Reset amenity card styles
+							amenityBoxes.forEach( function ( b ) {
+								b.classList.remove( 'is-checked' );
+							} );
 						}
 						if ( successBox ) {
 							successBox.style.display = 'none';
