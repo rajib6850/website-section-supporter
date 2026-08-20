@@ -127,6 +127,19 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'phase_badge_style',
+			array(
+				'label'   => __( 'Phase Badge Style', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'pill',
+				'options' => array(
+					'pill' => __( 'Rounded Pill Badge', 'website-section-supporter' ),
+					'text' => __( 'Clean Spaced Text', 'website-section-supporter' ),
+				),
+			)
+		);
+
+		$repeater->add_control(
 			'watermark_number',
 			array(
 				'label'       => __( 'Watermark Number', 'website-section-supporter' ),
@@ -147,10 +160,21 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 		$repeater->add_control(
 			'description',
 			array(
-				'label'       => __( 'Phase Description', 'website-section-supporter' ),
-				'type'        => Controls_Manager::TEXTAREA,
+				'label'       => __( 'Card Content (TinyMCE / Rich Text & Lists)', 'website-section-supporter' ),
+				'type'        => Controls_Manager::WYSIWYG,
 				'default'     => __( 'We clarify your lifestyle vision, tax considerations, architectural aesthetics, and timeline while establishing a tailored acquisition criteria profile.', 'website-section-supporter' ),
-				'rows'        => 4,
+				'rows'        => 6,
+			)
+		);
+
+		$repeater->add_control(
+			'show_milestone',
+			array(
+				'label'        => __( 'Display Milestone / Deliverable Footer', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'separator'    => 'before',
 			)
 		);
 
@@ -161,6 +185,7 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 				'type'        => Controls_Manager::TEXT,
 				'default'     => __( 'Deliverable', 'website-section-supporter' ),
 				'placeholder' => __( 'e.g. Deliverable', 'website-section-supporter' ),
+				'condition'   => array( 'show_milestone' => 'yes' ),
 			)
 		);
 
@@ -171,21 +196,23 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 				'type'        => Controls_Manager::TEXT,
 				'default'     => __( 'Acquisition Blueprint', 'website-section-supporter' ),
 				'placeholder' => __( 'e.g. Acquisition Blueprint', 'website-section-supporter' ),
+				'condition'   => array( 'show_milestone' => 'yes' ),
 			)
 		);
 
 		$repeater->add_control(
 			'milestone_icon',
 			array(
-				'label'   => __( 'Milestone Icon', 'website-section-supporter' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'check',
-				'options' => array(
+				'label'     => __( 'Milestone Icon', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'check',
+				'options'   => array(
 					'check' => __( 'Checkmark', 'website-section-supporter' ),
 					'arrow' => __( 'Arrow Right', 'website-section-supporter' ),
 					'star'  => __( 'Star', 'website-section-supporter' ),
 					'none'  => __( 'None', 'website-section-supporter' ),
 				),
+				'condition' => array( 'show_milestone' => 'yes' ),
 			)
 		);
 
@@ -950,8 +977,11 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 									<?php endif; ?>
 
 									<div class="wss-buyer-roadmap-card-body">
-										<?php if ( ! empty( $item['phase_badge'] ) ) : ?>
-											<div class="wss-buyer-roadmap-phase-pill"><?php echo esc_html( $item['phase_badge'] ); ?></div>
+										<?php if ( ! empty( $item['phase_badge'] ) ) : 
+											$badge_style = ! empty( $item['phase_badge_style'] ) ? $item['phase_badge_style'] : 'pill';
+											$badge_class = ( 'text' === $badge_style ) ? 'wss-buyer-roadmap-phase-text' : 'wss-buyer-roadmap-phase-pill';
+										?>
+											<div class="<?php echo esc_attr( $badge_class ); ?>"><?php echo esc_html( $item['phase_badge'] ); ?></div>
 										<?php endif; ?>
 
 										<?php if ( ! empty( $item['title'] ) ) : ?>
@@ -959,11 +989,14 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 										<?php endif; ?>
 
 										<?php if ( ! empty( $item['description'] ) ) : ?>
-											<p class="wss-buyer-roadmap-card-desc"><?php echo nl2br( esc_html( $item['description'] ) ); ?></p>
+											<div class="wss-buyer-roadmap-card-desc"><?php echo wp_kses_post( $item['description'] ); ?></div>
 										<?php endif; ?>
 									</div>
 
-									<?php if ( ! empty( $m_val ) || ! empty( $m_label ) ) : ?>
+									<?php 
+									$show_milestone = ( ! isset( $item['show_milestone'] ) || 'yes' === $item['show_milestone'] );
+									if ( $show_milestone && ( ! empty( $m_val ) || ! empty( $m_label ) ) ) : 
+									?>
 										<div class="wss-buyer-roadmap-milestone">
 											<div class="wss-buyer-roadmap-milestone-top">
 												<?php if ( ! empty( $icon_html ) ) echo $icon_html; ?>

@@ -8118,6 +8118,21 @@ body.wss-modal-open {
   width: fit-content;
 }
 
+.wss-buyer-roadmap-phase-text {
+  font-family: var(--wss-font-accent);
+  font-size: 10px;
+  font-weight: var(--wss-weight-accent, 700);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--wss-grey, #777777);
+  margin-bottom: 18px;
+  display: inline-block;
+}
+
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-phase-text {
+  color: rgba(255, 255, 255, 0.65);
+}
+
 .wss-buyer-roadmap-card-title {
   font-family: var(--wss-font-primary);
   font-size: 16.5px;
@@ -8141,6 +8156,89 @@ body.wss-modal-open {
   margin: 0 0 26px;
   word-break: break-word;
   overflow-wrap: break-word;
+}
+
+.wss-buyer-roadmap-card-desc p {
+  margin: 0 0 16px;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.wss-buyer-roadmap-card-desc p:last-child {
+  margin-bottom: 0;
+}
+
+/* Rich Text Lists (TinyMCE UL / OL) with em dash & luxury checklist layout */
+.wss-buyer-roadmap-card-desc ul,
+.wss-buyer-roadmap-card-desc ol {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 20px 0 0 !important;
+  border-top: 1px solid var(--wss-line, #e2dfda);
+  padding-top: 16px !important;
+  box-sizing: border-box;
+}
+
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-card-desc ul,
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-card-desc ol {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.wss-buyer-roadmap-card-desc li {
+  font-family: var(--wss-font-text);
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: inherit;
+  padding: 5px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+}
+
+.wss-buyer-roadmap-card-desc li::before {
+  content: '—';
+  color: var(--wss-grey, #888888);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-card-desc li::before {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.wss-buyer-roadmap-card-desc hr {
+  border: none;
+  border-top: 1px solid var(--wss-line, #e2dfda);
+  margin: 20px 0 16px;
+}
+
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-card-desc hr {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.wss-buyer-roadmap-card-desc strong,
+.wss-buyer-roadmap-card-desc b {
+  font-weight: 600;
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-card-desc strong,
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-card-desc b {
+  color: #ffffff;
+}
+
+.wss-buyer-roadmap-card-desc a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.3s ease;
+}
+
+.wss-buyer-roadmap-card-desc a:hover {
+  opacity: 0.75;
 }
 
 /* Two-Line Milestone Deliverable Footer */
