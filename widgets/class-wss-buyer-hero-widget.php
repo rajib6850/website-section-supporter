@@ -528,7 +528,7 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'heading_typography',
-				'selector' => '{{WRAPPER}} .wss-buyer-hero-heading',
+				'selector' => '{{WRAPPER}} .wss-buyer-hero-heading, {{WRAPPER}} .wss-buyer-hero-heading .wss-mask > span',
 			)
 		);
 

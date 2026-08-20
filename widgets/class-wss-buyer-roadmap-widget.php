@@ -504,7 +504,7 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'heading_typography',
-				'selector' => '{{WRAPPER}} .wss-buyer-roadmap-heading',
+				'selector' => '{{WRAPPER}} .wss-buyer-roadmap-heading, {{WRAPPER}} .wss-buyer-roadmap-heading .wss-mask > span',
 			)
 		);
 

@@ -627,7 +627,7 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'heading_typography',
-				'selector' => '{{WRAPPER}} .wss-buyer-guide-heading',
+				'selector' => '{{WRAPPER}} .wss-buyer-guide-heading, {{WRAPPER}} .wss-buyer-guide-heading .wss-mask > span',
 			)
 		);
 
