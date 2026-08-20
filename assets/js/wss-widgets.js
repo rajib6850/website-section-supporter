@@ -1043,6 +1043,196 @@
 
 		initTeamWidgets();
 
+		/* ─── 9. Home Evaluation Multi-Step Engine & AJAX ─── */
+		function initHomeEvaluationWidget( root ) {
+			var context = root || document;
+			var sections = context.querySelectorAll( '[data-wss-widget="wss-home-evaluation"]' );
+
+			sections.forEach( function ( section ) {
+				if ( section.getAttribute( 'data-eval-initialized' ) === 'true' ) return;
+				section.setAttribute( 'data-eval-initialized', 'true' );
+
+				var form = section.querySelector( '.wss-home-eval-form' );
+				var tabs = section.querySelectorAll( '.wss-home-eval-step-tab' );
+				var panes = section.querySelectorAll( '.wss-home-eval-step-pane' );
+				var successBox = section.querySelector( '.wss-home-eval-success-state' );
+				var resetBtn = section.querySelector( '.wss-home-eval-reset-btn' );
+
+				function goToStep( targetStep ) {
+					// Update tabs
+					tabs.forEach( function ( tab ) {
+						var stepNum = parseInt( tab.getAttribute( 'data-step' ), 10 );
+						if ( stepNum === targetStep ) {
+							tab.classList.add( 'active' );
+						} else {
+							tab.classList.remove( 'active' );
+						}
+					} );
+
+					// Update panes with smooth transition
+					panes.forEach( function ( pane ) {
+						var paneNum = parseInt( pane.getAttribute( 'data-step-pane' ), 10 );
+						if ( paneNum === targetStep ) {
+							pane.style.display = 'block';
+							pane.style.opacity = '0';
+							pane.style.transform = 'translateY(12px)';
+							setTimeout( function () {
+								pane.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+								pane.style.opacity = '1';
+								pane.style.transform = 'translateY(0)';
+								pane.classList.add( 'active' );
+							}, 20 );
+						} else {
+							pane.style.display = 'none';
+							pane.classList.remove( 'active' );
+						}
+					} );
+				}
+
+				function validateStep( currentStep ) {
+					var currentPane = section.querySelector( '.wss-home-eval-step-pane[data-step-pane="' + currentStep + '"]' );
+					if ( ! currentPane ) return true;
+
+					var requiredInputs = currentPane.querySelectorAll( '[required]' );
+					var isValid = true;
+					var firstInvalid = null;
+
+					requiredInputs.forEach( function ( input ) {
+						if ( ! input.value || ! input.value.trim() ) {
+							isValid = false;
+							input.classList.add( 'wss-input-error' );
+							if ( ! firstInvalid ) firstInvalid = input;
+						} else {
+							input.classList.remove( 'wss-input-error' );
+						}
+					} );
+
+					if ( ! isValid && firstInvalid ) {
+						firstInvalid.focus();
+					}
+
+					return isValid;
+				}
+
+				// Tab clicks
+				tabs.forEach( function ( tab ) {
+					tab.addEventListener( 'click', function () {
+						var targetStep = parseInt( tab.getAttribute( 'data-step' ), 10 );
+						var currentActiveTab = section.querySelector( '.wss-home-eval-step-tab.active' );
+						var currentStep = currentActiveTab ? parseInt( currentActiveTab.getAttribute( 'data-step' ), 10 ) : 1;
+
+						if ( targetStep > currentStep ) {
+							if ( ! validateStep( currentStep ) ) return;
+						}
+						goToStep( targetStep );
+					} );
+				} );
+
+				// Next buttons
+				var nextBtns = section.querySelectorAll( '.wss-home-eval-next-btn' );
+				nextBtns.forEach( function ( btn ) {
+					btn.addEventListener( 'click', function () {
+						var nextStep = parseInt( btn.getAttribute( 'data-next' ), 10 );
+						var currentStep = nextStep - 1;
+						if ( validateStep( currentStep ) ) {
+							goToStep( nextStep );
+						}
+					} );
+				} );
+
+				// Back buttons
+				var backBtns = section.querySelectorAll( '.wss-btn-back' );
+				backBtns.forEach( function ( btn ) {
+					btn.addEventListener( 'click', function () {
+						var prevStep = parseInt( btn.getAttribute( 'data-prev' ), 10 );
+						goToStep( prevStep );
+					} );
+				} );
+
+				// Clear input error on typing
+				var allInputs = section.querySelectorAll( '.wss-home-eval-input' );
+				allInputs.forEach( function ( input ) {
+					input.addEventListener( 'input', function () {
+						input.classList.remove( 'wss-input-error' );
+					} );
+				} );
+
+				// Form AJAX Submit
+				if ( form ) {
+					form.addEventListener( 'submit', function ( e ) {
+						e.preventDefault();
+
+						var currentActiveTab = section.querySelector( '.wss-home-eval-step-tab.active' );
+						var currentStep = currentActiveTab ? parseInt( currentActiveTab.getAttribute( 'data-step' ), 10 ) : 3;
+						if ( ! validateStep( currentStep ) ) return;
+
+						var submitBtn = form.querySelector( '.wss-home-eval-submit-btn' );
+						var originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+
+						if ( submitBtn ) {
+							submitBtn.disabled = true;
+							submitBtn.innerHTML = '<span>Processing Valuation...</span><span class="wss-spinner"></span>';
+						}
+
+						var formData = new FormData( form );
+
+						fetch( form.action || ( window.location.origin + '/wp-admin/admin-ajax.php' ), {
+							method: 'POST',
+							body: formData
+						} )
+						.then( function ( response ) {
+							return response.json();
+						} )
+						.then( function ( data ) {
+							if ( data.success ) {
+								form.style.display = 'none';
+								if ( successBox ) {
+									successBox.style.display = 'block';
+									successBox.style.opacity = '0';
+									successBox.style.transform = 'translateY(16px)';
+									setTimeout( function () {
+										successBox.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+										successBox.style.opacity = '1';
+										successBox.style.transform = 'translateY(0)';
+									}, 30 );
+								}
+								section.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+							} else {
+								alert( data.data && data.data.message ? data.data.message : 'An error occurred. Please try again.' );
+								if ( submitBtn ) {
+									submitBtn.disabled = false;
+									submitBtn.innerHTML = originalBtnHtml;
+								}
+							}
+						} )
+						.catch( function ( err ) {
+							alert( 'Submission failed. Please check your connection and try again.' );
+							if ( submitBtn ) {
+								submitBtn.disabled = false;
+								submitBtn.innerHTML = originalBtnHtml;
+							}
+						} );
+					} );
+				}
+
+				// Reset form
+				if ( resetBtn ) {
+					resetBtn.addEventListener( 'click', function () {
+						if ( form ) {
+							form.reset();
+							form.style.display = 'block';
+						}
+						if ( successBox ) {
+							successBox.style.display = 'none';
+						}
+						goToStep( 1 );
+					} );
+				}
+			} );
+		}
+
+		initHomeEvaluationWidget();
+
 		/* Elementor editor live preview re-init */
 		function bindElementorHooks() {
 			if ( window.elementorFrontend && window.elementorFrontend.hooks ) {
@@ -1088,6 +1278,12 @@
 					}
 				} );
 				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_seller_valuation.default", function ( $scope ) {
+					if ( $scope && $scope[0] ) {
+						initScrollReveal( $scope[0] );
+					}
+				} );
+				window.elementorFrontend.hooks.addAction( "frontend/element_ready/wss_home_evaluation.default", function ( $scope ) {
+					initHomeEvaluationWidget( $scope ? $scope[0] : document );
 					if ( $scope && $scope[0] ) {
 						initScrollReveal( $scope[0] );
 					}
