@@ -891,7 +891,24 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 										<?php endif; ?>
 
 										<?php if ( ! empty( $item['description'] ) ) : ?>
-											<div class="wss-buyer-roadmap-card-desc"><?php echo wp_kses_post( $item['description'] ); ?></div>
+											<div class="wss-buyer-roadmap-card-desc">
+												<?php echo wp_kses_post( $item['description'] ); ?>
+												<?php 
+												// Backward compatibility: If previously saved Elementor page data had milestone_text and description didn't have it embedded
+												if ( ! empty( $item['milestone_text'] ) && strpos( $item['description'], 'wss-buyer-roadmap-milestone' ) === false && strpos( $item['description'], '<ul' ) === false ) : 
+													$m_lbl = ! empty( $item['milestone_label'] ) ? $item['milestone_label'] : __( 'DELIVERABLE', 'website-section-supporter' );
+													$m_val = $item['milestone_text'];
+												?>
+													<hr>
+													<div class="wss-buyer-roadmap-milestone">
+														<div class="wss-buyer-roadmap-milestone-top">
+															<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+															<span class="wss-buyer-roadmap-milestone-label"><?php echo esc_html( $m_lbl ); ?></span>
+														</div>
+														<div class="wss-buyer-roadmap-milestone-val"><?php echo esc_html( $m_val ); ?></div>
+													</div>
+												<?php endif; ?>
+											</div>
 										<?php endif; ?>
 									</div>
 
