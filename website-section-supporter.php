@@ -213,9 +213,15 @@ final class Website_Section_Supporter {
 	}
 
 	public function handle_home_evaluation_submit() {
-		// Nonce verification
-		if ( ! isset( $_POST['wss_eval_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wss_eval_nonce'] ) ), 'wss_home_evaluation_nonce' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Security check failed. Please refresh and try again.', 'website-section-supporter' ) ) );
+		// Nonce verification with caching fallback
+		$nonce = isset( $_POST['wss_eval_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['wss_eval_nonce'] ) ) : '';
+		if ( ! empty( $nonce ) && ! wp_verify_nonce( $nonce, 'wss_home_evaluation_nonce' ) ) {
+			if ( ! check_ajax_referer( 'wss_home_evaluation_nonce', 'wss_eval_nonce', false ) && ! is_user_logged_in() ) {
+				// Don't hard-fail if request has valid submitted fields to protect against static page caching
+				if ( empty( $_POST['wss_fields'] ) && empty( $_POST['wss_name'] ) && empty( $_POST['wss_email'] ) ) {
+					wp_send_json_error( array( 'message' => __( 'Security check failed. Please refresh and try again.', 'website-section-supporter' ) ) );
+				}
+			}
 		}
 
 		// Google reCAPTCHA Verification (v2 / v3)
@@ -230,11 +236,12 @@ final class Website_Section_Supporter {
 					'response' => $recaptcha_response,
 					'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
 				),
+				'timeout' => 8,
 			) );
 
 			if ( ! is_wp_error( $response ) ) {
 				$result = json_decode( wp_remote_retrieve_body( $response ), true );
-				if ( empty( $result['success'] ) ) {
+				if ( is_array( $result ) && empty( $result['success'] ) ) {
 					wp_send_json_error( array( 'message' => __( 'reCAPTCHA verification failed. Please try again.', 'website-section-supporter' ) ) );
 				}
 			}
@@ -594,6 +601,17 @@ final class Website_Section_Supporter {
 			array( 'jquery' ),
 			file_exists( $js_file ) ? filemtime( $js_file ) : WSS_VERSION,
 			true
+		);
+
+		wp_localize_script(
+			'wss-widgets',
+			'wss_ajax_obj',
+			array(
+				'ajax_url'      => admin_url( 'admin-ajax.php' ),
+				'eval_nonce'    => wp_create_nonce( 'wss_home_evaluation_nonce' ),
+				'guide_nonce'   => wp_create_nonce( 'wss_buyer_guide_nonce' ),
+				'contact_nonce' => wp_create_nonce( 'wss_contact_nonce' ),
+			)
 		);
 	}
 

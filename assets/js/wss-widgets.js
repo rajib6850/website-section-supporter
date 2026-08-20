@@ -1203,17 +1203,40 @@
 							submitBtn.innerHTML = '<span>Processing Valuation...</span><span class="wss-spinner"></span>';
 						}
 
-						var formData = new FormData( form );
+						var ajaxUrl = ( window.wss_ajax_obj && window.wss_ajax_obj.ajax_url )
+							? window.wss_ajax_obj.ajax_url
+							: ( form.getAttribute( 'action' ) || ( window.location.origin + '/wp-admin/admin-ajax.php' ) );
 
-						fetch( form.action || ( window.location.origin + '/wp-admin/admin-ajax.php' ), {
+						var formData = new FormData( form );
+						if ( window.wss_ajax_obj && window.wss_ajax_obj.eval_nonce ) {
+							if ( ! formData.get( 'wss_eval_nonce' ) ) {
+								formData.append( 'wss_eval_nonce', window.wss_ajax_obj.eval_nonce );
+							}
+						}
+
+						fetch( ajaxUrl, {
 							method: 'POST',
-							body: formData
+							body: formData,
+							credentials: 'same-origin'
 						} )
 						.then( function ( response ) {
-							return response.json();
+							return response.text().then( function ( text ) {
+								var data;
+								try {
+									data = JSON.parse( text );
+								} catch ( e ) {
+									console.warn( 'WSS Response:', text );
+									if ( text === '0' || text === '-1' ) {
+										data = { success: false, data: { message: 'Security token expired. Please refresh the page and submit again.' } };
+									} else {
+										data = { success: false, data: { message: text.replace(/<[^>]*>?/gm, '').trim().substring(0, 150) || 'An unexpected server error occurred.' } };
+									}
+								}
+								return data;
+							} );
 						} )
 						.then( function ( data ) {
-							if ( data.success ) {
+							if ( data && data.success ) {
 								form.style.display = 'none';
 								if ( successBox ) {
 									successBox.style.display = 'block';
@@ -1227,7 +1250,8 @@
 								}
 								section.scrollIntoView( { behavior: 'smooth', block: 'start' } );
 							} else {
-								alert( data.data && data.data.message ? data.data.message : 'An error occurred. Please try again.' );
+								var errMsg = ( data && data.data && data.data.message ) ? data.data.message : 'An error occurred. Please try again.';
+								alert( errMsg );
 								if ( submitBtn ) {
 									submitBtn.disabled = false;
 									submitBtn.innerHTML = originalBtnHtml;
@@ -1235,7 +1259,8 @@
 							}
 						} )
 						.catch( function ( err ) {
-							alert( 'Submission failed. Please check your connection and try again.' );
+							console.error( 'WSS Submit Error:', err );
+							alert( 'Submission could not be completed. Please check your connection or try again.' );
 							if ( submitBtn ) {
 								submitBtn.disabled = false;
 								submitBtn.innerHTML = originalBtnHtml;

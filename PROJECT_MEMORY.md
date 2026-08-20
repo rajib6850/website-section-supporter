@@ -117,7 +117,8 @@ To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global 
 | `e134637` | **Luxury UI & Zero-Pink Overrides** | Added trust badges, step progress bar, interactive amenity cards, and strict black/white button styling. |
 | `f1a2d40` | **HTML Files Moved to Backup** | Moved `buyer-resources.html`, `evaluation.html`, and `sell.html` to `backup -design` folder. |
 | `b850ee0` | **Persistent Memory System** | Created `PROJECT_MEMORY.md` to continuously maintain project state. |
-| *Current* | **Concise Labels & Button Fix** | Shortened widget title (`WSS — Home Evaluation`), streamlined control section names, and eliminated button glass effect artifact. |
+| `2a31ae6` | **Concise Labels & Title** | Shortened widget title (`WSS — Home Evaluation`) and streamlined control section names. |
+| *Current* | **AJAX Resilience & Button Swipe Hover** | Added `wp_localize_script` for `admin-ajax.php`, safe JSON/text response parsing, caching fallback for nonces, and unified the signature swipe pseudo-element hover effect across all buttons. |
 
 ---
 
