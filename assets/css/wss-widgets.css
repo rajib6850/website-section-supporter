@@ -7521,6 +7521,46 @@ body.wss-modal-open {
   box-sizing: border-box;
 }
 
+.wss-buyer-hero-bg-img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 10s ease;
+}
+
+.wss-buyer-hero-bg-img.wss-bg-fixed {
+  background-attachment: fixed !important;
+  background-size: cover !important;
+  transform: none !important;
+}
+
+.wss-buyer-hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(19, 18, 16, 0.72);
+}
+
+.wss-buyer-hero--dark {
+  background: var(--wss-charcoal, #0d0d0d);
+  color: var(--wss-white, #ffffff);
+}
+
+.wss-buyer-hero--dark .wss-buyer-hero-heading {
+  color: var(--wss-white, #ffffff);
+}
+
+.wss-buyer-hero--dark .wss-buyer-hero-desc {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.wss-buyer-hero--taupe {
+  background: #edeae4;
+}
+
 .wss-buyer-hero-grid {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
@@ -7656,6 +7696,68 @@ body.wss-modal-open {
   background: var(--wss-ivory, #f8f8f7);
   overflow: hidden;
   max-width: 100%;
+  box-sizing: border-box;
+}
+
+.wss-buyer-roadmap-bg-img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 10s ease;
+}
+
+.wss-buyer-roadmap-bg-img.wss-bg-fixed {
+  background-attachment: fixed !important;
+  background-size: cover !important;
+  transform: none !important;
+}
+
+.wss-buyer-roadmap-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(19, 18, 16, 0.72);
+}
+
+.wss-buyer-roadmap--dark {
+  background: var(--wss-charcoal, #0d0d0d);
+  color: var(--wss-white, #ffffff);
+}
+
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-heading {
+  color: var(--wss-white, #ffffff);
+}
+
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-desc {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-card {
+  background: #181818;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-card-title {
+  color: #ffffff;
+}
+
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-card-desc {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-milestone-val {
+  color: #ffffff;
+}
+
+.wss-buyer-roadmap--dark .wss-buyer-roadmap-milestone {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.wss-buyer-roadmap--taupe {
+  background: #edeae4;
 }
 
 .wss-buyer-roadmap-head {
@@ -7806,25 +7908,47 @@ body.wss-modal-open {
   overflow-wrap: break-word;
 }
 
+/* Two-Line Milestone Deliverable Footer */
 .wss-buyer-roadmap-milestone {
   margin-top: auto;
   padding-top: 18px;
   border-top: 1px solid var(--wss-line, #e2dfda);
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--wss-ink, #0d0d0d);
-  letter-spacing: 0.05em;
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 5px;
   word-break: break-word;
 }
 
-.wss-buyer-roadmap-milestone svg {
-  width: 14px;
-  height: 14px;
-  stroke: currentColor;
+.wss-buyer-roadmap-milestone-top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.wss-buyer-roadmap-milestone-top svg {
+  width: 13px;
+  height: 13px;
+  stroke: var(--wss-ink, #0d0d0d);
   flex-shrink: 0;
+}
+
+.wss-buyer-roadmap-milestone-label {
+  font-family: var(--wss-font-accent);
+  font-size: 9.5px;
+  font-weight: var(--wss-weight-accent, 700);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wss-grey, #777777);
+  display: inline-block;
+}
+
+.wss-buyer-roadmap-milestone-val {
+  font-family: var(--wss-font-text);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--wss-ink, #0d0d0d);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
 }
 
 /* =========================================================
@@ -7836,6 +7960,61 @@ body.wss-modal-open {
   color: var(--wss-white, #ffffff);
   overflow: hidden;
   max-width: 100%;
+  box-sizing: border-box;
+}
+
+.wss-buyer-guide-bg-img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 10s ease;
+}
+
+.wss-buyer-guide-bg-img.wss-bg-fixed {
+  background-attachment: fixed !important;
+  background-size: cover !important;
+  transform: none !important;
+}
+
+.wss-buyer-guide-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(13, 13, 13, 0.76);
+}
+
+.wss-buyer-guide--light {
+  background: var(--wss-ivory, #f8f8f7);
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-buyer-guide--light .wss-buyer-guide-wrapper {
+  background: #ffffff;
+  border-color: #e2dfda;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+.wss-buyer-guide--light .wss-buyer-guide-heading {
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-buyer-guide--light .wss-buyer-guide-desc {
+  color: var(--wss-ink-soft, #555555);
+}
+
+.wss-buyer-guide--light .wss-buyer-guide-check-item {
+  color: var(--wss-ink, #0d0d0d);
+}
+
+.wss-buyer-guide--light .wss-buyer-guide-check-item svg {
+  stroke: var(--wss-ink, #0d0d0d);
+}
+
+.wss-buyer-guide--taupe {
+  background: #edeae4;
 }
 
 .wss-buyer-guide-wrapper {
@@ -7921,58 +8100,69 @@ body.wss-modal-open {
   margin-top: 2px;
 }
 
+/* Luxury Form Box & Inputs */
 .wss-buyer-guide-form-box {
   background: #1c1c1c;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 44px 36px;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+  padding: 46px 40px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   max-width: 100%;
+  position: relative;
 }
 
 .wss-buyer-guide-form-badge {
   font-family: var(--wss-font-accent);
   font-size: 10px;
   font-weight: var(--wss-weight-accent, 700);
-  letter-spacing: 0.22em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #ffffff;
-  display: block;
-  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  display: inline-block;
+  margin-bottom: 12px;
 }
 
 .wss-buyer-guide-form-title {
   font-family: var(--wss-font-primary);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: var(--wss-weight-primary, 700);
   color: #ffffff;
   text-transform: uppercase;
-  margin: 0 0 22px;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  margin: 0 0 28px !important;
   word-break: break-word;
+}
+
+.wss-form-row {
+  margin-bottom: 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .wss-buyer-guide-input {
   width: 100%;
-  padding: 15px 18px;
-  background: #141414;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 2px;
   color: #ffffff;
   font-family: var(--wss-font-text);
-  font-size: 13.5px;
+  font-size: 14px;
   outline: none;
-  margin-bottom: 14px;
   box-sizing: border-box;
   max-width: 100%;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .wss-buyer-guide-input:focus {
   border-color: #ffffff;
-  background: #202020;
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .wss-buyer-guide-input::placeholder {
-  color: #666666;
+  color: #777777;
 }
 
 .wss-buyer-guide-select {
@@ -7981,17 +8171,82 @@ body.wss-modal-open {
   -webkit-appearance: none;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
-  background-position: right 16px center;
+  background-position: right 18px center;
   background-size: 14px;
+  cursor: pointer;
 }
 
-.wss-buyer-guide-submit-btn {
-  width: 100%;
-  justify-content: center;
-  margin-top: 8px;
-  cursor: pointer;
-  box-sizing: border-box;
-  max-width: 100%;
+/* Bulletproof isolated Submit Button */
+.wss-buyer-guide-submit-btn,
+button.wss-buyer-guide-submit-btn,
+.wss-scope button.wss-buyer-guide-submit-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+  border: 1px solid #ffffff !important;
+  border-radius: 40px !important;
+  padding: 16px 28px !important;
+  font-family: var(--wss-font-accent) !important;
+  font-weight: var(--wss-weight-accent, 700) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  cursor: pointer !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #0d0d0d !important;
+  outline: none !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25) !important;
+  margin-top: 6px !important;
+  box-sizing: border-box !important;
+  transition: color 0.4s ease, transform 0.3s ease, border-color 0.4s ease, box-shadow 0.3s ease !important;
+}
+
+.wss-buyer-guide-submit-btn::before,
+button.wss-buyer-guide-submit-btn::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: var(--wss-btn-hover-bg, #111111) !important;
+  z-index: -1 !important;
+  transform: scaleX(0) !important;
+  transform-origin: right !important;
+  transition: transform 0.5s cubic-bezier(0.16, 0.84, 0.44, 1) !important;
+}
+
+.wss-buyer-guide-submit-btn:hover::before,
+button.wss-buyer-guide-submit-btn:hover::before {
+  transform: scaleX(1) !important;
+  transform-origin: left !important;
+}
+
+.wss-buyer-guide-submit-btn:hover,
+button.wss-buyer-guide-submit-btn:hover {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+.wss-buyer-guide-submit-btn svg,
+button.wss-buyer-guide-submit-btn svg {
+  width: 15px !important;
+  height: 15px !important;
+  stroke: currentColor !important;
+  transition: transform 0.3s ease !important;
+}
+
+.wss-buyer-guide-submit-btn:hover svg,
+button.wss-buyer-guide-submit-btn:hover svg {
+  transform: translateX(4px) !important;
 }
 
 .wss-buyer-guide-success-state {
@@ -8031,10 +8286,11 @@ body.wss-modal-open {
 }
 
 .wss-buyer-guide-privacy-note {
-  font-size: 11px;
-  color: #777777;
-  margin: 16px 0 0;
+  font-size: 11.5px;
+  color: #888888;
+  margin: 18px 0 0;
   text-align: center;
+  line-height: 1.5;
 }
 
 /* =========================================================

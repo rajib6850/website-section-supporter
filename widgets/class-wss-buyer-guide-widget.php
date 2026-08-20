@@ -460,25 +460,76 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'user_email_body',
+		$this->end_controls_section();
+
+		/* ================= CONTENT: SPAM PROTECTION ================= */
+		$this->start_controls_section(
+			'section_content_spam',
 			array(
-				'label'       => __( 'User Email Message Body', 'website-section-supporter' ),
-				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => __( "Dear {{name}},\n\nThank you for requesting The Central Florida Luxury Buyer's Blueprint. Please find your exclusive copy attached to this email.\n\nWhether you are exploring private lakefront enclaves in Windermere, historic estates in Winter Park, or golf residences in Lake Nona, our team is here to guide your search with discretion and strategic insight.\n\nWarm regards,\nVictoria Price | Broker - Owner\nVP Signature Group\n+1 (407) 584-7494\nadmin@vpsignature.com", 'website-section-supporter' ),
-				'rows'        => 8,
-				'condition'   => array( 'enable_user_autoresponder' => 'yes' ),
+				'label' => __( 'Google reCAPTCHA Security', 'website-section-supporter' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'enable_recaptcha',
+			array(
+				'label'        => __( 'Enable Google reCAPTCHA', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'no',
+				'return_value' => 'yes',
+			)
+		);
+
+		$this->add_control(
+			'recaptcha_version',
+			array(
+				'label'     => __( 'reCAPTCHA Version', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'v3',
+				'options'   => array(
+					'v3' => __( 'v3 (Invisible / Score-based)', 'website-section-supporter' ),
+					'v2' => __( 'v2 Checkbox ("I am not a robot")', 'website-section-supporter' ),
+				),
+				'condition' => array( 'enable_recaptcha' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'recaptcha_site_key',
+			array(
+				'label'     => __( 'Site Key', 'website-section-supporter' ),
+				'type'      => Controls_Manager::TEXT,
+				'condition' => array( 'enable_recaptcha' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'recaptcha_secret_key',
+			array(
+				'label'     => __( 'Secret Key', 'website-section-supporter' ),
+				'type'      => Controls_Manager::TEXT,
+				'condition' => array( 'enable_recaptcha' => 'yes' ),
 			)
 		);
 
 		$this->end_controls_section();
 
-		/* ================= STYLE: SECTION & CARD ================= */
+		/* ================= STYLE: CONTAINER & LAYOUT ================= */
 		$this->start_controls_section(
-			'style_guide_container',
+			'style_container_layout',
 			array(
 				'label' => __( 'Section & Box Container', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'     => 'section_custom_bg',
+				'types'    => array( 'classic', 'gradient', 'image' ),
+				'selector' => '{{WRAPPER}} .wss-buyer-guide-section',
 			)
 		);
 
@@ -507,53 +558,9 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Section Background Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#0d0d0d',
+				'default'   => '',
 				'selectors' => array(
 					'{{WRAPPER}} .wss-buyer-guide-section' => 'background-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'box_bg_color',
-			array(
-				'label'     => __( 'Box Container Background', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#141414',
-				'selectors' => array(
-					'{{WRAPPER}} .wss-buyer-guide-wrapper' => 'background-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'box_border_color',
-			array(
-				'label'     => __( 'Box Border Color', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.12)',
-				'selectors' => array(
-					'{{WRAPPER}} .wss-buyer-guide-wrapper' => 'border-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'box_padding',
-			array(
-				'label'      => __( 'Box Padding', 'website-section-supporter' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em' ),
-				'default'    => array(
-					'top'      => '80',
-					'right'    => '70',
-					'bottom'   => '80',
-					'left'     => '70',
-					'unit'     => 'px',
-					'isLinked' => false,
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .wss-buyer-guide-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -594,7 +601,7 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 			array(
 				'label'      => __( 'Eyebrow Bottom Spacing', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
-				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
 				'default'    => array( 'unit' => 'px', 'size' => 20 ),
 				'selectors'  => array(
 					'{{WRAPPER}} .wss-buyer-guide-eyebrow' => 'margin-bottom: {{SIZE}}{{UNIT}};',
@@ -713,11 +720,11 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		/* ================= STYLE: FORM & BUTTON ================= */
+		/* ================= STYLE: FORM BOX & INPUTS ================= */
 		$this->start_controls_section(
 			'style_form_box',
 			array(
-				'label' => __( 'Form Box & Submit Button', 'website-section-supporter' ),
+				'label' => __( 'Form Box & Spacing', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -735,13 +742,105 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'form_box_border_color',
+			array(
+				'label'     => __( 'Form Box Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.18)',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-guide-form-box' => 'border-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'form_box_padding',
+			array(
+				'label'      => __( 'Form Box Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em' ),
+				'default'    => array(
+					'top'      => '46',
+					'right'    => '40',
+					'bottom'   => '46',
+					'left'     => '40',
+					'unit'     => 'px',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-guide-form-box' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'form_title_spacing',
+			array(
+				'label'      => __( 'Title Bottom Spacing (Title-to-Form Gap)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 10, 'max' => 80 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 28 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-guide-form-title' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'form_badge_spacing',
+			array(
+				'label'      => __( 'Badge Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 4, 'max' => 40 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 12 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-guide-form-badge' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'form_row_spacing',
+			array(
+				'label'      => __( 'Input Rows Gap', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 8, 'max' => 40 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 16 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-form-row' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'heading_input_styling',
+			array(
+				'label'     => __( 'Form Input Fields', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
 			'input_bg',
 			array(
 				'label'     => __( 'Input Background', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#141414',
+				'default'   => 'rgba(255, 255, 255, 0.04)',
 				'selectors' => array(
-					'{{WRAPPER}} .wss-buyer-guide-input' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .wss-buyer-guide-input' => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'input_text_color',
+			array(
+				'label'     => __( 'Input Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-guide-input' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -751,23 +850,70 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Input Border Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.16)',
+				'default'   => 'rgba(255, 255, 255, 0.18)',
 				'selectors' => array(
-					'{{WRAPPER}} .wss-buyer-guide-input' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .wss-buyer-guide-input' => 'border-color: {{VALUE}} !important;',
 				),
 			)
 		);
 
-		$this->add_control(
-			'submit_btn_bg',
+		$this->end_controls_section();
+
+		/* ================= STYLE: SUBMIT BUTTON ================= */
+		$this->start_controls_section(
+			'style_submit_button',
 			array(
-				'label'     => __( 'Button Background Color', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
-				'selectors' => array(
-					'{{WRAPPER}} .wss-buyer-guide-submit-btn' => 'background-color: {{VALUE}} !important;',
+				'label' => __( 'Submit Button', 'website-section-supporter' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'btn_typography',
+				'selector' => '{{WRAPPER}} .wss-buyer-guide-submit-btn',
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn_padding',
+			array(
+				'label'      => __( 'Button Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em' ),
+				'default'    => array(
+					'top'      => '16',
+					'right'    => '28',
+					'bottom'   => '16',
+					'left'     => '28',
+					'unit'     => 'px',
+					'isLinked' => false,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-guide-submit-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				),
 			)
+		);
+
+		$this->add_responsive_control(
+			'btn_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 50 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 40 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-guide-submit-btn' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		/* Button Normal / Hover Tabs */
+		$this->start_controls_tabs( 'tabs_guide_btn_style' );
+		$this->start_controls_tab(
+			'tab_guide_btn_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
 		);
 
 		$this->add_control(
@@ -784,11 +930,55 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'submit_btn_hover_bg',
+			'submit_btn_bg',
 			array(
-				'label'     => __( 'Button Hover Curtain Background', 'website-section-supporter' ),
+				'label'     => __( 'Button Background Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-guide-submit-btn' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'submit_btn_border_color',
+			array(
+				'label'     => __( 'Button Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-guide-submit-btn' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_guide_btn_hover',
+			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'submit_btn_hover_color',
+			array(
+				'label'     => __( 'Hover Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-guide-submit-btn:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-buyer-guide-submit-btn:hover svg' => 'stroke: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'submit_btn_hover_bg',
+			array(
+				'label'     => __( 'Hover Curtain Effect Background', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#111111',
 				'selectors' => array(
 					'{{WRAPPER}} .wss-buyer-guide-submit-btn::before' => 'background-color: {{VALUE}} !important;',
 					'{{WRAPPER}} .wss-buyer-guide-submit-btn' => '--wss-btn-hover-bg: {{VALUE}} !important;',
@@ -796,13 +986,28 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'submit_btn_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-guide-submit-btn:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 	}
 
 	protected function render() {
 		$s = $this->get_settings_for_display();
 
-		$tag = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2';
+		$tag       = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2';
 		$checklist = ! empty( $s['checklist_items'] ) ? $s['checklist_items'] : array();
 
 		// PDF File URL resolution
@@ -819,12 +1024,31 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 		$recaptcha_v      = ! empty( $s['recaptcha_version'] ) ? $s['recaptcha_version'] : 'v3';
 		$site_key         = ! empty( $s['recaptcha_site_key'] ) ? $s['recaptcha_site_key'] : '';
 		$secret_key       = ! empty( $s['recaptcha_secret_key'] ) ? $s['recaptcha_secret_key'] : '';
-		$enable_reveal = ! empty( $s['enable_reveal'] ) && 'yes' === $s['enable_reveal'];
-		$delays        = array( 'wss-r1', 'wss-r2', 'wss-r3', 'wss-r4' );
+		$enable_reveal    = ! empty( $s['enable_reveal'] ) && 'yes' === $s['enable_reveal'];
+		$delays           = array( 'wss-r1', 'wss-r2', 'wss-r3', 'wss-r4' );
+
+		$preset = ! empty( $s['theme_preset'] ) ? $s['theme_preset'] : 'dark';
+		$preset_class = 'wss-buyer-guide--' . $preset;
+		if ( 'dark' === $preset || 'image' === $preset ) {
+			$preset_class .= ' wss-on-dark';
+		} elseif ( 'light' === $preset ) {
+			$preset_class .= ' wss-buyer-guide--light';
+		} elseif ( 'taupe' === $preset ) {
+			$preset_class .= ' wss-buyer-guide--taupe';
+		}
+
+		$has_bg_image = ( 'image' === $preset && ! empty( $s['bg_image']['url'] ) );
+		$is_fixed     = ( ! empty( $s['bg_image_attachment'] ) && 'fixed' === $s['bg_image_attachment'] );
 		?>
 		<div class="wss-scope">
-			<section class="wss-buyer-guide-section wss-pad wss-on-dark" data-wss-widget="wss-buyer-guide">
-				<div class="wss-container">
+			<section class="wss-buyer-guide-section wss-pad <?php echo esc_attr( $preset_class ); ?>" data-wss-widget="wss-buyer-guide">
+				
+				<?php if ( $has_bg_image ) : ?>
+					<div class="wss-buyer-guide-bg-img <?php echo $is_fixed ? 'wss-bg-fixed' : ''; ?>" style="background-image: url('<?php echo esc_url( $s['bg_image']['url'] ); ?>');"></div>
+					<div class="wss-buyer-guide-bg-overlay"></div>
+				<?php endif; ?>
+
+				<div class="wss-container" style="position: relative; z-index: 3;">
 					
 					<div class="wss-buyer-guide-wrapper">
 						
@@ -946,10 +1170,12 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 									<?php endif; ?>
 
 									<!-- Submit Button -->
-									<button type="submit" class="wss-btn-pill wss-buyer-guide-submit-btn">
-										<span><?php echo esc_html( $s['btn_text'] ); ?></span>
-										<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-									</button>
+									<div class="wss-form-row" style="margin-bottom: 0;">
+										<button type="submit" class="wss-btn-pill wss-buyer-guide-submit-btn">
+											<span><?php echo esc_html( ! empty( $s['submit_btn_text'] ) ? $s['submit_btn_text'] : __( 'Download Buyer Dossier', 'website-section-supporter' ) ); ?></span>
+											<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+										</button>
+									</div>
 
 								</form>
 
@@ -957,7 +1183,7 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 								<div class="wss-buyer-guide-success-state" style="display: none;">
 									<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
 									<h4><?php _e( 'Guide Delivered', 'website-section-supporter' ); ?></h4>
-									<p><?php echo nl2br( esc_html( $s['success_message'] ) ); ?></p>
+									<p><?php echo nl2br( esc_html( ! empty( $s['success_message'] ) ? $s['success_message'] : __( 'Your guide has been sent to your email. You can also download it immediately below.', 'website-section-supporter' ) ) ); ?></p>
 									<?php if ( ! empty( $pdf_url ) ) : ?>
 										<a href="<?php echo esc_url( $pdf_url ); ?>" class="wss-buyer-guide-instant-link" download target="_blank" rel="noopener">
 											<?php _e( 'Click here if your download does not start automatically', 'website-section-supporter' ); ?> &rarr;
@@ -965,8 +1191,11 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 									<?php endif; ?>
 								</div>
 
-								<?php if ( ! empty( $s['privacy_note'] ) ) : ?>
-									<p class="wss-buyer-guide-privacy-note"><?php echo esc_html( $s['privacy_note'] ); ?></p>
+								<?php if ( ! empty( $s['privacy_text'] ) ) : ?>
+									<p class="wss-buyer-guide-privacy-note">
+										<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+										<?php echo esc_html( $s['privacy_text'] ); ?>
+									</p>
 								<?php endif; ?>
 
 							</div>

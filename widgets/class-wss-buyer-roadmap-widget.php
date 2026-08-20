@@ -153,11 +153,22 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'milestone_label',
+			array(
+				'label'       => __( 'Milestone Label (Line 1)', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Deliverable', 'website-section-supporter' ),
+				'placeholder' => __( 'e.g. Deliverable', 'website-section-supporter' ),
+			)
+		);
+
+		$repeater->add_control(
 			'milestone_text',
 			array(
-				'label'       => __( 'Deliverable / Milestone Text', 'website-section-supporter' ),
+				'label'       => __( 'Milestone Deliverable Name (Line 2)', 'website-section-supporter' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => __( 'Deliverable: Acquisition Blueprint', 'website-section-supporter' ),
+				'default'     => __( 'Acquisition Blueprint', 'website-section-supporter' ),
+				'placeholder' => __( 'e.g. Acquisition Blueprint', 'website-section-supporter' ),
 			)
 		);
 
@@ -189,7 +200,8 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 						'watermark_number' => '01',
 						'title'            => __( 'Consultation & Alignment', 'website-section-supporter' ),
 						'description'      => __( 'We clarify your lifestyle vision, tax considerations, architectural aesthetics, and timeline while establishing a tailored acquisition criteria profile.', 'website-section-supporter' ),
-						'milestone_text'   => __( 'Deliverable: Acquisition Blueprint', 'website-section-supporter' ),
+						'milestone_label'  => __( 'Deliverable', 'website-section-supporter' ),
+						'milestone_text'   => __( 'Acquisition Blueprint', 'website-section-supporter' ),
 						'milestone_icon'   => 'check',
 					),
 					array(
@@ -197,7 +209,8 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 						'watermark_number' => '02',
 						'title'            => __( 'Curated Discovery', 'website-section-supporter' ),
 						'description'      => __( 'Beyond public MLS inventory, we unlock discreet off-market opportunities, provide micro-market valuation metrics, and conduct private previews.', 'website-section-supporter' ),
-						'milestone_text'   => __( 'Deliverable: Private Dossier & Tours', 'website-section-supporter' ),
+						'milestone_label'  => __( 'Deliverable', 'website-section-supporter' ),
+						'milestone_text'   => __( 'Private Dossier & Tours', 'website-section-supporter' ),
 						'milestone_icon'   => 'check',
 					),
 					array(
@@ -205,7 +218,8 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 						'watermark_number' => '03',
 						'title'            => __( 'Strategic Negotiation', 'website-section-supporter' ),
 						'description'      => __( 'Leveraging deep commercial and residential acumen, we craft disciplined offers that protect capital, optimize inspection terms, and secure the asset.', 'website-section-supporter' ),
-						'milestone_text'   => __( 'Deliverable: Protected Contract Structuring', 'website-section-supporter' ),
+						'milestone_label'  => __( 'Deliverable', 'website-section-supporter' ),
+						'milestone_text'   => __( 'Protected Contract Structuring', 'website-section-supporter' ),
 						'milestone_icon'   => 'check',
 					),
 					array(
@@ -213,10 +227,116 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 						'watermark_number' => '04',
 						'title'            => __( 'Closing & Handover', 'website-section-supporter' ),
 						'description'      => __( 'Complete escrow oversight, title audit, contractor recommendations, and concierge onboarding to ensure a frictionless transition into your new home.', 'website-section-supporter' ),
-						'milestone_text'   => __( 'Deliverable: White-Glove Key Exchange', 'website-section-supporter' ),
+						'milestone_label'  => __( 'Deliverable', 'website-section-supporter' ),
+						'milestone_text'   => __( 'White-Glove Key Exchange', 'website-section-supporter' ),
 						'milestone_icon'   => 'check',
 					),
 				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		/* ================= CONTENT: THEME PRESET & BACKGROUND ================= */
+		$this->start_controls_section(
+			'section_content_theme_preset',
+			array(
+				'label' => __( 'Visual Theme & Background', 'website-section-supporter' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'theme_preset',
+			array(
+				'label'   => __( 'Visual Theme Preset', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'light',
+				'options' => array(
+					'light'  => __( 'Crisp Ivory / Minimal Light', 'website-section-supporter' ),
+					'dark'   => __( 'Noir Charcoal / Pure Dark', 'website-section-supporter' ),
+					'taupe'  => __( 'Luxury Warm Taupe', 'website-section-supporter' ),
+					'image'  => __( 'Architectural Background Image', 'website-section-supporter' ),
+					'custom' => __( 'Custom Background (Style Tab)', 'website-section-supporter' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'bg_image',
+			array(
+				'label'     => __( 'Background Image', 'website-section-supporter' ),
+				'type'      => Controls_Manager::MEDIA,
+				'default'   => array(
+					'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80',
+				),
+				'condition' => array( 'theme_preset' => 'image' ),
+			)
+		);
+
+		$this->add_control(
+			'bg_image_position',
+			array(
+				'label'     => __( 'Image Position', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'center center',
+				'options'   => array(
+					'center center' => __( 'Center Center', 'website-section-supporter' ),
+					'center top'    => __( 'Center Top', 'website-section-supporter' ),
+					'center bottom' => __( 'Center Bottom', 'website-section-supporter' ),
+					'left center'   => __( 'Left Center', 'website-section-supporter' ),
+					'right center'  => __( 'Right Center', 'website-section-supporter' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-bg-img' => 'background-position: {{VALUE}};',
+				),
+				'condition' => array( 'theme_preset' => 'image' ),
+			)
+		);
+
+		$this->add_control(
+			'bg_image_attachment',
+			array(
+				'label'     => __( 'Image Attachment', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'scroll',
+				'options'   => array(
+					'scroll' => __( 'Scroll (Normal)', 'website-section-supporter' ),
+					'fixed'  => __( 'Fixed (Parallax Effect)', 'website-section-supporter' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-bg-img' => 'background-attachment: {{VALUE}};',
+				),
+				'condition' => array( 'theme_preset' => 'image' ),
+			)
+		);
+
+		$this->add_control(
+			'bg_image_grayscale',
+			array(
+				'label'        => __( 'Black & White Filter', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'B&W', 'website-section-supporter' ),
+				'label_off'    => __( 'Color', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'no',
+				'selectors'    => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-bg-img' => 'filter: grayscale(100%) contrast(1.05);',
+				),
+				'condition'    => array( 'theme_preset' => 'image' ),
+			)
+		);
+
+		$this->add_control(
+			'bg_overlay_color',
+			array(
+				'label'     => __( 'Overlay Color & Opacity', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(19, 18, 16, 0.72)',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-bg-overlay' => 'background-color: {{VALUE}};',
+				),
+				'condition' => array( 'theme_preset' => 'image' ),
 			)
 		);
 
@@ -228,6 +348,15 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 			array(
 				'label' => __( 'Container & Grid Layout', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'     => 'section_custom_bg',
+				'types'    => array( 'classic', 'gradient', 'image' ),
+				'selector' => '{{WRAPPER}} .wss-buyer-roadmap-section',
 			)
 		);
 
@@ -256,8 +385,12 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#f8f8f7',
+				'default'   => '',
 				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-roadmap-section' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
 					'{{WRAPPER}} .wss-buyer-roadmap-section' => 'background-color: {{VALUE}};',
 				),
 			)
@@ -737,14 +870,31 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 	protected function render() {
 		$s = $this->get_settings_for_display();
 
-		$tag = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2';
-		$phases = ! empty( $s['phases_list'] ) ? $s['phases_list'] : array();
+		$tag           = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2';
+		$phases        = ! empty( $s['phases_list'] ) ? $s['phases_list'] : array();
 		$enable_reveal = ! empty( $s['enable_reveal'] ) && 'yes' === $s['enable_reveal'];
 		$delays        = array( 'wss-r1', 'wss-r2', 'wss-r3', 'wss-r4' );
+
+		$preset = ! empty( $s['theme_preset'] ) ? $s['theme_preset'] : 'light';
+		$preset_class = 'wss-buyer-roadmap--' . $preset;
+		if ( 'dark' === $preset || 'image' === $preset ) {
+			$preset_class .= ' wss-on-dark';
+		} elseif ( 'taupe' === $preset ) {
+			$preset_class .= ' wss-buyer-roadmap--taupe';
+		}
+
+		$has_bg_image = ( 'image' === $preset && ! empty( $s['bg_image']['url'] ) );
+		$is_fixed     = ( ! empty( $s['bg_image_attachment'] ) && 'fixed' === $s['bg_image_attachment'] );
 		?>
 		<div class="wss-scope">
-			<section class="wss-buyer-roadmap-section wss-pad" data-wss-widget="wss-buyer-roadmap">
-				<div class="wss-container">
+			<section class="wss-buyer-roadmap-section wss-pad <?php echo esc_attr( $preset_class ); ?>" data-wss-widget="wss-buyer-roadmap">
+				
+				<?php if ( $has_bg_image ) : ?>
+					<div class="wss-buyer-roadmap-bg-img <?php echo $is_fixed ? 'wss-bg-fixed' : ''; ?>" style="background-image: url('<?php echo esc_url( $s['bg_image']['url'] ); ?>');"></div>
+					<div class="wss-buyer-roadmap-bg-overlay"></div>
+				<?php endif; ?>
+
+				<div class="wss-container" style="position: relative; z-index: 3;">
 					
 					<!-- Header -->
 					<div class="wss-buyer-roadmap-head <?php echo $enable_reveal ? 'wss-reveal' : ''; ?>">
@@ -771,6 +921,20 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 							<?php foreach ( $phases as $idx => $item ) : 
 								$icon_html = ! empty( $item['milestone_icon'] ) && 'none' !== $item['milestone_icon'] ? $this->render_milestone_icon( $item['milestone_icon'] ) : '';
 								$stagger   = $enable_reveal ? 'wss-reveal ' . $delays[ $idx % 4 ] : '';
+
+								// 2-line milestone formatting
+								$m_label = ! empty( $item['milestone_label'] ) ? $item['milestone_label'] : '';
+								$m_val   = ! empty( $item['milestone_text'] ) ? $item['milestone_text'] : '';
+
+								// Fallback: If milestone_label is empty and milestone_text contains a colon, split gracefully
+								if ( empty( $m_label ) && strpos( $m_val, ':' ) !== false ) {
+									$parts = explode( ':', $m_val, 2 );
+									$m_label = trim( $parts[0] );
+									$m_val   = trim( $parts[1] );
+								}
+								if ( empty( $m_label ) && ! empty( $m_val ) ) {
+									$m_label = __( 'Deliverable', 'website-section-supporter' );
+								}
 							?>
 								<div class="wss-buyer-roadmap-card <?php echo esc_attr( $stagger ); ?> elementor-repeater-item-<?php echo esc_attr( $item['_id'] ); ?>">
 									
@@ -792,10 +956,13 @@ class WSS_Buyer_Roadmap_Widget extends Widget_Base {
 										<?php endif; ?>
 									</div>
 
-									<?php if ( ! empty( $item['milestone_text'] ) ) : ?>
+									<?php if ( ! empty( $m_val ) || ! empty( $m_label ) ) : ?>
 										<div class="wss-buyer-roadmap-milestone">
-											<?php if ( ! empty( $icon_html ) ) echo $icon_html; ?>
-											<span><?php echo esc_html( $item['milestone_text'] ); ?></span>
+											<div class="wss-buyer-roadmap-milestone-top">
+												<?php if ( ! empty( $icon_html ) ) echo $icon_html; ?>
+												<span class="wss-buyer-roadmap-milestone-label"><?php echo esc_html( $m_label ); ?></span>
+											</div>
+											<div class="wss-buyer-roadmap-milestone-val"><?php echo esc_html( $m_val ); ?></div>
 										</div>
 									<?php endif; ?>
 

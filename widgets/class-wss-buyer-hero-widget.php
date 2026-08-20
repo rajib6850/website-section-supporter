@@ -104,6 +104,111 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		/* ================= CONTENT: THEME PRESET & BACKGROUND ================= */
+		$this->start_controls_section(
+			'section_content_theme_preset',
+			array(
+				'label' => __( 'Visual Theme & Background', 'website-section-supporter' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'theme_preset',
+			array(
+				'label'   => __( 'Visual Theme Preset', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'light',
+				'options' => array(
+					'light'  => __( 'Crisp Ivory / Minimal Light', 'website-section-supporter' ),
+					'dark'   => __( 'Noir Charcoal / Pure Dark', 'website-section-supporter' ),
+					'taupe'  => __( 'Luxury Warm Taupe', 'website-section-supporter' ),
+					'image'  => __( 'Architectural Background Image', 'website-section-supporter' ),
+					'custom' => __( 'Custom Background (Style Tab)', 'website-section-supporter' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'bg_image',
+			array(
+				'label'     => __( 'Background Image', 'website-section-supporter' ),
+				'type'      => Controls_Manager::MEDIA,
+				'default'   => array(
+					'url' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80',
+				),
+				'condition' => array( 'theme_preset' => 'image' ),
+			)
+		);
+
+		$this->add_control(
+			'bg_image_position',
+			array(
+				'label'     => __( 'Image Position', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'center center',
+				'options'   => array(
+					'center center' => __( 'Center Center', 'website-section-supporter' ),
+					'center top'    => __( 'Center Top', 'website-section-supporter' ),
+					'center bottom' => __( 'Center Bottom', 'website-section-supporter' ),
+					'left center'   => __( 'Left Center', 'website-section-supporter' ),
+					'right center'  => __( 'Right Center', 'website-section-supporter' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-hero-bg-img' => 'background-position: {{VALUE}};',
+				),
+				'condition' => array( 'theme_preset' => 'image' ),
+			)
+		);
+
+		$this->add_control(
+			'bg_image_attachment',
+			array(
+				'label'     => __( 'Image Attachment', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'scroll',
+				'options'   => array(
+					'scroll' => __( 'Scroll (Normal)', 'website-section-supporter' ),
+					'fixed'  => __( 'Fixed (Parallax Effect)', 'website-section-supporter' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-hero-bg-img' => 'background-attachment: {{VALUE}};',
+				),
+				'condition' => array( 'theme_preset' => 'image' ),
+			)
+		);
+
+		$this->add_control(
+			'bg_image_grayscale',
+			array(
+				'label'        => __( 'Black & White Filter', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'B&W', 'website-section-supporter' ),
+				'label_off'    => __( 'Color', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'no',
+				'selectors'    => array(
+					'{{WRAPPER}} .wss-buyer-hero-bg-img' => 'filter: grayscale(100%) contrast(1.05);',
+				),
+				'condition'    => array( 'theme_preset' => 'image' ),
+			)
+		);
+
+		$this->add_control(
+			'bg_overlay_color',
+			array(
+				'label'     => __( 'Overlay Color & Opacity', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(19, 18, 16, 0.72)',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-hero-bg-overlay' => 'background-color: {{VALUE}};',
+				),
+				'condition' => array( 'theme_preset' => 'image' ),
+			)
+		);
+
+		$this->end_controls_section();
+
 		/* ================= CONTENT: ACTION BUTTONS ================= */
 		$this->start_controls_section(
 			'section_content_buttons',
@@ -694,16 +799,33 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 			)
 		);
 
-		$this->end_controls_tab();
-		$this->end_controls_tabs();
+					'{{WRAPPER}} .wss-buyer-hero-btn-secondary svg' => 'stroke: {{VALUE}} !important;',
+				),
+				'condition' => array( 'show_btn2' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'btn2_hover_color',
+			array(
+				'label'     => __( 'Hover Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#777777',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-hero-btn-secondary:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-buyer-hero-btn-secondary:hover svg' => 'stroke: {{VALUE}} !important;',
+				),
+				'condition' => array( 'show_btn2' => 'yes' ),
+			)
+		);
 
 		$this->end_controls_section();
 
-		/* ================= STYLE: IMAGE & BADGE ================= */
+		/* ================= STYLE: MEDIA FRAME & BADGE ================= */
 		$this->start_controls_section(
-			'style_image_badge',
+			'style_media_frame',
 			array(
-				'label' => __( 'Media Frame & Badge Style', 'website-section-supporter' ),
+				'label' => __( 'Media Frame & Location Badge', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -794,12 +916,29 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 		$btn1_icon_html = ! empty( $s['btn1_icon'] ) && 'none' !== $s['btn1_icon'] ? $this->render_icon( $s['btn1_icon'] ) : '';
 		$btn2_icon_html = ! empty( $s['btn2_icon'] ) && 'none' !== $s['btn2_icon'] ? $this->render_icon( $s['btn2_icon'] ) : '';
 
-		$image_url = ! empty( $s['hero_image']['url'] ) ? $s['hero_image']['url'] : '';
+		$image_url     = ! empty( $s['hero_image']['url'] ) ? $s['hero_image']['url'] : '';
 		$enable_reveal = ! empty( $s['enable_reveal'] ) && 'yes' === $s['enable_reveal'];
+
+		$preset = ! empty( $s['theme_preset'] ) ? $s['theme_preset'] : 'light';
+		$preset_class = 'wss-buyer-hero--' . $preset;
+		if ( 'dark' === $preset || 'image' === $preset ) {
+			$preset_class .= ' wss-on-dark';
+		} elseif ( 'taupe' === $preset ) {
+			$preset_class .= ' wss-buyer-hero--taupe';
+		}
+
+		$has_bg_image = ( 'image' === $preset && ! empty( $s['bg_image']['url'] ) );
+		$is_fixed     = ( ! empty( $s['bg_image_attachment'] ) && 'fixed' === $s['bg_image_attachment'] );
 		?>
 		<div class="wss-scope">
-			<section class="wss-buyer-hero-section wss-pad" data-wss-widget="wss-buyer-hero">
-				<div class="wss-container">
+			<section class="wss-buyer-hero-section wss-pad <?php echo esc_attr( $preset_class ); ?>" data-wss-widget="wss-buyer-hero">
+				
+				<?php if ( $has_bg_image ) : ?>
+					<div class="wss-buyer-hero-bg-img <?php echo $is_fixed ? 'wss-bg-fixed' : ''; ?>" style="background-image: url('<?php echo esc_url( $s['bg_image']['url'] ); ?>');"></div>
+					<div class="wss-buyer-hero-bg-overlay"></div>
+				<?php endif; ?>
+
+				<div class="wss-container" style="position: relative; z-index: 3;">
 					<div class="wss-buyer-hero-grid">
 						
 						<!-- Left: Text & Actions -->
