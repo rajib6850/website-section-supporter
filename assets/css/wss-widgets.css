@@ -229,7 +229,7 @@
   text-transform: uppercase;
   padding-bottom: 8px;
   position: relative;
-  transition: opacity .4s ease, gap .4s ease;
+  transition: gap .4s ease, color .4s ease;
   border-bottom: none;
 }
 
@@ -239,21 +239,22 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 1px;
+  height: 0.5px;
   background: currentColor;
   transform-origin: left;
-  transform: scaleX(1);
+  transform: scaleX(1) translateZ(0);
   transition: transform .5s cubic-bezier(.16, .84, .44, 1);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .wss-btn-line:hover {
-  opacity: .85;
   gap: 18px;
 }
 
 .wss-btn-line:hover::after {
   transform-origin: left;
-  transform: scaleX(0.4);
+  transform: scaleX(0.4) translateZ(0);
 }
 
 .wss-btn-pill {
@@ -7782,7 +7783,7 @@ body.wss-modal-open {
   border-bottom: none;
   color: var(--wss-ink, #0d0d0d);
   box-sizing: border-box;
-  transition: opacity 0.4s ease, gap 0.4s ease;
+  transition: gap 0.4s ease, color 0.4s ease;
 }
 
 .wss-buyer-hero-actions a.wss-btn-line::after,
@@ -7792,23 +7793,24 @@ body.wss-modal-open {
   left: 0;
   bottom: 8px;
   width: 100%;
-  height: 1px;
+  height: 0.5px;
   background: currentColor;
   transform-origin: left;
-  transform: scaleX(1);
+  transform: scaleX(1) translateZ(0);
   transition: transform 0.5s cubic-bezier(0.16, 0.84, 0.44, 1);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .wss-buyer-hero-actions a.wss-btn-line:hover,
 .wss-buyer-hero-btn-secondary.wss-btn-line:hover {
-  opacity: 0.85;
   gap: 18px;
 }
 
 .wss-buyer-hero-actions a.wss-btn-line:hover::after,
 .wss-buyer-hero-btn-secondary.wss-btn-line:hover::after {
   transform-origin: left;
-  transform: scaleX(0.4);
+  transform: scaleX(0.4) translateZ(0);
 }
 
 .wss-buyer-hero-actions a svg {
@@ -9729,7 +9731,7 @@ button.wss-buyer-guide-submit-btn:hover svg {
   border-bottom: none;
   color: #ffffff;
   box-sizing: border-box;
-  transition: opacity 0.4s ease, gap 0.4s ease;
+  transition: gap 0.4s ease, color 0.4s ease;
 }
 
 .wss-seller-valuation--light .wss-seller-valuation-btn-secondary.wss-btn-line {
@@ -9742,21 +9744,22 @@ button.wss-buyer-guide-submit-btn:hover svg {
   left: 0;
   bottom: 8px;
   width: 100%;
-  height: 1px;
+  height: 0.5px;
   background: currentColor;
   transform-origin: left;
-  transform: scaleX(1);
+  transform: scaleX(1) translateZ(0);
   transition: transform 0.5s cubic-bezier(0.16, 0.84, 0.44, 1);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .wss-seller-valuation-btn-secondary.wss-btn-line:hover {
-  opacity: 0.85;
   gap: 18px;
 }
 
 .wss-seller-valuation-btn-secondary.wss-btn-line:hover::after {
   transform-origin: left;
-  transform: scaleX(0.4);
+  transform: scaleX(0.4) translateZ(0);
 }
 
 .wss-seller-valuation-actions a svg {

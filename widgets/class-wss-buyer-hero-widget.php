@@ -649,24 +649,70 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'buttons_gap',
+			array(
+				'label'      => __( 'Buttons Gap', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 60 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 26 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-hero-actions' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
 		// Primary Button Styles
 		$this->add_control(
 			'heading_style_btn1',
 			array(
-				'label' => __( 'Primary Button', 'website-section-supporter' ),
-				'type'  => Controls_Manager::HEADING,
+				'label'     => __( 'Primary Button', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'show_btn1' => 'yes' ),
 			)
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'btn1_typography',
-				'selector' => '{{WRAPPER}} .wss-buyer-hero-btn-primary',
+				'name'      => 'btn1_typography',
+				'selector'  => '{{WRAPPER}} .wss-buyer-hero-btn-primary',
+				'condition' => array( 'show_btn1' => 'yes' ),
 			)
 		);
 
-		$this->start_controls_tabs( 'tabs_btn1_style' );
+		$this->add_responsive_control(
+			'btn1_padding',
+			array(
+				'label'      => __( 'Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-hero-btn-primary' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+				'condition'  => array( 'show_btn1' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'btn1_radius',
+			array(
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 60 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-hero-btn-primary, {{WRAPPER}} .wss-buyer-hero-btn-primary::before' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+				'condition'  => array( 'show_btn1' => 'yes' ),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_btn1_style', array( 'condition' => array( 'show_btn1' => 'yes' ) ) );
 
 		$this->start_controls_tab(
 			'tab_btn1_normal',
@@ -693,7 +739,7 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'transparent',
 				'selectors' => array(
-					'{{WRAPPER}} .wss-buyer-hero-btn-primary' => 'background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-buyer-hero-btn-primary' => 'background-color: {{VALUE}} !important; background: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -707,6 +753,14 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wss-buyer-hero-btn-primary' => 'border-color: {{VALUE}} !important;',
 				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'btn1_shadow',
+				'selector' => '{{WRAPPER}} .wss-buyer-hero-btn-primary',
 			)
 		);
 
@@ -738,6 +792,7 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 				'default'   => '#0d0d0d',
 				'selectors' => array(
 					'{{WRAPPER}} .wss-buyer-hero-btn-primary::before, {{WRAPPER}} .wss-buyer-hero-btn-primary:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-line.wss-buyer-hero-btn-primary::after, {{WRAPPER}} .wss-btn-line.wss-buyer-hero-btn-primary:hover::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 					'{{WRAPPER}} .wss-buyer-hero-btn-primary' => '--wss-btn-hover-bg: {{VALUE}} !important;',
 				),
 			)
@@ -755,6 +810,14 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'btn1_hover_shadow',
+				'selector' => '{{WRAPPER}} .wss-buyer-hero-btn-primary:hover',
+			)
+		);
+
 		$this->end_controls_tab();
 		$this->end_controls_tabs();
 
@@ -765,18 +828,48 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Secondary Button', 'website-section-supporter' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
+				'condition' => array( 'show_btn2' => 'yes' ),
 			)
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'     => 'btn2_typography',
-				'selector' => '{{WRAPPER}} .wss-buyer-hero-btn-secondary',
+				'name'      => 'btn2_typography',
+				'selector'  => '{{WRAPPER}} .wss-buyer-hero-btn-secondary',
+				'condition' => array( 'show_btn2' => 'yes' ),
 			)
 		);
 
-		$this->start_controls_tabs( 'tabs_btn2_style' );
+		$this->add_responsive_control(
+			'btn2_padding',
+			array(
+				'label'      => __( 'Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-hero-btn-secondary' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+				'condition'  => array( 'show_btn2' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'btn2_radius',
+			array(
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 60 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-buyer-hero-btn-secondary, {{WRAPPER}} .wss-buyer-hero-btn-secondary::before' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+				'condition'  => array( 'show_btn2' => 'yes' ),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_btn2_style', array( 'condition' => array( 'show_btn2' => 'yes' ) ) );
 
 		$this->start_controls_tab(
 			'tab_btn2_normal',
@@ -792,7 +885,38 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .wss-buyer-hero-btn-secondary' => 'color: {{VALUE}} !important;',
 					'{{WRAPPER}} .wss-buyer-hero-btn-secondary svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-line.wss-buyer-hero-btn-secondary::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
+			)
+		);
+
+		$this->add_control(
+			'btn2_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-hero-btn-secondary' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn2_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-hero-btn-secondary' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'btn2_shadow',
+				'selector' => '{{WRAPPER}} .wss-buyer-hero-btn-secondary',
 			)
 		);
 
@@ -800,20 +924,51 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 
 		$this->start_controls_tab(
 			'tab_btn2_hover',
-			array( 'label' => __( 'Hover', 'website-section-supporter' ), 'condition' => array( 'show_btn2' => 'yes' ) )
+			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
 		);
 
 		$this->add_control(
 			'btn2_hover_color',
 			array(
-				'label'     => __( 'Hover Color', 'website-section-supporter' ),
+				'label'     => __( 'Hover Text / Icon Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#777777',
 				'selectors' => array(
 					'{{WRAPPER}} .wss-buyer-hero-btn-secondary:hover' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-buyer-hero-btn-secondary:hover svg' => 'stroke: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-buyer-hero-btn-secondary:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
 				),
-				'condition' => array( 'show_btn2' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'btn2_hover_bg_color',
+			array(
+				'label'     => __( 'Hover Background / Effect Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-hero-btn-secondary::before, {{WRAPPER}} .wss-buyer-hero-btn-secondary:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-line.wss-buyer-hero-btn-secondary::after, {{WRAPPER}} .wss-btn-line.wss-buyer-hero-btn-secondary:hover::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-buyer-hero-btn-secondary' => '--wss-btn-hover-bg: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn2_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-buyer-hero-btn-secondary:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'btn2_hover_shadow',
+				'selector' => '{{WRAPPER}} .wss-buyer-hero-btn-secondary:hover',
 			)
 		);
 
@@ -964,11 +1119,22 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 							<?php endif; ?>
 
 							<?php if ( $show_btn1 || $show_btn2 ) : ?>
+								<?php
+								$btn1_rel = array();
+								if ( ! empty( $s['btn1_link']['is_external'] ) ) { $btn1_rel[] = 'noopener'; }
+								if ( ! empty( $s['btn1_link']['nofollow'] ) ) { $btn1_rel[] = 'nofollow'; }
+								$btn1_rel_attr = ! empty( $btn1_rel ) ? ' rel="' . esc_attr( implode( ' ', $btn1_rel ) ) . '"' : '';
+
+								$btn2_rel = array();
+								if ( ! empty( $s['btn2_link']['is_external'] ) ) { $btn2_rel[] = 'noopener'; }
+								if ( ! empty( $s['btn2_link']['nofollow'] ) ) { $btn2_rel[] = 'nofollow'; }
+								$btn2_rel_attr = ! empty( $btn2_rel ) ? ' rel="' . esc_attr( implode( ' ', $btn2_rel ) ) . '"' : '';
+								?>
 								<div class="wss-buyer-hero-actions">
 									<?php if ( $show_btn1 ) : ?>
 										<a class="<?php echo esc_attr( $btn1_style ); ?> wss-buyer-hero-btn-primary" 
 											href="<?php echo esc_url( $s['btn1_link']['url'] ?: '#' ); ?>"
-											<?php echo ! empty( $s['btn1_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
+											<?php echo ( ! empty( $s['btn1_link']['is_external'] ) ? ' target="_blank"' : '' ) . $btn1_rel_attr; ?>>
 											<span><?php echo esc_html( $btn1_text ); ?></span>
 											<?php if ( ! empty( $btn1_icon_html ) ) echo $btn1_icon_html; ?>
 										</a>
@@ -977,7 +1143,7 @@ class WSS_Buyer_Hero_Widget extends Widget_Base {
 									<?php if ( $show_btn2 ) : ?>
 										<a class="<?php echo esc_attr( $btn2_style ); ?> wss-buyer-hero-btn-secondary" 
 											href="<?php echo esc_url( $s['btn2_link']['url'] ?: '#' ); ?>"
-											<?php echo ! empty( $s['btn2_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
+											<?php echo ( ! empty( $s['btn2_link']['is_external'] ) ? ' target="_blank"' : '' ) . $btn2_rel_attr; ?>>
 											<span><?php echo esc_html( $btn2_text ); ?></span>
 											<?php if ( ! empty( $btn2_icon_html ) ) echo $btn2_icon_html; ?>
 										</a>
