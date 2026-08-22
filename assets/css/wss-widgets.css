@@ -314,13 +314,33 @@
 }
 
 .wss-btn-line svg,
-.wss-btn-pill svg {
+.wss-btn-pill svg,
+.wss-btn-solid svg,
+.wss-btn-glass svg,
+.wss-btn-item svg,
+.wss-btn-primary svg,
+.wss-btn-secondary svg,
+.wss-btn svg {
   width: 14px;
   height: 14px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.5;
-  transition: transform .4s cubic-bezier(.16, .84, .44, 1);
+  transition: transform .4s cubic-bezier(.16, .84, .44, 1), stroke 0.4s cubic-bezier(0.16, 0.84, 0.44, 1), color 0.4s cubic-bezier(0.16, 0.84, 0.44, 1), fill 0.4s ease !important;
+  flex-shrink: 0;
+}
+
+.wss-btn-line svg *,
+.wss-btn-pill svg *,
+.wss-btn-solid svg *,
+.wss-btn-glass svg *,
+.wss-btn-item svg *,
+.wss-btn-primary svg *,
+.wss-btn-secondary svg *,
+.wss-btn svg * {
+  stroke: inherit;
+  fill: inherit;
+  transition: stroke 0.4s cubic-bezier(0.16, 0.84, 0.44, 1), color 0.4s cubic-bezier(0.16, 0.84, 0.44, 1), fill 0.4s ease !important;
 }
 
 .wss-btn-line:hover svg,

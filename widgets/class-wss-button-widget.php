@@ -261,7 +261,7 @@ class WSS_Button_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .wss-btn-primary, {{WRAPPER}} .wss-btn-primary span' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-btn-primary svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-primary svg, {{WRAPPER}} .wss-btn-primary svg *' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
 					'{{WRAPPER}} .wss-btn-line.wss-btn-primary::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
@@ -299,7 +299,7 @@ class WSS_Button_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .wss-btn-primary:hover, {{WRAPPER}} .wss-btn-primary:hover span' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-btn-primary:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-primary:hover svg, {{WRAPPER}} .wss-btn-primary:hover svg *' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -372,7 +372,7 @@ class WSS_Button_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .wss-btn-secondary, {{WRAPPER}} .wss-btn-secondary span' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-btn-secondary svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-secondary svg, {{WRAPPER}} .wss-btn-secondary svg *' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
 					'{{WRAPPER}} .wss-btn-line.wss-btn-secondary::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
@@ -410,7 +410,7 @@ class WSS_Button_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .wss-btn-secondary:hover, {{WRAPPER}} .wss-btn-secondary:hover span' => 'color: {{VALUE}} !important;',
-					'{{WRAPPER}} .wss-btn-secondary:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-secondary:hover svg, {{WRAPPER}} .wss-btn-secondary:hover svg *' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
 				),
 			)
 		);
