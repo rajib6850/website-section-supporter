@@ -5113,31 +5113,62 @@ body.elementor-editor-active .wss-mask > span {
   flex-wrap: wrap;
 }
 
+.wss-scope a.wss-blog-filter-btn,
 .wss-blog-filter-btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 18px;
-  border-radius: 30px;
-  background: var(--wss-line, #eceae4);
-  color: var(--wss-ink-soft, #555048);
-  font-family: var(--wss-font-accent);
-  font-size: 9.5px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-weight: var(--wss-weight-accent);
-  border: 1px solid transparent;
-  transition: all 0.35s cubic-bezier(.16, .84, .44, 1);
-  cursor: pointer;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 18px !important;
+  border-radius: 30px !important;
+  background: var(--wss-line, #eceae4) !important;
+  background-color: var(--wss-line, #eceae4) !important;
+  color: var(--wss-ink-soft, #555048) !important;
+  font-family: var(--wss-font-accent) !important;
+  font-size: 9.5px !important;
+  letter-spacing: .2em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  font-weight: var(--wss-weight-accent, 500) !important;
+  border: 1px solid transparent !important;
+  transition: all 0.35s cubic-bezier(.16, .84, .44, 1) !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
 }
 
-.wss-blog-filter-btn:hover,
+.wss-scope a.wss-blog-filter-btn span,
+.wss-blog-filter-btn span {
+  color: inherit !important;
+  transition: color 0.35s ease !important;
+  display: inline-block !important;
+}
+
+.wss-scope a.wss-blog-filter-btn:hover,
+.wss-blog-filter-btn:hover {
+  background: var(--wss-ink, #131210) !important;
+  background-color: var(--wss-ink, #131210) !important;
+  color: var(--wss-white, #faf8f4) !important;
+  border-color: var(--wss-ink, #131210) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15) !important;
+}
+
+.wss-scope a.wss-blog-filter-btn:hover span,
+.wss-blog-filter-btn:hover span {
+  color: var(--wss-white, #faf8f4) !important;
+}
+
+.wss-scope a.wss-blog-filter-btn.is-active,
 .wss-blog-filter-btn.is-active {
-  background: var(--wss-ink, #131210);
-  color: var(--wss-white, #faf8f4);
-  border-color: var(--wss-ink, #131210);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  background: var(--wss-ink, #131210) !important;
+  background-color: var(--wss-ink, #131210) !important;
+  color: var(--wss-white, #faf8f4) !important;
+  border-color: var(--wss-ink, #131210) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+}
+
+.wss-scope a.wss-blog-filter-btn.is-active span,
+.wss-blog-filter-btn.is-active span {
+  color: var(--wss-white, #faf8f4) !important;
 }
 
 /* Luxury Pagination */

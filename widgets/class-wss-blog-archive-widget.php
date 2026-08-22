@@ -595,15 +595,69 @@ class WSS_Blog_Archive_Widget extends Widget_Base {
 
 		$this->start_controls_tabs( 'tabs_filter_style' );
 		$this->start_controls_tab( 'tab_filter_normal', array( 'label' => __( 'Normal', 'website-section-supporter' ) ) );
-		$this->add_control( 'filter_color', array( 'label' => __( 'Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-blog-filter-btn' => 'color: {{VALUE}} !important;' ) ) );
-		$this->add_control( 'filter_bg', array( 'label' => __( 'Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-blog-filter-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ) ) );
-		$this->add_control( 'filter_border_color', array( 'label' => __( 'Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-blog-filter-btn' => 'border-color: {{VALUE}} !important;' ) ) );
+		$this->add_control(
+			'filter_color',
+			array(
+				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-blog-filter-btn, {{WRAPPER}} .wss-blog-filter-btn span' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'filter_bg',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-blog-filter-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'filter_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-blog-filter-btn' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
 		$this->end_controls_tab();
 
 		$this->start_controls_tab( 'tab_filter_hover', array( 'label' => __( 'Hover / Active', 'website-section-supporter' ) ) );
-		$this->add_control( 'filter_hover_color', array( 'label' => __( 'Active Text Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-blog-filter-btn:hover, {{WRAPPER}} .wss-blog-filter-btn.is-active' => 'color: {{VALUE}} !important;' ) ) );
-		$this->add_control( 'filter_hover_bg', array( 'label' => __( 'Active Background Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-blog-filter-btn:hover, {{WRAPPER}} .wss-blog-filter-btn.is-active' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;' ) ) );
-		$this->add_control( 'filter_hover_border_color', array( 'label' => __( 'Active Border Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-blog-filter-btn:hover, {{WRAPPER}} .wss-blog-filter-btn.is-active' => 'border-color: {{VALUE}} !important;' ) ) );
+		$this->add_control(
+			'filter_hover_color',
+			array(
+				'label'     => __( 'Active Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-blog-filter-btn:hover, {{WRAPPER}} .wss-blog-filter-btn:hover span, {{WRAPPER}} .wss-blog-filter-btn.is-active, {{WRAPPER}} .wss-blog-filter-btn.is-active span' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'filter_hover_bg',
+			array(
+				'label'     => __( 'Active Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-blog-filter-btn:hover, {{WRAPPER}} .wss-blog-filter-btn.is-active' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'filter_hover_border_color',
+			array(
+				'label'     => __( 'Active Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-blog-filter-btn:hover, {{WRAPPER}} .wss-blog-filter-btn.is-active' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
 		$this->end_controls_tab();
 		$this->end_controls_tabs();
 		$this->end_controls_section();
@@ -1185,14 +1239,32 @@ class WSS_Blog_Archive_Widget extends Widget_Base {
 		// Filter bar categories collection
 		$filter_categories = array();
 		if ( 'yes' === ( $s['show_filter_bar'] ?? 'yes' ) ) {
-			$all_cats = get_categories( array( 'hide_empty' => true ) );
-			if ( ! empty( $all_cats ) && ! is_wp_error( $all_cats ) ) {
-				foreach ( $all_cats as $c ) {
-					$filter_categories[] = array(
-						'name' => $c->name,
-						'slug' => $c->slug,
-						'url'  => get_category_link( $c->term_id ),
-					);
+			if ( 'custom' === $s['source_type'] ) {
+				$unique_cats = array();
+				foreach ( $stories as $st ) {
+					if ( ! empty( $st['category'] ) && ! in_array( $st['category'], $unique_cats, true ) ) {
+						$unique_cats[] = $st['category'];
+						$filter_categories[] = array(
+							'name' => $st['category'],
+							'slug' => sanitize_title( $st['category'] ),
+							'url'  => '#',
+						);
+					}
+				}
+			} else {
+				$cat_args = array( 'hide_empty' => true );
+				if ( ! empty( $s['categories'] ) && 'posts' === $s['source_type'] ) {
+					$cat_args['include'] = $s['categories'];
+				}
+				$all_cats = get_categories( $cat_args );
+				if ( ! empty( $all_cats ) && ! is_wp_error( $all_cats ) ) {
+					foreach ( $all_cats as $c ) {
+						$filter_categories[] = array(
+							'name' => $c->name,
+							'slug' => $c->slug,
+							'url'  => get_category_link( $c->term_id ),
+						);
+					}
 				}
 			}
 		}
@@ -1231,13 +1303,13 @@ class WSS_Blog_Archive_Widget extends Widget_Base {
 					<?php if ( 'yes' === ( $s['show_filter_bar'] ?? 'yes' ) && ! empty( $filter_categories ) ) : ?>
 						<div class="wss-blog-filter-bar wss-reveal">
 							<a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ?: home_url( '/blog' ) ); ?>" class="wss-blog-filter-btn <?php echo ( ! is_category() ) ? 'is-active' : ''; ?>">
-								<?php echo esc_html( $s['all_filter_label'] ?: __( 'ALL ESSAYS', 'website-section-supporter' ) ); ?>
+								<span><?php echo esc_html( $s['all_filter_label'] ?: __( 'ALL ESSAYS', 'website-section-supporter' ) ); ?></span>
 							</a>
 							<?php foreach ( $filter_categories as $fcat ) :
 								$is_current = is_category( $fcat['slug'] );
 								?>
 								<a href="<?php echo esc_url( $fcat['url'] ); ?>" class="wss-blog-filter-btn <?php echo $is_current ? 'is-active' : ''; ?>">
-									<?php echo esc_html( $fcat['name'] ); ?>
+									<span><?php echo esc_html( $fcat['name'] ); ?></span>
 								</a>
 							<?php endforeach; ?>
 						</div>

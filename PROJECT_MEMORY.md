@@ -126,7 +126,8 @@ To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global 
 | `f32fb6a` | **Form Input Focus & Luxury Styling Match** | Unified Home Evaluation inputs with Contact Form: matched normal background (`#eceae4`), border radius (`5px`), focus background (`#ffffff`), focus border color (`#a8916f` / `var(--wss-taupe-deep)`), and soft luxury glow ring (`box-shadow: 0 0 0 3px rgba(168, 145, 111, 0.15)`). |
 | `82ce01e` | **Luxury Button Text Color Transition Fix** | Added `0.4s` cubic-bezier transition to `.wss-btn-item`, `.wss-btn-item span`, `.wss-btn-primary`, `.wss-btn-secondary`, and inner SVG icons so text & stroke colors transition smoothly on hover. |
 | `f6db737` | **Button SVG Icon Stroke & Color Transition Polish** | Added universal `stroke 0.4s` and `color 0.4s` hardware-accelerated transitions to all button presets (`.wss-btn-pill`, `.wss-btn-line`, `.wss-btn-solid`, `.wss-btn-glass`) and their nested SVG paths/polylines (`svg *`), ensuring seamless, silky icon color transitions on hover. |
-| *Current* | **Luxury Blog Archive Widget** | Created `WSS_Blog_Archive_Widget` (`wss_blog_archive`) matching `WSS_Blog_Widget` with auto-detected category/archive titles, interactive category filter tabs, custom or archive pagination queries, and full luxury styling controls. |
+| `f1c96d8` | **Luxury Blog Archive Widget** | Created `WSS_Blog_Archive_Widget` (`wss_blog_archive`) matching `WSS_Blog_Widget` with auto-detected category/archive titles, interactive category filter tabs, custom or archive pagination queries, and full luxury styling controls. |
+| *Current* | **Blog Archive Category Filter Text Visibility Fix** | Wrapped filter button labels in `<span>`, applied `.wss-scope a.wss-blog-filter-btn` and `!important` text color rules to fix black-on-black text contrast on active/hover filter pills, and added category auto-collection for custom repeater mode. |
 
 ---
 
