@@ -782,112 +782,31 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
-		/* ================= STYLE: INPUTS & PILLS ================= */
+		/* ================= STYLE: INPUTS & FORM FIELDS ================= */
 		$this->start_controls_section(
 			'section_style_inputs',
 			array(
-				'label' => __( 'Inputs & Pills', 'website-section-supporter' ),
+				'label' => __( 'Inputs & Form Fields', 'website-section-supporter' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 
+		// Label Controls
 		$this->add_control(
-			'input_bg',
+			'heading_field_labels',
 			array(
-				'label'     => __( 'Input Background Color', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-box' => 'background-color: {{VALUE}};',
-				),
+				'label' => __( 'Field Labels', 'website-section-supporter' ),
+				'type'  => Controls_Manager::HEADING,
 			)
 		);
 
 		$this->add_control(
-			'input_text_color',
+			'label_color',
 			array(
-				'label'     => __( 'Input Text Color', 'website-section-supporter' ),
+				'label'     => __( 'Label Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-label' => 'color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'input_border_color',
-			array(
-				'label'     => __( 'Input Border Color', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-box' => 'border-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'input_focus_border_color',
-			array(
-				'label'     => __( 'Input Focus Border Color', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-input:focus, {{WRAPPER}} .wss-home-eval-amenity-box:hover' => 'border-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->end_controls_section();
-
-		/* ================= STYLE: BUTTON ================= */
-		$this->start_controls_section(
-			'section_style_button',
-			array(
-				'label' => __( 'Button', 'website-section-supporter' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-			)
-		);
-
-		$this->add_control(
-			'btn_bg',
-			array(
-				'label'     => __( 'Button Background Color', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn' => 'background-color: {{VALUE}}; border-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'btn_text_color',
-			array(
-				'label'     => __( 'Button Text Color', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .wss-home-eval-submit-btn svg, {{WRAPPER}} .wss-home-eval-next-btn svg' => 'stroke: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'btn_hover_bg',
-			array(
-				'label'     => __( 'Button Hover Background', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover' => 'background-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'btn_hover_text_color',
-			array(
-				'label'     => __( 'Button Hover Text Color', 'website-section-supporter' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover' => 'color: {{VALUE}}; border-color: {{VALUE}};',
-					'{{WRAPPER}} .wss-home-eval-submit-btn:hover svg, {{WRAPPER}} .wss-home-eval-next-btn:hover svg' => 'stroke: {{VALUE}};',
+					'{{WRAPPER}} .wss-field-label' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -895,8 +814,405 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
+				'name'     => 'label_typography',
+				'selector' => '{{WRAPPER}} .wss-field-label',
+			)
+		);
+
+		// Input Controls
+		$this->add_control(
+			'heading_input_controls',
+			array(
+				'label'     => __( 'Input Fields & Amenity Cards', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'input_typography',
+				'label'    => __( 'Input Typography', 'website-section-supporter' ),
+				'selector' => '{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-label',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_input_style' );
+
+		// Normal Tab
+		$this->start_controls_tab(
+			'tab_input_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'input_bg',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-box' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'input_text_color',
+			array(
+				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-label' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'input_placeholder_color',
+			array(
+				'label'     => __( 'Placeholder Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-input::placeholder, {{WRAPPER}} input.wss-home-eval-input::placeholder, {{WRAPPER}} textarea.wss-home-eval-input::placeholder' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'input_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-box' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'input_box_shadow',
+				'selector' => '{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-box',
+			)
+		);
+
+		$this->end_controls_tab();
+
+		// Hover / Focus Tab
+		$this->start_controls_tab(
+			'tab_input_focus',
+			array( 'label' => __( 'Hover / Focus', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'input_focus_bg',
+			array(
+				'label'     => __( 'Focus / Hover Background', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-input:focus, {{WRAPPER}} input.wss-home-eval-input:focus, {{WRAPPER}} select.wss-home-eval-input:focus, {{WRAPPER}} textarea.wss-home-eval-input:focus, {{WRAPPER}} .wss-home-eval-amenity-box:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'input_focus_text_color',
+			array(
+				'label'     => __( 'Focus / Hover Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-input:focus, {{WRAPPER}} input.wss-home-eval-input:focus, {{WRAPPER}} select.wss-home-eval-input:focus, {{WRAPPER}} textarea.wss-home-eval-input:focus, {{WRAPPER}} .wss-home-eval-amenity-box:hover .wss-home-eval-amenity-label' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'input_focus_border_color',
+			array(
+				'label'     => __( 'Focus / Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-input:focus, {{WRAPPER}} input.wss-home-eval-input:focus, {{WRAPPER}} select.wss-home-eval-input:focus, {{WRAPPER}} textarea.wss-home-eval-input:focus, {{WRAPPER}} .wss-home-eval-amenity-box:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'input_focus_box_shadow',
+				'selector' => '{{WRAPPER}} .wss-home-eval-input:focus, {{WRAPPER}} input.wss-home-eval-input:focus, {{WRAPPER}} select.wss-home-eval-input:focus, {{WRAPPER}} textarea.wss-home-eval-input:focus, {{WRAPPER}} .wss-home-eval-amenity-box:hover',
+			)
+		);
+
+		$this->end_controls_tab();
+
+		// Selected State Tab for Amenity Cards / Radios
+		$this->start_controls_tab(
+			'tab_input_selected',
+			array( 'label' => __( 'Selected', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'input_selected_bg',
+			array(
+				'label'     => __( 'Selected Card Background', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-amenity-box:has(input:checked), {{WRAPPER}} .wss-home-eval-amenity-box.is-checked' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'input_selected_text_color',
+			array(
+				'label'     => __( 'Selected Text / Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-amenity-box:has(input:checked) .wss-home-eval-amenity-label, {{WRAPPER}} .wss-home-eval-amenity-box.is-checked .wss-home-eval-amenity-label' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-home-eval-amenity-box:has(input:checked) .wss-custom-check, {{WRAPPER}} .wss-home-eval-amenity-box.is-checked .wss-custom-check' => 'background: {{VALUE}} !important; border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'input_selected_border_color',
+			array(
+				'label'     => __( 'Selected Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-amenity-box:has(input:checked), {{WRAPPER}} .wss-home-eval-amenity-box.is-checked' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		$this->add_responsive_control(
+			'input_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'default'    => array( 'size' => 3, 'unit' => 'px' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-box' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'input_padding',
+			array(
+				'label'      => __( 'Input Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		/* ================= STYLE: BUTTONS ================= */
+		$this->start_controls_section(
+			'section_style_button',
+			array(
+				'label' => __( 'Action Buttons', 'website-section-supporter' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		// Primary / Submit Button Styling
+		$this->add_control(
+			'heading_submit_btn',
+			array(
+				'label' => __( 'Submit & Continue Buttons', 'website-section-supporter' ),
+				'type'  => Controls_Manager::HEADING,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
 				'name'     => 'btn_typography',
-				'selector' => '{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn',
+				'selector' => '{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn',
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn_padding',
+			array(
+				'label'      => __( 'Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'default'    => array( 'size' => 40, 'unit' => 'px' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn, {{WRAPPER}} .wss-home-eval-submit-btn::before, {{WRAPPER}} .wss-home-eval-next-btn::before, {{WRAPPER}} .wss-home-eval-reset-btn::before' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_btn_style' );
+
+		// Normal Tab
+		$this->start_controls_tab(
+			'tab_btn_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'btn_text_color',
+			array(
+				'label'     => __( 'Text / Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-home-eval-submit-btn svg, {{WRAPPER}} .wss-home-eval-next-btn svg, {{WRAPPER}} .wss-home-eval-reset-btn svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_bg',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'btn_shadow',
+				'selector' => '{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn',
+			)
+		);
+
+		$this->end_controls_tab();
+
+		// Hover Tab
+		$this->start_controls_tab(
+			'tab_btn_hover',
+			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'btn_hover_text_color',
+			array(
+				'label'     => __( 'Hover Text / Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover, {{WRAPPER}} .wss-home-eval-reset-btn:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-home-eval-submit-btn:hover svg, {{WRAPPER}} .wss-home-eval-next-btn:hover svg, {{WRAPPER}} .wss-home-eval-reset-btn:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_hover_bg',
+			array(
+				'label'     => __( 'Hover Background (Curtain Sweep)', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-submit-btn::before, {{WRAPPER}} .wss-home-eval-next-btn::before, {{WRAPPER}} .wss-home-eval-reset-btn::before, {{WRAPPER}} .wss-home-eval-submit-btn:hover::before, {{WRAPPER}} .wss-home-eval-next-btn:hover::before, {{WRAPPER}} .wss-home-eval-reset-btn:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-home-eval-submit-btn, {{WRAPPER}} .wss-home-eval-next-btn, {{WRAPPER}} .wss-home-eval-reset-btn' => '--wss-btn-hover-bg: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover, {{WRAPPER}} .wss-home-eval-reset-btn:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'btn_hover_shadow',
+				'selector' => '{{WRAPPER}} .wss-home-eval-submit-btn:hover, {{WRAPPER}} .wss-home-eval-next-btn:hover, {{WRAPPER}} .wss-home-eval-reset-btn:hover',
+			)
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		// Back Button Controls
+		$this->add_control(
+			'heading_back_btn',
+			array(
+				'label'     => __( 'Back Button', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'back_btn_typography',
+				'selector' => '{{WRAPPER}} .wss-btn-back',
+			)
+		);
+
+		$this->add_control(
+			'back_btn_color',
+			array(
+				'label'     => __( 'Back Button Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-btn-back' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'back_btn_hover_color',
+			array(
+				'label'     => __( 'Back Button Hover Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-btn-back:hover' => 'color: {{VALUE}} !important;',
+				),
 			)
 		);
 

@@ -120,8 +120,8 @@ To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global 
 | `cb9d2fc` | **Popup Menu Logo Height Fix** | Removed hardcoded CSS height 28px on `#wss-menu .wss-menu-logo img` and updated Elementor selectors to directly drive live responsive height & max-height. |
 | `a482fe1` | **Footer Brand Logo Link Support** | Added `logo_link` URL control with external/nofollow attributes and wrapped footer brand logo in clickable `.wss-foot-brand-link`. |
 | `2e7b22c` | **Seller Valuation Button Controls & Styling** | Expanded `WSS_Seller_Valuation_Widget` with complete Elementor controls: gap, typography, padding, border radius, box shadow, normal/hover tabs, custom sweep bg, and external/nofollow attributes. |
-| `093bf14` | **Hairline Underline (0.5px) & Opacity Consistency** | Set `.wss-btn-line::after` height to `0.5px` with hardware-accelerated `translateZ(0)` and removed hover opacity drop so underline visual weight is ultra-crisp and 100% uniform between normal and hover states. |
-| *Current* | **Buyer Overview Hero Button Controls & Radius** | Added border radius, padding, button row gap, box shadow, normal/hover styling tabs, and external/nofollow support for `WSS_Buyer_Hero_Widget`. |
+| `8fc8f43` | **Buyer Overview Hero Button Controls & Radius** | Added border radius, padding, button row gap, box shadow, normal/hover styling tabs, and external/nofollow support for `WSS_Buyer_Hero_Widget`. |
+| *Current* | **Home Evaluation Form & Button Controls** | Added complete Contact Form parity to `WSS_Home_Evaluation_Widget`: Normal/Hover/Focus/Selected tabs, border radius, padding, box shadow, label styling, placeholder styling, dynamic curtain sweep hover, and back button controls. |
 
 ---
 

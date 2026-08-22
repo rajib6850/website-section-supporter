@@ -10623,7 +10623,7 @@ textarea.wss-home-eval-input:focus {
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  background: #0d0d0d !important;
+  background: var(--wss-btn-hover-bg, #0d0d0d) !important;
   z-index: -1 !important;
   transform: scaleX(0) !important;
   transform-origin: right !important;
@@ -10677,7 +10677,7 @@ textarea.wss-home-eval-input:focus {
 .wss-home-eval--dark .wss-home-eval-submit-btn::before,
 .wss-home-eval--dark .wss-home-eval-next-btn::before,
 .wss-home-eval--dark .wss-home-eval-reset-btn::before {
-  background: #ffffff !important;
+  background: var(--wss-btn-hover-bg, #ffffff) !important;
 }
 
 .wss-home-eval--dark .wss-home-eval-submit-btn svg,
