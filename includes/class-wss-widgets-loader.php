@@ -43,6 +43,7 @@ class WSS_Widgets_Loader {
 			'class-wss-newsletter-widget.php'      => 'WSS_Newsletter_Widget',
 			'class-wss-contact-widget.php'         => 'WSS_Contact_Widget',
 			'class-wss-blog-widget.php'            => 'WSS_Blog_Widget',
+			'class-wss-blog-archive-widget.php'    => 'WSS_Blog_Archive_Widget',
 			'class-wss-team-widget.php'            => 'WSS_Team_Widget',
 			'class-wss-cta-widget.php'             => 'WSS_CTA_Widget',
 			'class-wss-buyer-hero-widget.php'      => 'WSS_Buyer_Hero_Widget',

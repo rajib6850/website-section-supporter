@@ -77,16 +77,18 @@ website-section-supporter/
 - **Purpose**: Luxury mortgage & property equity forecasting calculator with interactive sliders and amortized schedule preview.
 
 ### 7. `WSS_Buyer_Vip_Widget` (`wss_buyer_vip`)
-- **File**: `widgets/class-wss-buyer-vip-widget.php`
-- **Purpose**: Private Off-Market Access & VIP Concierge application intake card.
-
 ### 8. `WSS_Buyer_Guide_Widget` (`wss_buyer_guide`)
 - **File**: `widgets/class-wss-buyer-guide-widget.php`
 - **Purpose**: Downloadable Central Florida Luxury Buyer Dossier capture section with AJAX PDF delivery.
 
+### 9. `WSS_Blog_Archive_Widget` (`wss_blog_archive`)
+- **File**: `widgets/class-wss-blog-archive-widget.php`
+- **Purpose**: Dedicated Luxury Blog Archive & Journal page widget with dynamic category/tag/author archive title detection, interactive category filter tabs, custom query or archive query support, and luxury styled pagination.
+
 ---
 
 ## 🎨 3. Design Standards & Strict Anti-Theme Overrides
+
 
 To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global accent colors) from overriding our ultra-luxury noir aesthetic:
 1. **Buttons**:
@@ -123,7 +125,8 @@ To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global 
 | `2a47eee` | **Home Evaluation Form & Button Controls** | Added complete Contact Form parity to `WSS_Home_Evaluation_Widget`: Normal/Hover/Focus/Selected tabs, border radius, padding, box shadow, label styling, placeholder styling, dynamic curtain sweep hover, and back button controls. |
 | `f32fb6a` | **Form Input Focus & Luxury Styling Match** | Unified Home Evaluation inputs with Contact Form: matched normal background (`#eceae4`), border radius (`5px`), focus background (`#ffffff`), focus border color (`#a8916f` / `var(--wss-taupe-deep)`), and soft luxury glow ring (`box-shadow: 0 0 0 3px rgba(168, 145, 111, 0.15)`). |
 | `82ce01e` | **Luxury Button Text Color Transition Fix** | Added `0.4s` cubic-bezier transition to `.wss-btn-item`, `.wss-btn-item span`, `.wss-btn-primary`, `.wss-btn-secondary`, and inner SVG icons so text & stroke colors transition smoothly on hover. |
-| *Current* | **Button SVG Icon Stroke & Color Transition Polish** | Added universal `stroke 0.4s` and `color 0.4s` hardware-accelerated transitions to all button presets (`.wss-btn-pill`, `.wss-btn-line`, `.wss-btn-solid`, `.wss-btn-glass`) and their nested SVG paths/polylines (`svg *`), ensuring seamless, silky icon color transitions on hover. |
+| `f6db737` | **Button SVG Icon Stroke & Color Transition Polish** | Added universal `stroke 0.4s` and `color 0.4s` hardware-accelerated transitions to all button presets (`.wss-btn-pill`, `.wss-btn-line`, `.wss-btn-solid`, `.wss-btn-glass`) and their nested SVG paths/polylines (`svg *`), ensuring seamless, silky icon color transitions on hover. |
+| *Current* | **Luxury Blog Archive Widget** | Created `WSS_Blog_Archive_Widget` (`wss_blog_archive`) matching `WSS_Blog_Widget` with auto-detected category/archive titles, interactive category filter tabs, custom or archive pagination queries, and full luxury styling controls. |
 
 ---
 
