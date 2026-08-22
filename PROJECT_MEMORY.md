@@ -119,7 +119,8 @@ To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global 
 | `b850ee0` | **Persistent Memory System** | Created `PROJECT_MEMORY.md` to continuously maintain project state. |
 | `cb9d2fc` | **Popup Menu Logo Height Fix** | Removed hardcoded CSS height 28px on `#wss-menu .wss-menu-logo img` and updated Elementor selectors to directly drive live responsive height & max-height. |
 | `a482fe1` | **Footer Brand Logo Link Support** | Added `logo_link` URL control with external/nofollow attributes and wrapped footer brand logo in clickable `.wss-foot-brand-link`. |
-| *Current* | **Secondary Button Underline Hover & Mouseout Fix** | Corrected `transform-origin` to `left` in normal state across `.wss-btn-line` and all secondary button variants, eliminating underline teleport/snap glitch on mouseout. |
+| `c5368c2` | **Secondary Button Underline Hover & Mouseout Fix** | Corrected `transform-origin` to `left` in normal state across `.wss-btn-line` and all secondary button variants, eliminating underline teleport/snap glitch on mouseout. |
+| *Current* | **Seller Valuation Button Controls & Styling** | Expanded `WSS_Seller_Valuation_Widget` with complete Elementor controls: gap, typography, padding, border radius, box shadow, normal/hover tabs, custom sweep bg, and external/nofollow attributes. |
 
 ---
 

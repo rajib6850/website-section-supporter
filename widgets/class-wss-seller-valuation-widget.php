@@ -485,13 +485,95 @@ class WSS_Seller_Valuation_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_responsive_control(
+			'buttons_gap',
+			array(
+				'label'      => __( 'Buttons Gap', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 60 ),
+				),
+				'default'    => array( 'unit' => 'px', 'size' => 26 ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-seller-valuation-actions' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		/* ----- Primary Button (Home Evaluation) ----- */
+		$this->add_control(
+			'heading_style_btn1',
+			array(
+				'label'     => __( 'Primary Button', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'show_btn1' => 'yes' ),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'      => 'btn1_typography',
+				'selector'  => '{{WRAPPER}} .wss-seller-valuation-btn-primary',
+				'condition' => array( 'show_btn1' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn1_padding',
+			array(
+				'label'      => __( 'Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-primary' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+				'condition'  => array( 'show_btn1' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'btn1_radius',
+			array(
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 60 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-primary, {{WRAPPER}} .wss-seller-valuation-btn-primary::before' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+				'condition'  => array( 'show_btn1' => 'yes' ),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_btn1_style', array( 'condition' => array( 'show_btn1' => 'yes' ) ) );
+
+		$this->start_controls_tab(
+			'tab_btn1_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
+
 		$this->add_control(
 			'btn1_color',
 			array(
-				'label'     => __( 'Primary Button Color', 'website-section-supporter' ),
+				'label'     => __( 'Text / Icon Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .wss-seller-valuation-btn-primary' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-seller-valuation-btn-primary svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn1_bg',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-primary' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -499,7 +581,7 @@ class WSS_Seller_Valuation_Widget extends Widget_Base {
 		$this->add_control(
 			'btn1_border_color',
 			array(
-				'label'     => __( 'Primary Button Border', 'website-section-supporter' ),
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'{{WRAPPER}} .wss-seller-valuation-btn-primary' => 'border-color: {{VALUE}} !important;',
@@ -507,16 +589,219 @@ class WSS_Seller_Valuation_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'btn2_color',
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
 			array(
-				'label'     => __( 'Secondary Button Color', 'website-section-supporter' ),
+				'name'     => 'btn1_shadow',
+				'selector' => '{{WRAPPER}} .wss-seller-valuation-btn-primary',
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_btn1_hover',
+			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'btn1_hover_color',
+			array(
+				'label'     => __( 'Hover Text / Icon Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-seller-valuation-btn-secondary' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-seller-valuation-btn-primary:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-seller-valuation-btn-primary:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
 				),
 			)
 		);
+
+		$this->add_control(
+			'btn1_hover_bg',
+			array(
+				'label'     => __( 'Hover Background / Effect Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-primary::before, {{WRAPPER}} .wss-seller-valuation-btn-primary:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-line.wss-seller-valuation-btn-primary::after, {{WRAPPER}} .wss-btn-line.wss-seller-valuation-btn-primary:hover::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-seller-valuation-btn-primary' => '--wss-btn-hover-bg: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn1_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-primary:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'btn1_hover_shadow',
+				'selector' => '{{WRAPPER}} .wss-seller-valuation-btn-primary:hover',
+			)
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		/* ----- Secondary Button (Contact / Advisor) ----- */
+		$this->add_control(
+			'heading_style_btn2',
+			array(
+				'label'     => __( 'Secondary Button', 'website-section-supporter' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => array( 'show_btn2' => 'yes' ),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'      => 'btn2_typography',
+				'selector'  => '{{WRAPPER}} .wss-seller-valuation-btn-secondary',
+				'condition' => array( 'show_btn2' => 'yes' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'btn2_padding',
+			array(
+				'label'      => __( 'Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-secondary' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+				'condition'  => array( 'show_btn2' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
+			'btn2_radius',
+			array(
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array(
+					'px' => array( 'min' => 0, 'max' => 60 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-secondary, {{WRAPPER}} .wss-seller-valuation-btn-secondary::before' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+				'condition'  => array( 'show_btn2' => 'yes' ),
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_btn2_style', array( 'condition' => array( 'show_btn2' => 'yes' ) ) );
+
+		$this->start_controls_tab(
+			'tab_btn2_normal',
+			array( 'label' => __( 'Normal', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'btn2_color',
+			array(
+				'label'     => __( 'Text / Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-secondary' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-seller-valuation-btn-secondary svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-line.wss-seller-valuation-btn-secondary::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn2_bg',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-secondary' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn2_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-secondary' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'btn2_shadow',
+				'selector' => '{{WRAPPER}} .wss-seller-valuation-btn-secondary',
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_btn2_hover',
+			array( 'label' => __( 'Hover', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'btn2_hover_color',
+			array(
+				'label'     => __( 'Hover Text / Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-secondary:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-seller-valuation-btn-secondary:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn2_hover_bg',
+			array(
+				'label'     => __( 'Hover Background / Effect Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-secondary::before, {{WRAPPER}} .wss-seller-valuation-btn-secondary:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-line.wss-seller-valuation-btn-secondary::after, {{WRAPPER}} .wss-btn-line.wss-seller-valuation-btn-secondary:hover::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-seller-valuation-btn-secondary' => '--wss-btn-hover-bg: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'btn2_hover_border_color',
+			array(
+				'label'     => __( 'Hover Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-seller-valuation-btn-secondary:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'btn2_hover_shadow',
+				'selector' => '{{WRAPPER}} .wss-seller-valuation-btn-secondary:hover',
+			)
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 	}
@@ -546,6 +831,18 @@ class WSS_Seller_Valuation_Widget extends Widget_Base {
 
 		$btn1_url = ! empty( $s['btn1_link']['url'] ) ? esc_url( $s['btn1_link']['url'] ) : '/evaluation';
 		$btn2_url = ! empty( $s['btn2_link']['url'] ) ? esc_url( $s['btn2_link']['url'] ) : '/contact-us';
+
+		$btn1_target = ! empty( $s['btn1_link']['is_external'] ) ? ' target="_blank"' : '';
+		$btn1_rel = array();
+		if ( ! empty( $s['btn1_link']['is_external'] ) ) { $btn1_rel[] = 'noopener'; }
+		if ( ! empty( $s['btn1_link']['nofollow'] ) ) { $btn1_rel[] = 'nofollow'; }
+		$btn1_rel_attr = ! empty( $btn1_rel ) ? ' rel="' . esc_attr( implode( ' ', $btn1_rel ) ) . '"' : '';
+
+		$btn2_target = ! empty( $s['btn2_link']['is_external'] ) ? ' target="_blank"' : '';
+		$btn2_rel = array();
+		if ( ! empty( $s['btn2_link']['is_external'] ) ) { $btn2_rel[] = 'noopener'; }
+		if ( ! empty( $s['btn2_link']['nofollow'] ) ) { $btn2_rel[] = 'nofollow'; }
+		$btn2_rel_attr = ! empty( $btn2_rel ) ? ' rel="' . esc_attr( implode( ' ', $btn2_rel ) ) . '"' : '';
 		?>
 		<div class="wss-scope">
 			<section class="wss-seller-valuation-section wss-pad <?php echo esc_attr( $preset_class ); ?>" data-wss-widget="wss-seller-valuation">
@@ -592,14 +889,14 @@ class WSS_Seller_Valuation_Widget extends Widget_Base {
 							<?php if ( $show_btn1 || $show_btn2 ) : ?>
 								<div class="wss-seller-valuation-actions <?php echo $enable_reveal ? 'wss-reveal wss-r4' : ''; ?>">
 									<?php if ( $show_btn1 ) : ?>
-										<a class="<?php echo esc_attr( $btn1_style ); ?> wss-seller-valuation-btn-primary" href="<?php echo $btn1_url; ?>"<?php echo ! empty( $s['btn1_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
+										<a class="<?php echo esc_attr( $btn1_style ); ?> wss-seller-valuation-btn-primary" href="<?php echo $btn1_url; ?>"<?php echo $btn1_target . $btn1_rel_attr; ?>>
 											<?php echo esc_html( $btn1_text ); ?>
 											<?php echo $this->render_arrow_svg(); ?>
 										</a>
 									<?php endif; ?>
 
 									<?php if ( $show_btn2 ) : ?>
-										<a class="<?php echo esc_attr( $btn2_style ); ?> wss-seller-valuation-btn-secondary" href="<?php echo $btn2_url; ?>"<?php echo ! empty( $s['btn2_link']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>>
+										<a class="<?php echo esc_attr( $btn2_style ); ?> wss-seller-valuation-btn-secondary" href="<?php echo $btn2_url; ?>"<?php echo $btn2_target . $btn2_rel_attr; ?>>
 											<?php echo esc_html( $btn2_text ); ?>
 											<?php echo $this->render_arrow_svg(); ?>
 										</a>
