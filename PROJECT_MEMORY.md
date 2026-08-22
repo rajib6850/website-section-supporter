@@ -121,7 +121,8 @@ To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global 
 | `a482fe1` | **Footer Brand Logo Link Support** | Added `logo_link` URL control with external/nofollow attributes and wrapped footer brand logo in clickable `.wss-foot-brand-link`. |
 | `2e7b22c` | **Seller Valuation Button Controls & Styling** | Expanded `WSS_Seller_Valuation_Widget` with complete Elementor controls: gap, typography, padding, border radius, box shadow, normal/hover tabs, custom sweep bg, and external/nofollow attributes. |
 | `2a47eee` | **Home Evaluation Form & Button Controls** | Added complete Contact Form parity to `WSS_Home_Evaluation_Widget`: Normal/Hover/Focus/Selected tabs, border radius, padding, box shadow, label styling, placeholder styling, dynamic curtain sweep hover, and back button controls. |
-| *Current* | **Form Input Focus & Luxury Styling Match** | Unified Home Evaluation inputs with Contact Form: matched normal background (`#eceae4`), border radius (`5px`), focus background (`#ffffff`), focus border color (`#a8916f` / `var(--wss-taupe-deep)`), and soft luxury glow ring (`box-shadow: 0 0 0 3px rgba(168, 145, 111, 0.15)`). |
+| `f32fb6a` | **Form Input Focus & Luxury Styling Match** | Unified Home Evaluation inputs with Contact Form: matched normal background (`#eceae4`), border radius (`5px`), focus background (`#ffffff`), focus border color (`#a8916f` / `var(--wss-taupe-deep)`), and soft luxury glow ring (`box-shadow: 0 0 0 3px rgba(168, 145, 111, 0.15)`). |
+| *Current* | **Luxury Button Text Color Transition Fix** | Added `0.4s` cubic-bezier transition to `.wss-btn-item`, `.wss-btn-item span`, `.wss-btn-primary`, `.wss-btn-secondary`, and inner SVG icons so text & stroke colors transition smoothly on hover. |
 
 ---
 

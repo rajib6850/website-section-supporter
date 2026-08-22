@@ -257,9 +257,13 @@ class WSS_Button_Widget extends Widget_Base {
 		$this->add_control(
 			'pri_btn_color',
 			array(
-				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'label'     => __( 'Text / Icon Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .wss-btn-primary, {{WRAPPER}} .wss-btn-primary span' => 'color: {{VALUE}} !important;' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-btn-primary, {{WRAPPER}} .wss-btn-primary span' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-primary svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-line.wss-btn-primary::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
 			)
 		);
 		$this->add_control(
@@ -291,9 +295,12 @@ class WSS_Button_Widget extends Widget_Base {
 		$this->add_control(
 			'pri_btn_hover_color',
 			array(
-				'label'     => __( 'Hover Text Color', 'website-section-supporter' ),
+				'label'     => __( 'Hover Text / Icon Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .wss-btn-primary:hover, {{WRAPPER}} .wss-btn-primary:hover span' => 'color: {{VALUE}} !important;' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-btn-primary:hover, {{WRAPPER}} .wss-btn-primary:hover span' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-primary:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
 			)
 		);
 		$this->add_control(
@@ -302,7 +309,9 @@ class WSS_Button_Widget extends Widget_Base {
 				'label'     => __( 'Hover Background / Effect Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-btn-primary::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-primary::before, {{WRAPPER}} .wss-btn-primary:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-line.wss-btn-primary::after, {{WRAPPER}} .wss-btn-line.wss-btn-primary:hover::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-primary' => '--wss-btn-hover-bg: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -337,7 +346,7 @@ class WSS_Button_Widget extends Widget_Base {
 				'label'     => __( 'Border Radius', 'website-section-supporter' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
-				'selectors' => array( '{{WRAPPER}} .wss-btn-secondary' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
+				'selectors' => array( '{{WRAPPER}} .wss-btn-secondary, {{WRAPPER}} .wss-btn-secondary::before' => 'border-radius: {{SIZE}}{{UNIT}} !important;' ),
 			)
 		);
 		$this->add_responsive_control(
@@ -359,9 +368,13 @@ class WSS_Button_Widget extends Widget_Base {
 		$this->add_control(
 			'sec_btn_color',
 			array(
-				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'label'     => __( 'Text / Icon Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .wss-btn-secondary, {{WRAPPER}} .wss-btn-secondary span' => 'color: {{VALUE}} !important;' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-btn-secondary, {{WRAPPER}} .wss-btn-secondary span' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-secondary svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-line.wss-btn-secondary::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
 			)
 		);
 		$this->add_control(
@@ -393,9 +406,12 @@ class WSS_Button_Widget extends Widget_Base {
 		$this->add_control(
 			'sec_btn_hover_color',
 			array(
-				'label'     => __( 'Hover Text Color', 'website-section-supporter' ),
+				'label'     => __( 'Hover Text / Icon Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .wss-btn-secondary:hover, {{WRAPPER}} .wss-btn-secondary:hover span' => 'color: {{VALUE}} !important;' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-btn-secondary:hover, {{WRAPPER}} .wss-btn-secondary:hover span' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-secondary:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+				),
 			)
 		);
 		$this->add_control(
@@ -404,7 +420,9 @@ class WSS_Button_Widget extends Widget_Base {
 				'label'     => __( 'Hover Background / Effect Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-btn-secondary::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-secondary::before, {{WRAPPER}} .wss-btn-secondary:hover::before' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-line.wss-btn-secondary::after, {{WRAPPER}} .wss-btn-line.wss-btn-secondary:hover::after' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-btn-secondary' => '--wss-btn-hover-bg: {{VALUE}} !important;',
 				),
 			)
 		);

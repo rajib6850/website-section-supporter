@@ -4403,8 +4403,19 @@ body.elementor-editor-active .wss-mask > span {
   justify-content: center;
 }
 
-.wss-btn-item {
+.wss-btn-item,
+.wss-btn-primary,
+.wss-btn-secondary {
   text-decoration: none;
+  transition: color 0.4s cubic-bezier(0.16, 0.84, 0.44, 1), border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 0.84, 0.44, 1), box-shadow 0.4s ease, background 0.4s ease;
+}
+
+.wss-btn-item span,
+.wss-btn-primary span,
+.wss-btn-secondary span {
+  display: inline-block;
+  color: inherit;
+  transition: color 0.4s cubic-bezier(0.16, 0.84, 0.44, 1), transform 0.4s ease;
 }
 
 /* Solid Button Style */
@@ -4426,7 +4437,7 @@ body.elementor-editor-active .wss-mask > span {
   z-index: 1;
   text-decoration: none;
   cursor: pointer;
-  transition: color .4s ease, border-color .4s ease, transform .4s cubic-bezier(.16, .84, .44, 1), box-shadow .4s ease, background .4s ease;
+  transition: color 0.4s cubic-bezier(0.16, 0.84, 0.44, 1), border-color .4s ease, transform .4s cubic-bezier(.16, .84, .44, 1), box-shadow .4s ease, background .4s ease;
 }
 
 .wss-btn-solid::before {
@@ -4476,7 +4487,7 @@ body.elementor-editor-active .wss-mask > span {
   z-index: 1;
   text-decoration: none;
   cursor: pointer;
-  transition: color .4s ease, border-color .4s ease, transform .4s cubic-bezier(.16, .84, .44, 1), box-shadow .4s ease, background .4s ease;
+  transition: color 0.4s cubic-bezier(0.16, 0.84, 0.44, 1), border-color .4s ease, transform .4s cubic-bezier(.16, .84, .44, 1), box-shadow .4s ease, background .4s ease;
 }
 
 .wss-btn-glass::before {
@@ -4505,21 +4516,27 @@ body.elementor-editor-active .wss-mask > span {
 }
 
 /* Icon Animations inside buttons */
-.wss-btn-item svg {
+.wss-btn-item svg,
+.wss-btn-primary svg,
+.wss-btn-secondary svg {
   width: 14px;
   height: 14px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.5;
-  transition: transform .4s cubic-bezier(.16, .84, .44, 1);
+  transition: transform .4s cubic-bezier(.16, .84, .44, 1), stroke 0.4s cubic-bezier(0.16, 0.84, 0.44, 1), fill .4s ease, color 0.4s cubic-bezier(0.16, 0.84, 0.44, 1);
   flex-shrink: 0;
 }
 
-.wss-btn-item:hover svg.wss-icon-after {
+.wss-btn-item:hover svg.wss-icon-after,
+.wss-btn-primary:hover svg.wss-icon-after,
+.wss-btn-secondary:hover svg.wss-icon-after {
   transform: translateX(5px);
 }
 
-.wss-btn-item:hover svg.wss-icon-before {
+.wss-btn-item:hover svg.wss-icon-before,
+.wss-btn-primary:hover svg.wss-icon-before,
+.wss-btn-secondary:hover svg.wss-icon-before {
   transform: translateX(-3px);
 }
 
