@@ -127,7 +127,8 @@ To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global 
 | `82ce01e` | **Luxury Button Text Color Transition Fix** | Added `0.4s` cubic-bezier transition to `.wss-btn-item`, `.wss-btn-item span`, `.wss-btn-primary`, `.wss-btn-secondary`, and inner SVG icons so text & stroke colors transition smoothly on hover. |
 | `f6db737` | **Button SVG Icon Stroke & Color Transition Polish** | Added universal `stroke 0.4s` and `color 0.4s` hardware-accelerated transitions to all button presets (`.wss-btn-pill`, `.wss-btn-line`, `.wss-btn-solid`, `.wss-btn-glass`) and their nested SVG paths/polylines (`svg *`), ensuring seamless, silky icon color transitions on hover. |
 | `f1c96d8` | **Luxury Blog Archive Widget** | Created `WSS_Blog_Archive_Widget` (`wss_blog_archive`) matching `WSS_Blog_Widget` with auto-detected category/archive titles, interactive category filter tabs, custom or archive pagination queries, and full luxury styling controls. |
-| *Current* | **Blog Archive Category Filter Text Visibility Fix** | Wrapped filter button labels in `<span>`, applied `.wss-scope a.wss-blog-filter-btn` and `!important` text color rules to fix black-on-black text contrast on active/hover filter pills, and added category auto-collection for custom repeater mode. |
+| `0ea5117` | **Blog Archive Category Filter Text Visibility Fix** | Wrapped filter button labels in `<span>`, applied `.wss-scope a.wss-blog-filter-btn` and `!important` text color rules to fix black-on-black text contrast on active/hover filter pills, and added category auto-collection for custom repeater mode. |
+| *Current* | **Header Transparent Condition Fix on Blog Posts Page** | Corrected page detection in `WSS_Header_Widget` so `is_front_page()` and `is_home()` (WP Settings > Reading > Posts page) are evaluated independently. Previously, `is_home()` was conflated into `$is_front`, causing the blog posts page to falsely match the front page ID rule. |
 
 ---
 

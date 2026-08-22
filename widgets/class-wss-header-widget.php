@@ -1628,32 +1628,31 @@ class WSS_Header_Widget extends Widget_Base {
 
 				$is_match = false;
 
-				// Determine current visited/queried post ID
-				$queried_id = get_queried_object_id();
-				$the_id     = function_exists( 'get_the_ID' ) ? get_the_ID() : 0;
-				$current_id = $queried_id ? (string) $queried_id : (string) $the_id;
+				$front_id   = (string) get_option( 'page_on_front' );
+				$blog_id    = (string) get_option( 'page_for_posts' );
+				$queried_id = (string) get_queried_object_id();
 
-				// 1. Check front page / home page
-				$is_front = is_front_page() || ( is_home() && ! is_paged() );
-				$front_id = (string) get_option( 'page_on_front' );
-				$blog_id  = (string) get_option( 'page_for_posts' );
-
-				if ( $is_front && ( in_array( 'front_page', $selected_pages, true ) || ( $front_id && in_array( $front_id, $selected_pages, true ) ) ) ) {
-					$is_match = true;
+				// 1. Check Front / Home Page (strict is_front_page)
+				if ( is_front_page() ) {
+					if ( in_array( 'front_page', $selected_pages, true ) || ( ! empty( $front_id ) && in_array( $front_id, $selected_pages, true ) ) || ( empty( $front_id ) && ! empty( $queried_id ) && in_array( $queried_id, $selected_pages, true ) ) ) {
+						$is_match = true;
+					}
 				}
-
-				// 2. Check blog posts page
-				if ( is_home() && ( in_array( 'blog_page', $selected_pages, true ) || ( $blog_id && in_array( $blog_id, $selected_pages, true ) ) ) ) {
-					$is_match = true;
+				// 2. Check Blog / Posts Index Page (Settings > Reading > Posts page, or is_home)
+				elseif ( is_home() ) {
+					if ( in_array( 'blog_page', $selected_pages, true ) || ( ! empty( $blog_id ) && in_array( $blog_id, $selected_pages, true ) ) || ( ! empty( $queried_id ) && in_array( $queried_id, $selected_pages, true ) ) ) {
+						$is_match = true;
+					}
 				}
-
-				// 3. Check current queried object ID (covers Pages, Posts, CPTs, HFE headers)
-				if ( ! empty( $current_id ) && in_array( $current_id, $selected_pages, true ) ) {
-					$is_match = true;
+				// 3. Check Singular Post, Page, or Custom Post Type
+				elseif ( is_singular() ) {
+					$the_id = (string) ( function_exists( 'get_the_ID' ) ? get_the_ID() : 0 );
+					if ( ( ! empty( $queried_id ) && in_array( $queried_id, $selected_pages, true ) ) || ( ! empty( $the_id ) && in_array( $the_id, $selected_pages, true ) ) ) {
+						$is_match = true;
+					}
 				}
-
-				// 4. Fallback check for standard get_the_ID()
-				if ( ! empty( $the_id ) && in_array( (string) $the_id, $selected_pages, true ) ) {
+				// 4. Any other page with a valid queried object ID (Taxonomies, Custom Archives)
+				elseif ( ! empty( $queried_id ) && in_array( $queried_id, $selected_pages, true ) ) {
 					$is_match = true;
 				}
 
