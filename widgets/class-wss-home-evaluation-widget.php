@@ -933,6 +933,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Focus / Hover Border Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
+				'default'   => '#a8916f',
 				'selectors' => array(
 					'{{WRAPPER}} .wss-home-eval-input:focus, {{WRAPPER}} input.wss-home-eval-input:focus, {{WRAPPER}} select.wss-home-eval-input:focus, {{WRAPPER}} textarea.wss-home-eval-input:focus, {{WRAPPER}} .wss-home-eval-amenity-box:hover' => 'border-color: {{VALUE}} !important;',
 				),
@@ -999,7 +1000,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
-				'default'    => array( 'size' => 3, 'unit' => 'px' ),
+				'default'    => array( 'size' => 5, 'unit' => 'px' ),
 				'selectors'  => array(
 					'{{WRAPPER}} .wss-home-eval-input, {{WRAPPER}} input.wss-home-eval-input, {{WRAPPER}} select.wss-home-eval-input, {{WRAPPER}} textarea.wss-home-eval-input, {{WRAPPER}} .wss-home-eval-amenity-box' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
 				),

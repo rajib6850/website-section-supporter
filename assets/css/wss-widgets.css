@@ -10317,23 +10317,39 @@ button.wss-buyer-guide-submit-btn:hover svg {
   display: block;
 }
 
-/* Form Inputs (Pure Luxury & No Elementor Pink Bleed) */
+/* Form Inputs (Pure Luxury & Matching Contact Form Design) */
 .wss-home-eval-input,
 input.wss-home-eval-input,
 select.wss-home-eval-input,
 textarea.wss-home-eval-input {
   width: 100% !important;
-  padding: 16px 20px !important;
-  background: #faf9f7 !important;
-  border: 1px solid #ded9d0 !important;
-  border-radius: 3px !important;
+  padding: 12px 20px !important;
+  background: #eceae4 !important;
+  border: 1px solid transparent !important;
+  border-radius: 5px !important;
   font-family: var(--wss-font-text) !important;
-  font-size: 14.5px !important;
-  color: #0d0d0d !important;
+  font-weight: var(--wss-weight-text, 400) !important;
+  font-size: var(--wss-size-text, 14px) !important;
+  line-height: 1.4 !important;
+  color: var(--wss-ink, #1a1812) !important;
   outline: none !important;
   box-shadow: none !important;
-  transition: all 0.25s ease !important;
+  transition: background-color 0.3s ease, background 0.3s ease, border-color 0.3s ease, border 0.3s ease, box-shadow 0.3s ease, color 0.3s ease !important;
   box-sizing: border-box !important;
+}
+
+input.wss-home-eval-input,
+select.wss-home-eval-input {
+  height: 46px !important;
+  min-height: 46px !important;
+  border-radius: 5px !important;
+}
+
+.wss-home-eval-input::placeholder,
+input.wss-home-eval-input::placeholder,
+textarea.wss-home-eval-input::placeholder {
+  color: #9c978e !important;
+  font-weight: 300 !important;
 }
 
 .wss-home-eval--dark .wss-home-eval-input,
@@ -10341,8 +10357,14 @@ textarea.wss-home-eval-input {
 .wss-home-eval--dark select.wss-home-eval-input,
 .wss-home-eval--dark textarea.wss-home-eval-input {
   background: #171717 !important;
-  border-color: rgba(255, 255, 255, 0.14) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
   color: #ffffff !important;
+}
+
+.wss-home-eval--dark .wss-home-eval-input::placeholder,
+.wss-home-eval--dark input.wss-home-eval-input::placeholder,
+.wss-home-eval--dark textarea.wss-home-eval-input::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .wss-home-eval-input:focus,
@@ -10350,18 +10372,20 @@ input.wss-home-eval-input:focus,
 select.wss-home-eval-input:focus,
 textarea.wss-home-eval-input:focus {
   background: #ffffff !important;
-  border-color: #0d0d0d !important;
-  box-shadow: 0 0 0 1px #0d0d0d, 0 6px 18px rgba(0, 0, 0, 0.05) !important;
-  color: #0d0d0d !important;
+  background-color: #ffffff !important;
+  border-color: var(--wss-taupe-deep, #a8916f) !important;
+  box-shadow: 0 0 0 3px rgba(168, 145, 111, 0.15) !important;
+  color: var(--wss-ink, #1a1812) !important;
 }
 
 .wss-home-eval--dark .wss-home-eval-input:focus,
 .wss-home-eval--dark input.wss-home-eval-input:focus,
 .wss-home-eval--dark select.wss-home-eval-input:focus,
 .wss-home-eval--dark textarea.wss-home-eval-input:focus {
-  background: #1d1d1d !important;
-  border-color: #ffffff !important;
-  box-shadow: 0 0 0 1px #ffffff, 0 6px 18px rgba(255, 255, 255, 0.08) !important;
+  background: #1c1b18 !important;
+  background-color: #1c1b18 !important;
+  border-color: var(--wss-taupe-light, #c5ab80) !important;
+  box-shadow: 0 0 0 3px rgba(197, 171, 128, 0.2) !important;
   color: #ffffff !important;
 }
 
@@ -10380,15 +10404,16 @@ textarea.wss-home-eval-input:focus {
 .wss-home-eval-select {
   appearance: none;
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d0d0d' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231a1812' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
   background-repeat: no-repeat !important;
-  background-position: right 18px center !important;
-  background-size: 14px !important;
+  background-position: right 20px center !important;
+  padding-right: 44px !important;
   cursor: pointer !important;
 }
 
 .wss-home-eval--dark .wss-home-eval-select {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
 }
 
 /* Luxury Interactive Amenity Checkbox Cards */
@@ -10405,10 +10430,10 @@ textarea.wss-home-eval-input:focus {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #faf9f7 !important;
-  border: 1px solid #ded9d0 !important;
+  background: #eceae4 !important;
+  border: 1px solid transparent !important;
   padding: 14px 16px;
-  border-radius: 3px;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
@@ -10420,16 +10445,16 @@ textarea.wss-home-eval-input:focus {
 }
 
 .wss-home-eval-amenity-box:hover {
-  border-color: #0d0d0d !important;
+  border-color: var(--wss-taupe-deep, #a8916f) !important;
   background: #ffffff !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 3px rgba(168, 145, 111, 0.12), 0 6px 18px rgba(0, 0, 0, 0.05);
 }
 
 .wss-home-eval--dark .wss-home-eval-amenity-box:hover {
-  border-color: #ffffff !important;
+  border-color: var(--wss-taupe-light, #c5ab80) !important;
   background: #202020 !important;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 3px rgba(197, 171, 128, 0.18), 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 
 /* Hide native inputs */

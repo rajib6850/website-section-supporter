@@ -120,8 +120,8 @@ To prevent WordPress or Elementor theme defaults (e.g. pink `#e2498a` or global 
 | `cb9d2fc` | **Popup Menu Logo Height Fix** | Removed hardcoded CSS height 28px on `#wss-menu .wss-menu-logo img` and updated Elementor selectors to directly drive live responsive height & max-height. |
 | `a482fe1` | **Footer Brand Logo Link Support** | Added `logo_link` URL control with external/nofollow attributes and wrapped footer brand logo in clickable `.wss-foot-brand-link`. |
 | `2e7b22c` | **Seller Valuation Button Controls & Styling** | Expanded `WSS_Seller_Valuation_Widget` with complete Elementor controls: gap, typography, padding, border radius, box shadow, normal/hover tabs, custom sweep bg, and external/nofollow attributes. |
-| `8fc8f43` | **Buyer Overview Hero Button Controls & Radius** | Added border radius, padding, button row gap, box shadow, normal/hover styling tabs, and external/nofollow support for `WSS_Buyer_Hero_Widget`. |
-| *Current* | **Home Evaluation Form & Button Controls** | Added complete Contact Form parity to `WSS_Home_Evaluation_Widget`: Normal/Hover/Focus/Selected tabs, border radius, padding, box shadow, label styling, placeholder styling, dynamic curtain sweep hover, and back button controls. |
+| `2a47eee` | **Home Evaluation Form & Button Controls** | Added complete Contact Form parity to `WSS_Home_Evaluation_Widget`: Normal/Hover/Focus/Selected tabs, border radius, padding, box shadow, label styling, placeholder styling, dynamic curtain sweep hover, and back button controls. |
+| *Current* | **Form Input Focus & Luxury Styling Match** | Unified Home Evaluation inputs with Contact Form: matched normal background (`#eceae4`), border radius (`5px`), focus background (`#ffffff`), focus border color (`#a8916f` / `var(--wss-taupe-deep)`), and soft luxury glow ring (`box-shadow: 0 0 0 3px rgba(168, 145, 111, 0.15)`). |
 
 ---
 
