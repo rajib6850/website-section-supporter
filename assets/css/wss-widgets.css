@@ -159,16 +159,70 @@
   padding: 0;
 }
 
+/* =========================================================
+   Universal Heading Typography Architecture (H1 through H6)
+   1. Inherits directly from Elementor Site Settings > Theme Style > Typography (H1-H6).
+   2. If NOT configured in Theme Style, falls back to curated luxury default styles
+      via 0-specificity (:where), ensuring user/theme styles ALWAYS take precedence.
+   3. Allows widget-level Typography controls (Elementor panel) to override both.
+   ========================================================= */
+:where(.wss-scope h1, .wss-scope h2, .wss-scope h3, .wss-scope h4, .wss-scope h5, .wss-scope h6, .wss-scope .wss-disp, .wss-scope .wss-heading-default) {
+  font-family: var(--wss-font-primary, 'Syncopate', sans-serif);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+:where(.wss-scope h1) {
+  font-size: clamp(32px, 5vw, 64px);
+}
+
+:where(.wss-scope h2) {
+  font-size: clamp(24px, 3.8vw, 48px);
+}
+
+:where(.wss-scope h3) {
+  font-size: clamp(20px, 2.8vw, 36px);
+}
+
+:where(.wss-scope h4) {
+  font-size: clamp(18px, 2.2vw, 28px);
+}
+
+:where(.wss-scope h5) {
+  font-size: clamp(16px, 1.8vw, 22px);
+}
+
+:where(.wss-scope h6) {
+  font-size: clamp(14px, 1.4vw, 18px);
+}
+
 .wss-scope h1,
 .wss-scope h2,
 .wss-scope h3,
-.wss-disp {
-  font-family: var(--wss-font-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  font-weight: var(--wss-weight-primary);
-  line-height: 1.08;
-  margin: 0;
+.wss-scope h4,
+.wss-scope h5,
+.wss-scope h6 {
+  margin-top: 0;
+}
+
+.wss-scope .wss-mask,
+.wss-scope .wss-mask > span,
+.wss-mask,
+.wss-mask > span {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
 }
 
 .wss-eyebrow {
@@ -1459,9 +1513,6 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 }
 
 .wss-hero h1 {
-  font-family: var(--wss-font-primary);
-  font-weight: var(--wss-weight-primary);
-  font-size: clamp(38px, 7.5vw, 100px);
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
@@ -2058,8 +2109,9 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   margin: 0 auto 46px;
 }
 
-.wss-results-head h2 {
-  font-size: clamp(28px, 4vw, 50px);
+.wss-results-head h1,
+.wss-results-head h2,
+.wss-results-head h3 {
   margin-bottom: 22px;
   color: var(--wss-white, #ffffff);
 }
@@ -2865,8 +2917,9 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   text-align: left;
 }
 
-.wss-sales-head h2 {
-  font-size: clamp(28px, 4.4vw, 50px);
+.wss-sales-head h1,
+.wss-sales-head h2,
+.wss-sales-head h3 {
   margin-top: 14px;
 }
 
@@ -3081,7 +3134,6 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   }
 
   .wss-sales-head h2 {
-    font-size: clamp(24px, 6.5vw, 34px) !important;
     margin-top: 8px !important;
     line-height: 1.2 !important;
   }
@@ -3172,8 +3224,9 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   margin-bottom: 48px;
 }
 
-.wss-testi-top h2 {
-  font-size: clamp(28px, 4.4vw, 54px);
+.wss-testi-top h1,
+.wss-testi-top h2,
+.wss-testi-top h3 {
   margin-top: 8px;
 }
 
@@ -3417,7 +3470,6 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   }
 
   .wss-testi-top h2 {
-    font-size: clamp(24px, 6.5vw, 34px) !important;
     margin-top: 8px !important;
     line-height: 1.2 !important;
   }
@@ -3456,8 +3508,10 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   gap: 20px;
 }
 
-.wss-lg-head h2 {
-  font-size: clamp(26px, 4vw, 46px);
+.wss-lg-head h1,
+.wss-lg-head h2,
+.wss-lg-head h3 {
+  margin: 0;
 }
 
 .wss-lg-grid {
@@ -3571,9 +3625,9 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   color: var(--wss-white);
 }
 
-.wss-newsletter-inner h2 {
-  font-family: var(--wss-font-primary);
-  font-size: clamp(26px, 4.2vw, 52px);
+.wss-newsletter-inner h1,
+.wss-newsletter-inner h2,
+.wss-newsletter-inner h3 {
   margin-top: 14px;
 }
 
@@ -4353,10 +4407,6 @@ body.elementor-editor-active .wss-mask > span {
 }
 
 .wss-title-heading {
-  font-family: var(--wss-font-primary);
-  font-weight: var(--wss-weight-primary);
-  letter-spacing: .06em;
-  text-transform: uppercase;
   margin: 0 0 16px;
   line-height: 1.1;
   color: var(--wss-ink, #131210);
@@ -4870,13 +4920,11 @@ body.elementor-editor-active .wss-mask > span {
   max-width: 720px;
 }
 
-.wss-blog-head h2 {
-  font-family: var(--wss-font-primary);
-  font-size: clamp(28px, 4.4vw, 50px);
-  font-weight: var(--wss-weight-primary);
+.wss-blog-head h1,
+.wss-blog-head h2,
+.wss-blog-head h3 {
   margin-top: 14px;
   line-height: 1.1;
-  text-transform: uppercase;
 }
 
 .wss-blog-head-desc {
@@ -5320,12 +5368,8 @@ body.elementor-editor-active .wss-mask > span {
   z-index: -1;
 }
 
-.wss-contact-left h1 {
-  font-family: var(--wss-font-primary);
-  font-size: clamp(30px, 3.8vw, 52px);
-  font-weight: var(--wss-weight-primary, 400);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.wss-contact-left h1,
+.wss-contact-left h2 {
   color: var(--wss-ink, #1a1812);
   margin: 0 0 40px;
   line-height: 1.1;
@@ -5805,7 +5849,6 @@ body.elementor-editor-active .wss-mask > span {
   }
 
   .wss-contact-left h1 {
-    font-size: 38px;
     margin-bottom: 32px;
   }
 
@@ -5867,7 +5910,6 @@ body.elementor-editor-active .wss-mask > span {
   }
 
   .wss-contact-left h1 {
-    font-size: 28px;
     margin-bottom: 24px;
     letter-spacing: 0.06em;
   }
@@ -5981,7 +6023,7 @@ body.elementor-editor-active .wss-mask > span {
 
 @media (max-width: 420px) {
   .wss-contact-left h1 {
-    font-size: 26px;
+    margin-bottom: 20px;
   }
 
   .wss-contact-right {
@@ -6007,7 +6049,7 @@ body.elementor-editor-active .wss-mask > span {
 
 @media (max-width: 360px) {
   .wss-contact-left h1 {
-    font-size: 23px;
+    margin-bottom: 16px;
   }
 
   .wss-floating-card {
@@ -6568,13 +6610,9 @@ body.elementor-editor-active .wss-mask > span {
   margin-bottom: 12px;
 }
 
-.wss-team-top h2 {
-  font-family: var(--wss-font-primary);
-  font-size: clamp(28px, 4.4vw, 54px);
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  font-weight: var(--wss-weight-primary, 500);
-  line-height: 1.08;
+.wss-team-top h1,
+.wss-team-top h2,
+.wss-team-top h3 {
   margin-top: 8px;
   margin-bottom: 14px;
   color: var(--wss-ink, #1a1812);
@@ -7573,12 +7611,6 @@ body.wss-modal-open {
 }
 
 .wss-cta-heading {
-  font-family: var(--wss-font-primary);
-  font-size: clamp(26px, 4.2vw, 56px);
-  font-weight: var(--wss-weight-primary, 700);
-  text-transform: uppercase;
-  line-height: 1.1;
-  letter-spacing: 0.02em;
   margin: 0 0 20px;
   word-break: break-word;
 }
@@ -8198,12 +8230,6 @@ body.wss-modal-open {
 }
 
 .wss-buyer-roadmap-heading {
-  font-family: var(--wss-font-primary);
-  font-size: clamp(22px, 3.2vw, 42px);
-  font-weight: var(--wss-weight-primary, 700);
-  text-transform: uppercase;
-  line-height: 1.16;
-  letter-spacing: 0.02em;
   color: var(--wss-ink, #0d0d0d);
   margin: 0 0 18px;
   word-break: break-word;
@@ -9317,12 +9343,6 @@ button.wss-buyer-guide-submit-btn:hover svg {
 }
 
 .wss-seller-why-heading {
-  font-family: var(--wss-font-primary);
-  font-size: clamp(26px, 3.8vw, 48px);
-  font-weight: var(--wss-weight-primary, 700);
-  text-transform: uppercase;
-  line-height: 1.12;
-  letter-spacing: 0.02em;
   color: #ffffff;
   margin: 0;
   word-break: break-word;
@@ -10267,12 +10287,6 @@ button.wss-buyer-guide-submit-btn:hover svg {
 }
 
 .wss-home-eval-title {
-  font-family: var(--wss-font-primary);
-  font-size: clamp(28px, 3.8vw, 48px);
-  font-weight: var(--wss-weight-primary, 700);
-  text-transform: uppercase;
-  line-height: 1.14;
-  letter-spacing: 0.02em;
   color: inherit !important;
   margin: 0 0 20px;
 }

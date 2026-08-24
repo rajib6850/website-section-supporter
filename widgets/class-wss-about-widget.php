@@ -353,7 +353,7 @@ class WSS_About_Widget extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 80 ) ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-about-heading, {{WRAPPER}} .wss-about h2, {{WRAPPER}} .wss-about h1, {{WRAPPER}} .wss-about h3' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .wss-about-heading, {{WRAPPER}} .wss-about h1, {{WRAPPER}} .wss-about h2, {{WRAPPER}} .wss-about h3, {{WRAPPER}} .wss-about h4, {{WRAPPER}} .wss-about h5, {{WRAPPER}} .wss-about h6' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);
