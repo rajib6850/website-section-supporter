@@ -82,6 +82,7 @@ class WSS_Testimonial_Widget extends Widget_Base {
 		$this->end_controls_section();
 
 		/* ================= STYLE: HEADING ================= */
+		$this->start_controls_section( 'style_heading', array( 'label' => __( 'Eyebrow & Heading', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE ) );
 		$this->add_control( 'eyebrow_color', array( 'label' => __( 'Eyebrow Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-testi-top .wss-eyebrow' => 'color: {{VALUE}} !important;' ) ) );
 		$this->add_control( 'heading_color', array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-testi-top h1, {{WRAPPER}} .wss-testi-top h2, {{WRAPPER}} .wss-testi-top h3, {{WRAPPER}} .wss-testi-top h4, {{WRAPPER}} .wss-testi-top h5, {{WRAPPER}} .wss-testi-top h6, {{WRAPPER}} .wss-testi-top .wss-mask > span' => 'color: {{VALUE}} !important;' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-testi-top h1, {{WRAPPER}} .wss-testi-top h2, {{WRAPPER}} .wss-testi-top h3, {{WRAPPER}} .wss-testi-top h4, {{WRAPPER}} .wss-testi-top h5, {{WRAPPER}} .wss-testi-top h6, {{WRAPPER}} .wss-testi-top .wss-mask > span' ) );
