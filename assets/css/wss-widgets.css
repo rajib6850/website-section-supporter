@@ -28,6 +28,11 @@
   --wss-weight-text: var(--e-global-typography-text-font-weight, 400);
   --wss-weight-accent: var(--e-global-typography-accent-font-weight, 600);
 
+  --wss-size-primary: var(--e-global-typography-primary-font-size, inherit);
+  --wss-line-height-primary: var(--e-global-typography-primary-line-height, inherit);
+  --wss-letter-spacing-primary: var(--e-global-typography-primary-letter-spacing, inherit);
+  --wss-transform-primary: var(--e-global-typography-primary-text-transform, inherit);
+
   --wss-size-text: var(--e-global-typography-text-font-size, inherit);
   --wss-line-height-text: var(--e-global-typography-text-line-height, 1.85);
   --wss-letter-spacing-text: var(--e-global-typography-text-letter-spacing, 0.01em);
@@ -2133,12 +2138,12 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 
 .wss-about-heading,
 .wss-about h2 {
-  font-family: var(--wss-font-primary);
-  font-size: clamp(24px, 3.8vw, 48px);
-  font-weight: var(--wss-weight-primary);
-  line-height: 1.12;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  font-family: var(--wss-font-primary, inherit);
+  font-size: var(--wss-size-primary, inherit);
+  font-weight: var(--wss-weight-primary, inherit);
+  line-height: var(--wss-line-height-primary, 1.15);
+  letter-spacing: var(--wss-letter-spacing-primary, inherit);
+  text-transform: var(--wss-transform-primary, inherit);
   margin-top: 0;
   margin-bottom: 22px;
   overflow-wrap: break-word;
@@ -2152,6 +2157,12 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   display: block;
   max-width: 100%;
   overflow: hidden;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
 }
 
 .wss-about-heading .wss-mask > span,
@@ -2160,6 +2171,12 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   max-width: 100%;
   overflow-wrap: break-word;
   word-break: break-word;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
 }
 
 .wss-about p,
@@ -2340,7 +2357,6 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 
   .wss-about-heading,
   .wss-about h2 {
-    font-size: clamp(24px, 4.5vw, 36px);
     margin-bottom: 18px;
   }
 
@@ -2371,7 +2387,6 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 
   .wss-about-heading,
   .wss-about h2 {
-    font-size: clamp(20px, 5.8vw, 28px);
     line-height: 1.16;
     margin-bottom: 16px;
   }
@@ -2408,8 +2423,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
 
   .wss-about-heading,
   .wss-about h2 {
-    font-size: clamp(18px, 6.2vw, 23px);
-    letter-spacing: 0.01em;
+    margin-bottom: 14px;
   }
 
   .wss-about-actions {

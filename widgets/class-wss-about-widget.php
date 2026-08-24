@@ -335,7 +335,7 @@ class WSS_About_Widget extends Widget_Base {
 				'label'     => __( 'Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-about-heading, {{WRAPPER}} .wss-about-heading .wss-mask > span, {{WRAPPER}} .wss-about h1, {{WRAPPER}} .wss-about h2, {{WRAPPER}} .wss-about h3, {{WRAPPER}} .wss-about h4, {{WRAPPER}} .wss-about h5, {{WRAPPER}} .wss-about h6' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-about-heading, {{WRAPPER}} .wss-about-heading .wss-mask, {{WRAPPER}} .wss-about-heading .wss-mask > span, {{WRAPPER}} .wss-about h1, {{WRAPPER}} .wss-about h2, {{WRAPPER}} .wss-about h3, {{WRAPPER}} .wss-about h4, {{WRAPPER}} .wss-about h5, {{WRAPPER}} .wss-about h6' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -343,7 +343,7 @@ class WSS_About_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'heading_typography',
-				'selector' => '{{WRAPPER}} .wss-about-heading, {{WRAPPER}} .wss-about-heading .wss-mask > span, {{WRAPPER}} .wss-about h1, {{WRAPPER}} .wss-about h2, {{WRAPPER}} .wss-about h3, {{WRAPPER}} .wss-about h4, {{WRAPPER}} .wss-about h5, {{WRAPPER}} .wss-about h6',
+				'selector' => '{{WRAPPER}} .wss-about-heading, {{WRAPPER}} .wss-about-heading .wss-mask, {{WRAPPER}} .wss-about-heading .wss-mask > span, {{WRAPPER}} .wss-about h1, {{WRAPPER}} .wss-about h2, {{WRAPPER}} .wss-about h3, {{WRAPPER}} .wss-about h4, {{WRAPPER}} .wss-about h5, {{WRAPPER}} .wss-about h6',
 			)
 		);
 		$this->add_responsive_control(
