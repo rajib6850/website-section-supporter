@@ -20,8 +20,46 @@ class WSS_About_Widget extends Widget_Base {
 
 		/* ================= CONTENT ================= */
 		$this->start_controls_section( 'section_content', array( 'label' => __( 'Content', 'website-section-supporter' ) ) );
-		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'The Advisory', 'website-section-supporter' ) ) );
-		$this->add_control( 'heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'The Noir Standard', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'eyebrow',
+			array(
+				'label'       => __( 'Eyebrow', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'The Advisory', 'website-section-supporter' ),
+				'placeholder' => __( 'The Advisory', 'website-section-supporter' ),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+		$this->add_control(
+			'heading',
+			array(
+				'label'       => __( 'Heading', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 2,
+				'default'     => __( 'The Noir Standard', 'website-section-supporter' ),
+				'placeholder' => __( 'Enter heading text...', 'website-section-supporter' ),
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+		$this->add_control(
+			'heading_html_tag',
+			array(
+				'label'   => __( 'Heading HTML Tag', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h2',
+				'options' => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
+			)
+		);
 		$this->add_control(
 			'description',
 			array(
@@ -30,12 +68,21 @@ class WSS_About_Widget extends Widget_Base {
 				'default' => __( '<p>For more than two decades, this advisory has proven itself indispensable in the refined world of international luxury real estate. Trusted by celebrated clients, respected colleagues, and the communities served — every website we build carries that same standard of craft, courtesy of Digitize Growth.</p>', 'website-section-supporter' ),
 			)
 		);
+		$this->add_control(
+			'enable_reveal',
+			array(
+				'label'        => __( 'Enable Scroll Reveal Animation', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			)
+		);
 		$this->end_controls_section();
 
 		$this->start_controls_section( 'section_buttons', array( 'label' => __( 'Buttons', 'website-section-supporter' ) ) );
-		$this->add_control( 'btn1_text', array( 'label' => __( 'Button 1 Text', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Read More', 'website-section-supporter' ) ) );
+		$this->add_control( 'btn1_text', array( 'label' => __( 'Button 1 Text', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Read More', 'website-section-supporter' ), 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'btn1_link', array( 'label' => __( 'Button 1 Link', 'website-section-supporter' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => WSS_CREDIT_URL, 'is_external' => true ) ) );
-		$this->add_control( 'btn2_text', array( 'label' => __( 'Button 2 Text', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'View Exclusive Homes', 'website-section-supporter' ) ) );
+		$this->add_control( 'btn2_text', array( 'label' => __( 'Button 2 Text', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'View Exclusive Homes', 'website-section-supporter' ), 'dynamic' => array( 'active' => true ) ) );
 		$this->add_control( 'btn2_link', array( 'label' => __( 'Button 2 Link', 'website-section-supporter' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#sales' ) ) );
 		$this->end_controls_section();
 
@@ -249,19 +296,98 @@ class WSS_About_Widget extends Widget_Base {
 		/* ================= STYLE: TEXT ================= */
 		$this->start_controls_section(
 			'style_text',
-			array( 'label' => __( 'Text', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
+			array( 'label' => __( 'Text & Typography', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
 		$this->add_control( 'eyebrow_heading', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING ) );
-		$this->add_control( 'eyebrow_color', array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-about .wss-eyebrow' => 'color: {{VALUE}};' ) ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'eyebrow_typography', 'selector' => '{{WRAPPER}} .wss-about .wss-eyebrow' ) );
+		$this->add_control(
+			'eyebrow_color',
+			array(
+				'label'     => __( 'Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-about .wss-eyebrow' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'eyebrow_typography',
+				'selector' => '{{WRAPPER}} .wss-about .wss-eyebrow',
+			)
+		);
+		$this->add_responsive_control(
+			'eyebrow_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-about .wss-eyebrow' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
 
 		$this->add_control( 'heading_heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
-		$this->add_control( 'heading_color', array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-about h2' => 'color: {{VALUE}};' ) ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-about h2' ) );
+		$this->add_control(
+			'heading_color',
+			array(
+				'label'     => __( 'Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-about-heading, {{WRAPPER}} .wss-about-heading .wss-mask > span, {{WRAPPER}} .wss-about h1, {{WRAPPER}} .wss-about h2, {{WRAPPER}} .wss-about h3, {{WRAPPER}} .wss-about h4, {{WRAPPER}} .wss-about h5, {{WRAPPER}} .wss-about h6' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'heading_typography',
+				'selector' => '{{WRAPPER}} .wss-about-heading, {{WRAPPER}} .wss-about-heading .wss-mask > span, {{WRAPPER}} .wss-about h1, {{WRAPPER}} .wss-about h2, {{WRAPPER}} .wss-about h3, {{WRAPPER}} .wss-about h4, {{WRAPPER}} .wss-about h5, {{WRAPPER}} .wss-about h6',
+			)
+		);
+		$this->add_responsive_control(
+			'heading_spacing',
+			array(
+				'label'      => __( 'Bottom Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 80 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-about-heading, {{WRAPPER}} .wss-about h2, {{WRAPPER}} .wss-about h1, {{WRAPPER}} .wss-about h3' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
 
 		$this->add_control( 'desc_heading', array( 'label' => __( 'Description', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
-		$this->add_control( 'desc_color', array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-about-desc, {{WRAPPER}} .wss-about-desc p, {{WRAPPER}} .wss-about p' => 'color: {{VALUE}};' ) ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'desc_typography', 'selector' => '{{WRAPPER}} .wss-about-desc, {{WRAPPER}} .wss-about-desc p, {{WRAPPER}} .wss-about p' ) );
+		$this->add_control(
+			'desc_color',
+			array(
+				'label'     => __( 'Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-about-desc, {{WRAPPER}} .wss-about-desc p, {{WRAPPER}} .wss-about p' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'desc_typography',
+				'selector' => '{{WRAPPER}} .wss-about-desc, {{WRAPPER}} .wss-about-desc p, {{WRAPPER}} .wss-about p',
+			)
+		);
+		$this->add_responsive_control(
+			'desc_max_width',
+			array(
+				'label'      => __( 'Description Max Width', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'em', 'vw' ),
+				'range'      => array( 'px' => array( 'min' => 200, 'max' => 1200 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-about-desc, {{WRAPPER}} .wss-about-desc p, {{WRAPPER}} .wss-about p' => 'max-width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		/* ================= STYLE: BUTTONS ================= */
@@ -377,6 +503,8 @@ class WSS_About_Widget extends Widget_Base {
 	protected function render() {
 		$s = $this->get_settings_for_display();
 
+		$tag             = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2';
+		$enable_reveal   = ! empty( $s['enable_reveal'] ) && 'no' === $s['enable_reveal'] ? false : true;
 		$enable_parallax = ! empty( $s['enable_parallax'] ) && 'yes' === $s['enable_parallax'];
 		$parallax_mode   = ! empty( $s['parallax_mode'] ) ? $s['parallax_mode'] : 'scroll';
 		$parallax_speed  = isset( $s['parallax_speed']['size'] ) ? floatval( $s['parallax_speed']['size'] ) : 0.18;
@@ -388,12 +516,12 @@ class WSS_About_Widget extends Widget_Base {
 		<div class="wss-scope">
 			<section class="wss-pad">
 				<div class="wss-container wss-about">
-					<div class="wss-reveal">
+					<div class="<?php echo $enable_reveal ? 'wss-reveal' : ''; ?>">
 						<?php if ( ! empty( $s['eyebrow'] ) ) : ?>
 							<span class="wss-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 						<?php endif; ?>
 						<?php if ( ! empty( $s['heading'] ) ) : ?>
-							<h2><span class="wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span></h2>
+							<<?php echo esc_attr( $tag ); ?> class="wss-about-heading"><span class="wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span></<?php echo esc_attr( $tag ); ?>>
 						<?php endif; ?>
 						<?php if ( ! empty( $s['description'] ) ) : ?>
 							<div class="wss-about-desc">

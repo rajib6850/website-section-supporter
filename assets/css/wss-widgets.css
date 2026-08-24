@@ -2131,6 +2131,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   margin-bottom: 14px;
 }
 
+.wss-about-heading,
 .wss-about h2 {
   font-family: var(--wss-font-primary);
   font-size: clamp(24px, 3.8vw, 48px);
@@ -2138,6 +2139,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   line-height: 1.12;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+  margin-top: 0;
   margin-bottom: 22px;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -2145,12 +2147,14 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   box-sizing: border-box;
 }
 
+.wss-about-heading .wss-mask,
 .wss-about h2 .wss-mask {
   display: block;
   max-width: 100%;
   overflow: hidden;
 }
 
+.wss-about-heading .wss-mask > span,
 .wss-about h2 .wss-mask > span {
   display: block;
   max-width: 100%;
@@ -2334,6 +2338,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
     gap: 40px;
   }
 
+  .wss-about-heading,
   .wss-about h2 {
     font-size: clamp(24px, 4.5vw, 36px);
     margin-bottom: 18px;
@@ -2364,6 +2369,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
     gap: 32px;
   }
 
+  .wss-about-heading,
   .wss-about h2 {
     font-size: clamp(20px, 5.8vw, 28px);
     line-height: 1.16;
@@ -2400,6 +2406,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
     gap: 26px;
   }
 
+  .wss-about-heading,
   .wss-about h2 {
     font-size: clamp(18px, 6.2vw, 23px);
     letter-spacing: 0.01em;
