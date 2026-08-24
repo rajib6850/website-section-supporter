@@ -8962,20 +8962,6 @@ button.wss-buyer-guide-submit-btn:hover svg {
    RESPONSIVE BREAKPOINTS (1200px, 1024px, 768px, 480px)
    ========================================================= */
 @media (max-width: 1200px) {
-  .wss-buyer-hero-heading {
-    font-size: clamp(24px, 3.4vw, 44px);
-    line-height: 1.15;
-  }
-
-  .wss-buyer-roadmap-heading {
-    font-size: clamp(22px, 3vw, 38px);
-    line-height: 1.16;
-  }
-
-  .wss-buyer-guide-heading {
-    font-size: clamp(22px, 3vw, 38px);
-    line-height: 1.16;
-  }
 }
 
 @media (max-width: 1024px) {
@@ -8985,8 +8971,6 @@ button.wss-buyer-guide-submit-btn:hover svg {
   }
 
   .wss-buyer-hero-heading {
-    font-size: clamp(22px, 3.4vw, 36px);
-    line-height: 1.18;
     margin-bottom: 20px;
   }
 
@@ -8995,8 +8979,6 @@ button.wss-buyer-guide-submit-btn:hover svg {
   }
 
   .wss-buyer-roadmap-heading {
-    font-size: clamp(20px, 3.2vw, 34px);
-    line-height: 1.18;
     margin-bottom: 16px;
   }
 
@@ -9017,8 +8999,6 @@ button.wss-buyer-guide-submit-btn:hover svg {
   }
 
   .wss-buyer-guide-heading {
-    font-size: clamp(20px, 3.2vw, 34px);
-    line-height: 1.18;
     margin-bottom: 18px;
   }
 
@@ -9119,9 +9099,6 @@ button.wss-buyer-guide-submit-btn:hover svg {
   }
 
   .wss-buyer-roadmap-heading {
-    font-size: clamp(19px, 5.2vw, 28px);
-    line-height: 1.22;
-    letter-spacing: 0.01em;
     margin-bottom: 14px;
     word-break: break-word;
     overflow-wrap: break-word;
@@ -9178,9 +9155,6 @@ button.wss-buyer-guide-submit-btn:hover svg {
   }
 
   .wss-buyer-guide-heading {
-    font-size: clamp(19px, 5.2vw, 28px);
-    line-height: 1.22;
-    letter-spacing: 0.01em;
     margin-bottom: 16px;
     word-break: break-word;
     overflow-wrap: break-word;
@@ -9247,14 +9221,10 @@ button.wss-buyer-guide-submit-btn:hover svg {
   }
 
   .wss-buyer-hero-heading {
-    font-size: clamp(18px, 6vw, 24px) !important;
-    line-height: 1.24 !important;
     margin-bottom: 14px !important;
   }
 
   .wss-buyer-roadmap-heading {
-    font-size: clamp(17px, 5.6vw, 22px) !important;
-    line-height: 1.24 !important;
     margin-bottom: 12px !important;
   }
 
@@ -9264,8 +9234,6 @@ button.wss-buyer-guide-submit-btn:hover svg {
   }
 
   .wss-buyer-guide-heading {
-    font-size: clamp(17px, 5.6vw, 22px) !important;
-    line-height: 1.24 !important;
     margin-bottom: 14px !important;
   }
 
