@@ -204,37 +204,39 @@
 }
 
 /* =========================================================
-   Responsive Heading Auto-Scaling System (H1 - H6)
-   1. Automatically scales down desktop font sizes on Tablet (<991px),
-      Mobile (<768px), and Small Mobile (<480px) if mobile size is unset.
-   2. If user explicitly selects a mobile font size in Elementor (Widget
-      Settings or Site Settings), that explicit value takes full precedence.
+   Responsive Heading Auto-Scaling Fallback System (H1 - H6)
+   1. Wrapped in :where() with 0 specificity so that:
+      - Any Site Settings (Theme Style) Mobile/Tablet size WINS.
+      - Any Widget Typography Mobile/Tablet size WINS.
+      - Any Global Typography token WINS.
+   2. Automatically scales down font sizes on Tablet (<991px),
+      Mobile (<768px), and Small Mobile (<480px) as baseline fallback.
    ========================================================= */
 @media (max-width: 991px) {
-  .wss-scope h1 { font-size: clamp(28px, 4.5vw, 44px); }
-  .wss-scope h2 { font-size: clamp(22px, 3.6vw, 36px); }
-  .wss-scope h3 { font-size: clamp(18px, 2.6vw, 28px); }
-  .wss-scope h4 { font-size: clamp(16px, 2vw, 22px); }
-  .wss-scope h5 { font-size: clamp(15px, 1.6vw, 18px); }
-  .wss-scope h6 { font-size: clamp(13px, 1.2vw, 15px); }
+  :where(.wss-scope h1) { font-size: clamp(28px, 4.5vw, 44px); }
+  :where(.wss-scope h2) { font-size: clamp(22px, 3.6vw, 36px); }
+  :where(.wss-scope h3) { font-size: clamp(18px, 2.6vw, 28px); }
+  :where(.wss-scope h4) { font-size: clamp(16px, 2vw, 22px); }
+  :where(.wss-scope h5) { font-size: clamp(15px, 1.6vw, 18px); }
+  :where(.wss-scope h6) { font-size: clamp(13px, 1.2vw, 15px); }
 }
 
 @media (max-width: 768px) {
-  .wss-scope h1 { font-size: clamp(24px, 6.2vw, 34px); }
-  .wss-scope h2 { font-size: clamp(20px, 5.5vw, 28px); }
-  .wss-scope h3 { font-size: clamp(17px, 4.2vw, 22px); }
-  .wss-scope h4 { font-size: clamp(15px, 3.5vw, 19px); }
-  .wss-scope h5 { font-size: clamp(14px, 3vw, 17px); }
-  .wss-scope h6 { font-size: clamp(12px, 2.5vw, 14px); }
+  :where(.wss-scope h1) { font-size: clamp(24px, 6.2vw, 34px); }
+  :where(.wss-scope h2) { font-size: clamp(20px, 5.5vw, 28px); }
+  :where(.wss-scope h3) { font-size: clamp(17px, 4.2vw, 22px); }
+  :where(.wss-scope h4) { font-size: clamp(15px, 3.5vw, 19px); }
+  :where(.wss-scope h5) { font-size: clamp(14px, 3vw, 17px); }
+  :where(.wss-scope h6) { font-size: clamp(12px, 2.5vw, 14px); }
 }
 
 @media (max-width: 480px) {
-  .wss-scope h1 { font-size: clamp(22px, 6.8vw, 28px); }
-  .wss-scope h2 { font-size: clamp(18px, 6vw, 24px); }
-  .wss-scope h3 { font-size: clamp(16px, 4.8vw, 20px); }
-  .wss-scope h4 { font-size: clamp(14px, 4vw, 17px); }
-  .wss-scope h5 { font-size: clamp(13px, 3.5vw, 15px); }
-  .wss-scope h6 { font-size: clamp(11.5px, 3vw, 13px); }
+  :where(.wss-scope h1) { font-size: clamp(22px, 6.8vw, 28px); }
+  :where(.wss-scope h2) { font-size: clamp(18px, 6vw, 24px); }
+  :where(.wss-scope h3) { font-size: clamp(16px, 4.8vw, 20px); }
+  :where(.wss-scope h4) { font-size: clamp(14px, 4vw, 17px); }
+  :where(.wss-scope h5) { font-size: clamp(13px, 3.5vw, 15px); }
+  :where(.wss-scope h6) { font-size: clamp(11.5px, 3vw, 13px); }
 }
 
 .wss-scope .wss-mask,
