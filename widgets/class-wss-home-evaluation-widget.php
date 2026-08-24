@@ -10,6 +10,7 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Background;
+use Elementor\Icons_Manager;
 
 class WSS_Home_Evaluation_Widget extends Widget_Base {
 
@@ -102,6 +103,104 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
+			)
+		);
+
+		$this->end_controls_section();
+
+		/* ================= CONTENT: TRUST BADGES / PILLS ================= */
+		$this->start_controls_section(
+			'section_trust_badges',
+			array(
+				'label' => __( 'Trust Badges / Pills', 'website-section-supporter' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'show_trust_pills',
+			array(
+				'label'        => __( 'Show Trust Badges', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'website-section-supporter' ),
+				'label_off'    => __( 'Hide', 'website-section-supporter' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			)
+		);
+
+		$trust_repeater = new Repeater();
+
+		$trust_repeater->add_control(
+			'text',
+			array(
+				'label'       => __( 'Badge Text', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( '100% Confidential & Off-Market', 'website-section-supporter' ),
+				'placeholder' => __( 'Enter badge text...', 'website-section-supporter' ),
+				'label_block' => true,
+				'dynamic'     => array( 'active' => true ),
+			)
+		);
+
+		$trust_repeater->add_control(
+			'icon_type',
+			array(
+				'label'   => __( 'Icon', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'shield',
+				'options' => array(
+					'shield' => __( 'Shield / Confidential', 'website-section-supporter' ),
+					'check'  => __( 'Checkmark / Verified', 'website-section-supporter' ),
+					'clock'  => __( 'Clock / Delivery', 'website-section-supporter' ),
+					'lock'   => __( 'Lock / Secure', 'website-section-supporter' ),
+					'star'   => __( 'Star / Premium', 'website-section-supporter' ),
+					'award'  => __( 'Award / Certified', 'website-section-supporter' ),
+					'custom' => __( 'Custom Icon...', 'website-section-supporter' ),
+					'none'   => __( 'None (Text Only)', 'website-section-supporter' ),
+				),
+			)
+		);
+
+		$trust_repeater->add_control(
+			'custom_icon',
+			array(
+				'label'     => __( 'Choose Custom Icon', 'website-section-supporter' ),
+				'type'      => Controls_Manager::ICONS,
+				'default'   => array(
+					'value'   => 'fas fa-shield-alt',
+					'library' => 'fa-solid',
+				),
+				'condition' => array(
+					'icon_type' => 'custom',
+				),
+			)
+		);
+
+		$this->add_control(
+			'trust_pills',
+			array(
+				'label'       => __( 'Badges List', 'website-section-supporter' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $trust_repeater->get_controls(),
+				'default'     => array(
+					array(
+						'text'      => __( '100% Confidential & Off-Market', 'website-section-supporter' ),
+						'icon_type' => 'shield',
+					),
+					array(
+						'text'      => __( 'Human Econometric Analysis', 'website-section-supporter' ),
+						'icon_type' => 'check',
+					),
+					array(
+						'text'      => __( 'Complimentary 24-48h Delivery', 'website-section-supporter' ),
+						'icon_type' => 'clock',
+					),
+				),
+				'title_field' => '{{{ text }}}',
+				'condition'   => array(
+					'show_trust_pills' => 'yes',
+				),
 			)
 		);
 
@@ -786,6 +885,218 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 
 		$this->end_controls_section();
 
+		/* ================= STYLE: TRUST BADGES / PILLS ================= */
+		$this->start_controls_section(
+			'section_style_trust_badges',
+			array(
+				'label'     => __( 'Trust Badges / Pills', 'website-section-supporter' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array(
+					'show_trust_pills' => 'yes',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'trust_pills_align',
+			array(
+				'label'     => __( 'Alignment', 'website-section-supporter' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'flex-start' => array(
+						'title' => __( 'Left', 'website-section-supporter' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center'     => array(
+						'title' => __( 'Center', 'website-section-supporter' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'flex-end'   => array(
+						'title' => __( 'Right', 'website-section-supporter' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'default'   => 'center',
+				'selectors' => array(
+					'{{WRAPPER}} .wss-home-eval-trust-pills' => 'justify-content: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'trust_pill_typography',
+				'selector' => '{{WRAPPER}} .wss-trust-pill, {{WRAPPER}} .wss-trust-pill span',
+			)
+		);
+
+		$this->start_controls_tabs( 'tabs_trust_pill_style' );
+
+		$this->start_controls_tab(
+			'tab_trust_pill_normal',
+			array(
+				'label' => __( 'Normal', 'website-section-supporter' ),
+			)
+		);
+
+		$this->add_control(
+			'trust_pill_text_color',
+			array(
+				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-trust-pill, {{WRAPPER}} .wss-trust-pill span' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'trust_pill_icon_color',
+			array(
+				'label'     => __( 'Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-trust-pill svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-trust-pill i'   => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'trust_pill_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-trust-pill' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'trust_pill_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-trust-pill' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_trust_pill_hover',
+			array(
+				'label' => __( 'Hover', 'website-section-supporter' ),
+			)
+		);
+
+		$this->add_control(
+			'trust_pill_hover_text_color',
+			array(
+				'label'     => __( 'Text Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-trust-pill:hover, {{WRAPPER}} .wss-trust-pill:hover span' => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'trust_pill_hover_icon_color',
+			array(
+				'label'     => __( 'Icon Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-trust-pill:hover svg' => 'stroke: {{VALUE}} !important; color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-trust-pill:hover i'   => 'color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'trust_pill_hover_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-trust-pill:hover' => 'background: {{VALUE}} !important; background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'trust_pill_hover_border_color',
+			array(
+				'label'     => __( 'Border Color', 'website-section-supporter' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .wss-trust-pill:hover' => 'border-color: {{VALUE}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->add_responsive_control(
+			'trust_pill_padding',
+			array(
+				'label'      => __( 'Padding', 'website-section-supporter' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'separator'  => 'before',
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-trust-pill' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'trust_pill_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-trust-pill' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'trust_pills_gap',
+			array(
+				'label'      => __( 'Gap Between Badges', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-home-eval-trust-pills' => 'gap: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'trust_pills_margin_top',
+			array(
+				'label'      => __( 'Top Spacing', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 80 ) ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-home-eval-trust-pills' => 'margin-top: {{SIZE}}{{UNIT}} !important;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
 		/* ================= STYLE: INPUTS & FORM FIELDS ================= */
 		$this->start_controls_section(
 			'section_style_inputs',
@@ -1288,11 +1599,27 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 							</p>
 						<?php endif; ?>
 
-						<div class="wss-home-eval-trust-pills">
-							<span class="wss-trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <?php _e( '100% Confidential & Off-Market', 'website-section-supporter' ); ?></span>
-							<span class="wss-trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> <?php _e( 'Human Econometric Analysis', 'website-section-supporter' ); ?></span>
-							<span class="wss-trust-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <?php _e( 'Complimentary 24-48h Delivery', 'website-section-supporter' ); ?></span>
-						</div>
+						<?php if ( ! empty( $s['show_trust_pills'] ) && 'yes' === $s['show_trust_pills'] ) : ?>
+							<?php
+							$trust_pills = ! empty( $s['trust_pills'] ) && is_array( $s['trust_pills'] ) ? $s['trust_pills'] : array(
+								array( 'text' => __( '100% Confidential & Off-Market', 'website-section-supporter' ), 'icon_type' => 'shield' ),
+								array( 'text' => __( 'Human Econometric Analysis', 'website-section-supporter' ), 'icon_type' => 'check' ),
+								array( 'text' => __( 'Complimentary 24-48h Delivery', 'website-section-supporter' ), 'icon_type' => 'clock' ),
+							);
+							?>
+							<?php if ( ! empty( $trust_pills ) ) : ?>
+								<div class="wss-home-eval-trust-pills">
+									<?php foreach ( $trust_pills as $pill ) : ?>
+										<?php if ( ! empty( $pill['text'] ) ) : ?>
+											<span class="wss-trust-pill">
+												<?php echo $this->render_trust_pill_icon( $pill['icon_type'] ?? 'shield', $pill['custom_icon'] ?? array() ); ?>
+												<span><?php echo esc_html( $pill['text'] ); ?></span>
+											</span>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								</div>
+							<?php endif; ?>
+						<?php endif; ?>
 					</div>
 
 					<!-- Form Box Container -->
@@ -1536,5 +1863,32 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 			</section>
 		</div>
 		<?php
+	}
+
+	protected function render_trust_pill_icon( $icon_type, $custom_icon = array() ) {
+		switch ( $icon_type ) {
+			case 'shield':
+				return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
+			case 'check':
+				return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+			case 'clock':
+				return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+			case 'lock':
+				return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+			case 'star':
+				return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+			case 'award':
+				return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>';
+			case 'custom':
+				if ( ! empty( $custom_icon['value'] ) ) {
+					ob_start();
+					Icons_Manager::render_icon( $custom_icon, array( 'aria-hidden' => 'true' ) );
+					return ob_get_clean();
+				}
+				return '';
+			case 'none':
+			default:
+				return '';
+		}
 	}
 }

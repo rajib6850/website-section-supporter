@@ -10319,21 +10319,27 @@ button.wss-buyer-guide-submit-btn:hover svg {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--wss-ink, #222222) !important;
-  transition: all 0.3s ease;
+  color: var(--wss-ink, #222222);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .wss-home-eval--dark .wss-trust-pill {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.14);
-  color: #cccccc !important;
+  color: #cccccc;
 }
 
-.wss-trust-pill svg {
+.wss-trust-pill svg,
+.wss-trust-pill i {
   width: 13px;
   height: 13px;
+  font-size: 12px;
   stroke: currentColor;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  transition: stroke 0.3s ease, color 0.3s ease;
 }
 
 /* Form Box Container */
