@@ -101,6 +101,26 @@ class WSS_Blog_Archive_Widget extends Widget_Base {
 			)
 		);
 		$this->add_control(
+			'heading_html_tag',
+			array(
+				'label'     => __( 'Heading HTML Tag', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h2',
+				'options'   => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
+				'condition' => array( 'show_header' => 'yes' ),
+			)
+		);
+		$this->add_control(
 			'description',
 			array(
 				'label'       => __( 'Description / Subtitle', 'website-section-supporter' ),
@@ -503,8 +523,8 @@ class WSS_Blog_Archive_Widget extends Widget_Base {
 		$this->add_control( 'eyebrow_color', array( 'label' => __( 'Eyebrow Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-blog-head .wss-eyebrow' => 'color: {{VALUE}} !important;' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'eyebrow_typography', 'selector' => '{{WRAPPER}} .wss-blog-head .wss-eyebrow' ) );
 
-		$this->add_control( 'heading_color', array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'separator' => 'before', 'selectors' => array( '{{WRAPPER}} .wss-blog-head h2' => 'color: {{VALUE}} !important;' ) ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-blog-head h2' ) );
+		$this->add_control( 'heading_color', array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'separator' => 'before', 'selectors' => array( '{{WRAPPER}} .wss-blog-head h1, {{WRAPPER}} .wss-blog-head h2, {{WRAPPER}} .wss-blog-head h3, {{WRAPPER}} .wss-blog-head h4, {{WRAPPER}} .wss-blog-head h5, {{WRAPPER}} .wss-blog-head h6, {{WRAPPER}} .wss-blog-heading' => 'color: {{VALUE}} !important;' ) ) );
+		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-blog-head h1, {{WRAPPER}} .wss-blog-head h2, {{WRAPPER}} .wss-blog-head h3, {{WRAPPER}} .wss-blog-head h4, {{WRAPPER}} .wss-blog-head h5, {{WRAPPER}} .wss-blog-head h6, {{WRAPPER}} .wss-blog-heading' ) );
 
 		$this->add_control( 'desc_color', array( 'label' => __( 'Description Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'separator' => 'before', 'selectors' => array( '{{WRAPPER}} .wss-blog-head-desc' => 'color: {{VALUE}} !important;' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'desc_typography', 'selector' => '{{WRAPPER}} .wss-blog-head-desc' ) );
@@ -1279,12 +1299,15 @@ class WSS_Blog_Archive_Widget extends Widget_Base {
 									<span class="wss-eyebrow"><?php echo esc_html( $eyebrow_text ); ?></span>
 								<?php endif; ?>
 								<?php if ( ! empty( $heading_l1 ) || ! empty( $heading_l2 ) ) : ?>
-									<h2>
-										<span class="wss-mask"><span><?php echo esc_html( $heading_l1 ); ?></span></span>
-										<?php if ( ! empty( $heading_l2 ) ) : ?>
-											<br><span class="wss-mask wss-r2"><span><?php echo esc_html( $heading_l2 ); ?></span></span>
+									<?php $tag = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2'; ?>
+									<<?php echo esc_attr( $tag ); ?> class="wss-blog-heading">
+										<?php if ( ! empty( $heading_l1 ) ) : ?>
+											<span class="wss-mask"><span><?php echo esc_html( $heading_l1 ); ?></span></span>
 										<?php endif; ?>
-									</h2>
+										<?php if ( ! empty( $heading_l2 ) ) : ?>
+											<span class="wss-mask wss-r2"><span><?php echo esc_html( $heading_l2 ); ?></span></span>
+										<?php endif; ?>
+									</<?php echo esc_attr( $tag ); ?>>
 								<?php endif; ?>
 								<?php if ( ! empty( $desc_text ) ) : ?>
 									<p class="wss-blog-head-desc"><?php echo esc_html( $desc_text ); ?></p>
