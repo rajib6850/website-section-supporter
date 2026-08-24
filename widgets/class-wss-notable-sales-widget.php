@@ -52,6 +52,26 @@ class WSS_Notable_Sales_Widget extends Widget_Base {
 		);
 		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Our', 'website-section-supporter' ), 'condition' => array( 'show_heading' => 'yes' ) ) );
 		$this->add_control( 'heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Notable Sales', 'website-section-supporter' ), 'condition' => array( 'show_heading' => 'yes' ) ) );
+		$this->add_control(
+			'heading_html_tag',
+			array(
+				'label'     => __( 'Heading HTML Tag', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h2',
+				'options'   => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
+				'condition' => array( 'show_heading' => 'yes' ),
+			)
+		);
 		
 		$this->add_control(
 			'show_nav_arrows',
@@ -183,10 +203,10 @@ class WSS_Notable_Sales_Widget extends Widget_Base {
 			'style_heading',
 			array( 'label' => __( 'Heading', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
-		$this->add_control( 'eyebrow_color', array( 'label' => __( 'Eyebrow Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-sales-head .wss-eyebrow' => 'color: {{VALUE}};' ) ) );
+		$this->add_control( 'eyebrow_color', array( 'label' => __( 'Eyebrow Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-sales-head .wss-eyebrow' => 'color: {{VALUE}} !important;' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'eyebrow_typography', 'selector' => '{{WRAPPER}} .wss-sales-head .wss-eyebrow' ) );
-		$this->add_control( 'heading_color', array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .wss-sales-head h2' => 'color: {{VALUE}};' ) ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-sales-head h2' ) );
+		$this->add_control( 'heading_color', array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-sales-head h1, {{WRAPPER}} .wss-sales-head h2, {{WRAPPER}} .wss-sales-head h3, {{WRAPPER}} .wss-sales-head h4, {{WRAPPER}} .wss-sales-head h5, {{WRAPPER}} .wss-sales-head h6, {{WRAPPER}} .wss-sales-head .wss-mask > span' => 'color: {{VALUE}} !important;' ) ) );
+		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-sales-head h1, {{WRAPPER}} .wss-sales-head h2, {{WRAPPER}} .wss-sales-head h3, {{WRAPPER}} .wss-sales-head h4, {{WRAPPER}} .wss-sales-head h5, {{WRAPPER}} .wss-sales-head h6, {{WRAPPER}} .wss-sales-head .wss-mask > span' ) );
 		$this->end_controls_section();
 
 		/* ================= STYLE: SHORTCODE CONTAINER ================= */
@@ -463,7 +483,8 @@ class WSS_Notable_Sales_Widget extends Widget_Base {
 									<span class="wss-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 								<?php endif; ?>
 								<?php if ( ! empty( $s['heading'] ) ) : ?>
-									<h2><span class="wss-mask"><span><?php echo esc_html( $s['heading'] ); ?></span></span></h2>
+									<?php $tag = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2'; ?>
+									<<?php echo esc_attr( $tag ); ?>><span class="wss-mask"><span><?php echo esc_html( $s['heading'] ); ?></span></span></<?php echo esc_attr( $tag ); ?>>
 								<?php endif; ?>
 							</div>
 							<?php if ( 'custom' === $source_type && $show_nav ) : ?>

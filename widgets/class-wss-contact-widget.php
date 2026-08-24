@@ -36,6 +36,26 @@ class WSS_Contact_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'heading_html_tag',
+			array(
+				'label'   => __( 'Heading HTML Tag', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h1',
+				'options' => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
+			)
+		);
+
+		$this->add_control(
 			'show_watermark',
 			array(
 				'label'        => __( 'Show Watermark Monogram', 'website-section-supporter' ),
@@ -819,11 +839,11 @@ class WSS_Contact_Widget extends Widget_Base {
 		$this->add_control( 'heading_style_title', array( 'label' => __( 'Main Heading', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING ) );
 		$this->add_control(
 			'heading_color',
-			array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-contact-left h1, {{WRAPPER}} .wss-contact-left h1 span' => 'color: {{VALUE}} !important;' ) )
+			array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-contact-left h1, {{WRAPPER}} .wss-contact-left h2, {{WRAPPER}} .wss-contact-left h3, {{WRAPPER}} .wss-contact-left h4, {{WRAPPER}} .wss-contact-left h5, {{WRAPPER}} .wss-contact-left h6, {{WRAPPER}} .wss-contact-left .wss-mask > span' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-contact-left h1, {{WRAPPER}} .wss-contact-left h1 span' )
+			array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-contact-left h1, {{WRAPPER}} .wss-contact-left h2, {{WRAPPER}} .wss-contact-left h3, {{WRAPPER}} .wss-contact-left h4, {{WRAPPER}} .wss-contact-left h5, {{WRAPPER}} .wss-contact-left h6, {{WRAPPER}} .wss-contact-left .wss-mask > span' )
 		);
 
 		$this->add_control( 'agent_style_title', array( 'label' => __( 'Agent Info & Details', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
@@ -1367,11 +1387,12 @@ class WSS_Contact_Widget extends Widget_Base {
 					<?php endif; ?>
 
 					<?php if ( ! empty( $s['heading'] ) ) : ?>
-						<h1<?php echo $enable_reveal ? ' class="wss-reveal"' : ''; ?>>
+						<?php $tag = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h1'; ?>
+						<<?php echo esc_attr( $tag ); ?><?php echo $enable_reveal ? ' class="wss-reveal"' : ''; ?>>
 							<span class="<?php echo $enable_reveal ? 'wss-mask' : ''; ?>">
 								<span><?php echo esc_html( $s['heading'] ); ?></span>
 							</span>
-						</h1>
+						</<?php echo esc_attr( $tag ); ?>>
 					<?php endif; ?>
 
 					<!-- Contact Details Grid -->

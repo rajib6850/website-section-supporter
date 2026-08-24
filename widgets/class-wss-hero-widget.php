@@ -157,6 +157,25 @@ class WSS_Hero_Widget extends Widget_Base {
 		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Over $2 Billion in Career Sales', 'website-section-supporter' ) ) );
 		$this->add_control( 'heading_line1', array( 'label' => __( 'Heading — Line 1', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Global Luxury', 'website-section-supporter' ) ) );
 		$this->add_control( 'heading_line2', array( 'label' => __( 'Heading — Line 2 (smaller)', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Real Estate', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'heading_html_tag',
+			array(
+				'label'   => __( 'Heading HTML Tag', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h1',
+				'options' => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
+			)
+		);
 		$this->add_control( 'scroll_text', array( 'label' => __( 'Scroll Cue Text', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Scroll', 'website-section-supporter' ) ) );
 		$this->add_control( 'show_scroll_cue', array( 'label' => __( 'Show Scroll Cue', 'website-section-supporter' ), 'type' => Controls_Manager::SWITCHER, 'default' => 'yes' ) );
 		$this->end_controls_section();
@@ -1188,20 +1207,20 @@ class WSS_Hero_Widget extends Widget_Base {
 		$this->add_control( 'line1_heading', array( 'label' => __( 'Line 1', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'line1_color',
-			array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .wss-hero h1' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-hero-heading-wrap h1, {{WRAPPER}} .wss-hero-heading-wrap h2, {{WRAPPER}} .wss-hero-heading-wrap h3, {{WRAPPER}} .wss-hero-heading-wrap h4, {{WRAPPER}} .wss-hero-heading-wrap h5, {{WRAPPER}} .wss-hero-heading-wrap h6, {{WRAPPER}} .wss-hero-heading-wrap .wss-mask:first-child > span' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			array( 'name' => 'line1_typography', 'selector' => '{{WRAPPER}} .wss-hero h1' )
+			array( 'name' => 'line1_typography', 'selector' => '{{WRAPPER}} .wss-hero-heading-wrap h1, {{WRAPPER}} .wss-hero-heading-wrap h2, {{WRAPPER}} .wss-hero-heading-wrap h3, {{WRAPPER}} .wss-hero-heading-wrap h4, {{WRAPPER}} .wss-hero-heading-wrap h5, {{WRAPPER}} .wss-hero-heading-wrap h6, {{WRAPPER}} .wss-hero-heading-wrap .wss-mask:first-child > span' )
 		);
 		$this->add_control( 'line2_heading', array( 'label' => __( 'Line 2', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'line2_color',
-			array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-hero-line2' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-hero-line2, {{WRAPPER}} .wss-hero-line2 > span' => 'color: {{VALUE}} !important;' ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			array( 'name' => 'line2_typography', 'selector' => '{{WRAPPER}} .wss-hero-line2' )
+			array( 'name' => 'line2_typography', 'selector' => '{{WRAPPER}} .wss-hero-line2, {{WRAPPER}} .wss-hero-line2 > span' )
 		);
 		$this->add_responsive_control(
 			'heading_line_gap',
@@ -1322,10 +1341,11 @@ class WSS_Hero_Widget extends Widget_Base {
 						<div class="wss-hero-eyebrow wss-reveal"><?php echo esc_html( $s['eyebrow'] ); ?></div>
 					<?php endif; ?>
 					<div class="wss-hero-heading-wrap">
-						<h1 class="wss-reveal">
+						<?php $tag = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h1'; ?>
+						<<?php echo esc_attr( $tag ); ?> class="wss-reveal">
 							<span class="wss-mask"><span><?php echo esc_html( $s['heading_line1'] ?? '' ); ?></span></span>
 							<span class="wss-hero-line2 wss-mask wss-r2"><span><?php echo esc_html( $s['heading_line2'] ?? '' ); ?></span></span>
-						</h1>
+						</<?php echo esc_attr( $tag ); ?>>
 					</div>
 
 					<?php if ( 'yes' === ( $s['enable_search'] ?? 'yes' ) ) : ?>

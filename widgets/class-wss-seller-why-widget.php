@@ -98,8 +98,11 @@ class WSS_Seller_Why_Widget extends Widget_Base {
 					'h2'   => 'H2',
 					'h3'   => 'H3',
 					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
 					'div'  => 'div',
 					'span' => 'span',
+					'p'    => 'p',
 				),
 			)
 		);
@@ -431,7 +434,7 @@ class WSS_Seller_Why_Widget extends Widget_Base {
 				'label'     => __( 'Heading Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-seller-why-heading, {{WRAPPER}} .wss-seller-why-heading .wss-mask > span' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-seller-why-heading, {{WRAPPER}} .wss-seller-why-heading .wss-mask > span, {{WRAPPER}} .wss-seller-why-head h1, {{WRAPPER}} .wss-seller-why-head h2, {{WRAPPER}} .wss-seller-why-head h3, {{WRAPPER}} .wss-seller-why-head h4, {{WRAPPER}} .wss-seller-why-head h5, {{WRAPPER}} .wss-seller-why-head h6' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -440,7 +443,7 @@ class WSS_Seller_Why_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'heading_typography',
-				'selector' => '{{WRAPPER}} .wss-seller-why-heading, {{WRAPPER}} .wss-seller-why-heading .wss-mask > span',
+				'selector' => '{{WRAPPER}} .wss-seller-why-heading, {{WRAPPER}} .wss-seller-why-heading .wss-mask > span, {{WRAPPER}} .wss-seller-why-head h1, {{WRAPPER}} .wss-seller-why-head h2, {{WRAPPER}} .wss-seller-why-head h3, {{WRAPPER}} .wss-seller-why-head h4, {{WRAPPER}} .wss-seller-why-head h5, {{WRAPPER}} .wss-seller-why-head h6',
 			)
 		);
 

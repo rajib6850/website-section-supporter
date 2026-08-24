@@ -83,6 +83,27 @@ class WSS_Team_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'heading_html_tag',
+			array(
+				'label'     => __( 'Heading HTML Tag', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h2',
+				'options'   => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
+				'condition' => array( 'show_section_header' => 'yes' ),
+			)
+		);
+
+		$this->add_control(
 			'subtitle',
 			array(
 				'label'       => __( 'Subtitle / Description', 'website-section-supporter' ),
@@ -523,7 +544,7 @@ class WSS_Team_Widget extends Widget_Base {
 				'label'     => __( 'Heading Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-team-top h2' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-team-top h1, {{WRAPPER}} .wss-team-top h2, {{WRAPPER}} .wss-team-top h3, {{WRAPPER}} .wss-team-top h4, {{WRAPPER}} .wss-team-top h5, {{WRAPPER}} .wss-team-top h6, {{WRAPPER}} .wss-team-top .wss-mask > span' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -533,7 +554,7 @@ class WSS_Team_Widget extends Widget_Base {
 			array(
 				'name'     => 'heading_typography',
 				'label'    => __( 'Heading Typography', 'website-section-supporter' ),
-				'selector' => '{{WRAPPER}} .wss-team-top h2',
+				'selector' => '{{WRAPPER}} .wss-team-top h1, {{WRAPPER}} .wss-team-top h2, {{WRAPPER}} .wss-team-top h3, {{WRAPPER}} .wss-team-top h4, {{WRAPPER}} .wss-team-top h5, {{WRAPPER}} .wss-team-top h6, {{WRAPPER}} .wss-team-top .wss-mask > span',
 			)
 		);
 
@@ -1266,7 +1287,8 @@ class WSS_Team_Widget extends Widget_Base {
 								<span class="wss-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
 							<?php endif; ?>
 							<?php if ( ! empty( $s['heading'] ) ) : ?>
-								<h2><span class="wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span></h2>
+								<?php $tag = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2'; ?>
+								<<?php echo esc_attr( $tag ); ?>><span class="wss-mask"><span><?php echo nl2br( esc_html( $s['heading'] ) ); ?></span></span></<?php echo esc_attr( $tag ); ?>>
 							<?php endif; ?>
 							<?php if ( ! empty( $s['subtitle'] ) ) : ?>
 								<p class="wss-team-subtitle"><?php echo nl2br( esc_html( $s['subtitle'] ) ); ?></p>

@@ -75,8 +75,12 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 					'h1'   => 'H1',
 					'h2'   => 'H2',
 					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
 					'div'  => 'div',
 					'span' => 'span',
+					'p'    => 'p',
 				),
 			)
 		);
@@ -748,7 +752,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 				'label'     => __( 'Heading Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-home-eval-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .wss-home-eval-title, {{WRAPPER}} .wss-home-eval-title .wss-mask > span, {{WRAPPER}} .wss-home-eval-heading h1, {{WRAPPER}} .wss-home-eval-heading h2, {{WRAPPER}} .wss-home-eval-heading h3, {{WRAPPER}} .wss-home-eval-heading h4, {{WRAPPER}} .wss-home-eval-heading h5, {{WRAPPER}} .wss-home-eval-heading h6' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -757,7 +761,7 @@ class WSS_Home_Evaluation_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'heading_typography',
-				'selector' => '{{WRAPPER}} .wss-home-eval-title',
+				'selector' => '{{WRAPPER}} .wss-home-eval-title, {{WRAPPER}} .wss-home-eval-title .wss-mask > span, {{WRAPPER}} .wss-home-eval-heading h1, {{WRAPPER}} .wss-home-eval-heading h2, {{WRAPPER}} .wss-home-eval-heading h3, {{WRAPPER}} .wss-home-eval-heading h4, {{WRAPPER}} .wss-home-eval-heading h5, {{WRAPPER}} .wss-home-eval-heading h6',
 			)
 		);
 

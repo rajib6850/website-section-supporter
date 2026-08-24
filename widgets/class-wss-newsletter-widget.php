@@ -27,8 +27,26 @@ class WSS_Newsletter_Widget extends Widget_Base {
 				'separator' => 'none',
 			)
 		);
-		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Newsletter', 'website-section-supporter' ) ) );
 		$this->add_control( 'heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::TEXTAREA, 'default' => __( 'Learn More About Our Luxury Listings & Services', 'website-section-supporter' ), 'rows' => 3 ) );
+		$this->add_control(
+			'heading_html_tag',
+			array(
+				'label'   => __( 'Heading HTML Tag', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h2',
+				'options' => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		/* ================= PARALLAX & MOTION CONTROLS ================= */
@@ -392,10 +410,10 @@ class WSS_Newsletter_Widget extends Widget_Base {
 			'style_heading',
 			array( 'label' => __( 'Eyebrow & Heading', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
-		$this->add_control( 'eyebrow_color', array( 'label' => __( 'Eyebrow Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-newsletter-inner .wss-eyebrow' => 'color: {{VALUE}};' ) ) );
+		$this->add_control( 'eyebrow_color', array( 'label' => __( 'Eyebrow Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-newsletter-inner .wss-eyebrow' => 'color: {{VALUE}} !important;' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'eyebrow_typography', 'selector' => '{{WRAPPER}} .wss-newsletter-inner .wss-eyebrow' ) );
-		$this->add_control( 'heading_color', array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .wss-newsletter-inner h2' => 'color: {{VALUE}};' ) ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-newsletter-inner h2' ) );
+		$this->add_control( 'heading_color', array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-newsletter-inner h1, {{WRAPPER}} .wss-newsletter-inner h2, {{WRAPPER}} .wss-newsletter-inner h3, {{WRAPPER}} .wss-newsletter-inner h4, {{WRAPPER}} .wss-newsletter-inner h5, {{WRAPPER}} .wss-newsletter-inner h6, {{WRAPPER}} .wss-newsletter-inner .wss-mask > span' => 'color: {{VALUE}} !important;' ) ) );
+		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-newsletter-inner h1, {{WRAPPER}} .wss-newsletter-inner h2, {{WRAPPER}} .wss-newsletter-inner h3, {{WRAPPER}} .wss-newsletter-inner h4, {{WRAPPER}} .wss-newsletter-inner h5, {{WRAPPER}} .wss-newsletter-inner h6, {{WRAPPER}} .wss-newsletter-inner .wss-mask > span' ) );
 		$this->end_controls_section();
 
 		/* ================= STYLE: FORM ================= */
@@ -517,7 +535,8 @@ class WSS_Newsletter_Widget extends Widget_Base {
 					<div class="wss-newsletter-inner">
 						<div class="wss-reveal">
 							<span class="wss-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
-							<h2><span class="wss-mask"><span><?php echo esc_html( $s['heading'] ); ?></span></span></h2>
+							<?php $tag = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2'; ?>
+							<<?php echo esc_attr( $tag ); ?>><span class="wss-mask"><span><?php echo esc_html( $s['heading'] ); ?></span></span></<?php echo esc_attr( $tag ); ?>>
 						</div>
 						<?php if ( 'shortcode' === $s['form_type'] && ! empty( $s['form_shortcode'] ) ) : ?>
 							<div class="wss-nl-shortcode wss-reveal wss-r2">

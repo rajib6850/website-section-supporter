@@ -76,8 +76,12 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 					'h1'   => 'H1',
 					'h2'   => 'H2',
 					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
 					'div'  => 'div',
 					'span' => 'span',
+					'p'    => 'p',
 				),
 			)
 		);
@@ -563,9 +567,8 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Heading Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ffffff',
 				'selectors' => array(
-					'{{WRAPPER}} .wss-buyer-guide-heading' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .wss-buyer-guide-heading, {{WRAPPER}} .wss-buyer-guide-heading .wss-mask > span, {{WRAPPER}} .wss-buyer-guide-left h1, {{WRAPPER}} .wss-buyer-guide-left h2, {{WRAPPER}} .wss-buyer-guide-left h3, {{WRAPPER}} .wss-buyer-guide-left h4, {{WRAPPER}} .wss-buyer-guide-left h5, {{WRAPPER}} .wss-buyer-guide-left h6' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -574,7 +577,7 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'heading_typography',
-				'selector' => '{{WRAPPER}} .wss-buyer-guide-heading, {{WRAPPER}} .wss-buyer-guide-heading .wss-mask > span',
+				'selector' => '{{WRAPPER}} .wss-buyer-guide-heading, {{WRAPPER}} .wss-buyer-guide-heading .wss-mask > span, {{WRAPPER}} .wss-buyer-guide-left h1, {{WRAPPER}} .wss-buyer-guide-left h2, {{WRAPPER}} .wss-buyer-guide-left h3, {{WRAPPER}} .wss-buyer-guide-left h4, {{WRAPPER}} .wss-buyer-guide-left h5, {{WRAPPER}} .wss-buyer-guide-left h6',
 			)
 		);
 
@@ -584,9 +587,8 @@ class WSS_Buyer_Guide_Widget extends Widget_Base {
 				'label'      => __( 'Heading Bottom Spacing', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
-				'default'    => array( 'unit' => 'px', 'size' => 20 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-buyer-guide-heading' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .wss-buyer-guide-heading, {{WRAPPER}} .wss-buyer-guide-left h1, {{WRAPPER}} .wss-buyer-guide-left h2, {{WRAPPER}} .wss-buyer-guide-left h3, {{WRAPPER}} .wss-buyer-guide-left h4, {{WRAPPER}} .wss-buyer-guide-left h5, {{WRAPPER}} .wss-buyer-guide-left h6' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);

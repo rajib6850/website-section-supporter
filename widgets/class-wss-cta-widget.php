@@ -93,8 +93,11 @@ class WSS_CTA_Widget extends Widget_Base {
 					'h2'   => 'H2',
 					'h3'   => 'H3',
 					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
 					'div'  => 'div',
 					'span' => 'span',
+					'p'    => 'p',
 				),
 			)
 		);
@@ -717,7 +720,7 @@ class WSS_CTA_Widget extends Widget_Base {
 				'label'     => __( 'Heading Color', 'website-section-supporter' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wss-cta-heading, {{WRAPPER}} .wss-cta-heading span' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .wss-cta-heading, {{WRAPPER}} .wss-cta-heading span, {{WRAPPER}} .wss-cta-card h1, {{WRAPPER}} .wss-cta-card h2, {{WRAPPER}} .wss-cta-card h3, {{WRAPPER}} .wss-cta-card h4, {{WRAPPER}} .wss-cta-card h5, {{WRAPPER}} .wss-cta-card h6' => 'color: {{VALUE}} !important;',
 				),
 			)
 		);
@@ -726,7 +729,7 @@ class WSS_CTA_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'heading_typography',
-				'selector' => '{{WRAPPER}} .wss-cta-heading',
+				'selector' => '{{WRAPPER}} .wss-cta-heading, {{WRAPPER}} .wss-cta-heading span, {{WRAPPER}} .wss-cta-card h1, {{WRAPPER}} .wss-cta-card h2, {{WRAPPER}} .wss-cta-card h3, {{WRAPPER}} .wss-cta-card h4, {{WRAPPER}} .wss-cta-card h5, {{WRAPPER}} .wss-cta-card h6',
 			)
 		);
 
@@ -736,9 +739,8 @@ class WSS_CTA_Widget extends Widget_Base {
 				'label'      => __( 'Heading Bottom Spacing', 'website-section-supporter' ),
 				'type'       => Controls_Manager::SLIDER,
 				'range'      => array( 'px' => array( 'min' => 0, 'max' => 60 ) ),
-				'default'    => array( 'size' => 20 ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wss-cta-heading' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .wss-cta-heading, {{WRAPPER}} .wss-cta-card h1, {{WRAPPER}} .wss-cta-card h2, {{WRAPPER}} .wss-cta-card h3, {{WRAPPER}} .wss-cta-card h4, {{WRAPPER}} .wss-cta-card h5, {{WRAPPER}} .wss-cta-card h6' => 'margin-bottom: {{SIZE}}{{UNIT}} !important;',
 				),
 			)
 		);

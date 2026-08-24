@@ -112,6 +112,7 @@ class WSS_Title_Widget extends Widget_Base {
 					'h6'   => 'H6',
 					'div'  => 'div',
 					'span' => 'span',
+					'p'    => 'p',
 				),
 			)
 		);

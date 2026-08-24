@@ -19,8 +19,26 @@ class WSS_Stats_Widget extends Widget_Base {
 
 		/* ================= CONTENT ================= */
 		$this->start_controls_section( 'section_content', array( 'label' => __( 'Content', 'website-section-supporter' ) ) );
-		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Proven Results', 'website-section-supporter' ) ) );
 		$this->add_control( 'heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Proven Results', 'website-section-supporter' ) ) );
+		$this->add_control(
+			'heading_html_tag',
+			array(
+				'label'   => __( 'Heading HTML Tag', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h2',
+				'options' => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
+			)
+		);
 		$this->add_control( 'sub1', array( 'label' => __( 'Sub Line 1', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'WITH OVER TWO DECADES OF PRACTICE', 'website-section-supporter' ) ) );
 		$this->add_control( 'sub2', array( 'label' => __( 'Sub Line 2', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( "TRUSTED BY THE WORLD'S MOST DISCERNING FAMILIES", 'website-section-supporter' ) ) );
 		$this->add_control( 'description', array( 'label' => __( 'Description', 'website-section-supporter' ), 'type' => Controls_Manager::TEXTAREA, 'default' => __( 'We represent a small number of extraordinary properties each year, chosen for character rather than count. Our team has closed record sales across multiple countries — with the same premium standard as the industry\'s biggest names, at a price that makes sense. Built by Digitize Growth — luxury real estate websites from $1,499, live in 14 days.', 'website-section-supporter' ) ) );
@@ -82,9 +100,9 @@ class WSS_Stats_Widget extends Widget_Base {
 		$this->add_control( 'heading_heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
 			'heading_color',
-			array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'default' => '#ffffff', 'selectors' => array( '{{WRAPPER}} .wss-results-head h2' => 'color: {{VALUE}};' ) )
+			array( 'label' => __( 'Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-results-head h1, {{WRAPPER}} .wss-results-head h2, {{WRAPPER}} .wss-results-head h3, {{WRAPPER}} .wss-results-head h4, {{WRAPPER}} .wss-results-head h5, {{WRAPPER}} .wss-results-head h6, {{WRAPPER}} .wss-results-head .wss-mask > span' => 'color: {{VALUE}} !important;' ) )
 		);
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-results-head h2' ) );
+		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-results-head h1, {{WRAPPER}} .wss-results-head h2, {{WRAPPER}} .wss-results-head h3, {{WRAPPER}} .wss-results-head h4, {{WRAPPER}} .wss-results-head h5, {{WRAPPER}} .wss-results-head h6, {{WRAPPER}} .wss-results-head .wss-mask > span' ) );
 
 		$this->add_control( 'sub_heading', array( 'label' => __( 'Sub Lines', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
 		$this->add_control(
@@ -142,7 +160,8 @@ class WSS_Stats_Widget extends Widget_Base {
 				<div class="wss-container">
 					<div class="wss-results-head wss-reveal">
 						<span class="wss-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
-						<h2><span class="wss-mask"><span><?php echo esc_html( $s['heading'] ); ?></span></span></h2>
+						<?php $tag = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2'; ?>
+						<<?php echo esc_attr( $tag ); ?>><span class="wss-mask"><span><?php echo esc_html( $s['heading'] ); ?></span></span></<?php echo esc_attr( $tag ); ?>>
 						<?php if ( ! empty( $s['sub1'] ) ) : ?><div class="wss-sub1"><?php echo esc_html( $s['sub1'] ); ?></div><?php endif; ?>
 						<?php if ( ! empty( $s['sub2'] ) ) : ?><div class="wss-sub2"><?php echo esc_html( $s['sub2'] ); ?></div><?php endif; ?>
 						<?php if ( ! empty( $s['description'] ) ) : ?><p><?php echo esc_html( $s['description'] ); ?></p><?php endif; ?>

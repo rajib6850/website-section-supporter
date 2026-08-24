@@ -32,6 +32,26 @@ class WSS_Lifestyles_Widget extends Widget_Base {
 		);
 		$this->add_control( 'eyebrow', array( 'label' => __( 'Eyebrow', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Lifestyles In', 'website-section-supporter' ), 'condition' => array( 'show_heading' => 'yes' ) ) );
 		$this->add_control( 'heading', array( 'label' => __( 'Heading', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Southern California', 'website-section-supporter' ), 'condition' => array( 'show_heading' => 'yes' ) ) );
+		$this->add_control(
+			'heading_html_tag',
+			array(
+				'label'     => __( 'Heading HTML Tag', 'website-section-supporter' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h2',
+				'options'   => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
+				'condition' => array( 'show_heading' => 'yes' ),
+			)
+		);
 		$this->add_control( 'link_text', array( 'label' => __( 'Top-right Link Text', 'website-section-supporter' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'View More Communities', 'website-section-supporter' ), 'condition' => array( 'show_heading' => 'yes' ) ) );
 		$this->add_control( 'link_url', array( 'label' => __( 'Top-right Link URL', 'website-section-supporter' ), 'type' => Controls_Manager::URL, 'default' => array( 'url' => '#' ), 'condition' => array( 'show_heading' => 'yes' ) ) );
 		$this->end_controls_section();
@@ -76,10 +96,10 @@ class WSS_Lifestyles_Widget extends Widget_Base {
 			'style_heading',
 			array( 'label' => __( 'Heading', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE )
 		);
-		$this->add_control( 'eyebrow_color', array( 'label' => __( 'Eyebrow Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-lg-head .wss-eyebrow' => 'color: {{VALUE}};' ) ) );
+		$this->add_control( 'eyebrow_color', array( 'label' => __( 'Eyebrow Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-lg-head .wss-eyebrow' => 'color: {{VALUE}} !important;' ) ) );
 		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'eyebrow_typography', 'selector' => '{{WRAPPER}} .wss-lg-head .wss-eyebrow' ) );
-		$this->add_control( 'heading_color', array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-lg-head h2' => 'color: {{VALUE}};' ) ) );
-		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-lg-head h2' ) );
+		$this->add_control( 'heading_color', array( 'label' => __( 'Heading Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-lg-head h1, {{WRAPPER}} .wss-lg-head h2, {{WRAPPER}} .wss-lg-head h3, {{WRAPPER}} .wss-lg-head h4, {{WRAPPER}} .wss-lg-head h5, {{WRAPPER}} .wss-lg-head h6, {{WRAPPER}} .wss-lg-head .wss-mask > span' => 'color: {{VALUE}} !important;' ) ) );
+		$this->add_group_control( Group_Control_Typography::get_type(), array( 'name' => 'heading_typography', 'selector' => '{{WRAPPER}} .wss-lg-head h1, {{WRAPPER}} .wss-lg-head h2, {{WRAPPER}} .wss-lg-head h3, {{WRAPPER}} .wss-lg-head h4, {{WRAPPER}} .wss-lg-head h5, {{WRAPPER}} .wss-lg-head h6, {{WRAPPER}} .wss-lg-head .wss-mask > span' ) );
 		$this->add_control( 'link_color', array( 'label' => __( 'Top-right Link Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-lg-head .wss-btn-line' => 'color: {{VALUE}} !important;' ) ) );
 		$this->add_control( 'link_hover_color', array( 'label' => __( 'Top-right Link Hover Color', 'website-section-supporter' ), 'type' => Controls_Manager::COLOR, 'selectors' => array( '{{WRAPPER}} .wss-lg-head .wss-btn-line:hover' => 'color: {{VALUE}} !important;' ) ) );
 		$this->end_controls_section();
@@ -145,7 +165,8 @@ class WSS_Lifestyles_Widget extends Widget_Base {
 					<div class="wss-lg-head wss-reveal">
 						<div>
 							<span class="wss-eyebrow"><?php echo esc_html( $s['eyebrow'] ); ?></span>
-							<h2><span class="wss-mask"><span><?php echo esc_html( $s['heading'] ); ?></span></span></h2>
+							<?php $tag = ! empty( $s['heading_html_tag'] ) ? $s['heading_html_tag'] : 'h2'; ?>
+							<<?php echo esc_attr( $tag ); ?>><span class="wss-mask"><span><?php echo esc_html( $s['heading'] ); ?></span></span></<?php echo esc_attr( $tag ); ?>>
 						</div>
 						<?php if ( ! empty( $s['link_text'] ) ) : ?>
 							<a class="wss-btn-line" href="<?php echo esc_url( $s['link_url']['url'] ?: '#' ); ?>"<?php echo ! empty( $s['link_url']['is_external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html( $s['link_text'] ); ?> <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
