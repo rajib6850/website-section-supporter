@@ -5363,6 +5363,7 @@ body.elementor-editor-active .wss-mask > span {
   min-height: 720px;
   display: grid;
   grid-template-columns: 48% 52%;
+  grid-template-areas: "info form";
   position: relative;
   background-color: var(--wss-bg-light, #f5f3ee);
   box-sizing: border-box;
@@ -5370,6 +5371,7 @@ body.elementor-editor-active .wss-mask > span {
 }
 
 .wss-contact-left {
+  grid-area: info;
   padding: 70px 6vw 80px 7vw;
   display: flex;
   flex-direction: column;
@@ -5377,6 +5379,29 @@ body.elementor-editor-active .wss-mask > span {
   position: relative;
   z-index: 2;
   box-sizing: border-box;
+}
+
+.wss-contact-right {
+  grid-area: form;
+}
+
+/* Layout: Form on Left, Info on Right (Desktop) */
+.wss-contact-wrapper.wss-layout-form-left {
+  grid-template-columns: 52% 48%;
+  grid-template-areas: "form info";
+}
+
+.wss-contact-wrapper.wss-layout-form-left .wss-watermark {
+  left: auto;
+  right: 3vw;
+}
+
+.wss-contact-wrapper.wss-layout-form-left .wss-contact-left {
+  padding: 70px 7vw 80px 5vw;
+}
+
+.wss-contact-wrapper.wss-layout-form-left .wss-contact-right {
+  padding: 70px 4vw 70px 5vw;
 }
 
 .wss-watermark {
@@ -5846,14 +5871,23 @@ body.elementor-editor-active .wss-mask > span {
 
 /* Responsive Breakpoints for Contact Widget */
 @media (min-width: 1401px) {
-  .wss-contact-wrapper {
+  .wss-contact-wrapper.wss-layout-info-left {
     grid-template-columns: 46% 54%;
   }
-  .wss-contact-left {
+  .wss-contact-wrapper.wss-layout-form-left {
+    grid-template-columns: 54% 46%;
+  }
+  .wss-contact-wrapper.wss-layout-info-left .wss-contact-left {
     padding: 80px 5vw 80px 7vw;
   }
-  .wss-contact-right {
+  .wss-contact-wrapper.wss-layout-info-left .wss-contact-right {
     padding: 70px 5vw 70px 2vw;
+  }
+  .wss-contact-wrapper.wss-layout-form-left .wss-contact-left {
+    padding: 80px 7vw 80px 5vw;
+  }
+  .wss-contact-wrapper.wss-layout-form-left .wss-contact-right {
+    padding: 70px 2vw 70px 5vw;
   }
   .wss-floating-card {
     max-width: 600px;
@@ -5863,7 +5897,28 @@ body.elementor-editor-active .wss-mask > span {
 @media (max-width: 1024px) {
   .wss-contact-wrapper {
     grid-template-columns: 1fr;
+    grid-template-areas: "form" "info";
     min-height: auto;
+  }
+
+  .wss-contact-wrapper.wss-tablet-form_top,
+  .wss-contact-wrapper.wss-mobile-form-top,
+  .wss-contact-wrapper.wss-layout-form-left {
+    grid-template-areas: "form" "info";
+  }
+
+  .wss-contact-wrapper.wss-tablet-info_top {
+    grid-template-areas: "info" "form";
+  }
+
+  .wss-contact-wrapper.wss-tablet-form_left {
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "form info";
+  }
+
+  .wss-contact-wrapper.wss-tablet-info_left {
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "info form";
   }
 
   .wss-contact-left {
@@ -5901,6 +5956,18 @@ body.elementor-editor-active .wss-mask > span {
 }
 
 @media (max-width: 768px) {
+  .wss-contact-wrapper {
+    grid-template-columns: 1fr !important;
+  }
+
+  .wss-contact-wrapper.wss-mobile-form-top {
+    grid-template-areas: "form" "info" !important;
+  }
+
+  .wss-contact-wrapper.wss-mobile-info-top {
+    grid-template-areas: "info" "form" !important;
+  }
+
   .wss-left-cards {
     grid-template-columns: 1fr;
     gap: 10px;

@@ -18,11 +18,78 @@ class WSS_Contact_Widget extends Widget_Base {
 	public function get_keywords() { return array( 'contact', 'form', 'inquiry', 'luxury', 'recaptcha', 'lead' ); }
 
 	protected function register_controls() {
+ 
+		/* ================= CONTENT: SECTION LAYOUT & ORDER ================= */
+		$this->start_controls_section(
+			'section_layout_settings',
+			array( 'label' => __( 'Layout & Column Ordering', 'website-section-supporter' ) )
+		);
+
+		$this->add_control(
+			'desktop_layout',
+			array(
+				'label'   => __( 'Desktop Layout', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'form_left',
+				'options' => array(
+					'form_left' => __( 'Form on Left, Info on Right (Recommended)', 'website-section-supporter' ),
+					'info_left' => __( 'Info on Left, Form on Right', 'website-section-supporter' ),
+				),
+				'description' => __( 'Select the column placement on desktop and large screens.', 'website-section-supporter' ),
+			)
+		);
+
+		$this->add_control(
+			'mobile_stack_order',
+			array(
+				'label'   => __( 'Mobile Stack Order', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'form_top',
+				'options' => array(
+					'form_top' => __( 'Form on Top, Info on Bottom (Recommended)', 'website-section-supporter' ),
+					'info_top' => __( 'Info on Top, Form on Bottom', 'website-section-supporter' ),
+				),
+				'description' => __( 'Select which section appears first on mobile screens.', 'website-section-supporter' ),
+			)
+		);
+
+		$this->add_control(
+			'tablet_stack_order',
+			array(
+				'label'   => __( 'Tablet Layout', 'website-section-supporter' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'form_top',
+				'options' => array(
+					'form_top'  => __( 'Stacked (Form on Top)', 'website-section-supporter' ),
+					'info_top'  => __( 'Stacked (Info on Top)', 'website-section-supporter' ),
+					'form_left' => __( 'Side-by-Side (Form on Left)', 'website-section-supporter' ),
+					'info_left' => __( 'Side-by-Side (Info on Left)', 'website-section-supporter' ),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'form_column_width',
+			array(
+				'label'      => __( 'Form Column Width (%)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( '%' ),
+				'range'      => array(
+					'%' => array( 'min' => 30, 'max' => 70 ),
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .wss-contact-wrapper.wss-layout-form-left' => 'grid-template-columns: {{SIZE}}% calc(100% - {{SIZE}}%) !important;',
+					'{{WRAPPER}} .wss-contact-wrapper.wss-layout-info-left' => 'grid-template-columns: calc(100% - {{SIZE}}%) {{SIZE}}% !important;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
 
 		/* ================= LEFT CONTENT: BRANDING & INFO ================= */
 		$this->start_controls_section(
 			'section_left_content',
-			array( 'label' => __( 'Left: Contact Information', 'website-section-supporter' ) )
+			array( 'label' => __( 'Contact Information (Info Side)', 'website-section-supporter' ) )
 		);
 
 		$this->add_control(
@@ -1376,9 +1443,19 @@ class WSS_Contact_Widget extends Widget_Base {
 		$interest_lines = ! empty( $s['interest_options'] ) ? explode( "\n", str_replace( "\r", "", $s['interest_options'] ) ) : array();
 
 		$stagger_delays = array( 'wss-r1', 'wss-r2', 'wss-r3', 'wss-r4' );
+
+		// Layout Classes
+		$desktop_layout = ! empty( $s['desktop_layout'] ) ? $s['desktop_layout'] : 'form_left';
+		$mobile_order   = ! empty( $s['mobile_stack_order'] ) ? $s['mobile_stack_order'] : 'form_top';
+		$tablet_order   = ! empty( $s['tablet_stack_order'] ) ? $s['tablet_stack_order'] : 'form_top';
+
+		$wrapper_classes = array( 'wss-contact-wrapper' );
+		$wrapper_classes[] = ( 'form_left' === $desktop_layout ) ? 'wss-layout-form-left' : 'wss-layout-info-left';
+		$wrapper_classes[] = ( 'form_top' === $mobile_order ) ? 'wss-mobile-form-top' : 'wss-mobile-info-top';
+		$wrapper_classes[] = 'wss-tablet-' . $tablet_order;
 		?>
 		<div class="wss-scope">
-			<section class="wss-contact-wrapper" id="<?php echo esc_attr( $widget_uid ); ?>">
+			<section class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" id="<?php echo esc_attr( $widget_uid ); ?>">
 				
 				<!-- LEFT SIDE: Contact Information & Branding -->
 				<div class="wss-contact-left">
