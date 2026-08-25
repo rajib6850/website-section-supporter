@@ -360,9 +360,11 @@ class WSS_Team_Widget extends Widget_Base {
 		$repeater->add_control(
 			'member_address',
 			array(
-				'label'   => __( 'Office Location', 'website-section-supporter' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => '300 S Orange Ave, Orlando, FL 32801-3314, USA',
+				'label'       => __( 'Office Location', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 2,
+				'default'     => "300 S Orange Ave\nOrlando, FL 32801-3314, USA",
+				'description' => __( 'Supports multi-line addresses (press Enter or use &lt;br&gt;).', 'website-section-supporter' ),
 			)
 		);
 
@@ -1423,7 +1425,7 @@ class WSS_Team_Widget extends Widget_Base {
 												<?php if ( ! empty( $m_addr ) ) : ?>
 													<div class="wss-team-modal-contact-row">
 														<span class="wss-modal-label"><?php esc_html_e( 'Office Location', 'website-section-supporter' ); ?></span>
-														<span class="wss-modal-value"><?php echo esc_html( $m_addr ); ?></span>
+														<span class="wss-modal-value"><?php echo wp_kses( nl2br( $m_addr ), array( 'br' => array(), 'span' => array(), 'strong' => array(), 'b' => array() ) ); ?></span>
 													</div>
 												<?php endif; ?>
 											</div>

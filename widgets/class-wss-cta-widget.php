@@ -1258,7 +1258,7 @@ class WSS_CTA_Widget extends Widget_Base {
 											<?php if ( ! empty( $s['badge_location'] ) ) : ?>
 												<div class="wss-cta-badge-item">
 													<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-													<span><?php echo esc_html( $s['badge_location'] ); ?></span>
+													<span><?php echo wp_kses( nl2br( $s['badge_location'] ), array( 'br' => array(), 'span' => array() ) ); ?></span>
 												</div>
 											<?php endif; ?>
 										</div>
