@@ -200,11 +200,33 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Search Integration Type', 'website-section-supporter' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => array(
-					'demo'      => __( 'Built-in Super Luxury Omni Search Bar', 'website-section-supporter' ),
-					'shortcode' => __( 'Custom Shortcode (IDX / MLS / Plugin)', 'website-section-supporter' ),
+					'idx_broker' => __( 'IDX Broker (Smart Query Formatter)', 'website-section-supporter' ),
+					'demo'       => __( 'Built-in Super Luxury Omni Search Bar (Custom URL)', 'website-section-supporter' ),
+					'shortcode'  => __( 'Custom Shortcode (IDX / MLS / Plugin)', 'website-section-supporter' ),
 				),
-				'default'   => 'demo',
+				'default'   => 'idx_broker',
 				'condition' => array( 'enable_search' => 'yes' ),
+			)
+		);
+		$this->add_control(
+			'idx_results_url',
+			array(
+				'label'       => __( 'IDX Broker Results Page URL', 'website-section-supporter' ),
+				'type'        => Controls_Manager::URL,
+				'placeholder' => 'https://search.yourdomain.com/idx/results/listings',
+				'description' => __( 'Enter the full URL of your IDX Broker search results page or subdomain.', 'website-section-supporter' ),
+				'default'     => array( 'url' => '' ),
+				'condition'   => array( 'enable_search' => 'yes', 'search_mode' => 'idx_broker' ),
+			)
+		);
+		$this->add_control(
+			'idx_open_new_tab',
+			array(
+				'label'        => __( 'Open Search Results in New Tab', 'website-section-supporter' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'no',
+				'return_value' => 'yes',
+				'condition'    => array( 'enable_search' => 'yes', 'search_mode' => 'idx_broker' ),
 			)
 		);
 		$this->add_control(
@@ -225,7 +247,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Show Status Tabs (Buy / Rent / Sold)', 'website-section-supporter' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
-				'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo' ),
+				'condition' => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ) ),
 			)
 		);
 		$this->add_control(
@@ -234,7 +256,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Tab 1 Text', 'website-section-supporter' ),
 				'type'      => Controls_Manager::TEXT,
 				'default'   => 'BUY',
-				'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo', 'show_status_tabs' => 'yes' ),
+				'condition' => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ), 'show_status_tabs' => 'yes' ),
 			)
 		);
 		$this->add_control(
@@ -243,7 +265,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Tab 2 Text', 'website-section-supporter' ),
 				'type'      => Controls_Manager::TEXT,
 				'default'   => 'RENT',
-				'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo', 'show_status_tabs' => 'yes' ),
+				'condition' => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ), 'show_status_tabs' => 'yes' ),
 			)
 		);
 		$this->add_control(
@@ -252,7 +274,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Tab 3 Text', 'website-section-supporter' ),
 				'type'      => Controls_Manager::TEXT,
 				'default'   => 'SOLD',
-				'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo', 'show_status_tabs' => 'yes' ),
+				'condition' => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ), 'show_status_tabs' => 'yes' ),
 			)
 		);
 		$this->add_control(
@@ -261,7 +283,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Location Placeholder', 'website-section-supporter' ),
 				'type'      => Controls_Manager::TEXT,
 				'default'   => 'City, Neighborhood, Address, MLS #',
-				'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo' ),
+				'condition' => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ) ),
 			)
 		);
 		$this->add_control(
@@ -270,7 +292,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Show Property Type Filter', 'website-section-supporter' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
-				'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo' ),
+				'condition' => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ) ),
 			)
 		);
 		$this->add_control(
@@ -279,7 +301,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'       => __( 'Property Types (One per line)', 'website-section-supporter' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'default'     => "All Types\nSingle Family Residence\nLuxury Villa\nPenthouse & Skyline\nWaterfront Estate\nModern Architectural",
-				'condition'   => array( 'enable_search' => 'yes', 'search_mode' => 'demo', 'show_type_field' => 'yes' ),
+				'condition'   => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ), 'show_type_field' => 'yes' ),
 			)
 		);
 		$this->add_control(
@@ -288,7 +310,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Show Price Range Filter', 'website-section-supporter' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
-				'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo' ),
+				'condition' => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ) ),
 			)
 		);
 		$this->add_control(
@@ -297,7 +319,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'       => __( 'Price Ranges (One per line)', 'website-section-supporter' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'default'     => "Any Price\n$1,000,000 - $3,000,000\n$3,000,000 - $5,000,000\n$5,000,000 - $10,000,000\n$10,000,000 - $25,000,000\n$25,000,000+",
-				'condition'   => array( 'enable_search' => 'yes', 'search_mode' => 'demo', 'show_price_field' => 'yes' ),
+				'condition'   => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ), 'show_price_field' => 'yes' ),
 			)
 		);
 		$this->add_control(
@@ -306,7 +328,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Show Bedrooms Filter', 'website-section-supporter' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
-				'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo' ),
+				'condition' => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ) ),
 			)
 		);
 		$this->add_control(
@@ -315,7 +337,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'       => __( 'Beds Options (One per line)', 'website-section-supporter' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'default'     => "Any Beds\n1+ Beds\n2+ Beds\n3+ Beds\n4+ Beds\n5+ Beds",
-				'condition'   => array( 'enable_search' => 'yes', 'search_mode' => 'demo', 'show_beds_field' => 'yes' ),
+				'condition'   => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ), 'show_beds_field' => 'yes' ),
 			)
 		);
 		$this->add_control(
@@ -324,7 +346,7 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'     => __( 'Button Text', 'website-section-supporter' ),
 				'type'      => Controls_Manager::TEXT,
 				'default'   => 'SEARCH PROPERTIES',
-				'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo' ),
+				'condition' => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ) ),
 			)
 		);
 		$this->add_control(
@@ -1361,8 +1383,18 @@ class WSS_Hero_Widget extends Widget_Base {
 									?>
 								</div>
 							<?php else : ?>
-								<!-- Super Luxury Demo Omni Search Bar -->
-								<form class="wss-omni-search" action="<?php echo esc_url( ! empty( $s['search_target_url']['url'] ) ? $s['search_target_url']['url'] : '#sales' ); ?>" method="get">
+								<!-- Super Luxury Omni Search Bar (Supports IDX Broker & Custom Action) -->
+								<?php
+								$search_mode_val = $s['search_mode'] ?? 'idx_broker';
+								$omni_action_url = '#sales';
+								if ( 'idx_broker' === $search_mode_val ) {
+									$omni_action_url = ! empty( $s['idx_results_url']['url'] ) ? $s['idx_results_url']['url'] : ( ! empty( $s['search_target_url']['url'] ) ? $s['search_target_url']['url'] : '' );
+								} else {
+									$omni_action_url = ! empty( $s['search_target_url']['url'] ) ? $s['search_target_url']['url'] : '#sales';
+								}
+								$is_new_tab = ( 'yes' === ( $s['idx_open_new_tab'] ?? 'no' ) ) ? 'yes' : 'no';
+								?>
+								<form class="wss-omni-search" action="<?php echo esc_url( $omni_action_url ?: '#' ); ?>" method="get" data-search-mode="<?php echo esc_attr( $search_mode_val ); ?>" data-idx-url="<?php echo esc_url( $omni_action_url ); ?>" data-new-tab="<?php echo esc_attr( $is_new_tab ); ?>">
 									<?php if ( 'yes' === ( $s['show_status_tabs'] ?? 'yes' ) ) : ?>
 										<div class="wss-omni-tabs">
 											<button type="button" class="wss-omni-tab wss-active" data-status="buy"><?php echo esc_html( ! empty( $s['status_tab_1'] ) ? $s['status_tab_1'] : 'BUY' ); ?></button>

@@ -314,6 +314,111 @@
 			} );
 			return;
 		}
+
+		// D. Luxury Omnibar Form (IDX Broker Smart Query Engine & Custom URL)
+		var omniForm = e.target.closest( ".wss-omni-search" );
+		if ( omniForm ) {
+			var searchMode = omniForm.getAttribute( "data-search-mode" ) || "idx_broker";
+			var targetUrl = omniForm.getAttribute( "data-idx-url" ) || omniForm.getAttribute( "action" );
+
+			if ( searchMode === "idx_broker" ) {
+				e.preventDefault();
+
+				if ( ! targetUrl || targetUrl === "#sales" || targetUrl === "#" ) {
+					var fallbackAnchor = document.querySelector( "#sales, .wss-sales-wrap, [data-wss-widget='wss_notable_sales']" );
+					if ( fallbackAnchor ) {
+						fallbackAnchor.scrollIntoView( { behavior: "smooth", block: "start" } );
+					} else {
+						alert( "Please enter your IDX Broker Results URL in the Elementor Hero settings panel (Content > Property Search)." );
+					}
+					return;
+				}
+
+				// Extract form values
+				var locInput   = omniForm.querySelector( 'input[name="location"]' );
+				var location   = locInput ? locInput.value.trim() : "";
+				var statusInp  = omniForm.querySelector( '.wss-omni-status-input' );
+				var statusVal  = statusInp ? statusInp.value.toLowerCase() : "buy";
+				var typeSelect = omniForm.querySelector( 'select[name="type"]' );
+				var typeVal    = typeSelect ? typeSelect.value.trim() : "";
+				var priceSel   = omniForm.querySelector( 'select[name="price"]' );
+				var priceVal   = priceSel ? priceSel.value.trim() : "";
+				var bedsSel    = omniForm.querySelector( 'select[name="beds"]' );
+				var bedsVal    = bedsSel ? bedsSel.value.trim() : "";
+
+				// Parse numeric values from price strings like "$1,000,000", "$3M", "$25M+"
+				function extractPriceNumber( str ) {
+					if ( ! str ) return null;
+					var clean = str.replace( /[\$,\s]/g, "" );
+					if ( /m/i.test( clean ) ) {
+						var numM = parseFloat( clean.replace( /m\+?/i, "" ) );
+						return isNaN( numM ) ? null : Math.round( numM * 1000000 );
+					}
+					if ( /k/i.test( clean ) ) {
+						var numK = parseFloat( clean.replace( /k\+?/i, "" ) );
+						return isNaN( numK ) ? null : Math.round( numK * 1000 );
+					}
+					var num = parseInt( clean.replace( /\+/g, "" ), 10 );
+					return isNaN( num ) ? null : num;
+				}
+
+				var params = [];
+
+				// 1. Location -> ccz (City, County, Zip)
+				if ( location ) {
+					params.push( "ccz=" + encodeURIComponent( location ) );
+				}
+
+				// 2. Bedrooms -> bd
+				if ( bedsVal && bedsVal !== "Any Beds" && bedsVal !== "Any" ) {
+					var bedDigits = bedsVal.match( /\d+/ );
+					if ( bedDigits ) {
+						params.push( "bd=" + encodeURIComponent( bedDigits[0] ) );
+					}
+				}
+
+				// 3. Price Range -> lp (Low Price) & hp (High Price)
+				if ( priceVal && priceVal !== "Any Price" && priceVal !== "Any" ) {
+					if ( priceVal.indexOf( "-" ) !== -1 ) {
+						var parts = priceVal.split( "-" );
+						var lp = extractPriceNumber( parts[0] );
+						var hp = extractPriceNumber( parts[1] );
+						if ( lp !== null ) { params.push( "lp=" + lp ); }
+						if ( hp !== null ) { params.push( "hp=" + hp ); }
+					} else if ( priceVal.indexOf( "+" ) !== -1 || /over|above/i.test( priceVal ) ) {
+						var lpOnly = extractPriceNumber( priceVal );
+						if ( lpOnly !== null ) { params.push( "lp=" + lpOnly ); }
+					} else if ( /under|below|up to/i.test( priceVal ) ) {
+						var hpOnly = extractPriceNumber( priceVal );
+						if ( hpOnly !== null ) { params.push( "hp=" + hpOnly ); }
+					}
+				}
+
+				// 4. Property Type -> pt (if specific type selected)
+				if ( typeVal && typeVal !== "All Types" && typeVal !== "Any Types" && typeVal !== "Any" ) {
+					params.push( "pt=" + encodeURIComponent( typeVal ) );
+				}
+
+				// 5. Status / Category -> a_statusCategory
+				if ( statusVal === "rent" ) {
+					params.push( "a_statusCategory=rent" );
+				} else if ( statusVal === "sold" ) {
+					params.push( "a_statusCategory=sold" );
+				}
+
+				// Construct final URL
+				var separator = targetUrl.indexOf( "?" ) !== -1 ? "&" : "?";
+				var finalUrl  = targetUrl + ( params.length ? ( separator + params.join( "&" ) ) : "" );
+
+				var openInNewTab = omniForm.getAttribute( "data-new-tab" ) === "yes";
+				if ( openInNewTab ) {
+					window.open( finalUrl, "_blank" );
+				} else {
+					window.location.href = finalUrl;
+				}
+				return;
+			}
+		}
 	} );
 
 	ready( function () {
@@ -336,13 +441,35 @@
 				document.body.appendChild( cursor );
 			}
 			var mx = 0, my = 0, cx = 0, cy = 0;
-			window.addEventListener( "mousemove", function ( e ) { mx = e.clientX; my = e.clientY; } );
-			( function loop() {
-				cx += ( mx - cx ) * 0.18;
-				cy += ( my - cy ) * 0.18;
-				cursor.style.transform = "translate(" + cx + "px, " + cy + "px) translate(-50%,-50%)";
-				requestAnimationFrame( loop );
-			} )();
+			var cursorMoving = false;
+			var cursorAnimFrame = null;
+
+			function updateCursorLoop() {
+				var dx = mx - cx;
+				var dy = my - cy;
+				cx += dx * 0.18;
+				cy += dy * 0.18;
+				cursor.style.transform = "translate(" + cx.toFixed(2) + "px, " + cy.toFixed(2) + "px) translate(-50%,-50%)";
+
+				if ( Math.abs( dx ) > 0.1 || Math.abs( dy ) > 0.1 ) {
+					cursorAnimFrame = requestAnimationFrame( updateCursorLoop );
+				} else {
+					cursorMoving = false;
+					cursorAnimFrame = null;
+				}
+			}
+
+			window.addEventListener( "mousemove", function ( e ) {
+				mx = e.clientX;
+				my = e.clientY;
+				if ( ! cursorMoving ) {
+					cursorMoving = true;
+					if ( ! cursorAnimFrame ) {
+						cursorAnimFrame = requestAnimationFrame( updateCursorLoop );
+					}
+				}
+			}, { passive: true } );
+
 			document.querySelectorAll( ".wss-img-cover, .wss-tri-panel, .wss-lg-item, .wss-sales-nav button" ).forEach( function ( el ) {
 				el.addEventListener( "mouseenter", function () { cursor.classList.add( "wss-cursor--big" ); } );
 				el.addEventListener( "mouseleave", function () { cursor.classList.remove( "wss-cursor--big" ); } );
