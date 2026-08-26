@@ -584,7 +584,7 @@ class WSS_Hero_Widget extends Widget_Base {
 		/* ================= STYLE: SEARCH TABS ================= */
 		$this->start_controls_section(
 			'style_search_tabs',
-			array( 'label' => __( 'Status Tabs (Buy / Rent / Sold)', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'enable_search' => 'yes', 'show_status_tabs' => 'yes', 'search_mode' => 'demo' ) )
+			array( 'label' => __( 'Status Tabs (Buy / Rent / Sold)', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'enable_search' => 'yes', 'show_status_tabs' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ) ) )
 		);
 
 		/* ----- TABS BAR CONTAINER ----- */
@@ -777,7 +777,7 @@ class WSS_Hero_Widget extends Widget_Base {
 		/* ================= STYLE: SEARCH FIELDS & LABELS ================= */
 		$this->start_controls_section(
 			'style_search_fields',
-			array( 'label' => __( 'Search Fields, Labels & Borders', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo' ) )
+			array( 'label' => __( 'Search Fields, Labels & Borders', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ) ) )
 		);
 		$this->add_control( 'label_heading', array( 'label' => __( 'Field Labels', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING ) );
 		$this->add_control(
@@ -922,7 +922,7 @@ class WSS_Hero_Widget extends Widget_Base {
 		/* ================= STYLE: SEARCH BUTTON ================= */
 		$this->start_controls_section(
 			'style_search_button',
-			array( 'label' => __( 'Search Action Button', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'enable_search' => 'yes', 'search_mode' => 'demo' ) )
+			array( 'label' => __( 'Search Action Button', 'website-section-supporter' ), 'tab' => Controls_Manager::TAB_STYLE, 'condition' => array( 'enable_search' => 'yes', 'search_mode' => array( 'demo', 'idx_broker' ) ) )
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
