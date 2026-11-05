@@ -1353,7 +1353,7 @@ class WSS_Hero_Widget extends Widget_Base {
 						$fallback       = ! empty( $s['video_fallback']['url'] ) ? $s['video_fallback']['url'] : '';
 
 						if ( 'youtube' === $video_source && ! empty( $video_url ) ) {
-							preg_match( '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video_url, $match );
+							preg_match( '%(?:youtube(?:-nocookie)?\.com/(?:shorts/|[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video_url, $match );
 							$yt_id = ! empty( $match[1] ) ? $match[1] : '';
 							if ( $yt_id ) {
 								$embed_url = "https://www.youtube.com/embed/{$yt_id}?autoplay=1&mute=1&loop=1&playlist={$yt_id}&controls=0&showinfo=0&rel=0&enablejsapi=1";
@@ -1362,7 +1362,7 @@ class WSS_Hero_Widget extends Widget_Base {
 							}
 
 							if ( ! empty( $video_mobile ) ) {
-								preg_match( '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video_mobile, $match_m );
+								preg_match( '%(?:youtube(?:-nocookie)?\.com/(?:shorts/|[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video_mobile, $match_m );
 								$yt_id_m = ! empty( $match_m[1] ) ? $match_m[1] : '';
 								if ( $yt_id_m ) {
 									$embed_url_m = "https://www.youtube.com/embed/{$yt_id_m}?autoplay=1&mute=1&loop=1&playlist={$yt_id_m}&controls=0&showinfo=0&rel=0&enablejsapi=1";

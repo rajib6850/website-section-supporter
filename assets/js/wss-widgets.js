@@ -622,7 +622,7 @@
 				}
 
 				var content = document.getElementById( "wss-modal-content" );
-				var ytMatch = videoUrl.match( /(?:youtube(?:-nocookie)?\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i );
+				var ytMatch = videoUrl.match( /(?:youtube(?:-nocookie)?\.com\/(?:shorts\/|[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i );
 				
 				if ( ytMatch && ytMatch[1] ) {
 					content.innerHTML = '<iframe src="https://www.youtube.com/embed/' + ytMatch[1] + '?autoplay=1&mute=0&rel=0&showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
