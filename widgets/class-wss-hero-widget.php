@@ -131,7 +131,18 @@ class WSS_Hero_Widget extends Widget_Base {
 				'label'       => __( 'Video File / YouTube Link', 'website-section-supporter' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => 'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-coastal-city-40767-large.mp4',
-				'placeholder' => __( 'Paste MP4 link or YouTube URL', 'website-section-supporter' ),
+				'placeholder' => __( 'Paste MP4 link or YouTube URL (Desktop)', 'website-section-supporter' ),
+				'condition'   => array( 'bg_type' => 'video' ),
+			)
+		);
+		$this->add_control(
+			'video_url_mobile',
+			array(
+				'label'       => __( 'Mobile Video File / YouTube Link (Optional)', 'website-section-supporter' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => __( 'Paste portrait/vertical MP4 link or YouTube URL for mobile', 'website-section-supporter' ),
+				'description' => __( 'Upload/paste a portrait (9:16) video for mobile screens to perfectly avoid top/bottom bars. Leave empty to use desktop video.', 'website-section-supporter' ),
 				'condition'   => array( 'bg_type' => 'video' ),
 			)
 		);
@@ -1336,21 +1347,45 @@ class WSS_Hero_Widget extends Widget_Base {
 						<div class="wss-hero-grad-layer" style="<?php echo esc_attr( $grad_style ); ?> width:100%; height:100%;"></div>
 					<?php elseif ( 'video' === $bg_type ) : ?>
 						<?php
-						$video_source = ! empty( $s['video_link_type'] ) ? $s['video_link_type'] : 'self_hosted';
-						$video_url    = ! empty( $s['video_url'] ) ? $s['video_url'] : '';
-						$fallback     = ! empty( $s['video_fallback']['url'] ) ? $s['video_fallback']['url'] : '';
+						$video_source   = ! empty( $s['video_link_type'] ) ? $s['video_link_type'] : 'self_hosted';
+						$video_url      = ! empty( $s['video_url'] ) ? $s['video_url'] : '';
+						$video_mobile   = ! empty( $s['video_url_mobile'] ) ? $s['video_url_mobile'] : '';
+						$fallback       = ! empty( $s['video_fallback']['url'] ) ? $s['video_fallback']['url'] : '';
 
 						if ( 'youtube' === $video_source && ! empty( $video_url ) ) {
 							preg_match( '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video_url, $match );
 							$yt_id = ! empty( $match[1] ) ? $match[1] : '';
 							if ( $yt_id ) {
 								$embed_url = "https://www.youtube.com/embed/{$yt_id}?autoplay=1&mute=1&loop=1&playlist={$yt_id}&controls=0&showinfo=0&rel=0&enablejsapi=1";
-								echo '<iframe src="' . esc_url( $embed_url ) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+								$iframe_cls = ! empty( $video_mobile ) ? 'wss-hero-desktop-video' : '';
+								echo '<iframe class="' . esc_attr( $iframe_cls ) . '" src="' . esc_url( $embed_url ) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
 							}
-						} elseif ( ! empty( $video_url ) ) {
-							echo '<video autoplay loop muted playsinline poster="' . esc_url( $fallback ) . '">';
-							echo '<source src="' . esc_url( $video_url ) . '" type="video/mp4">';
-							echo '</video>';
+
+							if ( ! empty( $video_mobile ) ) {
+								preg_match( '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video_mobile, $match_m );
+								$yt_id_m = ! empty( $match_m[1] ) ? $match_m[1] : '';
+								if ( $yt_id_m ) {
+									$embed_url_m = "https://www.youtube.com/embed/{$yt_id_m}?autoplay=1&mute=1&loop=1&playlist={$yt_id_m}&controls=0&showinfo=0&rel=0&enablejsapi=1";
+									echo '<iframe class="wss-hero-mobile-video" src="' . esc_url( $embed_url_m ) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+								}
+							}
+						} elseif ( ! empty( $video_url ) || ! empty( $video_mobile ) ) {
+							if ( ! empty( $video_mobile ) ) {
+								// Desktop video (visible only on desktop/tablet)
+								if ( ! empty( $video_url ) ) {
+									echo '<video class="wss-hero-desktop-video" autoplay loop muted playsinline poster="' . esc_url( $fallback ) . '">';
+									echo '<source src="' . esc_url( $video_url ) . '" type="video/mp4">';
+									echo '</video>';
+								}
+								// Mobile video (visible only on mobile)
+								echo '<video class="wss-hero-mobile-video" autoplay loop muted playsinline poster="' . esc_url( $fallback ) . '">';
+								echo '<source src="' . esc_url( $video_mobile ) . '" type="video/mp4">';
+								echo '</video>';
+							} else {
+								echo '<video autoplay loop muted playsinline poster="' . esc_url( $fallback ) . '">';
+								echo '<source src="' . esc_url( $video_url ) . '" type="video/mp4">';
+								echo '</video>';
+							}
 						}
 						?>
 					<?php endif; ?>

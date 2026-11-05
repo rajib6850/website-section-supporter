@@ -1511,6 +1511,24 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   }
 }
 
+.wss-hero-desktop-video {
+  display: block !important;
+}
+
+.wss-hero-mobile-video {
+  display: none !important;
+}
+
+@media (max-width: 767px) {
+  .wss-hero-desktop-video {
+    display: none !important;
+  }
+
+  .wss-hero-mobile-video {
+    display: block !important;
+  }
+}
+
 .wss-hero::after {
   content: '';
   position: absolute;
