@@ -99,7 +99,7 @@ class WSS_Triptych_Widget extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'panorama_y_position',
 			array(
 				'label'     => __( 'Vertical Image Crop Position', 'website-section-supporter' ),
@@ -529,7 +529,7 @@ class WSS_Triptych_Widget extends Widget_Base {
 		);
 
 		$this->add_control( 'img_controls_heading', array( 'label' => __( 'Image Adjustments', 'website-section-supporter' ), 'type' => Controls_Manager::HEADING, 'separator' => 'before' ) );
-		$this->add_control(
+		$this->add_responsive_control(
 			'img_object_fit',
 			array(
 				'label'     => __( 'Background Size / Object Fit', 'website-section-supporter' ),
@@ -609,7 +609,7 @@ class WSS_Triptych_Widget extends Widget_Base {
 				'selectors'  => array( '{{WRAPPER}} .wss-tri-panel .wss-cap' => 'padding-bottom: {{SIZE}}{{UNIT}};' ),
 			)
 		);
-		$this->add_control(
+		$this->add_responsive_control(
 			'caption_align',
 			array(
 				'label'     => __( 'Alignment', 'website-section-supporter' ),
@@ -620,7 +620,11 @@ class WSS_Triptych_Widget extends Widget_Base {
 					'flex-end'   => array( 'title' => __( 'Right', 'website-section-supporter' ), 'icon' => 'eicon-text-align-right' ),
 				),
 				'default'   => 'flex-start',
-				'selectors' => array( '{{WRAPPER}} .wss-tri-panel .wss-cap' => 'align-items: {{VALUE}};' ),
+				'selectors' => array(
+					'{{WRAPPER}} .wss-tri-panel .wss-cap' => 'align-items: {{VALUE}};',
+					'{{WRAPPER}} .wss-tri-panel .wss-cap span.wss-tri-title, {{WRAPPER}} .wss-tri-panel .wss-cap > span' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .wss-tri-desc' => 'text-align: {{VALUE}};',
+				),
 			)
 		);
 
@@ -642,6 +646,16 @@ class WSS_Triptych_Widget extends Widget_Base {
 				'range'     => array( 'px' => array( 'min' => 10, 'max' => 100 ) ),
 				'default'   => array( 'size' => 26 ),
 				'selectors' => array( '{{WRAPPER}} .wss-tri-line' => 'width: {{SIZE}}{{UNIT}};' ),
+			)
+		);
+		$this->add_responsive_control(
+			'accent_line_height',
+			array(
+				'label'      => __( 'Accent Line Height (Thickness)', 'website-section-supporter' ),
+				'type'       => Controls_Manager::SLIDER,
+				'range'      => array( 'px' => array( 'min' => 1, 'max' => 10 ) ),
+				'default'    => array( 'size' => 1, 'unit' => 'px' ),
+				'selectors'  => array( '{{WRAPPER}} .wss-tri-line' => 'height: {{SIZE}}{{UNIT}};' ),
 			)
 		);
 		$this->add_responsive_control(

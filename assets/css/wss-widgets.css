@@ -1439,13 +1439,26 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   overflow: hidden;
 }
 
-.wss-hero-bg img,
-.wss-hero-bg video {
+.wss-hero-bg img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: contrast(1.1) brightness(.7);
+  pointer-events: none;
+}
+
+.wss-hero-bg video {
+  position: absolute;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
   filter: contrast(1.1) brightness(.7);
   pointer-events: none;
 }
@@ -1472,6 +1485,13 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
     min-width: calc(100vh * 16 / 9) !important;
     min-height: 100vh !important;
   }
+
+  .wss-hero-bg video {
+    width: auto !important;
+    height: 100% !important;
+    min-width: calc(100vh * 16 / 9) !important;
+    max-width: none !important;
+  }
 }
 
 @media (max-width: 820px) {
@@ -1480,6 +1500,14 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
     height: 100vmax !important;
     min-width: 177.78vmax !important;
     min-height: 100vmax !important;
+  }
+
+  .wss-hero-bg video {
+    min-width: 177.78vmax !important;
+    min-height: 100vmax !important;
+    width: 177.78vmax !important;
+    height: 100vmax !important;
+    max-width: none !important;
   }
 }
 
@@ -2923,6 +2951,7 @@ body.wss-menu-open #wss-menu .wss-menu-links a {
   .wss-triptych .wss-tri-panorama-slice {
     position: relative !important;
     left: 0 !important;
+    top: 0 !important;
     width: 100% !important;
     height: 100% !important;
   }
